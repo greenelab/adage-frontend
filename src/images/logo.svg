@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path
+    fill="none"
+    stroke="#26A36C"
+    stroke-width="7"
+    d="
+      M 15 65
+      C 35 65 30 35 50 35
+      C 70 35 65 65 85 65
+    "
+  />
+  <circle cx="50" cy="60" r="6" fill="#26A36C" />
+</svg>
