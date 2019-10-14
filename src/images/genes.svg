@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <clipPath id="cutout">
+    <path
+      d="
+        M 0 0
+        L 0 70
+        L 100 0
+        z
+        M 100 100
+        L 100 30
+        L 0 100
+        z
+      "
+    />
+  </clipPath>
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 10 100
+      C 10 50 90 50 90 0
+    "
+  />
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    clip-path="url(#cutout)"
+    d="
+      M 90 100
+      C 90 50 10 50 10 0
+    "
+  />
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 11 10
+      L 89 10
+      M 20.5 27.5
+      L 79.5 27.5
+      M 20.5 72.5
+      L 79.5 72.5
+      M 11 90
+      L 89 90
+    "
+  />
+</svg>

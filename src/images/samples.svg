@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 67.5 12.5
+      L 10 70
+      A 14.14 14.14 0 0 0 30 90
+      L 87.5 32.5
+      z
+      M 60 5
+      L 95 40
+    "
+  />
+  <path
+    fill="currentColor"
+    d="
+      M 30 50
+      L 10 70
+      A 14.14 14.14 0 0 0 30 90
+      L 70 50
+    "
+  />
+</svg>
