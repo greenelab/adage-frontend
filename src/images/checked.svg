@@ -4,16 +4,22 @@
   height="15"
   viewBox="0 0 100 100"
 >
+  <circle
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    cx="50"
+    cy="50"
+    r="45"
+  />
   <path
     fill="none"
     stroke="currentColor"
     stroke-width="10"
     d="
-      M 4 20
-      C 20 8 35 20 10 85
-      C 30 50 55 15 55 50
-      C 55 70 65 65 75 57
-      C 85 50 90 50 100 50
-    "
+        M 28 48
+        L 45 65
+        L 74 36
+      "
   />
 </svg>
