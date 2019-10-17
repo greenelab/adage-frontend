@@ -5,19 +5,21 @@
   viewBox="0 0 100 100"
 >
   <circle
-    cx="40"
-    cy="40"
-    r="35"
     fill="none"
     stroke="currentColor"
     stroke-width="10"
+    cx="50"
+    cy="50"
+    r="45"
   />
-  <line
-    x1="65"
-    y1="65"
-    x2="95"
-    y2="95"
+  <circle fill="currentColor" cx="50" cy="30" r="7.5" />
+  <path
+    fill="none"
     stroke="currentColor"
     stroke-width="10"
+    d="
+      M 50 45
+      L 50 78
+    "
   />
 </svg>
