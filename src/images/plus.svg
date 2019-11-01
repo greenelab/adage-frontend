@@ -9,11 +9,10 @@
     stroke="currentColor"
     stroke-width="10"
     d="
-      M 15 50
-      L 85 50
-      M 60 25
-      L 85 50
-      L 60 75
+      M 50 20
+      L 50 80
+      M 20 50
+      L 80 50
     "
   />
 </svg>

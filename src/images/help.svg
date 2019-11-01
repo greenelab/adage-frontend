@@ -17,11 +17,11 @@
     stroke="currentColor"
     stroke-width="10"
     d="
-        M 35 40
-        A 10 10 0 0 1 65 40
-        C 65 50 50 50 50 60
-        L 50 62
-      "
+      M 35 40
+      A 10 10 0 0 1 65 40
+      C 65 50 50 50 50 60
+      L 50 62
+    "
   />
   <circle fill="currentColor" cx="50" cy="75" r="7.5" />
 </svg>

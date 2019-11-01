@@ -17,9 +17,9 @@
     stroke="currentColor"
     stroke-width="10"
     d="
-        M 28 48
-        L 45 65
-        L 74 36
-      "
+      M 28 48
+      L 45 65
+      L 74 36
+    "
   />
 </svg>
