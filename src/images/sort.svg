@@ -5,14 +5,11 @@
   viewBox="0 0 100 100"
 >
   <path
-    fill="none"
-    stroke="currentColor"
-    stroke-width="10"
+    fill="currentColor"
     d="
-      M 50 15
-      L 50 85
-      M 15 50
-      L 85 50
+      M 50 25
+      L 25 50
+      L 75 50
     "
   />
 </svg>

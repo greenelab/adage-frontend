@@ -10,10 +10,10 @@
     stroke-width="10"
     transform="translate(50,50) rotate(45) translate(-50,-50)"
     d="
-      M 50 20
-      L 50 80
-      M 20 50
-      L 80 50
+      M 50 15
+      L 50 85
+      M 15 50
+      L 85 50
     "
   />
 </svg>
