@@ -1,8 +1,8 @@
 <svg
   xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100"
   width="15"
   height="15"
-  viewBox="0 0 100 100"
 >
   <circle
     fill="none"
@@ -17,11 +17,11 @@
     stroke="currentColor"
     stroke-width="10"
     d="
-        M 35 40
-        A 10 10 0 0 1 65 40
-        C 65 50 50 50 50 60
-        L 50 62
-      "
+      M 37 40
+      A 13 13 0 0 1 63 40
+      C 63 50 50 47 50 57
+      L 50 59
+    "
   />
-  <circle fill="currentColor" cx="50" cy="75" r="7.5" />
+  <circle fill="currentColor" cx="50" cy="72" r="7.5" />
 </svg>
