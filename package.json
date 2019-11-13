@@ -37,6 +37,7 @@
   "devDependencies": {
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-html": "^6.0.0",
-    "eslint-plugin-react": "^7.16.0"
+    "eslint-plugin-react": "^7.16.0",
+    "rewire": "^4.0.1"
   }
 }
