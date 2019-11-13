@@ -1,0 +1,4 @@
+.button_icon:hover,
+.button_icon:focus {
+  color: var(--green);
+}

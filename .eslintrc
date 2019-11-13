@@ -24,6 +24,7 @@
     "quotes": ["error", "single", { "avoidEscape": true }],
     "object-curly-spacing": ["error", "always"],
     "no-invalid-this": ["off"],
+    "eol-last": ["error"],
     "react/jsx-uses-vars": ["error"],
     "react/jsx-uses-react": ["error"]
   }

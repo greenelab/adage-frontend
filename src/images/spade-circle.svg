@@ -1,0 +1,28 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="0 0 100 100"
+>
+  <circle
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    cx="50"
+    cy="50"
+    r="45"
+  />
+  <path
+    transform="translate(50,50) scale(0.5) translate(-50,-50)"
+    fill="currentColor"
+    d="
+      M 50 0
+      L 10 35
+      A 23.75 23.75 0 0 0 42 72
+      Q 42 90 30 100
+      L 70 100
+      Q 58 90 58 72
+      A 23.75 23.75 0 0 0 90 35
+    "
+  />
+</svg>
