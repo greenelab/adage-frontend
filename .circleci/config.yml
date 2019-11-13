@@ -1,0 +1,70 @@
+
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/adage-frontend
+    steps:
+      - checkout
+      - run:
+          name: Frontend tests
+          command: |
+            npm install
+            npm test
+            npm run build
+            if [ ! -f build/static/js/main.js ] || [ ! -f build/static/js/main.js.map ]; then
+              echo "main.js or main.js.map not found"
+              exit 1
+            fi
+            if [ ! -f build/static/css/main.css ] || [ ! -f build/static/css/main.css.map ]; then
+              echo "main.css or main.css.map not found"
+              exit 1
+            fi
+      - persist_to_workspace:
+          root: ~/adage-frontend
+          paths:
+            - .git
+            - build
+
+  deploy:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/adage-frontend
+    steps:
+      - attach_workspace:
+          at: ~/adage-frontend
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install --silent gh-pages
+      - add_ssh_keys:
+          fingerprints:
+            - "e1:5f:27:d6:2d:fc:27:29:ed:d7:da:25:71:56:2a:d8"
+      - run:
+          name: Deploy build to gh-pages branch
+          command: |
+            echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+            touch build/.nojekyll  # Disable Jekyll processing on GitHub Pages
+            ./node_modules/.bin/gh-pages --dist build \
+              --user "CircleCI Deploy Job <ci-build@circleci.com>" \
+              --message \
+            "Deploy webpage on `date --utc --iso-8601`
+            Builds https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/commit/$CIRCLE_SHA1
+            Pushed by $CIRCLE_BUILD_URL
+            [skip ci]"
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore: gh-pages
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
