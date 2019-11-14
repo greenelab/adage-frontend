@@ -1,0 +1,14 @@
+.header_home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 250px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background: var(--black);
+  color: var(--white);
+}
+.header_home svg {
+  margin-bottom: 5px;
+}
