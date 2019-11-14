@@ -11,8 +11,12 @@ import Help from './pages/help';
 
 import './app.css';
 
+console.log('process.env', process.env);
+
+const basename = '/adage-frontend';
+
 const App = () => (
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter basename={basename}>
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/genes' component={Genes} />
