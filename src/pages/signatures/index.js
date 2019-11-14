@@ -1,7 +1,15 @@
 import React from 'react';
 
-import Layout from '../../layouts/default';
+import Header from '../header';
+import Main from '../main';
+import Footer from '../footer';
 
-const Signatures = () => <Layout />;
+const Signatures = () => (
+  <>
+    <Header />
+    <Main />
+    <Footer />
+  </>
+);
 
 export default Signatures;

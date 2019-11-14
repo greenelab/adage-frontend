@@ -24,22 +24,6 @@
   justify-content: flex-end;
   padding: 0 10px;
 }
-.logo_small {
-  color: var(--green);
-  margin-right: 10px;
-}
-.model_switch_button {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  background: var(--off-white);
-  border-radius: 100%;
-}
-.model_switch_button:hover,
-.model_switch_button:focus {
-  background: var(--green);
-  color: var(--white);
-}
 
 @media screen and (max-width: 600px) {
   .header_default {

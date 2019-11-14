@@ -1,14 +1,14 @@
-.header_home {
+.home_header {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 250px;
   flex-grow: 0;
   flex-shrink: 0;
+  height: 250px;
   background: var(--black);
   color: var(--white);
 }
-.header_home svg {
+.home_header > svg {
   margin-bottom: 5px;
 }

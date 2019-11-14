@@ -1,0 +1,12 @@
+.model_switch_button {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  background: var(--off-white);
+  border-radius: 100%;
+}
+.model_switch_button:hover,
+.model_switch_button:focus {
+  background: var(--green);
+  color: var(--white);
+}

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Layout from '../../layouts/default';
-
-const Help = () => <Layout />;
+const Help = () => <></>;
 
 export default Help;
