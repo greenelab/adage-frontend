@@ -1,7 +1,15 @@
 import React from 'react';
 
-import Layout from '../../layouts/default';
+import Header from '../header';
+import Main from '../main';
+import Footer from '../footer';
 
-const Genes = () => <Layout />;
+const Genes = () => (
+  <>
+    <Header />
+    <Main />
+    <Footer />
+  </>
+);
 
 export default Genes;

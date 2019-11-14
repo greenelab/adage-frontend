@@ -1,7 +1,15 @@
 import React from 'react';
 
-import Layout from '../../layouts/default';
+import Header from '../header';
+import Main from '../main';
+import Footer from '../footer';
 
-const Experiments = () => <Layout />;
+const Experiments = () => (
+  <>
+    <Header />
+    <Main />
+    <Footer />
+  </>
+);
 
 export default Experiments;

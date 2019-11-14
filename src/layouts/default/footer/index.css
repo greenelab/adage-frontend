@@ -1,7 +1,0 @@
-.footer_default {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  box-shadow: var(--shadow);
-}
