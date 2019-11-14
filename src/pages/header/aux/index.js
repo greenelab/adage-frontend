@@ -9,7 +9,7 @@ import { ReactComponent as Help } from '../../../images/help.svg';
 import './index.css';
 
 const Aux = () => (
-  <div className='header_column'>
+  <div className='page_header_column'>
     <Button className='model_switch_button'>
       <Model />
     </Button>

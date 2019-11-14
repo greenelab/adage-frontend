@@ -9,7 +9,7 @@ import { ReactComponent as Signatures } from '../../../images/signatures.svg';
 import './index.css';
 
 const Nav = () => (
-  <nav className='header_column'>
+  <nav className='page_header_column'>
     <NavButton icon={<Genes />} text='Genes' />
     <NavButton icon={<Experiments />} text='Experiments' />
     <NavButton icon={<Signatures />} text='Signatures' />

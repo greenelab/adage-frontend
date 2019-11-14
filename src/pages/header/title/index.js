@@ -7,7 +7,7 @@ import './index.css';
 
 const Title = () => (
   <Link to='/'>
-    <div className='header_column'>
+    <div className='page_header_column'>
       <Logo className='logo_small' />
       <h2>adage</h2>
     </div>

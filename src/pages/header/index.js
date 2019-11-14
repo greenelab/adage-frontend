@@ -7,7 +7,7 @@ import Aux from './aux';
 import './index.css';
 
 const Header = () => (
-  <header className='header_default'>
+  <header className='page_header'>
     <Title />
     <Nav />
     <Aux />
