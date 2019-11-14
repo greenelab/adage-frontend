@@ -11,8 +11,10 @@ import Help from './pages/help';
 
 import './app.css';
 
+console.log(process.env);
+
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/genes' component={Genes} />
