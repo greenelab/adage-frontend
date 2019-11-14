@@ -1,0 +1,35 @@
+.banner {
+  text-align: center;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+.pane_row {
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pane {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+}
+.video {
+  width: 320px;
+  height: 180px;
+  background: var(--dark-gray);
+}
+h3 > svg {
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 640px) {
+  .pane_row {
+    flex-direction: column;
+  }
+  .pane {
+    width: 100%;
+  }
+}

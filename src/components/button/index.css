@@ -6,15 +6,7 @@ button {
   padding: 0;
   background: none;
   border: none;
-  outline: none;
   cursor: pointer;
   transition: color var(--fast), background var(--fast), opacity var(--fast),
     border var(--fast);
-}
-
-button > svg:not(:first-child) {
-  margin-left: 10px;
-}
-button > svg:not(:last-child) {
-  margin-right: 10px;
 }
