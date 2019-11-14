@@ -12,7 +12,7 @@ import Help from './pages/help';
 import './app.css';
 
 const App = () => (
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter>
     <Switch>
       <Route exact path='/' component={Home} />
       <Route path='/genes' component={Genes} />
