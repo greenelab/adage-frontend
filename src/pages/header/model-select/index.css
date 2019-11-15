@@ -1,0 +1,18 @@
+.model_select_button {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  background: var(--off-white);
+  border-radius: 100%;
+}
+.model_select_button:hover,
+.model_select_button:focus {
+  background: var(--green);
+  color: var(--white);
+}
+.model_select_popup {
+  width: 280px;
+  max-height: calc((5 * 40px) + ((5 - 1) * 1px));
+  overflow-x: hidden;
+  overflow-y: auto;
+}

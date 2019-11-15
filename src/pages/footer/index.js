@@ -7,9 +7,9 @@ import './index.css';
 const Footer = () => (
   <footer>
     <GreeneLab />
-    <h5>
+    <span>
       Project of the <a href='https://greenelab.com/'>Greene Lab</a>
-    </h5>
+    </span>
   </footer>
 );
 

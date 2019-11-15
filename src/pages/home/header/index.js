@@ -7,7 +7,7 @@ import './index.css';
 const Header = () => (
   <header className='home_header'>
     <Logo />
-    <h1>adage</h1>
+    <span className='text_huge'>adage</span>
   </header>
 );
 
