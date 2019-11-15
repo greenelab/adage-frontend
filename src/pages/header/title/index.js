@@ -9,7 +9,7 @@ const Title = () => (
   <Link to='/'>
     <div className='page_header_column'>
       <Logo className='logo_small' />
-      <h2>adage</h2>
+      <span className='text_large'>adage</span>
     </div>
   </Link>
 );

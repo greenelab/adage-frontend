@@ -16,10 +16,10 @@ const Feature = ({ left, icon, header, text, to }) => {
 
   const notVideo = (
     <div className='pane'>
-      <h3>
+      <div className='feature_header semibold'>
         {icon}
         {header}
-      </h3>
+      </div>
       <p>{text}</p>
       <LinkTextIcon to={to} text='Go' icon={<Arrow />} />
     </div>
