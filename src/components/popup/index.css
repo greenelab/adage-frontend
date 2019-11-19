@@ -1,6 +1,14 @@
-.popup {
+.popup_overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #00000080;
+  z-index: 99;
+}
+.popup_content {
   background: var(--white);
   position: absolute;
   box-shadow: var(--shadow);
-  z-index: 99;
 }

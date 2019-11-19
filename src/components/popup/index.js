@@ -8,8 +8,9 @@ import './index.css';
 const distance = 5;
 const screenWidth = 600;
 
-const Portal = ({ anchorBbox, className, children, ...props }) => {
+const Portal = ({ anchorBbox, className, close, children, ...props }) => {
   const [popupBbox, popupRef] = useBbox();
+
   let x = -99999;
   let y = -99999;
 
@@ -27,18 +28,25 @@ const Portal = ({ anchorBbox, className, children, ...props }) => {
     x = window.innerWidth / 2 - popupBbox.width / 2;
 
   return (
-    <div
-      ref={popupRef}
-      className={'popup ' + className}
-      {...props}
-      style={{ left: x, top: y }}
-    >
-      {children}
+    <div className='popup_overlay' onClick={close}>
+      <div
+        ref={popupRef}
+        className={'popup_content ' + className}
+        {...props}
+        onClick={(event) => event.stopPropagation()}
+        style={{ left: x, top: y }}
+      >
+        {children}
+      </div>
     </div>
   );
 };
 
-const Popup = ({ ...props }) =>
-  createPortal(<Portal {...props} />, document.body);
+const Popup = ({ isOpen, ...props }) => {
+  if (isOpen)
+    return createPortal(<Portal {...props} />, document.body);
+  else
+    return <></>;
+};
 
 export default Popup;
