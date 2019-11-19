@@ -14,7 +14,7 @@ import './app.css';
 console.log(process.env);
 
 const App = () => (
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter basename={process.env.PUBLIC_URL + '/'}>
     <Switch>
       <Route path='/' component={Home} />
       <Route path='/genes' component={Genes} />
