@@ -13,6 +13,8 @@ import './app.css';
 
 const basename = process.env.PUBLIC_URL;
 
+console.log(process.env, basename);
+
 const App = () => (
   <BrowserRouter basename={basename}>
     <Switch>
