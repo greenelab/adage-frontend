@@ -14,13 +14,13 @@ import './app.css';
 console.log(process.env);
 
 const App = () => (
-  <BrowserRouter basename={process.env.PUBLIC_URL + '/'}>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Switch>
+      <Route exact path='/' component={Home} />
       <Route path='/genes' component={Genes} />
       <Route path='/experiments' component={Experiments} />
       <Route path='/signatures' component={Signatures} />
       <Route path='/help' component={Help} />
-      <Route path='/' component={Home} />
     </Switch>
   </BrowserRouter>
 );
