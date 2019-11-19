@@ -11,7 +11,7 @@ import Help from './pages/help';
 
 import './app.css';
 
-const basename = process.env.PUBLIC_URL;
+const basename = process.env.BASENAME;
 
 console.log(process.env, basename);
 
