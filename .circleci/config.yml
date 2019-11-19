@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Frontend tests
           command: |
-            export REACT_APP_BASENAME=./adage-frontend
+            export REACT_APP_BASENAME=/adage-frontend
             npm install
             npm test
             npm run build
@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Install and configure dependencies
           command: |
-            export REACT_APP_BASENAME=./adage-frontend
+            export REACT_APP_BASENAME=/adage-frontend
             npm install --silent gh-pages
       - add_ssh_keys:
           fingerprints:
