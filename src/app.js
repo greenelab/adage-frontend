@@ -11,6 +11,8 @@ import Help from './pages/help';
 
 import './app.css';
 
+console.log(process.env);
+
 const App = () => (
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Switch>
