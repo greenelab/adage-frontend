@@ -11,7 +11,7 @@ import Help from './pages/help';
 
 import './app.css';
 
-const basename = process.env.BASENAME;
+const basename = process.env.REACT_APP_BASENAME;
 
 console.log(process.env, basename);
 
