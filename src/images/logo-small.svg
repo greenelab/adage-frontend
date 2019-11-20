@@ -3,8 +3,24 @@
   width="40"
   height="29"
   viewBox="15 30 70 40"
+  id="logo_small"
 >
+  <style>
+    div:hover > svg#logo_small path.wave {
+      animation: offset 2s ease forwards infinite;
+      stroke-dasharray: 100 50;
+    }
+    @keyframes offset {
+      0% {
+        stroke-dashoffset: 150;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
   <path
+    class="wave"
     fill="none"
     stroke="currentColor"
     stroke-width="7"
