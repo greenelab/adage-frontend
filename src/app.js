@@ -22,16 +22,16 @@ import { setSelectedModel } from './actions/models.js';
 
 import './app.css';
 
-const basename = process.env.REACT_APP_BASENAME;
-
 const logger = createLogger({
   collapsed: true
 });
 
-export const store = createStore(
+const store = createStore(
   reducer,
-  compose(applyMiddleware(thunk, sequenceAction, logger))
+  compose(applyMiddleware(sequenceAction, thunk, logger))
 );
+
+const basename = process.env.REACT_APP_BASENAME;
 
 const App = () => {
   useEffect(() => {

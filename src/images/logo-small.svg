@@ -6,7 +6,7 @@
   id="logo_small"
 >
   <style>
-    div:hover > svg#logo_small path.wave {
+    a:hover > svg#logo_small path.wave {
       animation: offset 2s ease forwards infinite;
       stroke-dasharray: 100 50;
     }
