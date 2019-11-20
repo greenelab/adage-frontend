@@ -1,30 +1,35 @@
 import React from 'react';
 
+import Button from '../../components/button';
 import LinkIcon from '../../components/link-icon';
 
+import { ReactComponent as Radioed } from '../../images/radioed.svg';
 import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
 import { ReactComponent as Info } from '../../images/info.svg';
 
 import './index.css';
 
 const ModelItem = ({
-  title = 'Title',
-  author = 'author',
-  publisher = 'publisher',
-  year = 'year'
+  onClick = () => null,
+  selected = false,
+  title = 'Untitled model',
+  authors = ['Unknown author'],
+  publisher = '-',
+  year = '-'
 }) => (
   <div className='model_item'>
-    <button className='model_button'>
+    <Button className='model_button' onClick={onClick}>
       <div className='model_radio'>
-        <Unchecked />
+        {selected && <Radioed />}
+        {!selected && <Unchecked />}
       </div>
       <div className='model_summary'>
         <div className='semibold'>{title}</div>
         <div className='text_small'>
-          {author} · {publisher} · {year}
+          {authors[0]}, et al · {publisher} · {year}
         </div>
       </div>
-    </button>
+    </Button>
     <LinkIcon to='/models' icon={<Info />} className='model_info' />
   </div>
 );

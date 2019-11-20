@@ -6,7 +6,7 @@ import { useBbox } from '../../util/hooks.js';
 import './index.css';
 
 const distance = 5;
-const screenWidth = 600;
+const padding = 20;
 
 const Portal = ({ anchorBbox, className, close, children, ...props }) => {
   const [popupBbox, popupRef] = useBbox();
@@ -24,8 +24,12 @@ const Portal = ({ anchorBbox, className, close, children, ...props }) => {
     y = anchorBbox.bottom + distance;
   }
 
-  if (popupBbox && window.innerWidth < screenWidth)
-    x = window.innerWidth / 2 - popupBbox.width / 2;
+  if (popupBbox) {
+    if (x > window.innerWidth - padding)
+      x = window.innerWidth - padding;
+    if (x < padding)
+      x = padding;
+  }
 
   return (
     <div className='popup_overlay' onClick={close}>

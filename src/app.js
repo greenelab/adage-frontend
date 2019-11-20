@@ -8,6 +8,7 @@ import { createStore } from 'redux';
 import { applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import sequenceAction from 'redux-sequence-action';
 import { createLogger } from 'redux-logger';
 
 import Home from './pages/home';
@@ -16,7 +17,8 @@ import Experiments from './pages/experiments';
 import Signatures from './pages/signatures';
 import Help from './pages/help';
 import reducer from './reducers';
-import setModels from './actions/models.js';
+import { setModels } from './actions/models.js';
+import { setSelectedModel } from './actions/models.js';
 
 import './app.css';
 
@@ -28,12 +30,12 @@ const logger = createLogger({
 
 export const store = createStore(
   reducer,
-  compose(applyMiddleware(thunk, logger))
+  compose(applyMiddleware(thunk, sequenceAction, logger))
 );
 
 const App = () => {
   useEffect(() => {
-    store.dispatch(setModels());
+    store.dispatch([setModels(), setSelectedModel(0)]);
   }, []);
 
   return (
