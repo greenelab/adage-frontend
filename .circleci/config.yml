@@ -22,15 +22,6 @@ jobs:
               echo "main.css or main.css.map not found"
               exit 1
             fi
-
-      - add_ssh_keys:
-          fingerprints:
-            - 'a1:30:f0:7e:a3:f4:d1:fc:85:c5:fa:63:b4:93:88:bf'
-      - run:
-          name: Frontend deployment
-          command: |
-            scp -o StrictHostKeyChecking=no -r ~/adage-frontend/build ${SSH_USER}@${SSH_HOST}:/tmp/
-            ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "bash ~/adage-frontend/.circleci/deploy.sh"
       - persist_to_workspace:
           root: ~/adage-frontend
           paths:
@@ -44,19 +35,16 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/adage-frontend
-      - run:
-          name: Install and configure dependencies
-          command: |
-            export REACT_APP_BASENAME=/adage-frontend
-            npm install --silent gh-pages
+
       - add_ssh_keys:
           fingerprints:
             - 'a1:30:f0:7e:a3:f4:d1:fc:85:c5:fa:63:b4:93:88:bf'
       - run:
-          name: Deploy build to gh-pages branch
+          name: Frontend deployment
           command: |
-            echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-            bash ~/.circleci/deploy.sh
+            scp -o StrictHostKeyChecking=no -r ~/adage-frontend/build ${SSH_USER}@${SSH_HOST}:/tmp/
+            ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "bash ~/adage-frontend/.circleci/deploy.sh"
+
 workflows:
   version: 2
   build:
