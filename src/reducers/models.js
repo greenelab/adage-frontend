@@ -1,6 +1,11 @@
 import produce from 'immer';
 
-const models = produce((draft, action) => {
+const reducer = produce((draft, action) => {
+  console.log('REDUCER', action);
+
+  if (!action)
+    return;
+
   switch (action.type) {
     case 'SET_MODELS_SUCCEEDED':
       draft.models = action.payload;
@@ -23,13 +28,14 @@ const models = produce((draft, action) => {
   }
 });
 
-export default models;
+export default reducer;
 
 export const getModelList = (state) => {
   if (!Array.isArray(state.models))
     return { models: null };
   return {
     models: state.models.map((model) => ({
+      id: model.id,
       selected: model.selected,
       title: model.title,
       authors: model.authors.split('\n'),
@@ -37,4 +43,16 @@ export const getModelList = (state) => {
       year: model.year
     }))
   };
+};
+
+export const getModelDetails = (state, ownProps) => {
+  if (!Array.isArray(state.models) || !state.models.length)
+    return {};
+  else {
+    return {
+      details: state.models.find(
+        (model) => String(model.id) === String(ownProps.match.params.id)
+      )
+    };
+  }
 };

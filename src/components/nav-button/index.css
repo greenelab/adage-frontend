@@ -16,7 +16,7 @@
   left: 50%;
   right: 50%;
   bottom: 0;
-  height: var(--line);
+  height: 2px;
   opacity: 0;
   background: var(--green);
   transition: left var(--fast), right var(--fast), opacity var(--fast);

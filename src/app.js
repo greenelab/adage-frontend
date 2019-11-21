@@ -16,6 +16,7 @@ import Genes from './pages/genes';
 import Experiments from './pages/experiments';
 import Signatures from './pages/signatures';
 import Help from './pages/help';
+import Model from './pages/model';
 import reducer from './reducers';
 import { setModels } from './actions/models.js';
 import { setSelectedModel } from './actions/models.js';
@@ -47,6 +48,7 @@ const App = () => {
           <Route path='/experiments' component={Experiments} />
           <Route path='/signatures' component={Signatures} />
           <Route path='/help' component={Help} />
+          <Route path='/model/:id' component={Model} />
         </Switch>
       </BrowserRouter>
     </Provider>

@@ -10,6 +10,7 @@ import { ReactComponent as Info } from '../../images/info.svg';
 import './index.css';
 
 const ModelItem = ({
+  id = null,
   onClick = () => null,
   selected = false,
   title = 'Untitled model',
@@ -30,7 +31,7 @@ const ModelItem = ({
         </div>
       </div>
     </Button>
-    <LinkIcon to='/models' icon={<Info />} className='model_info' />
+    <LinkIcon to={'/model/' + id} icon={<Info />} className='model_info' />
   </div>
 );
 

@@ -29,7 +29,7 @@
 
 @media screen and (max-width: 600px) {
   .page_header_column:nth-child(1) {
-    flex-basis: 50%;
+    flex-grow: 1;
     order: 1;
   }
   .page_header_column:nth-child(2) {
@@ -40,7 +40,10 @@
     order: 3;
   }
   .page_header_column:nth-child(3) {
-    flex-basis: 50%;
+    flex-grow: 1;
     order: 2;
+  }
+  .page_header_column:first-child:last-child {
+    justify-content: center;
   }
 }

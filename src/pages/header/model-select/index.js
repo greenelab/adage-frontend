@@ -53,11 +53,7 @@ const Content = ({ models, dispatch }) => (
       <React.Fragment key={index}>
         <ModelItem
           onClick={() => dispatch(setSelectedModel(index))}
-          selected={model.selected}
-          title={model.title}
-          authors={model.authors}
-          publisher={model.publisher}
-          year={model.year}
+          {...model}
         />
         {index < array.length - 1 && <hr />}
       </React.Fragment>
