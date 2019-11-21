@@ -2,12 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   box-shadow: var(--shadow);
 }
 .page_header a {
   text-decoration: none;
 }
 .page_header_column {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   height: 50px;
@@ -26,18 +28,19 @@
 }
 
 @media screen and (max-width: 600px) {
-  .page_header {
-    flex-direction: column;
-  }
   .page_header_column:nth-child(1) {
-    justify-content: center;
+    flex-basis: 50%;
+    order: 1;
   }
   .page_header_column:nth-child(2) {
     flex-direction: column;
-    width: 140px;
+    flex-basis: 100%;
+    flex-grow: 0;
     height: unset;
+    order: 3;
   }
   .page_header_column:nth-child(3) {
-    justify-content: center;
+    flex-basis: 50%;
+    order: 2;
   }
 }
