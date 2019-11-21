@@ -7,6 +7,9 @@ jobs:
     working_directory: ~/adage-frontend
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - 'a1:30:f0:7e:a3:f4:d1:fc:85:c5:fa:63:b4:93:88:bf'
       - run:
           name: Frontend tests
           command: |
@@ -47,14 +50,7 @@ jobs:
           name: Deploy build to gh-pages branch
           command: |
             echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-            touch build/.nojekyll  # Disable Jekyll processing on GitHub Pages
-            ./node_modules/.bin/gh-pages --dist build \
-              --user "CircleCI Deploy Job <ci-build@circleci.com>" \
-              --message \
-            "Deploy webpage on `date --utc --iso-8601`
-            Builds https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/commit/$CIRCLE_SHA1
-            Pushed by $CIRCLE_BUILD_URL
-            [skip ci]"
+            bash ~/.circleci/deploy.sh
 workflows:
   version: 2
   build:
