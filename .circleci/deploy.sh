@@ -1,3 +1,6 @@
 #!/bin/bash
 
-#touch build/.nojekyll  # Disable Jekyll processing on GitHub Pages
+mv /tmp/build/static/* ~ubuntu/www/static/
+rmdir /tmp/build/static/
+mv /tmp/build/* ~ubuntu/www/
+rmdir /tmp/build/
