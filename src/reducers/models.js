@@ -12,6 +12,8 @@ const models = produce((draft, action) => {
       break;
 
     case 'SET_SELECTED_MODEL':
+      if (!draft.models)
+        break;
       draft.models.forEach((model) => (model.selected = false));
       draft.models[action.payload].selected = true;
       break;
