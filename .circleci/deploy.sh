@@ -1,11 +1,16 @@
 #!/bin/bash
 
-# Remove original directories built in "static/" dir
-cd ~ubuntu/www/static/
-rm -rf css/ js/ media/
+# Save the Django-REST-Framework related sub-folders in "static/" first
+rm -rf /tmp/drf && mkdir /tmp/drf/
+mv ~ubuntu/www/static/admin/ ~ubuntu/www/static/rest_framework/ /tmp/drf/
 
-# Copy new files in "build/" directory
-mv /tmp/build/static/* ~ubuntu/www/static/
-rmdir /tmp/build/static/
+# Copy everything in "build/"
+rm -rf ~ubuntu/www/*
 mv /tmp/build/* ~ubuntu/www/
-rmdir /tmp/build/
+
+# Move the Django-REST-Framework related sub-folders back to "static/"
+mv /tmp/drf/* ~ubuntu/www/static/
+
+# Clean up
+rmdir /tmp/drf
+rmdir /tmp/build
