@@ -24,7 +24,9 @@ const format = (value) => {
   const type = typeof value;
   if (type === 'string' || (type === 'number' && !Number.isNaN(value))) {
     value = String(value);
-    value = value.split('\n').map((line) => <div>{line}</div>);
+    value = value
+      .split('\n')
+      .map((line, index) => <div key={index}>{line}</div>);
   } else
     value = '-';
 
