@@ -15,7 +15,7 @@ const ModelItem = ({
   selected = false,
   title = 'Untitled model',
   authors = ['Unknown author'],
-  publisher = '-',
+  journal = '-',
   year = '-'
 }) => (
   <div className='model_item'>
@@ -27,7 +27,7 @@ const ModelItem = ({
       <div className='model_summary'>
         <div className='semibold'>{title}</div>
         <div className='text_small'>
-          {authors[0]}, et al · {publisher} · {year}
+          {authors[0]}, et al · {journal} · {year}
         </div>
       </div>
     </Button>

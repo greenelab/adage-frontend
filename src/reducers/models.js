@@ -39,7 +39,7 @@ export const getModelList = (state) => {
       selected: model.selected,
       title: model.title,
       authors: model.authors.split('\n'),
-      publisher: model.publisher,
+      journal: model.journal,
       year: model.year
     }))
   };
