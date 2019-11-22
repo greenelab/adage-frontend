@@ -1,3 +1,13 @@
 .section_header {
   color: var(--gray);
+  display: flex;
+  flex-direction: row;
+}
+.section_header:before,
+.section_header:after {
+  content: '';
+  flex-grow: 1;
+  background: var(--light-gray);
+  height: 1px;
+  margin: 0 20px;
 }
