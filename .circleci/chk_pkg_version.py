@@ -15,16 +15,23 @@ master_tokens = [int(x) for x in master_version.split('.')]
 current_tokens = [int(x) for x in current_version.split('.')]
 length = min(len(master_tokens), len(current_tokens))
 
-version_updated = False
+version_updated = None
 for i in range(length):
     if current_tokens[i] > master_tokens[i]:
         version_updated = True
         break
+    if current_tokens[i] < master_tokens[i]:
+        version_updated = False
+        break
 
-if version_updated is False:
+# "x.y.z" to "x.y.z.m" is an update too
+if version_updated is None:
+    version_updated = len(current_tokens) > len(master_tokens)
+
+if version_updated:
+    print("Version check passed")
+else:
     print("Version check in package.json failed: %s --> %s" %
           (master_version, current_version)
     )
     sys.exit(1)
-else:
-    print("Version check passed")
