@@ -6,11 +6,15 @@ import Aux from './aux';
 
 import './index.css';
 
-const Header = () => (
+const Header = ({ justTitle }) => (
   <header className='page_header'>
     <Title />
-    <Nav />
-    <Aux />
+    {!justTitle && (
+      <>
+        <Nav />
+        <Aux />
+      </>
+    )}
   </header>
 );
 

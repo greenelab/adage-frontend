@@ -10,11 +10,12 @@ import { ReactComponent as Info } from '../../images/info.svg';
 import './index.css';
 
 const ModelItem = ({
+  id = null,
   onClick = () => null,
   selected = false,
   title = 'Untitled model',
   authors = ['Unknown author'],
-  publisher = '-',
+  journal = '-',
   year = '-'
 }) => (
   <div className='model_item'>
@@ -26,11 +27,11 @@ const ModelItem = ({
       <div className='model_summary'>
         <div className='semibold'>{title}</div>
         <div className='text_small'>
-          {authors[0]}, et al · {publisher} · {year}
+          {authors[0]}, et al · {journal} · {year}
         </div>
       </div>
     </Button>
-    <LinkIcon to='/models' icon={<Info />} className='model_info' />
+    <LinkIcon to={'/model/' + id} icon={<Info />} className='model_info' />
   </div>
 );
 
