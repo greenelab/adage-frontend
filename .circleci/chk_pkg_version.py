@@ -24,7 +24,7 @@ for i in range(length):
         version_updated = False
         break
 
-# "x.y.z" to "x.y.z.m" is an update too
+# "x.y" to "x.y.z" is an update too
 if version_updated is None:
     version_updated = len(current_tokens) > len(master_tokens)
 
