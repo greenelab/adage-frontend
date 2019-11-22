@@ -10,7 +10,6 @@ jobs:
       - run:
           name: Frontend tests
           command: |
-            export REACT_APP_BASENAME=/adage-frontend
             npm install
             npm test
             npm run build
@@ -49,10 +48,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - test:
-          filters:
-            branches:
-              ignore: gh-pages
+      - test
       - deploy:
           requires:
             - test
