@@ -41,6 +41,7 @@ jobs:
       - run:
           name: Frontend deployment
           command: |
+            ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "rm -rf /tmp/build"
             scp -o StrictHostKeyChecking=no -r ~/adage-frontend/build ${SSH_USER}@${SSH_HOST}:/tmp/
             ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "bash ~/adage-frontend/.circleci/deploy.sh"
 
