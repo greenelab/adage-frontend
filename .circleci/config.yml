@@ -8,6 +8,17 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Check version update
+          command: |
+            # Skip it in 'master' branch
+            if [ $CIRCLE_BRANCH == 'master' ]; then
+              echo "Version check skipped"
+              exit 0
+            fi
+            #
+            wget https://raw.githubusercontent.com/greenelab/adage-frontend/master/package.json -P /tmp/
+            python3 ~/adage-frontend/.circleci/chk_pkg_version.py
+      - run:
           name: Frontend tests
           command: |
             npm install
