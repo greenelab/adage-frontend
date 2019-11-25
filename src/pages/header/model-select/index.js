@@ -14,7 +14,7 @@ import { ReactComponent as Alert } from '../../../images/alert.svg';
 
 import './index.css';
 
-const ModelSelect = connect(getModelList)(({ models, dispatch }) => {
+let ModelSelect = ({ models, dispatch }) => {
   const [buttonBbox, buttonRef] = useBbox();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,7 +43,9 @@ const ModelSelect = connect(getModelList)(({ models, dispatch }) => {
       </Popup>
     </>
   );
-});
+};
+
+ModelSelect = connect(getModelList)(ModelSelect);
 
 export default ModelSelect;
 

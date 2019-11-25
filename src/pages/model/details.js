@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import Linkify from 'react-linkify';
+
+import { getModelDetails } from '../../reducers/models.js';
 
 import './details.css';
 
-const Details = ({ details }) => (
+let Details = ({ details = {} }) => (
   <section>
     {Object.keys(details)
       .filter(filter)
@@ -17,6 +21,9 @@ const Details = ({ details }) => (
       ))}
   </section>
 );
+
+Details = connect(getModelDetails)(Details);
+Details = withRouter(Details);
 
 export default Details;
 

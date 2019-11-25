@@ -14,6 +14,7 @@ let NavButton = ({ location, icon, text }) => (
     {text}
   </Link>
 );
+
 NavButton = withRouter(NavButton);
 
 export default NavButton;
