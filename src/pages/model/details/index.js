@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Linkify from 'react-linkify';
 
-import { getModelDetails } from '../../reducers/models.js';
+import { getModelDetails } from '../../../reducers/models.js';
 
-import './details.css';
+import './index.css';
 
 let Details = ({ details = {} }) => (
-  <section>
+  <>
     {Object.keys(details)
       .filter(filter)
       .map((key) => (
@@ -19,7 +19,7 @@ let Details = ({ details = {} }) => (
           </span>
         </div>
       ))}
-  </section>
+  </>
 );
 
 Details = connect(getModelDetails)(Details);

@@ -1,5 +1,4 @@
 const fetchJson = async ({ url, dontCache }) => {
-  console.log('fetchJson()', url);
   const cachedResponse = window.sessionStorage.getItem(url);
   if (cachedResponse && !dontCache)
     return JSON.parse(cachedResponse);
@@ -12,7 +11,7 @@ const fetchJson = async ({ url, dontCache }) => {
   json = await response.json();
 
   if (!dontCache)
-    window.sessionStorage.setItem(url, JSON.stringify(json));
+    window.sessionStorage.setItem(url, JSON.stringify(json.results));
 
   return json.results;
 };

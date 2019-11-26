@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDebounce } from 'use-debounce';
 
 import ButtonIcon from '../../components/button-icon';
 import { ReactComponent as ListMultiple } from '../../images/list-multiple.svg';
@@ -9,6 +11,8 @@ import { ReactComponent as Search } from '../../images/search.svg';
 import { ReactComponent as Cross } from '../../images/cross.svg';
 
 import './index.css';
+
+const debounceDelay = 200;
 
 const Input = ({
   onChange = () => null,
@@ -19,8 +23,9 @@ const Input = ({
   ...props
 }) => {
   const [focused, setFocused] = useState(false);
-  const [value, setValue] = useState('');
   const [expanded, setExpanded] = useState(false);
+  const [value, setValue] = useState('');
+  const [debouncedValue] = useDebounce(value, debounceDelay);
 
   const changeExpanded = (newExpanded) => {
     let newValue = value;
@@ -40,8 +45,11 @@ const Input = ({
       newValue = newValue.split('\n')[0];
 
     setValue(newValue);
-    onChange(newValue);
   };
+
+  useEffect(() => {
+    onChange(debouncedValue);
+  }, [onChange, debouncedValue]);
 
   return (
     <div className='input' data-focused={focused} data-expanded={expanded}>

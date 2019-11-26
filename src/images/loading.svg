@@ -1,0 +1,43 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="-50 -50 100 100"
+  id="loading"
+>
+  <style>
+    #loading > .spinner {
+      animation: offset 2s ease-in-out forwards infinite,
+        rotate 2s ease-in-out forwards infinite;
+      stroke-dasharray: 282.743338823;
+    }
+    @keyframes offset {
+      0% {
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dashoffset: -282.743338823;
+      }
+      100% {
+        stroke-dashoffset: -565.486677646;
+      }
+    }
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <circle
+    class="spinner"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    cx="0"
+    cy="0"
+    r="45"
+  />
+</svg>

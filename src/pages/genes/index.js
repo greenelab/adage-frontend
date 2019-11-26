@@ -4,7 +4,8 @@ import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
 import SectionHeader from '../../components/section-header';
-import Select from './select.js';
+import Search from './search';
+import Results from './results';
 
 import './index.css';
 
@@ -13,7 +14,10 @@ const Genes = () => (
     <Header />
     <Main>
       <SectionHeader text='Select Genes' />
-      <Select />
+      <section>
+        <Search />
+        <Results />
+      </section>
     </Main>
     <Footer />
   </>
