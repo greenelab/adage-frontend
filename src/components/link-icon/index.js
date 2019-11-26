@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom';
 
 import './index.css';
 
-const LinkIcon = ({ to, icon, className, ...props }) => (
-  <Link className={'link_icon ' + (className || '')} to={to} {...props}>
+const LinkIcon = ({ to, icon = <></>, className = '', ...props }) => (
+  <Link className={'link_icon ' + className} to={to} {...props}>
     {icon}
   </Link>
 );
 
 LinkIcon.propTypes = {
   to: PropTypes.string.isRequired,
-  icon: PropTypes.element.isRequired
+  icon: PropTypes.element.isRequired,
+  className: PropTypes.string
 };
 
 export default LinkIcon;

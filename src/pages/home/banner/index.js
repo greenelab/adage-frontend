@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import LinkTextIcon from '../../../components/link-text-icon';
 
@@ -13,9 +12,5 @@ const Banner = ({ text }) => (
     <LinkTextIcon to='/genes' text='Explore' icon={<Arrow />} />
   </section>
 );
-
-Banner.propTypes = {
-  text: PropTypes.string.isRequired
-};
 
 export default Banner;

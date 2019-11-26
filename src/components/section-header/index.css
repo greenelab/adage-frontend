@@ -8,6 +8,11 @@
   content: '';
   flex-grow: 1;
   background: var(--light-gray);
-  height: 1px;
-  margin: 0 20px;
+  height: 2px;
+}
+.section_header:before {
+  margin-right: 10px;
+}
+.section_header:after {
+  margin-left: 10px;
 }

@@ -51,15 +51,16 @@ section {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  max-width: 1000px;
-  padding: 40px 20px;
+  max-width: 800px;
+  margin: 40px 0;
+  padding: 0 20px;
 }
 hr {
   content: '';
   width: 100%;
   border: none;
-  max-width: 1000px;
-  height: 1px;
+  max-width: 800px;
+  height: 2px;
   margin: 0;
   background: var(--light-gray);
 }
@@ -70,7 +71,7 @@ hr {
   font-size: 0.85em;
 }
 .text_medium {
-  font-size: 1.15em;
+  font-size: 1.25em;
 }
 .text_large {
   font-size: 1.5em;

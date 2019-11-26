@@ -12,18 +12,7 @@
 }
 .model_select_popup {
   width: 280px;
-  max-height: calc((5 * 40px) + ((5 - 1) * 1px));
+  max-height: calc((5 * 40px) + ((5 - 1) * 2px));
   overflow-x: hidden;
   overflow-y: auto;
-}
-.model_error {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100px;
-  color: var(--red);
-}
-.model_error > svg {
-  margin-right: 10px;
 }

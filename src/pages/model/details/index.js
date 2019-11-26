@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import Linkify from 'react-linkify';
 
-import './details.css';
+import { getModelDetails } from '../../../reducers/models.js';
 
-const Details = ({ details }) => (
-  <section>
+import './index.css';
+
+let Details = ({ details = {} }) => (
+  <>
     {Object.keys(details)
       .filter(filter)
       .map((key) => (
@@ -15,8 +19,11 @@ const Details = ({ details }) => (
           </span>
         </div>
       ))}
-  </section>
+  </>
 );
+
+Details = connect(getModelDetails)(Details);
+Details = withRouter(Details);
 
 export default Details;
 

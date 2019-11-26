@@ -1,23 +1,28 @@
 import produce from 'immer';
 
 const reducer = produce((draft, action) => {
-  console.log('REDUCER', action);
-
-  if (!action)
-    return;
-
   switch (action.type) {
+    case 'SET_MODELS_STARTED':
+      draft.models = 'loading';
+      break;
+
     case 'SET_MODELS_SUCCEEDED':
-      draft.models = action.payload;
-      draft.models[0].selected = true;
+      if (Array.isArray(action.payload)) {
+        if (action.payload.length) {
+          draft.models = action.payload;
+          draft.models[0].selected = true;
+        } else
+          draft.models = 'empty';
+      } else
+        draft.models = 'error';
       break;
 
     case 'SET_MODELS_FAILED':
-      draft.models = null;
+      draft.models = 'error';
       break;
 
     case 'SET_SELECTED_MODEL':
-      if (!draft.models)
+      if (!Array.isArray(draft.models) || !draft.models.length)
         break;
       draft.models.forEach((model) => (model.selected = false));
       draft.models[action.payload].selected = true;
@@ -32,13 +37,13 @@ export default reducer;
 
 export const getModelList = (state) => {
   if (!Array.isArray(state.models))
-    return { models: null };
+    return { models: state.models };
   return {
     models: state.models.map((model) => ({
       id: model.id,
       selected: model.selected,
       title: model.title,
-      authors: model.authors.split('\n'),
+      authors: (model.authors || '').split('\n'),
       journal: model.journal,
       year: model.year
     }))
@@ -46,7 +51,7 @@ export const getModelList = (state) => {
 };
 
 export const getModelDetails = (state, ownProps) => {
-  if (!Array.isArray(state.models) || !state.models.length)
+  if (!Array.isArray(state.models))
     return {};
   else {
     return {
