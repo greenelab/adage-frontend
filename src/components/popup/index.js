@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 
 import { useBbox } from '../../util/hooks.js';
@@ -8,7 +9,13 @@ import './index.css';
 const distance = 5;
 const padding = 20;
 
-const Portal = ({ anchorBbox, className, close, children, ...props }) => {
+const Portal = ({
+  anchorBbox = {},
+  className = '',
+  close = () => null,
+  children,
+  ...props
+}) => {
   const [popupBbox, popupRef] = useBbox();
 
   let x = -99999;
@@ -51,6 +58,13 @@ const Popup = ({ isOpen, ...props }) => {
     return createPortal(<Portal {...props} />, document.body);
   else
     return <></>;
+};
+
+Popup.propTypes = {
+  anchorBbox: PropTypes.object,
+  className: PropTypes.string,
+  children: PropTypes.node,
+  close: PropTypes.func
 };
 
 export default Popup;

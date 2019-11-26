@@ -1,15 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
 import './index.css';
 
-const Button = forwardRef((props, ref) => {
-  const { children, ...rest } = props;
-  return (
-    <button ref={ref} {...rest}>
-      {children}
-    </button>
-  );
-});
+let Button = (props, ref) => <button ref={ref} {...props}></button>;
+Button = forwardRef(Button);
+
+Button.propTypes = {
+  children: PropTypes.node
+};
 
 export default Button;

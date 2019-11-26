@@ -4,8 +4,14 @@ import { Link } from 'react-router-dom';
 
 import './index.css';
 
-const LinkTextIcon = ({ to, text, icon, className, ...props }) => (
-  <Link className={'link_text_icon ' + (className || '')} to={to} {...props}>
+const LinkTextIcon = ({
+  to,
+  text = '',
+  icon = <></>,
+  className = '',
+  ...props
+}) => (
+  <Link className={'link_text_icon ' + className} to={to} {...props}>
     <span>{text}</span>
     {icon}
   </Link>
@@ -14,7 +20,8 @@ const LinkTextIcon = ({ to, text, icon, className, ...props }) => (
 LinkTextIcon.propTypes = {
   to: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  icon: PropTypes.element.isRequired
+  icon: PropTypes.element.isRequired,
+  className: PropTypes.string
 };
 
 export default LinkTextIcon;

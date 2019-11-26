@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import Button from '../../components/button';
 import LinkIcon from '../../components/link-icon';
 
@@ -34,5 +34,15 @@ const ModelItem = ({
     <LinkIcon to={'/model/' + id} icon={<Info />} className='model_info' />
   </div>
 );
+
+ModelItem.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onClick: PropTypes.func,
+  selected: PropTypes.bool,
+  title: PropTypes.string,
+  authors: PropTypes.arrayOf(PropTypes.string),
+  journal: PropTypes.string,
+  year: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+};
 
 export default ModelItem;
