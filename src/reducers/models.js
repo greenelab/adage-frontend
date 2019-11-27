@@ -1,24 +1,13 @@
 import produce from 'immer';
 
+import { reduceQuery } from './query.js';
+
 const reducer = produce((draft, action) => {
   switch (action.type) {
     case 'SET_MODELS_STARTED':
-      draft.models = 'loading';
-      break;
-
     case 'SET_MODELS_SUCCEEDED':
-      if (Array.isArray(action.payload)) {
-        if (action.payload.length) {
-          draft.models = action.payload;
-          draft.models[0].selected = true;
-        } else
-          draft.models = 'empty';
-      } else
-        draft.models = 'error';
-      break;
-
     case 'SET_MODELS_FAILED':
-      draft.models = 'error';
+      draft.models = reduceQuery(action);
       break;
 
     case 'SET_SELECTED_MODEL':
@@ -36,28 +25,28 @@ const reducer = produce((draft, action) => {
 export default reducer;
 
 export const getModelList = (state) => {
-  if (!Array.isArray(state.models))
+  if (Array.isArray(state.models)) {
+    return {
+      models: state.models.map((model = {}) => ({
+        id: model.id,
+        selected: model.selected,
+        title: model.title,
+        authors: (model.authors || '').split('\n'),
+        journal: model.journal,
+        year: model.year
+      }))
+    };
+  } else
     return { models: state.models };
-  return {
-    models: state.models.map((model) => ({
-      id: model.id,
-      selected: model.selected,
-      title: model.title,
-      authors: (model.authors || '').split('\n'),
-      journal: model.journal,
-      year: model.year
-    }))
-  };
 };
 
 export const getModelDetails = (state, ownProps) => {
-  if (!Array.isArray(state.models))
-    return {};
-  else {
+  if (Array.isArray(state.models)) {
     return {
       details: state.models.find(
         (model) => String(model.id) === String(ownProps.match.params.id)
       )
     };
-  }
+  } else
+    return {};
 };

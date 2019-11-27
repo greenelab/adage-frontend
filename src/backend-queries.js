@@ -8,7 +8,7 @@ export const queryModels = () => server + models;
 export const queryGenes = ({ search }) => {
   const params = new URLSearchParams();
   if (search)
-    params.set('search', search);
+    params.set('autocomplete', search);
 
   return server + genes + '?' + params.toString();
 };
