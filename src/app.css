@@ -60,7 +60,7 @@ hr {
   width: 100%;
   border: none;
   max-width: 800px;
-  height: 2px;
+  height: 1px;
   margin: 0;
   background: var(--light-gray);
 }
