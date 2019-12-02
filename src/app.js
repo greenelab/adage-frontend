@@ -36,7 +36,7 @@ const basename = process.env.REACT_APP_BASENAME;
 
 const App = () => {
   useEffect(() => {
-    store.dispatch([setModels(), setSelectedModel(0)]);
+    store.dispatch([setModels(), setSelectedModel()]);
   }, []);
 
   return (

@@ -2,41 +2,69 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Alert from '../../../components/alert';
-import { getGeneResults } from '../../../reducers/genes.js';
+import GeneResultSingle from '../../../components/gene-result-single';
+import { selectGene } from '../../../actions/genes.js';
+import { deselectGene } from '../../../actions/genes.js';
 
 import './index.css';
 
-let Results = ({ genes, dispatch }) => {
+const selector = (state) => ({
+  geneResults: Array.isArray(state.geneResults) ?
+    state.geneResults.map((geneResult) => ({
+      id: geneResult.id,
+      standardName: geneResult.standard_name,
+      systematicName: geneResult.systematic_name,
+      entrezId: geneResult.entrezid,
+      description: geneResult.description
+    })) :
+    state.geneResults,
+  fullGeneResults: state.geneResults,
+  selectedGenes: state.selectedGenes
+});
+
+let GeneResults = ({
+  geneResults,
+  fullGeneResults,
+  selectedGenes,
+  dispatch
+}) => {
   let content = <></>;
-  if (Array.isArray(genes))
-    content = <Content genes={genes} dispatch={dispatch} />;
-  else if (genes === 'loading')
-    content = <Alert text='Searching genes' loading />;
-  else if (genes === 'empty')
+  if (Array.isArray(geneResults)) {
+    content = (
+      <div className='gene_results'>
+        {geneResults.map((result, index, array) => {
+          const selected = selectedGenes.some(
+            (selectedGene) => selectedGene.id === result.id
+          );
+          const onClick = () =>
+            dispatch(
+              selected ?
+                deselectGene({ id: result.id }) :
+                selectGene({ gene: fullGeneResults[index] })
+            );
+          return (
+            <React.Fragment key={index}>
+              <GeneResultSingle
+                selected={selected}
+                onClick={onClick}
+                {...result}
+              />
+              {index < array.length - 1 && <hr />}
+            </React.Fragment>
+          );
+        })}
+      </div>
+    );
+  } else if (geneResults === 'loading')
+    content = <Alert text='Loading genes' loading />;
+  else if (geneResults === 'empty')
     content = <Alert text='No genes found' />;
-  else if (genes === 'error')
+  else if (geneResults === 'error')
     content = <Alert text='Error getting genes' error />;
 
-  return content;
+  return <>{content}</>;
 };
 
-Results = connect(getGeneResults)(Results);
+GeneResults = connect(selector)(GeneResults);
 
-export default Results;
-
-const Content = ({ genes }) => (
-  <div className='gene_results'>
-    {genes.map((gene, index) => (
-      <Result key={index} gene={gene} />
-    ))}
-  </div>
-);
-
-const Result = ({ gene }) => (
-  <div className='gene_result'>
-    <span>{gene['entrezid'] || ''}</span>
-    <span>{gene['systematic_name'] || ''}</span>
-    <span>{gene['entrezid'] || ''}</span>
-    <span>{gene['description'] || ''}</span>
-  </div>
-);
+export default GeneResults;

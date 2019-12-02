@@ -2,8 +2,10 @@ export const reduceQuery = (action) => {
   if (action.type.includes('_STARTED'))
     return 'loading';
   else if (action.type.includes('_SUCCEEDED')) {
-    if (Array.isArray(action.payload)) {
-      if (action.payload.length)
+    if (typeof action.payload === 'object') {
+      if (Array.isArray(action.payload) && action.payload.length)
+        return action.payload;
+      else if (action.payload !== null && Object.keys(action.payload).length)
         return action.payload;
       else
         return 'empty';

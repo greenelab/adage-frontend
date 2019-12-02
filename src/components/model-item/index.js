@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Button from '../../components/button';
 import LinkIcon from '../../components/link-icon';
 
@@ -10,9 +11,9 @@ import { ReactComponent as Info } from '../../images/info.svg';
 import './index.css';
 
 const ModelItem = ({
-  id = null,
   onClick = () => null,
   selected = false,
+  id = null,
   title = 'Untitled model',
   authors = ['Unknown author'],
   journal = '-',
@@ -36,9 +37,9 @@ const ModelItem = ({
 );
 
 ModelItem.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onClick: PropTypes.func,
   selected: PropTypes.bool,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   title: PropTypes.string,
   authors: PropTypes.arrayOf(PropTypes.string),
   journal: PropTypes.string,

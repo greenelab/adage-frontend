@@ -10,4 +10,9 @@ button {
   font-size: 1em;
   transition: color var(--fast), background var(--fast), opacity var(--fast),
     border var(--fast);
+  user-select: text;
+}
+button:hover,
+button:focus {
+  color: var(--green);
 }

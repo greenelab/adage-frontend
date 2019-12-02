@@ -3,9 +3,18 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Linkify from 'react-linkify';
 
-import { getModelDetails } from '../../../reducers/models.js';
-
 import './index.css';
+
+export const selector = (state, ownProps) => {
+  if (Array.isArray(state.models)) {
+    return {
+      details: state.models.find(
+        (model) => String(model.id) === String(ownProps.match.params.id)
+      )
+    };
+  } else
+    return {};
+};
 
 let Details = ({ details = {} }) => (
   <>
@@ -22,7 +31,7 @@ let Details = ({ details = {} }) => (
   </>
 );
 
-Details = connect(getModelDetails)(Details);
+Details = connect(selector)(Details);
 Details = withRouter(Details);
 
 export default Details;

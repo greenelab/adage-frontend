@@ -3,11 +3,28 @@ import produce from 'immer';
 import { reduceQuery } from './query.js';
 
 const reducer = produce((draft, action) => {
-  switch (action.type) {
+  const { type = '', payload = {} } = action;
+
+  if (!Array.isArray(draft.selectedGenes))
+    draft.selectedGenes = [];
+
+  switch (type) {
     case 'SEARCH_GENES_STARTED':
     case 'SEARCH_GENES_SUCCEEDED':
     case 'SEARCH_GENES_FAILED':
       draft.geneResults = reduceQuery(action);
+      break;
+
+    case 'SELECT_GENE':
+      draft.selectedGenes.push(payload.gene);
+      break;
+
+    case 'DESELECT_GENE':
+      const index = draft.selectedGenes.findIndex(
+        (selectedGene) => selectedGene.id === payload.id
+      );
+      if (index >= 0)
+        draft.selectedGenes.splice(index, 1);
       break;
 
     default:
@@ -16,17 +33,3 @@ const reducer = produce((draft, action) => {
 });
 
 export default reducer;
-
-export const getGeneResults = (state) => {
-  if (Array.isArray(state.geneResults)) {
-    return {
-      genes: state.geneResults.map((gene) => ({
-        standard_name: gene.standard_name,
-        systematic_name: gene.systematic_name,
-        entrezid: gene.entrezid,
-        description: gene.description
-      }))
-    };
-  } else
-    return { genes: state.geneResults };
-};
