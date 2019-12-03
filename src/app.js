@@ -17,8 +17,9 @@ import Experiments from './pages/experiments';
 import Signatures from './pages/signatures';
 import Help from './pages/help';
 import Model from './pages/model';
+import Gene from './pages/gene';
 import reducer from './reducers';
-import { setModels } from './actions/models.js';
+import { getModelList } from './actions/models.js';
 import { setSelectedModel } from './actions/models.js';
 
 import './app.css';
@@ -36,7 +37,7 @@ const basename = process.env.REACT_APP_BASENAME;
 
 const App = () => {
   useEffect(() => {
-    store.dispatch([setModels(), setSelectedModel(0)]);
+    store.dispatch([getModelList(), setSelectedModel()]);
   }, []);
 
   return (
@@ -49,6 +50,7 @@ const App = () => {
           <Route path='/signatures' component={Signatures} />
           <Route path='/help' component={Help} />
           <Route path='/model/:id' component={Model} />
+          <Route path='/gene/:id' component={Gene} />
         </Switch>
       </BrowserRouter>
     </Provider>

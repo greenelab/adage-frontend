@@ -1,15 +1,14 @@
-.model_detail_row {
+.detail_row {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-bottom: solid 1px var(--light-gray);
 }
-.model_detail_row > span {
+.detail_row > span {
   display: inline-block;
   word-break: break-word;
 }
-.model_detail_row > span:nth-child(1) {
+.detail_row > span:nth-child(1) {
   flex-basis: 20%;
   flex-grow: 0;
   flex-shrink: 0;
@@ -18,6 +17,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.model_detail_row > span:nth-child(2) {
+.detail_row > span:nth-child(2) {
   flex-grow: 1;
 }

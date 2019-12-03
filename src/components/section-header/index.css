@@ -2,6 +2,7 @@
   color: var(--gray);
   display: flex;
   flex-direction: row;
+  margin-bottom: 0;
 }
 .section_header:before,
 .section_header:after {

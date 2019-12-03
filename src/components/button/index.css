@@ -7,7 +7,11 @@ button {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 12pt;
   transition: color var(--fast), background var(--fast), opacity var(--fast),
     border var(--fast);
+}
+button:hover,
+button:focus {
+  color: var(--green);
 }

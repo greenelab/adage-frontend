@@ -2,31 +2,39 @@ import produce from 'immer';
 
 import { reduceQuery } from './query.js';
 
-const reducer = produce((draft, action) => {
-  switch (action.type) {
+const reducer = produce((draft, type, payload) => {
+  if (!Array.isArray(draft.selected))
+    draft.selected = [];
+
+  switch (type) {
+    case 'GET_GENE_DETAILS_STARTED':
+    case 'GET_GENE_DETAILS_SUCCEEDED':
+    case 'GET_GENE_DETAILS_FAILED':
+      draft.details = reduceQuery(type, payload);
+      break;
+
     case 'SEARCH_GENES_STARTED':
     case 'SEARCH_GENES_SUCCEEDED':
     case 'SEARCH_GENES_FAILED':
-      draft.geneResults = reduceQuery(action);
+      draft.results = reduceQuery(type, payload);
+      break;
+
+    case 'SELECT_GENE':
+      if (!draft.selected.includes(payload.id))
+        draft.selected.push(payload.id);
+      break;
+
+    case 'DESELECT_GENE':
+      const index = draft.selected.findIndex(
+        (selected) => selected === payload.id
+      );
+      if (index >= 0)
+        draft.selected.splice(index, 1);
       break;
 
     default:
       break;
   }
-});
+}, {});
 
 export default reducer;
-
-export const getGeneResults = (state) => {
-  if (Array.isArray(state.geneResults)) {
-    return {
-      genes: state.geneResults.map((gene) => ({
-        standard_name: gene.standard_name,
-        systematic_name: gene.systematic_name,
-        entrezid: gene.entrezid,
-        description: gene.description
-      }))
-    };
-  } else
-    return { genes: state.geneResults };
-};
