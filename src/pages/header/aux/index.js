@@ -11,7 +11,7 @@ import './index.css';
 const Aux = () => (
   <div className='page_header_column'>
     <ModelSelect />
-    <LinkIcon to='help' icon={<Help />} />
+    <LinkIcon to='help' newTab icon={<Help />} />
   </div>
 );
 

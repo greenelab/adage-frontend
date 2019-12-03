@@ -2,30 +2,30 @@ import produce from 'immer';
 
 import { reduceQuery } from './query.js';
 
-const reducer = produce((draft, action) => {
-  const { type = '', payload = {} } = action;
-
+const reducer = produce((draft, type, payload) => {
   switch (type) {
-    case 'SET_MODELS_STARTED':
-    case 'SET_MODELS_SUCCEEDED':
-    case 'SET_MODELS_FAILED':
-      draft.models = reduceQuery(action);
+    case 'GET_MODEL_DETAILS_STARTED':
+    case 'GET_MODEL_DETAILS_SUCCEEDED':
+    case 'GET_MODEL_DETAILS_FAILED':
+      draft.details = reduceQuery(type, payload);
+      break;
+
+    case 'GET_MODEL_LIST_STARTED':
+    case 'GET_MODEL_LIST_SUCCEEDED':
+    case 'GET_MODEL_LIST_FAILED':
+      draft.list = reduceQuery(type, payload);
       break;
 
     case 'SET_SELECTED_MODEL':
-      if (!Array.isArray(draft.models) || !draft.models.length)
-        break;
-      draft.models.forEach((model) => (model.selected = false));
-      const index = draft.models.findIndex((model) => model.id === payload.id);
-      if (index >= 0)
-        draft.models[index].selected = true;
-      else
-        draft.models[0].selected = true;
+      if (payload.id)
+        draft.selected = payload.id;
+      if (!draft.selected && Array.isArray(draft.list) && draft.list.length)
+        draft.selected = draft.list[0].id;
       break;
 
     default:
       break;
   }
-});
+}, {});
 
 export default reducer;

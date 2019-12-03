@@ -25,11 +25,10 @@
   width: calc(100% - 30px);
 }
 .model_summary > * {
-  line-height: 1.25em;
+  line-height: 12pt;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  height: 15px;
 }
 .model_info {
   display: inline-flex;

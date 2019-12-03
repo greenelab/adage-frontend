@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { useState } from 'react';
+import { connect } from 'react-redux';
 
 import Button from '../../../components/button';
 import Popup from '../../../components/popup';
@@ -14,16 +14,16 @@ import { ReactComponent as Model } from '../../../images/model.svg';
 import './index.css';
 
 const selector = (state) => ({
-  models: Array.isArray(state.models) ?
-    state.models.map((model) => ({
+  models: Array.isArray(state.models.list) ?
+    state.models.list.map((model) => ({
+      selected: state.models.selected === model.id,
       id: model.id,
-      selected: model.selected,
       title: model.title,
       authors: (model.authors || '').split('\n'),
       journal: model.journal,
       year: model.year
     })) :
-    state.models
+    state.models.list
 });
 
 let ModelSelect = ({ models, dispatch }) => {

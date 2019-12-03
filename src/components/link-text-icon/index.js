@@ -6,12 +6,18 @@ import './index.css';
 
 const LinkTextIcon = ({
   to,
+  newTab,
   text = '',
   icon = <></>,
   className = '',
   ...props
 }) => (
-  <Link className={'link_text_icon ' + className} to={to} {...props}>
+  <Link
+    className={'link_text_icon ' + className}
+    target={newTab ? '_blank' : undefined}
+    to={to}
+    {...props}
+  >
     <span>{text}</span>
     {icon}
   </Link>

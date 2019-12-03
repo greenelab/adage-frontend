@@ -7,7 +7,7 @@ import './index.css';
 const Footer = () => (
   <footer>
     <GreeneLab />
-    <span>
+    <span className='text_small'>
       Project of the <a href='https://greenelab.com/'>Greene Lab</a>
     </span>
   </footer>

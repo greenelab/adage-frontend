@@ -5,7 +5,7 @@ const prefix = 'model/';
 
 export const fetchModel = async ({ id }) => {
   const url = server + prefix + id;
-  return fetchJson(url);
+  return fetchJson(url, true);
 };
 
 export const fetchModels = async () => {

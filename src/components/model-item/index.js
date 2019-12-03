@@ -26,13 +26,18 @@ const ModelItem = ({
         {!selected && <Unchecked />}
       </div>
       <div className='model_summary'>
-        <div className='semibold'>{title}</div>
+        <div className='semibold text_small'>{title}</div>
         <div className='text_small'>
           {authors[0]}, et al · {journal} · {year}
         </div>
       </div>
     </Button>
-    <LinkIcon to={'/model/' + id} icon={<Info />} className='model_info' />
+    <LinkIcon
+      to={'/model/' + id}
+      newTab
+      icon={<Info />}
+      className='model_info'
+    />
   </div>
 );
 

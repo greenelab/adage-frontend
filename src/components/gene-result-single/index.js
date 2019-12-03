@@ -26,13 +26,13 @@ const GeneResultSingle = ({
         {!selected && <Unchecked />}
       </div>
       <div className='gene_result_single_summary'>
-        <span>{standardName}</span>
+        <span className='text_small'>{standardName}</span>
         <span className='text_small'>{systematicName}</span>
         <span className='text_small'>{entrezId}</span>
         <span className='text_small'>{description}</span>
       </div>
     </Button>
-    <LinkIcon to={'/gene/' + id} icon={<Info />} className='gene_info' />
+    <LinkIcon to={'/gene/' + id} newTab icon={<Info />} className='gene_info' />
   </div>
 );
 

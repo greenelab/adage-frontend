@@ -11,7 +11,7 @@ export const fetchGene = async ({ id }) => {
 export const fetchGenes = async ({ search }) => {
   const params = new URLSearchParams();
   if (search)
-    params.set('search', search);
+    params.set('autocomplete', search);
 
   const url = server + prefix + '?' + params.toString();
 

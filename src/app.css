@@ -26,7 +26,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-size: 11pt;
+  font-size: 12pt;
 }
 #root {
   display: flex;
@@ -68,14 +68,14 @@ hr {
   font-weight: 500;
 }
 .text_small {
-  font-size: 0.85em;
+  font-size: 10pt;
 }
 .text_medium {
-  font-size: 1.25em;
+  font-size: 14pt;
 }
 .text_large {
-  font-size: 1.5em;
+  font-size: 18pt;
 }
 .text_huge {
-  font-size: 2em;
+  font-size: 24pt;
 }

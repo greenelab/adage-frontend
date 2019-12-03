@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom';
 
 import './index.css';
 
-const LinkIcon = ({ to, icon = <></>, className = '', ...props }) => (
-  <Link className={'link_icon ' + className} to={to} {...props}>
+const LinkIcon = ({ to, newTab, icon = <></>, className = '', ...props }) => (
+  <Link
+    className={'link_icon ' + className}
+    target={newTab ? '_blank' : undefined}
+    to={to}
+    {...props}
+  >
     {icon}
   </Link>
 );

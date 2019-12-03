@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './index.css';
 
 const SectionHeader = ({ text = '' }) => (
-  <section className='section_header text_medium'>{text}</section>
+  <section className='section_header'>{text}</section>
 );
 
 SectionHeader.propTypes = {

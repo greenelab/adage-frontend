@@ -9,36 +9,36 @@ import Footer from '../footer';
 import SectionHeader from '../../components/section-header';
 import Details from '../../components/details';
 import Alert from '../../components/alert';
-import { getModelDetails } from '../../actions/models.js';
+import { getGeneDetails } from '../../actions/genes.js';
 
 import './index.css';
 
 const selector = (state) => ({
-  details: state.models.details
+  details: state.genes.details
 });
 
-let Model = ({ match, details, dispatch }) => {
+let Gene = ({ match, details, dispatch }) => {
   const id = match.params.id;
 
   useEffect(() => {
-    dispatch(getModelDetails({ id: id }));
+    dispatch(getGeneDetails({ id: id }));
   }, [id, dispatch]);
 
   let content = <></>;
   if (typeof details === 'object')
     content = <Details data={details} />;
   else if (details === 'loading')
-    content = <Alert text='Loading model details' loading />;
+    content = <Alert text='Loading gene details' loading />;
   else if (details === 'empty')
-    content = <Alert text='No model details found' />;
+    content = <Alert text='No gene details found' />;
   else if (details === 'error')
-    content = <Alert text='Error getting model details' error />;
+    content = <Alert text='Error getting gene details' error />;
 
   return (
     <>
       <Header justTitle />
       <Main>
-        <SectionHeader text='Model Details' />
+        <SectionHeader text='Gene Details' />
         <section>{content}</section>
       </Main>
       <Footer />
@@ -46,7 +46,7 @@ let Model = ({ match, details, dispatch }) => {
   );
 };
 
-Model = withRouter(Model);
-Model = connect(selector)(Model);
+Gene = withRouter(Gene);
+Gene = connect(selector)(Gene);
 
-export default Model;
+export default Gene;

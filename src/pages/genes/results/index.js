@@ -9,43 +9,41 @@ import { deselectGene } from '../../../actions/genes.js';
 import './index.css';
 
 const selector = (state) => ({
-  geneResults: Array.isArray(state.geneResults) ?
-    state.geneResults.map((geneResult) => ({
-      id: geneResult.id,
-      standardName: geneResult.standard_name,
-      systematicName: geneResult.systematic_name,
-      entrezId: geneResult.entrezid,
-      description: geneResult.description
+  results: Array.isArray(state.genes.results) ?
+    state.genes.results.map((result) => ({
+      id: result.id,
+      standardName: result.standard_name,
+      systematicName: result.systematic_name,
+      entrezId: result.entrezid,
+      description: result.description
     })) :
-    state.geneResults,
-  fullGeneResults: state.geneResults,
-  selectedGenes: state.selectedGenes
+    state.genes.results,
+  selected: state.genes.selected
 });
 
 let GeneResults = ({
-  geneResults,
-  fullGeneResults,
-  selectedGenes,
+  results,
+  selected,
   dispatch
 }) => {
   let content = <></>;
-  if (Array.isArray(geneResults)) {
+  if (Array.isArray(results)) {
     content = (
       <div className='gene_results'>
-        {geneResults.map((result, index, array) => {
-          const selected = selectedGenes.some(
-            (selectedGene) => selectedGene.id === result.id
+        {results.map((result, index, array) => {
+          const isSelected = selected.some(
+            (select) => select === result.id
           );
           const onClick = () =>
             dispatch(
-              selected ?
+              isSelected ?
                 deselectGene({ id: result.id }) :
-                selectGene({ gene: fullGeneResults[index] })
+                selectGene({ id: result.id })
             );
           return (
             <React.Fragment key={index}>
               <GeneResultSingle
-                selected={selected}
+                selected={isSelected}
                 onClick={onClick}
                 {...result}
               />
@@ -55,11 +53,11 @@ let GeneResults = ({
         })}
       </div>
     );
-  } else if (geneResults === 'loading')
+  } else if (results === 'loading')
     content = <Alert text='Loading genes' loading />;
-  else if (geneResults === 'empty')
+  else if (results === 'empty')
     content = <Alert text='No genes found' />;
-  else if (geneResults === 'error')
+  else if (results === 'error')
     content = <Alert text='Error getting genes' error />;
 
   return <>{content}</>;
