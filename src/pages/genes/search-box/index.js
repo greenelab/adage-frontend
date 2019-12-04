@@ -14,12 +14,12 @@ let SearchBox = ({ ...props }) => (
     multiPlaceholder='search for a list of genes'
     onChangeExpanded={props.onChangeExpanded}
     onChange={(value) => {
-      const searches = value
+      const strings = value
         .split('\n')
         .map((search) => search.trim())
         .filter((search, index, array) => search || array.length === 1);
-      const actions = searches.map((search, index) =>
-        getGeneSearch({ index: index, search: search })
+      const actions = strings.map((string, index) =>
+        getGeneSearch({ index: index, string: string })
       );
       props.dispatch([clearGeneSearch(), [...actions]]);
     }}

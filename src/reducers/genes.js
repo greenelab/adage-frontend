@@ -23,7 +23,7 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'GET_GENE_SEARCH':
       if (isArray(payload))
-        payload.forEach((result) => (result.search = meta.search));
+        payload.forEach((result) => (result.string = meta.string));
       draft.searches[meta.index] = payload;
       break;
 

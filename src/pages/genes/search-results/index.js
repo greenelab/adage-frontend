@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Single from './single';
+
 import './index.css';
 
-let SearchResults = ({ multi }) => (
+let SearchResults = ({ searches }) => (
   <div className='gene_search_results'>
-    {!multi && 'single'}
-    {multi && 'multi'}
+    {searches === 1 && <Single />}
+    {searches > 1 && 'multi'}
   </div>
 );
 
 const selector = (state) => ({
-  multi: state.gene.searches.length > 1
+  searches: state.gene.searches.length
 });
 
 SearchResults = connect(selector)(SearchResults);

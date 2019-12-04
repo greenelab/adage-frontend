@@ -19,3 +19,5 @@ export const getGeneDetails = createActionThunk(
 export const selectGene = createAction('SELECT_GENE');
 
 export const deselectGene = createAction('DESELECT_GENE');
+
+export const toggleSelectGene = createAction('TOGGLE_SELECT_GENE');
