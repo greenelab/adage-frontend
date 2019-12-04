@@ -12,6 +12,7 @@
 }
 .model_select_popup {
   width: 280px;
+  min-height: calc((1 * 40px) + ((1 - 1) * 1px));
   max-height: calc((5 * 40px) + ((5 - 1) * 1px));
   overflow-x: hidden;
   overflow-y: auto;

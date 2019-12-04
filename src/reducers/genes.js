@@ -17,6 +17,10 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.searches[meta.index] = payload;
       break;
 
+    case 'CLEAR_GENE_SEARCH':
+      draft.searches = [];
+      break;
+
     case 'SELECT_GENE':
       if (!draft.selected.includes(payload.id))
         draft.selected.push(payload.id);

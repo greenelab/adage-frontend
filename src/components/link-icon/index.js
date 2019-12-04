@@ -7,7 +7,7 @@ import './index.css';
 const LinkIcon = ({ to, newTab, icon = <></>, className = '', ...props }) => (
   <Link
     className={'link_icon ' + className}
-    target={newTab ? '_blank' : undefined}
+    // target={newTab ? '_blank' : undefined}
     to={to}
     {...props}
   >

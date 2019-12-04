@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Input from '../../../components/input';
-import { getGeneSearch } from '../../../actions/genes';
+import { getGeneSearch } from '../../../actions/genes.js';
+import { clearGeneSearch } from '../../../actions/genes.js';
 
 import './index.css';
 
@@ -14,11 +15,14 @@ let Search = ({ ...props }) => {
       multiPlaceholder='search for a list of genes'
       onChangeExpanded={props.onChangeExpanded}
       onChange={(value) => {
-        const searches = value.split('\n');
+        const searches = value
+          .split('\n')
+          .map((search) => search.trim())
+          .filter((search, index, array) => search || array.length === 1);
         const actions = searches.map((search, index) =>
           getGeneSearch({ index: index, search: search })
         );
-        props.dispatch([[...actions]]);
+        props.dispatch([clearGeneSearch(), [...actions]]);
       }}
     />
   );

@@ -6,8 +6,8 @@ import { ReactComponent as Loading } from '../../images/loading.svg';
 
 import './index.css';
 
-const Alert = ({ text, loading, error }) => (
-  <div className='alert' data-error={error}>
+const Alert = ({ text = '', className = '', loading, error }) => (
+  <div className={'alert ' + className} data-error={error}>
     {loading && <Loading />}
     {!loading && <AlertIcon />}
     <span>{text}</span>

@@ -14,7 +14,7 @@ const LinkTextIcon = ({
 }) => (
   <Link
     className={'link_text_icon ' + className}
-    target={newTab ? '_blank' : undefined}
+    // target={newTab ? '_blank' : undefined}
     to={to}
     {...props}
   >

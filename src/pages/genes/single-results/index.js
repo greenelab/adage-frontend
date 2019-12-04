@@ -22,6 +22,7 @@ let SingleResults = ({ search, selected, dispatch }) => {
       return (
         <React.Fragment key={index}>
           <GeneResultSingle
+            className='gene_result'
             selected={isSelected}
             onClick={onClick}
             {...result}
@@ -31,11 +32,14 @@ let SingleResults = ({ search, selected, dispatch }) => {
       );
     });
   } else if (search === 'loading')
-    content = <Alert text='Loading genes' loading />;
+    content = <Alert className='gene_result' text='Loading genes' loading />;
   else if (search === 'empty')
-    content = <Alert text='No genes found' />;
-  else if (search === 'error')
-    content = <Alert text='Error getting genes' error />;
+    content = <Alert className='gene_result' text='No genes found' />;
+  else if (search === 'error') {
+    content = (
+      <Alert className='gene_result' text='Error getting genes' error />
+    );
+  }
 
   return <div className='gene_results'>{content}</div>;
 };

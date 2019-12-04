@@ -9,6 +9,8 @@ export const getGeneSearch = createActionThunk(
   fetchGeneSearch
 );
 
+export const clearGeneSearch = createAction('CLEAR_GENE_SEARCH');
+
 export const getGeneDetails = createActionThunk(
   'GET_GENE_DETAILS',
   fetchGeneDetails
