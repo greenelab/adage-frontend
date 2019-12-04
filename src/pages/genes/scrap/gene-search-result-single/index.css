@@ -1,0 +1,45 @@
+.gene_result_single {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 30px;
+}
+.gene_result_single_button {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: calc(100% - 30px);
+  text-align: left;
+}
+.gene_result_single_check {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 30px;
+}
+.gene_result_single_summary {
+  width: calc(100% - 30px);
+}
+.gene_result_single_summary > * {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gene_result_single_summary > *:nth-child(1),
+.gene_result_single_summary > *:nth-child(2),
+.gene_result_single_summary > *:nth-child(3) {
+  width: 15%;
+}
+.gene_result_single_summary > *:nth-child(4) {
+  width: 55%;
+  color: var(--gray);
+}
+.gene_info {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+}

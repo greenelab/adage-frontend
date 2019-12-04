@@ -1,10 +1,20 @@
 import produce from 'immer';
 
+import { isString } from '../util/types.js';
+import { isArray } from '../util/types.js';
+import { isObject } from '../util/types.js';
+
 const reducer = produce((draft, type, payload, meta) => {
-  if (!Array.isArray(draft.searches))
-    draft.searches = [];
-  if (!Array.isArray(draft.selected))
-    draft.selected = [];
+  const typeCheck = () => {
+    if (!isString(draft.details) && !isObject(draft.details))
+      draft.details = '';
+    if (!isArray(draft.searches))
+      draft.searches = [];
+    if (!isString(draft.selected) && !isArray(draft.selected))
+      draft.selected = [];
+  };
+
+  typeCheck();
 
   switch (type) {
     case 'GET_GENE_DETAILS':
@@ -12,7 +22,7 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
 
     case 'GET_GENE_SEARCH':
-      if (Array.isArray(payload))
+      if (isArray(payload))
         payload.forEach((result) => (result.search = meta.search));
       draft.searches[meta.index] = payload;
       break;
@@ -37,6 +47,8 @@ const reducer = produce((draft, type, payload, meta) => {
     default:
       break;
   }
+
+  typeCheck();
 }, {});
 
 export default reducer;

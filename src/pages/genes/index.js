@@ -1,35 +1,26 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
 import SectionHeader from '../../components/section-header';
-import Search from './search';
-import SingleResults from './single-results';
-import MultiResults from './multi-results';
+import SearchBox from './search-box';
+import SearchResults from './search-results';
 
 import './index.css';
 
-let Genes = ({ multi }) => (
+const Genes = () => (
   <>
     <Header />
     <Main>
-      <SectionHeader text='Select Genes' />
+      <SectionHeader text='Search Genes' />
       <section>
-        <Search />
-        {!multi && <SingleResults />}
-        {multi && <MultiResults />}
+        <SearchBox />
+        <SearchResults />
       </section>
     </Main>
     <Footer />
   </>
 );
-
-const selector = (state) => ({
-  multi: state.gene.searches.length > 1
-});
-
-Genes = connect(selector)(Genes);
 
 export default Genes;

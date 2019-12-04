@@ -1,23 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Linkify from 'react-linkify';
 
 import './index.css';
 
-const Details = ({ data = {} }) => (
-  <>
-    {Object.keys(data).map((key, index, array) => (
-      <React.Fragment key={index}>
-        <div className='detail_row'>
-          <span className='text_small semibold'>{key}</span>
-          <span className='text_small'>
-            <Linkify>{format(data[key])}</Linkify>
-          </span>
-        </div>
-        {index < array.length - 1 && <hr />}
-      </React.Fragment>
-    ))}
-  </>
-);
+const Details = ({ data = {} }) => {
+  if (typeof data !== 'object' || data === null || !Object.keys(data).length)
+    return <></>;
+
+  return (
+    <>
+      {Object.keys(data).map((key, index, array) => (
+        <React.Fragment key={index}>
+          <div className='detail_row'>
+            <span className='text_small semibold'>{key}</span>
+            <span className='text_small'>
+              <Linkify>{format(data[key])}</Linkify>
+            </span>
+          </div>
+          {index < array.length - 1 && <hr />}
+        </React.Fragment>
+      ))}
+    </>
+  );
+};
+
+Details.propTypes = {
+  data: PropTypes.any
+};
 
 export default Details;
 

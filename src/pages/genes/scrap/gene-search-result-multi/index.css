@@ -1,20 +1,29 @@
-.gene_result_single_button {
+.gene_result_multi {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 30px;
+}
+.gene_result_multi_search {
+  font-style: italic;
+}
+.gene_result_multi_button {
   display: inline-flex;
   justify-content: flex-start;
   align-items: stretch;
   width: calc(100% - 30px);
   text-align: left;
 }
-.gene_result_single_check {
+.gene_result_multi_check {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   flex: 0 0 30px;
 }
-.gene_result_single_summary {
+.gene_result_multi_summary {
   width: calc(100% - 30px);
 }
-.gene_result_single_summary > * {
+.gene_result_multi_summary > * {
   box-sizing: border-box;
   display: inline-block;
   padding: 0 5px;
@@ -22,12 +31,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.gene_result_single_summary > *:nth-child(1),
-.gene_result_single_summary > *:nth-child(2),
-.gene_result_single_summary > *:nth-child(3) {
+.gene_result_multi_summary > *:nth-child(1),
+.gene_result_multi_summary > *:nth-child(2),
+.gene_result_multi_summary > *:nth-child(3) {
   width: 15%;
 }
-.gene_result_single_summary > *:nth-child(4) {
+.gene_result_multi_summary > *:nth-child(4) {
   width: 55%;
   color: var(--gray);
 }

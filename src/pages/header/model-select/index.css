@@ -17,3 +17,6 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+.model_alert {
+  height: 40px;
+}

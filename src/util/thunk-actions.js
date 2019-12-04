@@ -1,5 +1,7 @@
 import { createAction } from 'redux-actions';
 
+import { isArray } from './types.js';
+
 // replacement for redux-thunk-actions
 
 export const createActionThunk = (type, func) => ({ ...props }) => async (
@@ -14,7 +16,7 @@ export const createActionThunk = (type, func) => ({ ...props }) => async (
   try {
     payload = await func({ ...props });
     if (
-      (Array.isArray(payload) && payload.length) ||
+      (isArray(payload) && payload.length) ||
       (payload !== null && Object.keys(payload).length)
     )
       dispatch(action(payload));

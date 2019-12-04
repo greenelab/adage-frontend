@@ -6,16 +6,28 @@ import { ReactComponent as Loading } from '../../images/loading.svg';
 
 import './index.css';
 
-const Alert = ({ text = '', className = '', loading, error }) => (
-  <div className={'alert ' + className} data-error={error}>
-    {loading && <Loading />}
-    {!loading && <AlertIcon />}
-    <span>{text}</span>
-  </div>
-);
+const Alert = ({ status = '', subject = '', className = '' }) => {
+  let text = status;
+  if (status === 'loading')
+    text = 'Loading ' + subject;
+  if (status === 'empty')
+    text = 'No ' + subject + ' found';
+  if (status === 'error')
+    text = 'Error loading ' + subject;
+
+  return (
+    <div className={'alert ' + className} data-error={status === 'error'}>
+      {status === 'loading' && <Loading />}
+      {!status === 'loading' && <AlertIcon />}
+      <span>{text}</span>
+    </div>
+  );
+};
 
 Alert.propTypes = {
-  text: PropTypes.string.isRequired
+  status: PropTypes.string.isRequired,
+  subject: PropTypes.string.isRequired,
+  className: PropTypes.string
 };
 
 export default Alert;

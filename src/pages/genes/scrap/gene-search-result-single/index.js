@@ -19,7 +19,7 @@ const GeneResultSingle = ({
   entrezId = '-',
   description = '-'
 }) => (
-  <>
+  <div className='gene_result_single'>
     <Button className='gene_result_single_button' onClick={onClick}>
       <div className='gene_result_single_check'>
         {selected && <Checked />}
@@ -33,7 +33,7 @@ const GeneResultSingle = ({
       </div>
     </Button>
     <LinkIcon to={'/gene/' + id} newTab icon={<Info />} className='gene_info' />
-  </>
+  </div>
 );
 
 GeneResultSingle.propTypes = {
