@@ -1,19 +1,13 @@
 import produce from 'immer';
 
-import { reduceQuery } from './query.js';
-
-const reducer = produce((draft, type, payload) => {
+const reducer = produce((draft, type, payload, meta) => {
   switch (type) {
-    case 'GET_MODEL_DETAILS_STARTED':
-    case 'GET_MODEL_DETAILS_SUCCEEDED':
-    case 'GET_MODEL_DETAILS_FAILED':
-      draft.details = reduceQuery(type, payload);
+    case 'GET_MODEL_DETAILS':
+      draft.details = payload;
       break;
 
-    case 'GET_MODEL_LIST_STARTED':
-    case 'GET_MODEL_LIST_SUCCEEDED':
-    case 'GET_MODEL_LIST_FAILED':
-      draft.list = reduceQuery(type, payload);
+    case 'GET_MODEL_LIST':
+      draft.list = payload;
       break;
 
     case 'SET_SELECTED_MODEL':

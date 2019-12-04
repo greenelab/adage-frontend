@@ -30,7 +30,7 @@ const logger = createLogger({
 
 const store = createStore(
   reducer,
-  compose(applyMiddleware(thunk, sequenceAction, logger))
+  compose(applyMiddleware(sequenceAction, thunk, logger))
 );
 
 const basename = process.env.REACT_APP_BASENAME;

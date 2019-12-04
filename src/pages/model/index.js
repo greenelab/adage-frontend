@@ -13,10 +13,6 @@ import { getModelDetails } from '../../actions/models.js';
 
 import './index.css';
 
-const selector = (state) => ({
-  details: state.models.details
-});
-
 let Model = ({ match, details, dispatch }) => {
   const id = match.params.id;
 
@@ -45,6 +41,10 @@ let Model = ({ match, details, dispatch }) => {
     </>
   );
 };
+
+const selector = (state) => ({
+  details: state.model.details
+});
 
 Model = withRouter(Model);
 Model = connect(selector)(Model);

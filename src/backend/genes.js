@@ -3,12 +3,12 @@ import { fetchJson } from '.';
 
 const prefix = 'gene/';
 
-export const fetchGene = async ({ id }) => {
+export const fetchGeneDetails = async ({ id }) => {
   const url = server + prefix + id;
-  return fetchJson(url, true);
+  return fetchJson(url);
 };
 
-export const fetchGenes = async ({ search }) => {
+export const fetchGeneSearch = async ({ search }) => {
   const params = new URLSearchParams();
   if (search)
     params.set('autocomplete', search);

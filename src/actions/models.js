@@ -1,19 +1,14 @@
 import { createAction } from 'redux-actions';
-import { createActionThunk } from 'redux-thunk-actions';
+import { createActionThunk } from '../util/thunk-actions.js';
 
-import { fetchModels } from '../backend/models.js';
-import { fetchModel } from '../backend/models.js';
+import { fetchModelList } from '../backend/models.js';
+import { fetchModelDetails } from '../backend/models.js';
 
-export const getModelList = createActionThunk(
-  'GET_MODEL_LIST',
-  fetchModels,
-  true
-);
+export const getModelList = createActionThunk('GET_MODEL_LIST', fetchModelList);
 
 export const getModelDetails = createActionThunk(
   'GET_MODEL_DETAILS',
-  fetchModel,
-  true
+  fetchModelDetails
 );
 
 export const setSelectedModel = createAction('SET_SELECTED_MODEL');

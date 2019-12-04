@@ -1,22 +1,20 @@
 import produce from 'immer';
 
-import { reduceQuery } from './query.js';
-
-const reducer = produce((draft, type, payload) => {
+const reducer = produce((draft, type, payload, meta) => {
+  if (!Array.isArray(draft.searches))
+    draft.searches = [];
   if (!Array.isArray(draft.selected))
     draft.selected = [];
 
   switch (type) {
-    case 'GET_GENE_DETAILS_STARTED':
-    case 'GET_GENE_DETAILS_SUCCEEDED':
-    case 'GET_GENE_DETAILS_FAILED':
-      draft.details = reduceQuery(type, payload);
+    case 'GET_GENE_DETAILS':
+      draft.details = payload;
       break;
 
-    case 'SEARCH_GENES_STARTED':
-    case 'SEARCH_GENES_SUCCEEDED':
-    case 'SEARCH_GENES_FAILED':
-      draft.results = reduceQuery(type, payload);
+    case 'GET_GENE_SEARCH':
+      if (Array.isArray(payload))
+        payload.forEach((result) => (result.search = meta.search));
+      draft.searches[meta.index] = payload;
       break;
 
     case 'SELECT_GENE':

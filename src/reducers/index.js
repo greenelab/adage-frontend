@@ -2,10 +2,10 @@ import models from './models.js';
 import genes from './genes.js';
 
 const reducer = (state = {}, action = {}) => {
-  const { type = '', payload = {} } = action;
+  const { type = '', payload = {}, meta = {} } = action;
   return {
-    models: models(state.models, type, payload),
-    genes: genes(state.genes, type, payload)
+    model: models(state.model, type, payload, meta),
+    gene: genes(state.gene, type, payload, meta)
   };
 };
 

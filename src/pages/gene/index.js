@@ -13,10 +13,6 @@ import { getGeneDetails } from '../../actions/genes.js';
 
 import './index.css';
 
-const selector = (state) => ({
-  details: state.genes.details
-});
-
 let Gene = ({ match, details, dispatch }) => {
   const id = match.params.id;
 
@@ -45,6 +41,10 @@ let Gene = ({ match, details, dispatch }) => {
     </>
   );
 };
+
+const selector = (state) => ({
+  details: state.gene.details
+});
 
 Gene = withRouter(Gene);
 Gene = connect(selector)(Gene);

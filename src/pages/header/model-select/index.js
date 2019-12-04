@@ -13,19 +13,6 @@ import { ReactComponent as Model } from '../../../images/model.svg';
 
 import './index.css';
 
-const selector = (state) => ({
-  models: Array.isArray(state.models.list) ?
-    state.models.list.map((model) => ({
-      selected: state.models.selected === model.id,
-      id: model.id,
-      title: model.title,
-      authors: (model.authors || '').split('\n'),
-      journal: model.journal,
-      year: model.year
-    })) :
-    state.models.list
-});
-
 let ModelSelect = ({ models, dispatch }) => {
   const [buttonBbox, buttonRef] = useBbox();
   const [isOpen, setIsOpen] = useState(false);
@@ -68,6 +55,19 @@ let ModelSelect = ({ models, dispatch }) => {
     </>
   );
 };
+
+const selector = (state) => ({
+  models: Array.isArray(state.model.list) ?
+    state.model.list.map((model) => ({
+      selected: state.model.selected === model.id,
+      id: model.id,
+      title: model.title,
+      authors: (model.authors || '').split('\n'),
+      journal: model.journal,
+      year: model.year
+    })) :
+    state.model.list
+});
 
 ModelSelect = connect(selector)(ModelSelect);
 

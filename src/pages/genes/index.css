@@ -1,0 +1,6 @@
+.gene_results {
+  width: 100%;
+  margin-top: 10px;
+  max-height: calc((8 * 30px) + ((8 - 1) * 1px));
+  overflow-y: auto;
+}

@@ -3,12 +3,12 @@ import { fetchJson } from '.';
 
 const prefix = 'model/';
 
-export const fetchModel = async ({ id }) => {
+export const fetchModelDetails = async ({ id }) => {
   const url = server + prefix + id;
-  return fetchJson(url, true);
+  return fetchJson(url);
 };
 
-export const fetchModels = async () => {
+export const fetchModelList = async () => {
   const url = server + prefix;
   return fetchJson(url);
 };

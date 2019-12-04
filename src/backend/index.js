@@ -2,7 +2,7 @@ import { sleep } from '../util/debug.js';
 
 export const server = 'https://py3-adage.greenelab.com/api/v1/';
 
-export const fetchJson = async (url, root) => {
+export const fetchJson = async (url) => {
   // artificial delay for testing
   await sleep(1000);
 
@@ -10,15 +10,29 @@ export const fetchJson = async (url, root) => {
   if (cachedResponse)
     return JSON.parse(cachedResponse);
 
-  const response = await fetch(url);
+  let response = await fetch(url);
   if (!response.ok)
-    throw new Error(response);
+    error('Response error', url, response.status, response.statusText);
 
-  let payload = await response.json();
-  if (!root)
-    payload = payload.results;
+  try {
+    response = await response.json();
+  } catch (e) {
+    error('Could not parse as JSON', url, response.status, response.statusText);
+  }
 
-  window.sessionStorage.setItem(url, JSON.stringify(payload));
+  if (response.results)
+    response = response.results;
 
-  return payload;
+  window.sessionStorage.setItem(url, JSON.stringify(response));
+
+  return response;
+};
+
+const error = (...args) => {
+  const message = [...args]
+    .map((arg) => (typeof arg === 'string' ? arg : String(JSON.stringify(arg))))
+    .map((arg) => arg.slice(0, 100))
+    .join('\n');
+
+  throw new Error(message);
 };
