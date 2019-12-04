@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Item from '../item';
 import { setSelectedModel } from '../../../../actions/models.js';
 
+import './index.css';
+
 let List = ({ models, dispatch }) => (
   <>
     {models.map((model, index, array) => (
