@@ -7,6 +7,8 @@ import SectionHeader from '../../components/section-header';
 import SearchBox from './search-box';
 import SearchResults from './search-results';
 
+import placeholder from '../../images/placeholder.png';
+
 import './index.css';
 
 const Genes = () => (
@@ -18,6 +20,7 @@ const Genes = () => (
         <SearchBox />
         <SearchResults />
       </section>
+      <img src={placeholder} alt='placeholder' />
     </Main>
     <Footer />
   </>
