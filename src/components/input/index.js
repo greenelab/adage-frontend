@@ -40,7 +40,7 @@ const Input = ({
 
   const changeValue = (newValue) => {
     if (expanded)
-      newValue = newValue.split(/[\t|\r|,]/).join('\n');
+      newValue = newValue.split(/[\t|\r|,||]/).join('\n');
     else
       newValue = newValue.split('\n')[0];
 

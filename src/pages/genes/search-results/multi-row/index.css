@@ -1,0 +1,50 @@
+.gene_search_result_multi {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 30px;
+}
+.gene_search_result_multi_string {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-style: italic;
+  flex: 0 0 60px;
+  width: 60px;
+}
+.gene_search_result_multi_string[data-expanded='true'] {
+  flex: 0 0 calc(100% - 30px);
+  width: calc(100% - 30px);
+}
+.gene_search_result_multi_summary {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: calc(100% - 60px - 30px - 1px - 1px);
+}
+.gene_search_result_multi_button {
+  justify-content: flex-start;
+  width: calc((100% - 1px - 1px) / 3);
+}
+.gene_search_result_multi_check {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 30px;
+  width: 30px;
+}
+.gene_search_result_multi_details {
+  text-align: left;
+}
+.gene_search_result_multi_caret {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+}
+
+@media screen and (max-width: 500px) {
+  .gene_search_result_multi_details:nth-child(2) {
+    display: none;
+  }
+}

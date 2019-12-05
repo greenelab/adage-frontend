@@ -16,11 +16,12 @@
   justify-content: center;
   align-items: center;
   flex: 0 0 30px;
+  width: 30px;
 }
 .gene_search_result_single_summary {
   width: calc(100% - 30px);
 }
-.gene_search_result_single_summary > * {
+.gene_search_result_field {
   box-sizing: border-box;
   display: inline-block;
   padding: 0 5px;
@@ -28,12 +29,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.gene_search_result_single_summary > *:nth-child(1),
-.gene_search_result_single_summary > *:nth-child(2),
-.gene_search_result_single_summary > *:nth-child(3) {
+.gene_search_result_single .gene_search_result_field:nth-child(1),
+.gene_search_result_single .gene_search_result_field:nth-child(2),
+.gene_search_result_single .gene_search_result_field:nth-child(3) {
   width: 15%;
 }
-.gene_search_result_single_summary > *:nth-child(4) {
+.gene_search_result_single .gene_search_result_field:nth-child(4) {
   width: 55%;
   color: var(--gray);
 }

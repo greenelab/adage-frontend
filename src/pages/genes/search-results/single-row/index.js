@@ -12,8 +12,8 @@ import './index.css';
 
 const SingleRow = ({
   onClick = () => null,
-  selected = false,
   id = null,
+  selected = false,
   col1 = '-',
   col2 = '-',
   col3 = '-',
@@ -29,10 +29,10 @@ const SingleRow = ({
         {!selected && <Unchecked />}
       </div>
       <div className='gene_search_result_single_summary'>
-        <span className='text_small'>{col1}</span>
-        <span className='text_small'>{col2}</span>
-        <span className='text_small'>{col3}</span>
-        <span className='text_small'>{col4}</span>
+        <span className='gene_search_result_field text_small'>{col1}</span>
+        <span className='gene_search_result_field text_small'>{col2}</span>
+        <span className='gene_search_result_field text_small'>{col3}</span>
+        <span className='gene_search_result_field text_small'>{col4}</span>
       </div>
     </Button>
     <LinkIcon

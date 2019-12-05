@@ -7,7 +7,7 @@ import './index.css';
 
 let Button = ({ location = {}, icon = <></>, text = '' }) => (
   <Link
-    className='nav_button'
+    className='nav_button text_medium'
     to={'/' + text.toLowerCase()}
     data-active={location.pathname === '/' + text.toLowerCase()}
   >

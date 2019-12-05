@@ -18,7 +18,7 @@ const Alert = ({ status = '', subject = '', className = '' }) => {
   return (
     <div className={'alert ' + className} data-error={status === 'error'}>
       {status === 'loading' && <Loading />}
-      {!status === 'loading' && <AlertIcon />}
+      {status !== 'loading' && <AlertIcon />}
       <span>{text}</span>
     </div>
   );

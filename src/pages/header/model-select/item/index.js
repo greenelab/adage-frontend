@@ -26,7 +26,7 @@ const Item = ({
         {!selected && <Unchecked />}
       </div>
       <div className='model_summary'>
-        <div className='semibold text_small'>{title}</div>
+        <div className='semibold'>{title}</div>
         <div className='text_small'>
           {authors[0]}, et al · {journal} · {year}
         </div>

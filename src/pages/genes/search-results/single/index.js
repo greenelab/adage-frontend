@@ -16,17 +16,22 @@ let Single = ({ results, dispatch }) => (
       results.map((result, index, array) => (
         <React.Fragment key={index}>
           <SingleRow
-            {...result}
             onClick={(id, selected) =>
               dispatch((selected ? deselectGene : selectGene)({ id: id }))
             }
+            id={result.id}
+            selected={result.selected}
+            col1={result.standardName}
+            col2={result.systematicName}
+            col3={result.entrezId}
+            col4={result.description}
           />
           {index < array.length - 1 && <hr />}
         </React.Fragment>
       ))}
     {isString(results) && (
       <Alert
-        className='gene_search_results_alert'
+        className='gene_search_results_single_alert'
         status={results}
         subject='gene results'
       />
@@ -35,16 +40,16 @@ let Single = ({ results, dispatch }) => (
 );
 
 const selector = (state) => ({
-  results: isArray(state.gene.searches[0]) ?
-    state.gene.searches[0].map((result) => ({
+  results: isArray(state.gene.searches[0].results) ?
+    state.gene.searches[0].results.map((result) => ({
       id: result.id,
       selected: state.gene.selected.includes(result.id),
-      col1: result.standard_name,
-      col2: result.systematic_name,
-      col3: result.entrezid,
-      col4: result.description
+      standardName: result.standard_name,
+      systematicName: result.systematic_name,
+      entrezId: result.entrezid,
+      description: result.description
     })) :
-    state.gene.searches[0]
+    state.gene.searches[0].results
 });
 
 Single = connect(selector)(Single);
