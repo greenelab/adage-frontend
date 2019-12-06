@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import HorizontalLine from '../../../../components/horizontal-line';
 import MultiRow from '../multi-row';
+import MultiControls from '../multi-controls';
 import { isArray } from '../../../../util/types.js';
 
 import './index.css';
@@ -15,6 +16,7 @@ let Multi = ({ searches }) => (
         {index < array.length - 1 && <HorizontalLine />}
       </React.Fragment>
     ))}
+    <MultiControls />
   </>
 );
 

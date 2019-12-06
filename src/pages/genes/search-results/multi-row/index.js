@@ -47,6 +47,7 @@ let MultiRow = ({ search, dispatch }) => {
       ) {
         content.push(
           <SingleRow
+            key={content.length}
             onClick={onClick}
             selected={search.results[index].selected}
             id={search.results[index].id}
@@ -57,7 +58,7 @@ let MultiRow = ({ search, dispatch }) => {
           />
         );
         if (index < expandedResults - 1)
-          content.push(<HorizontalLine />);
+          content.push(<HorizontalLine key={content.length} />);
       }
     } else {
       content = [];
@@ -68,6 +69,7 @@ let MultiRow = ({ search, dispatch }) => {
       ) {
         content.push(
           <ResultButton
+            key={content.length}
             onClick={onClick}
             selected={search.results[index].selected}
             id={search.results[index].id}
@@ -76,7 +78,7 @@ let MultiRow = ({ search, dispatch }) => {
           />
         );
         if (index < collapsedResults - 1)
-          content.push(<VerticalLine />);
+          content.push(<VerticalLine key={content.length} />);
       }
     }
   }
@@ -88,7 +90,7 @@ let MultiRow = ({ search, dispatch }) => {
           className='gene_search_result_multi_query text_small'
           data-expanded={expanded}
         >
-          <span className='gene_search_result_field'>{search.query}</span>
+          <span className='gene_search_result_field'>"{search.query}"</span>
         </div>
         {!expanded && (
           <>
