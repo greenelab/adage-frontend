@@ -12,7 +12,7 @@ export const thunkActionStatuses = {
   ERROR: 'ERROR'
 };
 
-export const actionStore = {};
+const actionStore = {};
 
 export const createActionThunk = (type, func) => ({ ...props }) => async (
   dispatch
@@ -56,7 +56,7 @@ export const createActionThunk = (type, func) => ({ ...props }) => async (
 
 const generateActionId = () => Math.random();
 
-export const isStaleAction = ({ cancelType, actionId }) =>
+const isStaleAction = ({ cancelType, actionId }) =>
   cancelType && actionStore[cancelType] !== actionId;
 
 export const cancelAction = ({ cancelTypeRegex }) => {
