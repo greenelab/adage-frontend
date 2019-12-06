@@ -10,7 +10,7 @@ export const createActionThunk = (type, func) => ({ ...props }) => async (
   const meta = () => ({ ...props });
   const action = createAction(type, null, meta);
 
-  dispatch(action('loading'));
+  dispatch(action(thunkActionStatuses.LOADING));
 
   let payload;
   try {
@@ -21,9 +21,15 @@ export const createActionThunk = (type, func) => ({ ...props }) => async (
     )
       dispatch(action(payload));
     else
-      dispatch(action('empty'));
+      dispatch(action(thunkActionStatuses.EMPTY));
   } catch (error) {
     console.error(error);
-    dispatch(action('error'));
+    dispatch(action(thunkActionStatuses.ERROR));
   }
+};
+
+export const thunkActionStatuses = {
+  LOADING: 'LOADING',
+  EMPTY: 'EMPTY',
+  ERROR: 'ERROR'
 };

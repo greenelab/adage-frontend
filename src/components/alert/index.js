@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { thunkActionStatuses } from '../../util/thunk-actions.js';
+
 import { ReactComponent as AlertIcon } from '../../images/alert.svg';
 import { ReactComponent as Loading } from '../../images/loading.svg';
 
@@ -8,17 +10,20 @@ import './index.css';
 
 const Alert = ({ status = '', subject = '', className = '' }) => {
   let text = status;
-  if (status === 'loading')
+  if (status === thunkActionStatuses.LOADING)
     text = 'Loading ' + subject;
-  else if (status === 'empty')
+  else if (status === thunkActionStatuses.EMPTY)
     text = 'No ' + subject + ' found';
-  else if (status === 'error')
+  else if (status === thunkActionStatuses.ERROR)
     text = 'Error loading ' + subject;
 
   return (
-    <div className={'alert ' + className} data-error={status === 'error'}>
-      {status === 'loading' && <Loading />}
-      {status !== 'loading' && <AlertIcon />}
+    <div
+      className={'alert ' + className}
+      data-error={status === thunkActionStatuses.ERROR}
+    >
+      {status === thunkActionStatuses.LOADING && <Loading />}
+      {status !== thunkActionStatuses.LOADING && <AlertIcon />}
       <span>{text}</span>
     </div>
   );
