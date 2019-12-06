@@ -1,4 +1,4 @@
-.vr {
+.vertical_line {
   content: '';
   width: 1px;
   height: calc(100% - 5px - 5px);

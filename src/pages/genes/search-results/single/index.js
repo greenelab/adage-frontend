@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Alert from '../../../../components/alert';
+import HorizontalLine from '../../../../components/horizontal-line';
 import SingleRow from '../single-row';
 import { isArray } from '../../../../util/types.js';
 import { isString } from '../../../../util/types.js';
@@ -26,7 +27,7 @@ let Single = ({ results, dispatch }) => (
             col3={result.entrezId}
             col4={result.description}
           />
-          {index < array.length - 1 && <hr />}
+          {index < array.length - 1 && <HorizontalLine />}
         </React.Fragment>
       ))}
     {isString(results) && (

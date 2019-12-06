@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Linkify from 'react-linkify';
 
+import HorizontalLine from '../../components/horizontal-line';
+
 import './index.css';
 
 const Details = ({ data = {} }) => {
@@ -18,7 +20,7 @@ const Details = ({ data = {} }) => {
               <Linkify>{format(data[key])}</Linkify>
             </span>
           </div>
-          {index < array.length - 1 && <hr />}
+          {index < array.length - 1 && <HorizontalLine />}
         </React.Fragment>
       ))}
     </>

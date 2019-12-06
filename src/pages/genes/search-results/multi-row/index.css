@@ -4,7 +4,7 @@
   align-items: stretch;
   height: 30px;
 }
-.gene_search_result_multi_string {
+.gene_search_result_multi_query {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -12,7 +12,7 @@
   flex: 0 0 60px;
   width: 60px;
 }
-.gene_search_result_multi_string[data-expanded='true'] {
+.gene_search_result_multi_query[data-expanded='true'] {
   flex: 0 0 calc(100% - 30px);
   width: calc(100% - 30px);
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Item from '../item';
+import HorizontalLine from '../../../../components/horizontal-line';
 import { setSelectedModel } from '../../../../actions/models.js';
 
 import './index.css';
@@ -15,7 +16,7 @@ let List = ({ models, dispatch }) => (
           onClick={() => dispatch(setSelectedModel({ id: model.id }))}
           {...model}
         />
-        {index < array.length - 1 && <hr />}
+        {index < array.length - 1 && <HorizontalLine />}
       </React.Fragment>
     ))}
   </>

@@ -55,15 +55,6 @@ section {
   margin: 40px 0;
   padding: 0 20px;
 }
-hr {
-  content: '';
-  width: 100%;
-  border: none;
-  max-width: 800px;
-  height: 1px;
-  margin: 0;
-  background: var(--light-gray);
-}
 .semibold {
   font-weight: 500;
 }

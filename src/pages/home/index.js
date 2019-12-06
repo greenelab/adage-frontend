@@ -5,6 +5,7 @@ import Header from './header';
 import Banner from './banner';
 import Feature from './feature';
 import Footer from '../footer';
+import HorizontalLine from '../../components/horizontal-line';
 
 import { ReactComponent as Genes } from '../../images/genes.svg';
 import { ReactComponent as Experiments } from '../../images/experiments.svg';
@@ -20,7 +21,7 @@ const Home = () => (
         text='Adage is a tool to help you explore and discover new insights from
       machine learning models'
       />
-      <hr />
+      <HorizontalLine />
       <Feature
         left
         icon={<Genes />}
@@ -28,14 +29,14 @@ const Home = () => (
         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
         to='/genes'
       />
-      <hr />
+      <HorizontalLine />
       <Feature
         icon={<Experiments />}
         header='explore experiments...'
         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
         to='/experiments'
       />
-      <hr />
+      <HorizontalLine />
       <Feature
         left
         icon={<Signatures />}

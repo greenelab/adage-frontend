@@ -19,7 +19,7 @@ let SearchBox = ({ ...props }) => (
         .map((search) => search.trim())
         .filter((search, index, array) => search || array.length === 1);
       const actions = strings.map((string, index) =>
-        getGeneSearch({ index: index, string: string })
+        getGeneSearch({ index: index, query: string })
       );
       props.dispatch([clearGeneSearch(), [...actions]]);
     }}

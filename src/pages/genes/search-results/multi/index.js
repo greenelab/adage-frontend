@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import HorizontalLine from '../../../../components/horizontal-line';
 import MultiRow from '../multi-row';
 import { isArray } from '../../../../util/types.js';
 
@@ -11,7 +12,7 @@ let Multi = ({ searches }) => (
     {searches.map((search, index, array) => (
       <React.Fragment key={index}>
         <MultiRow search={search} />
-        {index < array.length - 1 && <hr />}
+        {index < array.length - 1 && <HorizontalLine />}
       </React.Fragment>
     ))}
   </>
@@ -19,7 +20,7 @@ let Multi = ({ searches }) => (
 
 const selector = (state) => ({
   searches: state.gene.searches.map((search) => ({
-    string: search.string,
+    query: search.query,
     results: isArray(search.results) ?
       search.results.map((result) => ({
         id: result.id,

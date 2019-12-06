@@ -6,7 +6,8 @@ import SingleRow from '../single-row';
 import Alert from '../../../../components/alert';
 import Button from '../../../../components/button';
 import ButtonIcon from '../../../../components/button-icon';
-import Vr from '../../../../components/vr';
+import HorizontalLine from '../../../../components/horizontal-line';
+import VerticalLine from '../../../../components/vertical-line';
 import { selectGene } from '../../../../actions/genes.js';
 import { deselectGene } from '../../../../actions/genes.js';
 import { isString } from '../../../../util/types.js';
@@ -17,6 +18,9 @@ import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
 import { ReactComponent as Caret } from '../../../../images/caret.svg';
 
 import './index.css';
+
+const collapsedResults = 3;
+const expandedResults = 5;
 
 let MultiRow = ({ search, dispatch }) => {
   const [expanded, setExpanded] = useState(false);
@@ -34,92 +38,46 @@ let MultiRow = ({ search, dispatch }) => {
       />
     );
   } else if (isArray(search.results)) {
-    const result1 = search.results[0];
-    const result2 = search.results[1];
-    const result3 = search.results[2];
-
     if (expanded) {
-      content = (
-        <>
-          {result1 && (
-            <SingleRow
-              onClick={onClick}
-              selected={result1.selected}
-              id={result1.id}
-              col1={result1.standardName}
-              col2={result1.systematicName}
-              col3={result1.entrezId}
-              col4={result1.description}
-            />
-          )}
-          {result2 && (
-            <>
-              <hr />
-              <SingleRow
-                onClick={onClick}
-                selected={result2.selected}
-                id={result2.id}
-                col1={result2.standardName}
-                col2={result2.systematicName}
-                col3={result2.entrezId}
-                col4={result2.description}
-              />
-            </>
-          )}
-          {result3 && (
-            <>
-              <hr />
-              <SingleRow
-                onClick={onClick}
-                selected={result3.selected}
-                id={result3.id}
-                col1={result3.standardName}
-                col2={result3.systematicName}
-                col3={result3.entrezId}
-                col4={result3.description}
-              />
-            </>
-          )}
-        </>
-      );
+      content = [];
+      for (
+        let index = 0;
+        index < expandedResults && search.results[index];
+        index++
+      ) {
+        content.push(
+          <SingleRow
+            onClick={onClick}
+            selected={search.results[index].selected}
+            id={search.results[index].id}
+            col1={search.results[index].standardName}
+            col2={search.results[index].systematicName}
+            col3={search.results[index].entrezId}
+            col4={search.results[index].description}
+          />
+        );
+        if (index < expandedResults - 1)
+          content.push(<HorizontalLine />);
+      }
     } else {
-      content = (
-        <>
-          {result1 && (
-            <>
-              <ResultButton
-                onClick={onClick}
-                selected={result1.selected}
-                id={result1.id}
-                col1={result1.standardName}
-                col2={result1.systematicName}
-              />
-              <Vr />
-            </>
-          )}
-          {result2 && (
-            <>
-              <ResultButton
-                onClick={onClick}
-                selected={result2.selected}
-                id={result2.id}
-                col1={result2.standardName}
-                col2={result2.systematicName}
-              />
-              <Vr />
-            </>
-          )}
-          {result3 && (
-            <ResultButton
-              onClick={onClick}
-              selected={result3.selected}
-              id={result3.id}
-              col1={result3.standardName}
-              col2={result3.systematicName}
-            />
-          )}
-        </>
-      );
+      content = [];
+      for (
+        let index = 0;
+        index < collapsedResults && search.results[index];
+        index++
+      ) {
+        content.push(
+          <ResultButton
+            onClick={onClick}
+            selected={search.results[index].selected}
+            id={search.results[index].id}
+            col1={search.results[index].standardName}
+            col2={search.results[index].systematicName}
+          />
+        );
+        if (index < collapsedResults - 1)
+          content.push(<VerticalLine />);
+      }
     }
   }
 
@@ -127,16 +85,16 @@ let MultiRow = ({ search, dispatch }) => {
     <>
       <div className='gene_search_result_multi'>
         <div
-          className='gene_search_result_multi_string text_small'
+          className='gene_search_result_multi_query text_small'
           data-expanded={expanded}
         >
-          <span className='gene_search_result_field'>{search.string}</span>
+          <span className='gene_search_result_field'>{search.query}</span>
         </div>
         {!expanded && (
           <>
-            <Vr />
+            <VerticalLine />
             <div className='gene_search_result_multi_summary'>{content}</div>
-            <Vr />
+            <VerticalLine />
           </>
         )}
         <ButtonIcon
@@ -147,7 +105,7 @@ let MultiRow = ({ search, dispatch }) => {
       </div>
       {expanded && (
         <>
-          <hr />
+          <HorizontalLine />
           {content}
         </>
       )}

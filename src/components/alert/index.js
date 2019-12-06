@@ -10,9 +10,9 @@ const Alert = ({ status = '', subject = '', className = '' }) => {
   let text = status;
   if (status === 'loading')
     text = 'Loading ' + subject;
-  if (status === 'empty')
+  else if (status === 'empty')
     text = 'No ' + subject + ' found';
-  if (status === 'error')
+  else if (status === 'error')
     text = 'Error loading ' + subject;
 
   return (

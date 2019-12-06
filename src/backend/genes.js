@@ -8,10 +8,10 @@ export const fetchGeneDetails = async ({ id }) => {
   return fetchJson(url);
 };
 
-export const fetchGeneSearch = async ({ string }) => {
+export const fetchGeneSearch = async ({ query }) => {
   const params = new URLSearchParams();
-  if (string)
-    params.set('search', string);
+  if (query)
+    params.set('search', query);
 
   const url = server + prefix + '?' + params.toString();
 
