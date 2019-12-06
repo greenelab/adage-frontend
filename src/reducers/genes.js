@@ -38,11 +38,28 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
 
     case 'DESELECT_GENE':
-      const index = draft.selected.findIndex(
-        (selected) => selected === payload.id
+      draft.selected = draft.selected.filter(
+        (selected) => selected !== payload.id
       );
-      if (index >= 0)
-        draft.selected.splice(index, 1);
+      break;
+
+    case 'SELECT_FIRST_GENES':
+      for (const search of draft.searches) {
+        const firstResult = isArray(search.results) ? search.results[0] : null;
+        if (firstResult && !draft.selected.includes(firstResult.id))
+          draft.selected.push(firstResult.id);
+      }
+      break;
+
+    case 'DESELECT_FIRST_GENES':
+      for (const search of draft.searches) {
+        const firstResult = isArray(search.results) ? search.results[0] : null;
+        if (firstResult) {
+          draft.selected = draft.selected.filter(
+            (selected) => selected !== firstResult.id
+          );
+        }
+      }
       break;
 
     default:

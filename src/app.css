@@ -76,3 +76,8 @@ section {
 .flip_vertically {
   transform: scaleY(-1);
 }
+
+
+img {
+  max-width: 90%;
+}

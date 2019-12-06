@@ -24,6 +24,8 @@ import { setSelectedModel } from './actions/models.js';
 
 import './app.css';
 
+window.sessionStorage.clear();
+
 const logger = createLogger({
   collapsed: true
 });
