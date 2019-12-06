@@ -132,10 +132,22 @@ const ResultButton = ({
       {selected && <Checked />}
       {!selected && <Unchecked />}
     </div>
-    <span className='gene_search_result_multi_details gene_search_result_field text_small'>
+    <span
+      className={`
+        gene_search_result_multi_details
+        gene_search_result_field
+        text_small
+      `}
+    >
       {col1}
     </span>
-    <span className='gene_search_result_multi_details gene_search_result_field text_small'>
+    <span
+      className={`
+        gene_search_result_multi_details
+        gene_search_result_field
+        text_small
+      `}
+    >
       {col2}
     </span>
   </Button>

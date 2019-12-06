@@ -20,7 +20,13 @@ const Genes = () => (
         <SearchBox />
         <SearchResults />
       </section>
-      <img src={placeholder} alt='placeholder' />
+      <section>
+        <img
+          src={placeholder}
+          title='placeholder screenshot'
+          alt='placeholder'
+        />
+      </section>
     </Main>
     <Footer />
   </>
