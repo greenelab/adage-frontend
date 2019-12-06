@@ -10,12 +10,10 @@ import SectionHeader from '../../components/section-header';
 import Details from '../../components/details';
 import Alert from '../../components/alert';
 import { getModelDetails } from '../../actions/models.js';
+import { isObject } from '../../util/types.js';
+import { isString } from '../../util/types.js';
 
 import './index.css';
-
-const selector = (state) => ({
-  details: state.models.details
-});
 
 let Model = ({ match, details, dispatch }) => {
   const id = match.params.id;
@@ -24,27 +22,26 @@ let Model = ({ match, details, dispatch }) => {
     dispatch(getModelDetails({ id: id }));
   }, [id, dispatch]);
 
-  let content = <></>;
-  if (typeof details === 'object')
-    content = <Details data={details} />;
-  else if (details === 'loading')
-    content = <Alert text='Loading model details' loading />;
-  else if (details === 'empty')
-    content = <Alert text='No model details found' />;
-  else if (details === 'error')
-    content = <Alert text='Error getting model details' error />;
-
   return (
     <>
       <Header justTitle />
       <Main>
         <SectionHeader text='Model Details' />
-        <section>{content}</section>
+        <section>
+          {isObject(details) && <Details data={details} />}
+          {isString(details) && (
+            <Alert status={details} subject='model details' />
+          )}
+        </section>
       </Main>
       <Footer />
     </>
   );
 };
+
+const selector = (state) => ({
+  details: state.model.details
+});
 
 Model = withRouter(Model);
 Model = connect(selector)(Model);

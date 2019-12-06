@@ -5,9 +5,9 @@ import { withRouter } from 'react-router-dom';
 
 import './index.css';
 
-let NavButton = ({ location, icon = <></>, text = '' }) => (
+let Button = ({ location = {}, icon = <></>, text = '' }) => (
   <Link
-    className='nav_button'
+    className='nav_button text_medium'
     to={'/' + text.toLowerCase()}
     data-active={location.pathname === '/' + text.toLowerCase()}
   >
@@ -16,12 +16,12 @@ let NavButton = ({ location, icon = <></>, text = '' }) => (
   </Link>
 );
 
-NavButton = withRouter(NavButton);
-
-NavButton.propTypes = {
-  location: PropTypes.string,
+Button.propTypes = {
+  location: PropTypes.object,
   icon: PropTypes.element.isRequired,
   text: PropTypes.string.isRequired
 };
 
-export default NavButton;
+Button = withRouter(Button);
+
+export default Button;

@@ -4,8 +4,10 @@ import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
 import SectionHeader from '../../components/section-header';
-import Search from './search';
-import Results from './results';
+import SearchBox from './search-box';
+import SearchResults from './search-results';
+
+import placeholder from '../../images/placeholder.png';
 
 import './index.css';
 
@@ -13,10 +15,17 @@ const Genes = () => (
   <>
     <Header />
     <Main>
-      <SectionHeader text='Select Genes' />
+      <SectionHeader text='Search Genes' />
       <section>
-        <Search />
-        <Results />
+        <SearchBox />
+        <SearchResults />
+      </section>
+      <section>
+        <img
+          src={placeholder}
+          title='placeholder screenshot'
+          alt='placeholder'
+        />
       </section>
     </Main>
     <Footer />

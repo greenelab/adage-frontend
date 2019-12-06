@@ -1,22 +1,35 @@
 import produce from 'immer';
 
-import { reduceQuery } from './query.js';
+import { isString } from '../util/types.js';
+import { isArray } from '../util/types.js';
+import { isObject } from '../util/types.js';
 
-const reducer = produce((draft, type, payload) => {
-  if (!Array.isArray(draft.selected))
-    draft.selected = [];
+const reducer = produce((draft, type, payload, meta) => {
+  const typeCheck = () => {
+    if (!isString(draft.details) && !isObject(draft.details))
+      draft.details = '';
+    if (!isArray(draft.searches))
+      draft.searches = [];
+    if (!isString(draft.selected) && !isArray(draft.selected))
+      draft.selected = [];
+  };
+
+  typeCheck();
 
   switch (type) {
-    case 'GET_GENE_DETAILS_STARTED':
-    case 'GET_GENE_DETAILS_SUCCEEDED':
-    case 'GET_GENE_DETAILS_FAILED':
-      draft.details = reduceQuery(type, payload);
+    case 'GET_GENE_DETAILS':
+      draft.details = payload;
       break;
 
-    case 'SEARCH_GENES_STARTED':
-    case 'SEARCH_GENES_SUCCEEDED':
-    case 'SEARCH_GENES_FAILED':
-      draft.results = reduceQuery(type, payload);
+    case 'GET_GENE_SEARCH':
+      if (!isObject(draft.searches[meta.index]))
+        draft.searches[meta.index] = {};
+      draft.searches[meta.index].query = meta.query;
+      draft.searches[meta.index].results = payload;
+      break;
+
+    case 'CLEAR_GENE_SEARCH':
+      draft.searches = [];
       break;
 
     case 'SELECT_GENE':
@@ -35,6 +48,8 @@ const reducer = produce((draft, type, payload) => {
     default:
       break;
   }
+
+  typeCheck();
 }, {});
 
 export default reducer;

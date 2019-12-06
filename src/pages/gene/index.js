@@ -10,12 +10,10 @@ import SectionHeader from '../../components/section-header';
 import Details from '../../components/details';
 import Alert from '../../components/alert';
 import { getGeneDetails } from '../../actions/genes.js';
+import { isObject } from '../../util/types.js';
+import { isString } from '../../util/types.js';
 
 import './index.css';
-
-const selector = (state) => ({
-  details: state.genes.details
-});
 
 let Gene = ({ match, details, dispatch }) => {
   const id = match.params.id;
@@ -24,27 +22,26 @@ let Gene = ({ match, details, dispatch }) => {
     dispatch(getGeneDetails({ id: id }));
   }, [id, dispatch]);
 
-  let content = <></>;
-  if (typeof details === 'object')
-    content = <Details data={details} />;
-  else if (details === 'loading')
-    content = <Alert text='Loading gene details' loading />;
-  else if (details === 'empty')
-    content = <Alert text='No gene details found' />;
-  else if (details === 'error')
-    content = <Alert text='Error getting gene details' error />;
-
   return (
     <>
       <Header justTitle />
       <Main>
         <SectionHeader text='Gene Details' />
-        <section>{content}</section>
+        <section>
+          {isObject(details) && <Details data={details} />}
+          {isString(details) && (
+            <Alert status={details} subject='gene details' />
+          )}
+        </section>
       </Main>
       <Footer />
     </>
   );
 };
+
+const selector = (state) => ({
+  details: state.gene.details
+});
 
 Gene = withRouter(Gene);
 Gene = connect(selector)(Gene);

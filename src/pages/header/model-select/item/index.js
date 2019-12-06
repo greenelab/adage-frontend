@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../components/button';
-import LinkIcon from '../../components/link-icon';
+import Button from '../../../../components/button';
+import LinkIcon from '../../../../components/link-icon';
 
-import { ReactComponent as Radioed } from '../../images/radioed.svg';
-import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
-import { ReactComponent as Info } from '../../images/info.svg';
+import { ReactComponent as Radioed } from '../../../../images/radioed.svg';
+import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
+import { ReactComponent as Info } from '../../../../images/info.svg';
 
 import './index.css';
 
-const ModelItem = ({
+const Item = ({
   onClick = () => null,
   selected = false,
   id = null,
@@ -26,7 +26,7 @@ const ModelItem = ({
         {!selected && <Unchecked />}
       </div>
       <div className='model_summary'>
-        <div className='semibold text_small'>{title}</div>
+        <div className='semibold'>{title}</div>
         <div className='text_small'>
           {authors[0]}, et al · {journal} · {year}
         </div>
@@ -41,7 +41,7 @@ const ModelItem = ({
   </div>
 );
 
-ModelItem.propTypes = {
+Item.propTypes = {
   onClick: PropTypes.func,
   selected: PropTypes.bool,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -51,4 +51,4 @@ ModelItem.propTypes = {
   year: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
-export default ModelItem;
+export default Item;
