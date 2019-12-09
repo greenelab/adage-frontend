@@ -1,19 +1,19 @@
 import { createAction } from 'redux-actions';
-import { createActionThunk } from '../util/thunk-actions.js';
+import { createFetchAction } from './fetch.js';
 
-import { fetchGeneSearch } from '../backend/genes.js';
-import { fetchGeneDetails } from '../backend/genes.js';
+import { urlGeneSearch } from '../backend/genes.js';
+import { urlGeneDetails } from '../backend/genes.js';
 
-export const getGeneSearch = createActionThunk(
+export const getGeneSearch = createFetchAction(
   'GET_GENE_SEARCH',
-  fetchGeneSearch
+  urlGeneSearch
 );
 
 export const clearGeneSearch = createAction('CLEAR_GENE_SEARCH');
 
-export const getGeneDetails = createActionThunk(
+export const getGeneDetails = createFetchAction(
   'GET_GENE_DETAILS',
-  fetchGeneDetails
+  urlGeneDetails
 );
 
 export const selectGene = createAction('SELECT_GENE');

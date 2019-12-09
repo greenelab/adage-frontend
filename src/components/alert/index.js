@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { thunkActionStatuses } from '../../util/thunk-actions.js';
+import { fetchActionStatuses } from '../../actions/fetch.js';
 
 import { ReactComponent as AlertIcon } from '../../images/alert.svg';
 import { ReactComponent as Loading } from '../../images/loading.svg';
@@ -10,20 +10,20 @@ import './index.css';
 
 const Alert = ({ status = '', subject = '', className = '' }) => {
   let text = status;
-  if (status === thunkActionStatuses.LOADING)
+  if (status === fetchActionStatuses.LOADING)
     text = 'Loading ' + subject;
-  else if (status === thunkActionStatuses.EMPTY)
+  else if (status === fetchActionStatuses.EMPTY)
     text = 'No ' + subject + ' found';
-  else if (status === thunkActionStatuses.ERROR)
+  else if (status === fetchActionStatuses.ERROR)
     text = 'Error loading ' + subject;
 
   return (
     <div
       className={'alert ' + className}
-      data-error={status === thunkActionStatuses.ERROR}
+      data-error={status === fetchActionStatuses.ERROR}
     >
-      {status === thunkActionStatuses.LOADING && <Loading />}
-      {status !== thunkActionStatuses.LOADING && <AlertIcon />}
+      {status === fetchActionStatuses.LOADING && <Loading />}
+      {status !== fetchActionStatuses.LOADING && <AlertIcon />}
       <span className='nowrap'>{text}</span>
     </div>
   );

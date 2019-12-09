@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Input from '../../../components/input';
-import { cancelAction } from '../../../util/thunk-actions.js';
+import { cancelAction } from '../../../actions/fetch.js';
 import { getGeneSearch } from '../../../actions/genes.js';
 import { clearGeneSearch } from '../../../actions/genes.js';
 
