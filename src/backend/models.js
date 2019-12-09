@@ -1,14 +1,13 @@
 import { server } from '.';
-import { fetchJson } from '.';
 
 const prefix = 'model/';
 
-export const fetchModelDetails = async ({ id }) => {
+export const urlModelDetails = ({ id }) => {
   const url = server + prefix + id;
-  return fetchJson(url);
+  return url;
 };
 
-export const fetchModelList = async () => {
+export const urlModelList = () => {
   const url = server + prefix;
-  return fetchJson(url);
+  return url;
 };
