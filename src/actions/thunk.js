@@ -41,6 +41,11 @@ export const createFetchAction = (type, urlFunction) => ({
   let resumeValue;
   for (let step = 0; step < 20; step++) {
     if (isStaleAction({ cancelType, actionId })) {
+      console.groupCollapsed('stale action canceled');
+      console.log('cancelType', cancelType);
+      console.log('url', url);
+      console.log('props', props);
+      console.groupEnd('stale action canceled');
       controller.abort();
       break;
     }
