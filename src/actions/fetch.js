@@ -8,6 +8,9 @@ import { isObject } from '../util/types.js';
 // provide the "cancelType" prop to any action made by this creator
 // any new action will cancel all previous in-progress actions of the same type
 
+// inspired by the technique illustrated here:
+// https://dev.to/chromiumdev/cancellable-async-functions-in-javascript-5gp7
+
 export const fetchActionStatuses = {
   LOADING: 'LOADING',
   EMPTY: 'EMPTY',

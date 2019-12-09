@@ -88,7 +88,7 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
     <>
       <div className='gene_search_result_multi'>
         <div
-          className='gene_search_result_multi_query text_small '
+          className='gene_search_result_multi_query text_small'
           data-expanded={expanded}
         >
           <span className='gene_search_result_field nowrap'>
