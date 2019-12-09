@@ -20,7 +20,7 @@ let Multi = ({ searches }) => (
   </>
 );
 
-const selector = (state) => ({
+const mapStateToProps = (state) => ({
   searches: state.gene.searches.map((search) => ({
     query: search.query,
     results: isArray(search.results) ?
@@ -36,6 +36,6 @@ const selector = (state) => ({
   }))
 });
 
-Multi = connect(selector)(Multi);
+Multi = connect(mapStateToProps)(Multi);
 
 export default Multi;

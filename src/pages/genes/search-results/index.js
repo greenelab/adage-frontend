@@ -13,10 +13,10 @@ let SearchResults = ({ searches }) => (
   </div>
 );
 
-const selector = (state) => ({
+const mapStateToProps = (state) => ({
   searches: state.gene.searches.length
 });
 
-SearchResults = connect(selector)(SearchResults);
+SearchResults = connect(mapStateToProps)(SearchResults);
 
 export default SearchResults;

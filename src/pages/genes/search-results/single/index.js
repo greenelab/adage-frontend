@@ -11,14 +11,14 @@ import { deselectGene } from '../../../../actions/genes.js';
 
 import './index.css';
 
-let Single = ({ results, dispatch }) => (
+let Single = ({ results, selectGene, deselectGene }) => (
   <>
     {isArray(results) &&
       results.map((result, index, array) => (
         <React.Fragment key={index}>
           <SingleRow
             onClick={(id, selected) =>
-              dispatch((selected ? deselectGene : selectGene)({ id: id }))
+              (selected ? deselectGene : selectGene)({ id: id })
             }
             id={result.id}
             selected={result.selected}
@@ -40,7 +40,7 @@ let Single = ({ results, dispatch }) => (
   </>
 );
 
-const selector = (state) => ({
+const mapStateToProps = (state) => ({
   results: isArray(state.gene.searches[0].results) ?
     state.gene.searches[0].results.map((result) => ({
       id: result.id,
@@ -53,6 +53,11 @@ const selector = (state) => ({
     state.gene.searches[0].results
 });
 
-Single = connect(selector)(Single);
+const mapDispatchToProps = (dispatch) => ({
+  selectGene: (...args) => dispatch(selectGene(...args)),
+  deselectGene: (...args) => dispatch(deselectGene(...args))
+});
+
+Single = connect(mapStateToProps, mapDispatchToProps)(Single);
 
 export default Single;

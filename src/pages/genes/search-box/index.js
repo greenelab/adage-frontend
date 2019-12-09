@@ -31,6 +31,10 @@ let SearchBox = ({ dispatch }) => (
   />
 );
 
-SearchBox = connect()(SearchBox);
+const mapDispatchToProps = (dispatch) => ({
+  dispatch: dispatch
+});
+
+SearchBox = connect(null, mapDispatchToProps)(SearchBox);
 
 export default SearchBox;

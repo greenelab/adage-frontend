@@ -42,7 +42,7 @@ let ModelSelect = ({ models }) => {
   );
 };
 
-const selector = (state) => ({
+const mapStateToProps = (state) => ({
   models: isArray(state.model.list) ?
     state.model.list.map((model) => ({
       selected: state.model.selected === model.id,
@@ -55,6 +55,6 @@ const selector = (state) => ({
     state.model.list
 });
 
-ModelSelect = connect(selector)(ModelSelect);
+ModelSelect = connect(mapStateToProps)(ModelSelect);
 
 export default ModelSelect;
