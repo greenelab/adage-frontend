@@ -15,7 +15,7 @@ const Details = ({ data = {} }) => {
       {Object.keys(data).map((key, index, array) => (
         <React.Fragment key={index}>
           <div className='detail_row'>
-            <span className='text_small semibold'>{key}</span>
+            <span className='text_small semibold nowrap'>{key}</span>
             <span className='text_small'>
               <Linkify>{format(data[key])}</Linkify>
             </span>

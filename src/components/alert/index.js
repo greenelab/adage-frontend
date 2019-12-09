@@ -24,7 +24,7 @@ const Alert = ({ status = '', subject = '', className = '' }) => {
     >
       {status === thunkActionStatuses.LOADING && <Loading />}
       {status !== thunkActionStatuses.LOADING && <AlertIcon />}
-      <span>{text}</span>
+      <span className='nowrap'>{text}</span>
     </div>
   );
 };
