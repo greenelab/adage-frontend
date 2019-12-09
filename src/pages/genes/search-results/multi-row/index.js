@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
@@ -22,11 +23,11 @@ import './index.css';
 const collapsedResults = 3;
 const expandedResults = 5;
 
-let MultiRow = ({ search, dispatch }) => {
+let MultiRow = ({ search, selectGene, deselectGene }) => {
   const [expanded, setExpanded] = useState(false);
 
   const onClick = (id, selected) =>
-    dispatch((selected ? deselectGene : selectGene)({ id: id }));
+    (selected ? deselectGene : selectGene)({ id: id });
 
   let content = <></>;
   if (isString(search.results)) {
@@ -117,7 +118,16 @@ let MultiRow = ({ search, dispatch }) => {
   );
 };
 
-MultiRow = connect()(MultiRow);
+const mapDispatchToProps = (dispatch) => ({
+  selectGene: (...args) => dispatch(selectGene(...args)),
+  deselectGene: (...args) => dispatch(deselectGene(...args))
+});
+
+MultiRow = connect(null, mapDispatchToProps)(MultiRow);
+
+MultiRow.propTypes = {
+  search: PropTypes.object.isRequired
+};
 
 export default MultiRow;
 
