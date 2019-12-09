@@ -15,12 +15,12 @@ import { isString } from '../../util/types.js';
 
 import './index.css';
 
-let Gene = ({ match, details, dispatch }) => {
+let Gene = ({ match, details, getGeneDetails }) => {
   const id = match.params.id;
 
   useEffect(() => {
-    dispatch(getGeneDetails({ id: id }));
-  }, [id, dispatch]);
+    getGeneDetails({ id: id });
+  }, [id, getGeneDetails]);
 
   return (
     <>
@@ -39,11 +39,15 @@ let Gene = ({ match, details, dispatch }) => {
   );
 };
 
-const selector = (state) => ({
+const mapStateToProps = (state) => ({
   details: state.gene.details
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getGeneDetails: (...args) => dispatch(getGeneDetails(...args))
+});
+
 Gene = withRouter(Gene);
-Gene = connect(selector)(Gene);
+Gene = connect(mapStateToProps, mapDispatchToProps)(Gene);
 
 export default Gene;

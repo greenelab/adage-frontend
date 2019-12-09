@@ -7,18 +7,20 @@ import ButtonText from '../../../../components/button-text';
 
 import './index.css';
 
-let MultiControls = ({ dispatch }) => (
+let MultiControls = ({ selectFirstGenes, deselectFirstGenes }) => (
   <div className='gene_search_results_multi_controls'>
-    <ButtonText text='select' onClick={() => dispatch(selectFirstGenes())} />
+    <ButtonText text='select' onClick={selectFirstGenes} />
     /
-    <ButtonText
-      text='deselect'
-      onClick={() => dispatch(deselectFirstGenes())}
-    />
+    <ButtonText text='deselect' onClick={deselectFirstGenes} />
     <span>first results</span>
   </div>
 );
 
-MultiControls = connect()(MultiControls);
+const mapDispatchToProps = (dispatch) => ({
+  selectFirstGenes: () => dispatch(selectFirstGenes()),
+  deselectFirstGenes: () => dispatch(deselectFirstGenes())
+});
+
+MultiControls = connect(null, mapDispatchToProps)(MultiControls);
 
 export default MultiControls;
