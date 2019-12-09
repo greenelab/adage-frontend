@@ -26,9 +26,6 @@
 }
 .model_summary > * {
   line-height: 1em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 .model_info {
   display: inline-flex;

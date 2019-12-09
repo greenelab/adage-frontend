@@ -29,10 +29,42 @@ const SingleRow = ({
         {!selected && <Unchecked />}
       </div>
       <div className='gene_search_result_single_summary'>
-        <span className='gene_search_result_field text_small'>{col1}</span>
-        <span className='gene_search_result_field text_small'>{col2}</span>
-        <span className='gene_search_result_field text_small'>{col3}</span>
-        <span className='gene_search_result_field text_small'>{col4}</span>
+        <span
+          className={`
+            gene_search_result_field
+            text_small
+            nowrap
+          `}
+        >
+          {col1}
+        </span>
+        <span
+          className={`
+            gene_search_result_field
+            text_small
+            nowrap
+          `}
+        >
+          {col2}
+        </span>
+        <span
+          className={`
+            gene_search_result_field
+            text_small
+            nowrap
+          `}
+        >
+          {col3}
+        </span>
+        <span
+          className={`
+            gene_search_result_field
+            text_small
+            nowrap
+          `}
+        >
+          {col4}
+        </span>
       </div>
     </Button>
     <LinkIcon

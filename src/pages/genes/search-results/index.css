@@ -1,3 +1,8 @@
 .gene_search_results {
   margin-top: 20px;
 }
+.gene_search_result_field {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0 5px;
+}

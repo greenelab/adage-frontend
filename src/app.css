@@ -55,6 +55,9 @@ section {
   margin: 40px 0;
   padding: 0 20px;
 }
+img {
+  max-width: 90%;
+}
 .semibold {
   font-weight: 500;
 }
@@ -76,8 +79,8 @@ section {
 .flip_vertically {
   transform: scaleY(-1);
 }
-
-
-img {
-  max-width: 90%;
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

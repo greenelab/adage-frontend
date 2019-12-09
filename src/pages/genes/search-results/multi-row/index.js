@@ -139,6 +139,7 @@ const ResultButton = ({
         gene_search_result_multi_details
         gene_search_result_field
         text_small
+        nowrap
       `}
     >
       {col1}
@@ -148,6 +149,7 @@ const ResultButton = ({
         gene_search_result_multi_details
         gene_search_result_field
         text_small
+        nowrap
       `}
     >
       {col2}
