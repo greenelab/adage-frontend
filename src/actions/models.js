@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { createFetchAction } from './thunk.js';
+import { createFetchAction } from './fetch.js';
 
 import { urlModelList } from '../backend/models.js';
 import { urlModelDetails } from '../backend/models.js';

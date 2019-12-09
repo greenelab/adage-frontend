@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { fetchActionStatuses } from '../../actions/thunk.js';
+import { fetchActionStatuses } from '../../actions/fetch.js';
 
 import { ReactComponent as AlertIcon } from '../../images/alert.svg';
 import { ReactComponent as Loading } from '../../images/loading.svg';

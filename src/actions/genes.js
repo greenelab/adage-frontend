@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { createFetchAction } from './thunk.js';
+import { createFetchAction } from './fetch.js';
 
 import { urlGeneSearch } from '../backend/genes.js';
 import { urlGeneDetails } from '../backend/genes.js';
