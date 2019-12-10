@@ -10,7 +10,7 @@ export const urlGeneDetails = ({ id }) => {
 export const urlGeneSearch = ({ query }) => {
   const params = new URLSearchParams();
   if (query)
-    params.set('search', query);
+    params.set('autocomplete', query);
 
   const url = server + prefix + '?' + params.toString();
 
