@@ -24,14 +24,21 @@ const mapStateToProps = (state) => ({
   searches: state.gene.searches.map((search) => ({
     query: search.query,
     results: isArray(search.results) ?
-      search.results.map((result) => ({
-        id: result.id,
-        selected: state.gene.selected.includes(result.id),
-        standardName: result.standard_name,
-        systematicName: result.systematic_name,
-        entrezId: result.entrezid,
-        description: result.description
-      })) :
+      search.results.map((result) => {
+        const keys = [
+          'standard_name',
+          'systematic_name',
+          'entrezid',
+          'description'
+        ];
+        const highlightedKey = result.max_similarity_field;
+        return {
+          id: result.id,
+          selected: state.gene.selected.includes(result.id),
+          cols: keys.map((key) => result[key]),
+          highlightedCol: keys.findIndex((key) => key === highlightedKey)
+        };
+      }) :
       search.results
   }))
 });

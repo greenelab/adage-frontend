@@ -14,10 +14,8 @@ const SingleRow = ({
   onClick = () => null,
   id = null,
   selected = false,
-  col1 = '-',
-  col2 = '-',
-  col3 = '-',
-  col4 = '-'
+  cols = [],
+  highlightedCol = -1
 }) => (
   <div className='gene_search_result_single'>
     <Button
@@ -29,42 +27,19 @@ const SingleRow = ({
         {!selected && <Unchecked />}
       </div>
       <div className='gene_search_result_single_summary'>
-        <span
-          className={`
-            gene_search_result_field
-            text_small
-            nowrap
-          `}
-        >
-          {col1}
-        </span>
-        <span
-          className={`
-            gene_search_result_field
-            text_small
-            nowrap
-          `}
-        >
-          {col2}
-        </span>
-        <span
-          className={`
-            gene_search_result_field
-            text_small
-            nowrap
-          `}
-        >
-          {col3}
-        </span>
-        <span
-          className={`
-            gene_search_result_field
-            text_small
-            nowrap
-          `}
-        >
-          {col4}
-        </span>
+        {cols.map((col, index) => (
+          <span
+            key={index}
+            className={`
+              gene_search_result_field
+              text_small
+              nowrap
+            `}
+            data-highlighted={highlightedCol === index}
+          >
+            {col}
+          </span>
+        ))}
       </div>
     </Button>
     <LinkIcon
@@ -80,10 +55,10 @@ SingleRow.propTypes = {
   onClick: PropTypes.func,
   selected: PropTypes.bool,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  col1: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  col2: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  col3: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  col4: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  cols: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  ),
+  highlightedCol: PropTypes.number
 };
 
 export default SingleRow;

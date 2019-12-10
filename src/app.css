@@ -84,3 +84,6 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+*[data-highlighted='true'] {
+  background: var(--light-green);
+}
