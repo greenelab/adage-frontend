@@ -5,7 +5,7 @@ import Button from '../../../../components/button';
 import LinkIcon from '../../../../components/link-icon';
 
 import { ReactComponent as Radioed } from '../../../../images/radioed.svg';
-import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
+import { ReactComponent as Unradioed } from '../../../../images/unradioed.svg';
 import { ReactComponent as Info } from '../../../../images/info.svg';
 
 import './index.css';
@@ -23,7 +23,7 @@ const Item = ({
     <Button className='model_button' onClick={onClick}>
       <div className='model_radio'>
         {selected && <Radioed />}
-        {!selected && <Unchecked />}
+        {!selected && <Unradioed />}
       </div>
       <div className='model_summary'>
         <div className='semibold nowrap'>{title}</div>
