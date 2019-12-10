@@ -6,7 +6,7 @@
 >
   <rect
     fill="none"
-    stroke="currentColor"
+    stroke="var(--light-gray)"
     stroke-width="10"
     x="5"
     y="5"

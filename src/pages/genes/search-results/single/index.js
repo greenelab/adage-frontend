@@ -11,7 +11,7 @@ import { deselectGene } from '../../../../actions/genes.js';
 
 import './index.css';
 
-let Single = ({ results, selectGene, deselectGene }) => (
+let Single = ({ results, selectGene, deselectGene, selectedIndex }) => (
   <>
     {isArray(results) &&
       results.map((result, index, array) => (
@@ -24,6 +24,7 @@ let Single = ({ results, selectGene, deselectGene }) => (
             selected={result.selected}
             cols={result.cols}
             highlightedCol={result.highlightedCol}
+            data-selected={index === selectedIndex}
           />
           {index < array.length - 1 && <HorizontalLine />}
         </React.Fragment>

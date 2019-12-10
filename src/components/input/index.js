@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import Tooltip from '../../components/tooltip';
@@ -18,6 +19,8 @@ const debounceDelay = 200;
 const Input = ({
   onChange = () => null,
   onChangeExpanded = () => null,
+  onFocus = () => null,
+  onBlur = () => null,
   multi = false,
   placeholder = '',
   multiPlaceholder = '',
@@ -50,9 +53,11 @@ const Input = ({
     setValue(newValue);
   };
 
+  const change = useCallback((...args) => onChange(...args), [onChange]);
+
   useEffect(() => {
-    onChange(debouncedValue);
-  }, [onChange, debouncedValue]);
+    change(debouncedValue);
+  }, [change, debouncedValue]);
 
   return (
     <div className='input' data-focused={focused} data-expanded={expanded}>
@@ -61,8 +66,14 @@ const Input = ({
           {...props}
           value={value}
           onChange={(event) => changeValue(event.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={() => {
+            onFocus();
+            setFocused(true);
+          }}
+          onBlur={() => {
+            onBlur();
+            setFocused(false);
+          }}
           placeholder={expanded ? multiPlaceholder : placeholder}
         />
       )}
@@ -71,8 +82,14 @@ const Input = ({
           {...props}
           value={value}
           onChange={(event) => changeValue(event.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={() => {
+            onFocus();
+            setFocused(true);
+          }}
+          onBlur={() => {
+            onBlur();
+            setFocused(false);
+          }}
           placeholder={expanded ? multiPlaceholder : placeholder}
         />
       )}
@@ -107,6 +124,8 @@ const Input = ({
 Input.propTypes = {
   onChange: PropTypes.func,
   onChangeExpanded: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
   multi: PropTypes.bool,
   placeholder: PropTypes.string,
   multiPlaceholder: PropTypes.string
