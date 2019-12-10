@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Children } from 'react';
 import { isValidElement } from 'react';
 import { cloneElement } from 'react';
@@ -91,17 +92,22 @@ const Tooltip = ({
       return element;
   });
 
-  if (!text || !children)
-    return <></>;
-  else {
-    return (
-      <>
-        {children}
-        {open && <Portal text={text} style={style} />}
-      </>
-    );
-  }
+  return (
+    <>
+      {children}
+      {open && <Portal text={text} style={style} />}
+    </>
+  );
 };
+
+Tooltip.propTypes = {
+  children: PropTypes.node,
+  text: PropTypes.string.isRequired,
+  horizontalAlign: PropTypes.string,
+  verticalAlign: PropTypes.string
+};
+
+export default Tooltip;
 
 const Portal = ({ text, style }) => {
   return createPortal(
@@ -111,8 +117,6 @@ const Portal = ({ text, style }) => {
     document.body
   );
 };
-
-export default Tooltip;
 
 const computeStyle = ({ anchor, horizontalAlign, verticalAlign }) => {
   const anchorBbox = anchor.getBoundingClientRect();

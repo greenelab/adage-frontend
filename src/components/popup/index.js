@@ -6,6 +6,22 @@ import './index.css';
 
 const distance = 10;
 
+const Popup = ({ isOpen, ...props }) => {
+  if (isOpen)
+    return createPortal(<Portal {...props} />, document.body);
+  else
+    return <></>;
+};
+
+Popup.propTypes = {
+  anchorBbox: PropTypes.object,
+  className: PropTypes.string,
+  children: PropTypes.node,
+  close: PropTypes.func
+};
+
+export default Popup;
+
 const Portal = ({
   anchorBbox = {},
   className = '',
@@ -27,19 +43,3 @@ const Portal = ({
     </div>
   </div>
 );
-
-const Popup = ({ isOpen, ...props }) => {
-  if (isOpen)
-    return createPortal(<Portal {...props} />, document.body);
-  else
-    return <></>;
-};
-
-Popup.propTypes = {
-  anchorBbox: PropTypes.object,
-  className: PropTypes.string,
-  children: PropTypes.node,
-  close: PropTypes.func
-};
-
-export default Popup;
