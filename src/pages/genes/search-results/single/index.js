@@ -22,10 +22,8 @@ let Single = ({ results, selectGene, deselectGene }) => (
             }
             id={result.id}
             selected={result.selected}
-            col1={result.standardName}
-            col2={result.systematicName}
-            col3={result.entrezId}
-            col4={result.description}
+            cols={result.cols}
+            highlightedCol={result.highlightedCol}
           />
           {index < array.length - 1 && <HorizontalLine />}
         </React.Fragment>
@@ -42,14 +40,21 @@ let Single = ({ results, selectGene, deselectGene }) => (
 
 const mapStateToProps = (state) => ({
   results: isArray(state.gene.searches[0].results) ?
-    state.gene.searches[0].results.map((result) => ({
-      id: result.id,
-      selected: state.gene.selected.includes(result.id),
-      standardName: result.standard_name,
-      systematicName: result.systematic_name,
-      entrezId: result.entrezid,
-      description: result.description
-    })) :
+    state.gene.searches[0].results.map((result) => {
+      const keys = [
+        'standard_name',
+        'systematic_name',
+        'entrezid',
+        'description'
+      ];
+      const highlightedKey = result.max_similarity_field;
+      return {
+        id: result.id,
+        selected: state.gene.selected.includes(result.id),
+        cols: keys.map((key) => result[key]),
+        highlightedCol: keys.findIndex((key) => key === highlightedKey)
+      };
+    }) :
     state.gene.searches[0].results
 });
 

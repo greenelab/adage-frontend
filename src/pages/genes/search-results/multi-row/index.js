@@ -52,10 +52,8 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
             onClick={onClick}
             selected={search.results[index].selected}
             id={search.results[index].id}
-            col1={search.results[index].standardName}
-            col2={search.results[index].systematicName}
-            col3={search.results[index].entrezId}
-            col4={search.results[index].description}
+            cols={search.results[index].cols}
+            highlightedCol={search.results[index].highlightedCol}
           />
         );
         if (index < expandedResults - 1)
@@ -74,8 +72,8 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
             onClick={onClick}
             selected={search.results[index].selected}
             id={search.results[index].id}
-            col1={search.results[index].standardName}
-            col2={search.results[index].systematicName}
+            col1={search.results[index].cols[0]}
+            col2={search.results[index].cols[1]}
           />
         );
         if (index < collapsedResults - 1)

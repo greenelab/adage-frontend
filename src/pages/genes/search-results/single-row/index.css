@@ -28,7 +28,6 @@
 }
 .gene_search_result_single .gene_search_result_field:nth-child(4) {
   width: 55%;
-  color: var(--gray);
 }
 .gene_search_result_single_info {
   display: inline-flex;
