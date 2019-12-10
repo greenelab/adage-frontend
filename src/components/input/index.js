@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
 
+import Tooltip from '../../components/tooltip';
 import ButtonIcon from '../../components/button-icon';
 import { ReactComponent as ListMultiple } from '../../images/list-multiple.svg';
 import { ReactComponent as ListSingle } from '../../images/list-single.svg';
@@ -20,6 +21,8 @@ const Input = ({
   multi = false,
   placeholder = '',
   multiPlaceholder = '',
+  tooltip = 'Switch to single search',
+  multiTooltip = 'Switch to multi search',
   ...props
 }) => {
   const [focused, setFocused] = useState(false);
@@ -74,11 +77,16 @@ const Input = ({
         />
       )}
       {multi && (
-        <ButtonIcon
-          className='input_button'
-          icon={expanded ? <ListSingle /> : <ListMultiple />}
-          onClick={() => changeExpanded(!expanded)}
-        />
+        <Tooltip
+          text={expanded ? tooltip : multiTooltip}
+          horizontalAlign='right'
+        >
+          <ButtonIcon
+            className='input_button'
+            icon={expanded ? <ListSingle /> : <ListMultiple />}
+            onClick={() => changeExpanded(!expanded)}
+          />
+        </Tooltip>
       )}
       {value.length > 0 && (
         <ButtonIcon

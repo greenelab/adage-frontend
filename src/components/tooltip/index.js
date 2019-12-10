@@ -1,0 +1,162 @@
+import React from 'react';
+import { Children } from 'react';
+import { isValidElement } from 'react';
+import { cloneElement } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useCallback } from 'react';
+import { createPortal } from 'react-dom';
+
+import './index.css';
+
+const delay = 100;
+const padding = 2;
+
+const Tooltip = ({
+  children,
+  text = '',
+  horizontalAlign = 'center',
+  verticalAlign = 'top'
+}) => {
+  const [hover, setHover] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [timer, setTimer] = useState(null);
+  const [anchor, setAnchor] = useState(null);
+  const [style, setStyle] = useState({});
+
+  const onMouseEnter = (event) => {
+    setAnchor(event.target);
+    setHover(true);
+  };
+  const onMouseLeave = () => {
+    setAnchor(null);
+    setHover(false);
+  };
+
+  useEffect(() => {
+    if (hover) {
+      setTimer(
+        window.setTimeout(() => {
+          setOpen(true);
+        }, delay)
+      );
+    } else
+      setTimer(null);
+  }, [hover]);
+
+  useEffect(() => {
+    if (open && !hover)
+      setOpen(false);
+  }, [open, hover]);
+
+  useEffect(() => {
+    if (timer === null)
+      window.clearTimeout(timer);
+
+    return () => window.clearTimeout(timer);
+  }, [timer]);
+
+  const onResize = useCallback(() => {
+    if (anchor)
+      setStyle(computeStyle({ anchor, horizontalAlign, verticalAlign }));
+  }, [anchor, horizontalAlign, verticalAlign]);
+
+  useEffect(() => {
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [onResize]);
+
+  children = Children.map(children, (element) => {
+    if (isValidElement(element)) {
+      return cloneElement(element, {
+        onMouseEnter: (event) => {
+          if (element.onMouseEnter)
+            element.onMouseEnter(event);
+          onMouseEnter(event);
+        },
+        onMouseLeave: (event) => {
+          if (element.onMouseLeave)
+            element.onMouseLeave(event);
+          onMouseLeave(event);
+        }
+      });
+    } else if (typeof element === 'string') {
+      return (
+        <span onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+          {element}
+        </span>
+      );
+    } else
+      return element;
+  });
+
+  if (!text || !children)
+    return <></>;
+  else {
+    return (
+      <>
+        {children}
+        {open && <Portal text={text} style={style} />}
+      </>
+    );
+  }
+};
+
+const Portal = ({ text, style }) => {
+  return createPortal(
+    <div className='tooltip text_small' style={style}>
+      {text}
+    </div>,
+    document.body
+  );
+};
+
+export default Tooltip;
+
+const computeStyle = ({ anchor, horizontalAlign, verticalAlign }) => {
+  const anchorBbox = anchor.getBoundingClientRect();
+  const bodyBbox = document.body.getBoundingClientRect();
+  const bbox = {
+    left: anchorBbox.left - bodyBbox.left,
+    top: anchorBbox.top - bodyBbox.top,
+    right: bodyBbox.right - (anchorBbox.left + anchorBbox.width),
+    bottom: bodyBbox.bottom - (anchorBbox.top + anchorBbox.height),
+    width: anchorBbox.width,
+    height: anchorBbox.height
+  };
+  const style = {};
+
+  switch (horizontalAlign) {
+    case 'center':
+      style.left = bbox.left + bbox.width / 2 + 'px';
+      style.transform = 'translateX(-50%)';
+      break;
+
+    case 'left':
+      style.left = bbox.left + 'px';
+      break;
+
+    case 'right':
+      style.right = bbox.right + 'px';
+      break;
+
+    default:
+      break;
+  }
+
+  switch (verticalAlign) {
+    case 'top':
+      style.bottom = bbox.bottom + bbox.height + padding + 'px';
+      break;
+
+    case 'bottom':
+      style.top = bbox.top + bbox.height + padding + 'px';
+      break;
+
+    default:
+      break;
+  }
+
+  return style;
+};
