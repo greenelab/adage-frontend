@@ -76,7 +76,7 @@ img {
 .flip_horizontal {
   transform: scaleX(-1);
 }
-.flip_vertically {
+.flip_vertical {
   transform: scaleY(-1);
 }
 .nowrap {

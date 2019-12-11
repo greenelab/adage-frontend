@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import SingleRow from '../single-row';
 import Alert from '../../../../components/alert';
 import Button from '../../../../components/button';
-import ButtonIcon from '../../../../components/button-icon';
 import HorizontalLine from '../../../../components/horizontal-line';
 import VerticalLine from '../../../../components/vertical-line';
 import { selectGene } from '../../../../actions/genes.js';
@@ -20,8 +19,8 @@ import { ReactComponent as Caret } from '../../../../images/caret.svg';
 
 import './index.css';
 
-const collapsedResults = 3;
-const expandedResults = 5;
+const collapsedResultLimit = 3;
+const expandedResultLimit = 5;
 
 let MultiRow = ({ search, selectGene, deselectGene }) => {
   const [expanded, setExpanded] = useState(false);
@@ -43,7 +42,7 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
       content = [];
       for (
         let index = 0;
-        index < expandedResults && search.results[index];
+        index < expandedResultLimit && index < search.results.length;
         index++
       ) {
         content.push(
@@ -56,14 +55,14 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
             highlightedCol={search.results[index].highlightedCol}
           />
         );
-        if (index < expandedResults - 1)
+        if (index < expandedResultLimit - 1)
           content.push(<HorizontalLine key={content.length} />);
       }
     } else {
       content = [];
       for (
         let index = 0;
-        index < collapsedResults && search.results[index];
+        index < collapsedResultLimit && index < search.results.length;
         index++
       ) {
         content.push(
@@ -76,7 +75,7 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
             col2={search.results[index].cols[1]}
           />
         );
-        if (index < collapsedResults - 1)
+        if (index < collapsedResultLimit - 1)
           content.push(<VerticalLine key={content.length} />);
       }
     }
@@ -89,9 +88,7 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
           className='gene_search_result_multi_query text_small'
           data-expanded={expanded}
         >
-          <span className='field nowrap'>
-            "{search.query}"
-          </span>
+          <span className='field nowrap'>"{search.query}"</span>
         </div>
         {!expanded && (
           <>
@@ -100,9 +97,9 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
             <VerticalLine />
           </>
         )}
-        <ButtonIcon
+        <Button
           className='gene_search_result_multi_caret'
-          icon={<Caret className={expanded ? 'flip_vertically' : ''} />}
+          icon={<Caret className={expanded ? 'flip_vertical' : ''} />}
           onClick={() => setExpanded(!expanded)}
         />
       </div>

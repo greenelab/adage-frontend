@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useEffect } from 'react';
 
 import Button from '../../../../components/button';
-import LinkIcon from '../../../../components/link-icon';
+import Link from '../../../../components/link';
 
 import { ReactComponent as Checked } from '../../../../images/checked.svg';
 import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
@@ -57,11 +57,10 @@ const SingleRow = ({
           ))}
         </div>
       </Button>
-      <LinkIcon
+      <Link
         to={'/gene/' + id}
         newTab
         icon={<Info />}
-        className='gene_search_result_single_info'
       />
     </div>
   );

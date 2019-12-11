@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../../../components/button';
-import LinkIcon from '../../../../components/link-icon';
+import Link from '../../../../components/link';
 
 import { ReactComponent as Radioed } from '../../../../images/radioed.svg';
 import { ReactComponent as Unradioed } from '../../../../images/unradioed.svg';
@@ -32,11 +32,10 @@ const Item = ({
         </div>
       </div>
     </Button>
-    <LinkIcon
+    <Link
       to={'/model/' + id}
       newTab
       icon={<Info />}
-      className='model_info'
     />
   </div>
 );

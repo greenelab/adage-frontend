@@ -27,9 +27,3 @@
 .model_summary > * {
   line-height: 1em;
 }
-.model_info {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-}

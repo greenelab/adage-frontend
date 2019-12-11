@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import SearchComponent from '../../../components/search';
@@ -13,37 +14,43 @@ import { isArray } from '../../../util/types.js';
 
 import './index.css';
 
-let Search = ({ results, selectGene, deselectGene, dispatch }) => (
-  <SearchComponent
-    length={results ? results.length : null}
-    multi
-    placeholder='search for a gene'
-    multiPlaceholder='search for a list of genes'
-    onSearch={(value) => {
-      const strings = value
-        .split('\n')
-        .map((search) => search.trim())
-        .filter((search, index, array) => search || array.length === 1);
-      const actions = strings.map((string, index) =>
-        getGeneSearch({
-          index: index,
-          query: string,
-          cancelType: 'GENE_SEARCH_' + index
-        })
-      );
-      cancelAction({ cancelTypeRegex: /GENE_SEARCH.*/ });
-      dispatch([clearGeneSearch(), [...actions]]);
-    }}
-    onKeySelect={(outlinedIndex) => {
-      if (results[outlinedIndex].selected)
-        deselectGene({ id: results[outlinedIndex].id });
-      else
-        selectGene({ id: results[outlinedIndex].id });
-    }}
-    SingleComponent={Single}
-    MultiComponent={Multi}
-  />
-);
+let Search = ({ results, selectGene, deselectGene, dispatch }) => {
+  const [length, setLength] = useState(false);
+
+  const onChangeLength = (length) => setLength(length);
+
+  return (
+    <SearchComponent
+      length={length}
+      multi
+      placeholder='search for a gene'
+      multiPlaceholder='search for a list of genes'
+      onSearch={(value) => {
+        const strings = value
+          .split('\n')
+          .map((search) => search.trim())
+          .filter((search, index, array) => search || array.length === 1);
+        const actions = strings.map((string, index) =>
+          getGeneSearch({
+            index: index,
+            query: string,
+            cancelType: 'GENE_SEARCH_' + index
+          })
+        );
+        cancelAction({ cancelTypeRegex: /GENE_SEARCH.*/ });
+        dispatch([clearGeneSearch(), [...actions]]);
+      }}
+      onKeySelect={(outlinedIndex) => {
+        if (results[outlinedIndex].selected)
+          deselectGene({ id: results[outlinedIndex].id });
+        else
+          selectGene({ id: results[outlinedIndex].id });
+      }}
+      SingleComponent={<Single onChangeLength={onChangeLength} />}
+      MultiComponent={<Multi />}
+    />
+  );
+};
 
 const mapStateToProps = (state) => ({
   results:

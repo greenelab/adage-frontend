@@ -1,14 +1,10 @@
 .nav_button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  height: 30px;
   margin: 5px;
   padding: 0 5px;
-  color: var(--black);
+  height: 30px;
 }
-.nav_button > svg {
+.nav_button > svg:not(:last-child) {
   margin-right: 10px;
 }
 .nav_button:after {

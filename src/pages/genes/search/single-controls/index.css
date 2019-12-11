@@ -1,0 +1,7 @@
+.gene_search_results_single_controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}

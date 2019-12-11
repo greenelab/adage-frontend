@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LinkTextIcon from '../../../components/link-text-icon';
+import Link from '../../../components/link';
 
 import { ReactComponent as Arrow } from '../../../images/arrow.svg';
 
@@ -21,7 +21,7 @@ const Feature = ({ left, icon, header, text, to }) => {
         {header}
       </div>
       <p>{text}</p>
-      <LinkTextIcon to={to} text='Go' icon={<Arrow />} />
+      <Link to={to} text='Go' icon={<Arrow />} />
     </div>
   );
 

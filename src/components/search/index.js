@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { cloneElement } from 'react';
 
 import Input from '../input';
 
@@ -82,8 +83,8 @@ const Search = ({
         getClearFunc={getClearFunc}
       />
       <div className='search_results'>
-        {!expanded && <SingleComponent outlinedIndex={outlinedIndex} />}
-        {expanded && <MultiComponent />}
+        {!expanded && cloneElement(SingleComponent, { outlinedIndex })}
+        {expanded && MultiComponent}
       </div>
     </>
   );
