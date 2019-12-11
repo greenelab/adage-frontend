@@ -25,7 +25,7 @@ let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => {
               selected={result.selected}
               cols={result.cols}
               highlightedCol={result.highlightedCol}
-              data-outlined={index === highlightedIndex}
+              outlined={index === highlightedIndex}
             />
             {index < array.length - 1 && <HorizontalLine />}
           </React.Fragment>

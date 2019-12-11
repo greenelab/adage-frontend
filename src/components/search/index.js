@@ -28,10 +28,8 @@ const Search = ({
   const getClearFunc = (func) => (clearFunc.current = func);
 
   const onKeyDown = (event) => {
-    console.log(focused, expanded, length)
     if (!focused || expanded || !length)
       return;
-
 
     switch (event.key) {
       case 'ArrowUp':

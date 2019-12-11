@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 import Button from '../../../../components/button';
 import LinkIcon from '../../../../components/link-icon';
@@ -16,42 +18,54 @@ const SingleRow = ({
   selected = false,
   cols = [],
   highlightedCol = -1,
-  ...props
-}) => (
-  <div className='gene_search_result_single' {...props}>
-    <Button
-      className='gene_search_result_single_button'
-      onClick={() => onClick(id, selected)}
-    >
-      <div className='gene_search_result_single_check'>
-        {selected && <Checked />}
-        {!selected && <Unchecked />}
-      </div>
-      <div className='gene_search_result_single_summary'>
-        {cols.map((col, index) => (
-          <span
-            key={index}
-            className={`
-              field
-              text_small
-              nowrap
-            `}
-            data-highlighted={highlightedCol === index}
-          >
-            {col}
-          </span>
-        ))}
-      </div>
-    </Button>
-    <LinkIcon
-      to={'/gene/' + id}
-      newTab
-      icon={<Info />}
-      className='gene_search_result_single_info'
-    />
-  </div>
-);
+  outlined = false
+}) => {
+  const ref = useRef(null);
 
+  useEffect(() => {
+    if (outlined && ref.current)
+      ref.current.scrollIntoView({ block: 'nearest' });
+  });
+
+  return (
+    <div
+      className='gene_search_result_single'
+      ref={ref}
+      data-outlined={outlined}
+    >
+      <Button
+        className='gene_search_result_single_button'
+        onClick={() => onClick(id, selected)}
+      >
+        <div className='gene_search_result_single_check'>
+          {selected && <Checked />}
+          {!selected && <Unchecked />}
+        </div>
+        <div className='gene_search_result_single_summary'>
+          {cols.map((col, index) => (
+            <span
+              key={index}
+              className={`
+                field
+                text_small
+                nowrap
+              `}
+              data-highlighted={highlightedCol === index}
+            >
+              {col}
+            </span>
+          ))}
+        </div>
+      </Button>
+      <LinkIcon
+        to={'/gene/' + id}
+        newTab
+        icon={<Info />}
+        className='gene_search_result_single_info'
+      />
+    </div>
+  );
+};
 SingleRow.propTypes = {
   onClick: PropTypes.func,
   selected: PropTypes.bool,
