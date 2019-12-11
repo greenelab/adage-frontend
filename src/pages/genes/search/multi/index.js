@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
           highlightedCol: keys.findIndex((key) => key === highlightedKey)
         };
       }) :
-      search.results
+      []
   }))
 });
 

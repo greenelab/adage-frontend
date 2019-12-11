@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useContext } from 'react';
 
-import { SearchContext } from '../../search';
 import Alert from '../../../../components/alert';
 import HorizontalLine from '../../../../components/horizontal-line';
 import SingleRow from '../single-row';
@@ -13,9 +11,7 @@ import { deselectGene } from '../../../../actions/genes.js';
 
 import './index.css';
 
-let Single = ({ results, selectGene, deselectGene }) => {
-  const context = useContext(SearchContext);
-
+let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => {
   return (
     <>
       {isArray(results) &&
@@ -29,7 +25,7 @@ let Single = ({ results, selectGene, deselectGene }) => {
               selected={result.selected}
               cols={result.cols}
               highlightedCol={result.highlightedCol}
-              data-outlined={index === context.highlightedIndex}
+              data-outlined={index === highlightedIndex}
             />
             {index < array.length - 1 && <HorizontalLine />}
           </React.Fragment>
@@ -46,23 +42,24 @@ let Single = ({ results, selectGene, deselectGene }) => {
 };
 
 const mapStateToProps = (state) => ({
-  results: isArray(state.gene.searches[0].results) ?
-    state.gene.searches[0].results.map((result) => {
-      const keys = [
-        'standard_name',
-        'systematic_name',
-        'entrezid',
-        'description'
-      ];
-      const highlightedKey = result.max_similarity_field;
-      return {
-        id: result.id,
-        selected: state.gene.selected.includes(result.id),
-        cols: keys.map((key) => result[key]),
-        highlightedCol: keys.findIndex((key) => key === highlightedKey)
-      };
-    }) :
-    state.gene.searches[0].results
+  results:
+    state.gene.searches[0] && isArray(state.gene.searches[0].results) ?
+      state.gene.searches[0].results.map((result) => {
+        const keys = [
+          'standard_name',
+          'systematic_name',
+          'entrezid',
+          'description'
+        ];
+        const highlightedKey = result.max_similarity_field;
+        return {
+          id: result.id,
+          selected: state.gene.selected.includes(result.id),
+          cols: keys.map((key) => result[key]),
+          highlightedCol: keys.findIndex((key) => key === highlightedKey)
+        };
+      }) :
+      []
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -23,7 +23,6 @@ const SingleRow = ({
       className='gene_search_result_single_button'
       onClick={() => onClick(id, selected)}
     >
-      {console.log(highlightedCol)}
       <div className='gene_search_result_single_check'>
         {selected && <Checked />}
         {!selected && <Unchecked />}
@@ -33,7 +32,7 @@ const SingleRow = ({
           <span
             key={index}
             className={`
-              gene_search_result_field
+              field
               text_small
               nowrap
             `}

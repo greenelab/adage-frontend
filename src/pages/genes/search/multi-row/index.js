@@ -89,7 +89,7 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
           className='gene_search_result_multi_query text_small'
           data-expanded={expanded}
         >
-          <span className='gene_search_result_field nowrap'>
+          <span className='field nowrap'>
             "{search.query}"
           </span>
         </div>
@@ -147,7 +147,7 @@ const ResultButton = ({
     <span
       className={`
         gene_search_result_multi_details
-        gene_search_result_field
+        field
         text_small
         nowrap
       `}
@@ -157,7 +157,7 @@ const ResultButton = ({
     <span
       className={`
         gene_search_result_multi_details
-        gene_search_result_field
+        field
         text_small
         nowrap
       `}
