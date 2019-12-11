@@ -8,12 +8,13 @@ import { clearGeneSearch } from '../../../actions/genes.js';
 
 import './index.css';
 
-let SearchBox = ({ dispatch, onFocus, onBlur }) => (
+let SearchBox = ({ dispatch, ...props }) => (
   <Input
     multi
     placeholder='search for a gene'
     multiPlaceholder='search for a list of genes'
     onChange={(value) => {
+      console.log('onchange');
       const strings = value
         .split('\n')
         .map((search) => search.trim())
@@ -28,8 +29,7 @@ let SearchBox = ({ dispatch, onFocus, onBlur }) => (
       cancelAction({ cancelTypeRegex: /GENE_SEARCH.*/ });
       dispatch([clearGeneSearch(), [...actions]]);
     }}
-    onFocus={onFocus}
-    onBlur={onBlur}
+    {...props}
   />
 );
 

@@ -21,6 +21,7 @@ const Input = ({
   onChangeExpanded = () => null,
   onFocus = () => null,
   onBlur = () => null,
+  getClearFunc = () => null,
   multi = false,
   placeholder = '',
   multiPlaceholder = '',
@@ -53,11 +54,13 @@ const Input = ({
     setValue(newValue);
   };
 
-  const change = useCallback((...args) => onChange(...args), [onChange]);
+  onChange = useCallback(onChange, []);
 
   useEffect(() => {
-    change(debouncedValue);
-  }, [change, debouncedValue]);
+    onChange(debouncedValue);
+  }, [onChange, debouncedValue]);
+
+  getClearFunc(() => changeValue(''));
 
   return (
     <div className='input' data-focused={focused} data-expanded={expanded}>
@@ -126,6 +129,7 @@ Input.propTypes = {
   onChangeExpanded: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
+  getClearFunc: PropTypes.func,
   multi: PropTypes.bool,
   placeholder: PropTypes.string,
   multiPlaceholder: PropTypes.string

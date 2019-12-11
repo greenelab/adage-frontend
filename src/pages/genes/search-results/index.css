@@ -1,5 +1,8 @@
 .gene_search_results {
-  margin-top: 20px;
+  width: 100%;
+  margin-top: 10px;
+  /* max-height: calc((10 * 30px) + ((10 - 1) * 1px)); */
+  /* overflow-y: auto; */
 }
 .gene_search_result_field {
   box-sizing: border-box;

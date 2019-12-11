@@ -42,7 +42,7 @@ a {
   color: var(--green);
 }
 *:focus {
-  outline-color: var(--green);
+  outline: solid 1px var(--green);
 }
 section {
   box-sizing: border-box;
@@ -86,4 +86,7 @@ img {
 }
 *[data-highlighted='true'] {
   background: var(--light-green);
+}
+*[data-outlined='true'] {
+  outline: solid 1px var(--green);
 }

@@ -6,10 +6,10 @@ import Multi from './multi';
 
 import './index.css';
 
-let SearchResults = ({ searches }) => (
+let SearchResults = ({ searches, multi }) => (
   <div className='gene_search_results'>
-    {searches === 1 && <Single />}
-    {searches > 1 && <Multi />}
+    {searches > 0 && !multi && <Single />}
+    {searches > 0 && multi && <Multi />}
   </div>
 );
 
