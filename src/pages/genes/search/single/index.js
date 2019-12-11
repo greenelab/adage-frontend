@@ -11,7 +11,7 @@ import { deselectGene } from '../../../../actions/genes.js';
 
 import './index.css';
 
-let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => {
+let Single = ({ results, outlinedIndex, selectGene, deselectGene }) => {
   return (
     <>
       {isArray(results) &&
@@ -25,7 +25,7 @@ let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => {
               selected={result.selected}
               cols={result.cols}
               highlightedCol={result.highlightedCol}
-              outlined={index === highlightedIndex}
+              outlined={index === outlinedIndex}
             />
             {index < array.length - 1 && <HorizontalLine />}
           </React.Fragment>
@@ -42,8 +42,8 @@ let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => {
 };
 
 const mapStateToProps = (state) => ({
-  results:
-    state.gene.searches[0] && isArray(state.gene.searches[0].results) ?
+  results: state.gene.searches[0] ?
+    isArray(state.gene.searches[0].results) ?
       state.gene.searches[0].results.map((result) => {
         const keys = [
           'standard_name',
@@ -59,7 +59,8 @@ const mapStateToProps = (state) => ({
           highlightedCol: keys.findIndex((key) => key === highlightedKey)
         };
       }) :
-      []
+      state.gene.searches[0].results :
+    ''
 });
 
 const mapDispatchToProps = (dispatch) => ({
