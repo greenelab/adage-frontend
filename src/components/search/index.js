@@ -20,7 +20,7 @@ const Search = ({
 }) => {
   const [focused, setFocused] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [outlinedIndex, setHighlightedIndex] = useState(-1);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const clearFunc = useRef(() => null);
 
   const onFocus = () => setFocused(true);
@@ -35,21 +35,21 @@ const Search = ({
     switch (event.key) {
       case 'ArrowUp':
         event.preventDefault();
-        if (outlinedIndex > 0)
-          setHighlightedIndex(outlinedIndex - 1);
+        if (highlightedIndex > 0)
+          setHighlightedIndex(highlightedIndex - 1);
         break;
 
       case 'ArrowDown':
         event.preventDefault();
-        if (outlinedIndex < length - 1)
-          setHighlightedIndex(outlinedIndex + 1);
+        if (highlightedIndex < length - 1)
+          setHighlightedIndex(highlightedIndex + 1);
         break;
 
       case 'Enter':
         event.preventDefault();
-        if (outlinedIndex < 0 || outlinedIndex > length - 1)
+        if (highlightedIndex < 0 || highlightedIndex > length - 1)
           break;
-        onKeySelect(outlinedIndex);
+        onKeySelect(highlightedIndex);
         clearFunc.current();
         break;
 
@@ -82,10 +82,8 @@ const Search = ({
         onBlur={onBlur}
         getClearFunc={getClearFunc}
       />
-      <div className='search_results'>
-        {!expanded && cloneElement(SingleComponent, { outlinedIndex })}
-        {expanded && MultiComponent}
-      </div>
+      {!expanded && cloneElement(SingleComponent, { highlightedIndex })}
+      {expanded && MultiComponent}
     </>
   );
 };

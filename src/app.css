@@ -90,6 +90,9 @@ img {
 *[data-outlined='true'] {
   outline: solid 1px var(--green);
 }
+*[data-shaded='true'] {
+  background: var(--off-white);
+}
 .field {
   box-sizing: border-box;
   display: inline-block;

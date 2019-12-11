@@ -1,10 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import SingleRow from '../single-row';
-import SingleControls from '../single-controls';
 import Alert from '../../../../components/alert';
 import HorizontalLine from '../../../../components/horizontal-line';
 import { isArray } from '../../../../util/types.js';
@@ -14,60 +11,33 @@ import { deselectGene } from '../../../../actions/genes.js';
 
 import './index.css';
 
-const collapsedResultLimit = 5;
-const expandedResultLimit = 20;
-
-let Single = ({
-  results,
-  outlinedIndex,
-  selectGene,
-  deselectGene,
-  onChangeLength
-}) => {
-  const [expanded, setExpanded] = useState(false);
-
-  useEffect(
-    () =>
-      onChangeLength(
-        Math.min(
-          results.length,
-          expanded ? expandedResultLimit : collapsedResultLimit
-        )
-      ),
-    [onChangeLength, results, expanded]
-  );
-
-  return (
-    <>
-      {isArray(results) &&
-        results
-          .slice(0, expanded ? expandedResultLimit : collapsedResultLimit)
-          .map((result, index, array) => (
-            <React.Fragment key={index}>
-              <SingleRow
-                onClick={(id, selected) =>
-                  (selected ? deselectGene : selectGene)({ id: id })
-                }
-                id={result.id}
-                selected={result.selected}
-                cols={result.cols}
-                highlightedCol={result.highlightedCol}
-                outlined={index === outlinedIndex}
-              />
-              {index < array.length - 1 && <HorizontalLine />}
-            </React.Fragment>
-          ))}
-      {isString(results) && (
-        <Alert
-          className='gene_search_results_single_alert'
-          status={results}
-          subject='gene results'
-        />
-      )}
-      <SingleControls expanded={expanded} setExpanded={setExpanded} />
-    </>
-  );
-};
+let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => (
+  <div className='search_results'>
+    {isArray(results) &&
+      results.map((result, index, array) => (
+        <React.Fragment key={index}>
+          <SingleRow
+            onClick={(id, selected) =>
+              (selected ? deselectGene : selectGene)({ id: id })
+            }
+            id={result.id}
+            selected={result.selected}
+            cols={result.cols}
+            highlighted={index === highlightedIndex}
+            highlightedCol={result.highlightedCol}
+          />
+          {index < array.length - 1 && <HorizontalLine />}
+        </React.Fragment>
+      ))}
+    {isString(results) && (
+      <Alert
+        className='gene_search_results_single_alert'
+        status={results}
+        subject='gene results'
+      />
+    )}
+  </div>
+);
 
 const mapStateToProps = (state) => ({
   results: state.gene.searches[0] ?

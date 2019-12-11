@@ -1,0 +1,4 @@
+.gene_search_results {
+  max-height: calc((5 * 30px) + ((5 - 1) * 1px));
+  overflow-y: auto;
+}
