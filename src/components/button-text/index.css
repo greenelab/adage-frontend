@@ -15,4 +15,5 @@
 .button_text:hover,
 .button_text:focus {
   border-color: var(--green);
+  outline: none;
 }

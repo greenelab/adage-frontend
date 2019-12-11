@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-// import { sleep } from '../util/debug.js';
+import { sleep } from '../util/debug.js';
 import { isArray } from '../util/types.js';
 import { isObject } from '../util/types.js';
 
@@ -96,8 +96,8 @@ export const cancelAction = ({ cancelTypeRegex }) => {
 };
 
 function* fetchJson(url, signal) {
-  // artificial random delay for testing loading spinners and race conditions
-  // yield sleep(Math.random() * 1000);
+  // artificial delay for testing loading spinners and race conditions
+  yield sleep(window.sleep || 0);
 
   const cachedResponse = window.sessionStorage.getItem(url);
   if (cachedResponse)

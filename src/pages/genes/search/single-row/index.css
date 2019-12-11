@@ -21,12 +21,12 @@
 .gene_search_result_single_summary {
   width: calc(100% - 30px);
 }
-.gene_search_result_single .gene_search_result_field:nth-child(1),
-.gene_search_result_single .gene_search_result_field:nth-child(2),
-.gene_search_result_single .gene_search_result_field:nth-child(3) {
+.gene_search_result_single .field:nth-child(1),
+.gene_search_result_single .field:nth-child(2),
+.gene_search_result_single .field:nth-child(3) {
   width: 15%;
 }
-.gene_search_result_single .gene_search_result_field:nth-child(4) {
+.gene_search_result_single .field:nth-child(4) {
   width: 55%;
 }
 .gene_search_result_single_info {

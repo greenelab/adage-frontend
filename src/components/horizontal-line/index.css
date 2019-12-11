@@ -6,4 +6,5 @@
   height: 1px;
   margin: 0;
   background: var(--light-gray);
+  z-index: -1;
 }

@@ -4,4 +4,5 @@
   height: calc(100% - 5px - 5px);
   margin: 5px 0;
   background: var(--light-gray);
+  z-index: -1;
 }
