@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import SingleRow from '../single-row';
 import Tooltip from '../../../../components/tooltip';
 import Field from '../../../../components/field';
-import Alert from '../../../../components/alert';
+import FetchAlert from '../../../../components/fetch-alert';
 import Button from '../../../../components/button';
 import HorizontalLine from '../../../../components/horizontal-line';
 import VerticalLine from '../../../../components/vertical-line';
@@ -33,7 +33,7 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
   let content = <></>;
   if (isString(search.results)) {
     content = (
-      <Alert
+      <FetchAlert
         className='gene_search_results_multi_alert'
         status={search.results}
         subject='gene results'
@@ -82,7 +82,7 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
     <>
       <div className='gene_search_result_multi'>
         <div
-          className='gene_search_result_multi_query text_small'
+          className='gene_search_result_multi_query'
           data-expanded={expanded}
         >
           <Field>"{search.query}"</Field>
@@ -140,10 +140,10 @@ const ResultButton = ({
         {!selected && <Unchecked />}
       </div>
     </Tooltip>
-    <Field className={'gene_search_result_multi_details text_small'}>
+    <Field className={'gene_search_result_multi_details'}>
       {col1}
     </Field>
-    <Field className={'gene_search_result_multi_details text_small'}>
+    <Field className={'gene_search_result_multi_details'}>
       {col2}
     </Field>
   </Button>

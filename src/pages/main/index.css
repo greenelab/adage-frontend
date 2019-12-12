@@ -4,4 +4,5 @@ main {
   align-items: center;
   flex-direction: column;
   flex-grow: 1;
+  padding-top: 20px;
 }

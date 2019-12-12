@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Tooltip from '../../../components/tooltip';
 import Button from '../../../components/button';
 import Popup from '../../../components/popup';
-import Alert from '../../../components/alert';
+import FetchAlert from '../../../components/fetch-alert';
 import List from './list';
 import { useBbox } from '../../../util/hooks.js';
 import { isArray } from '../../../util/types.js';
@@ -42,7 +42,7 @@ let ModelSelect = ({ models }) => {
       >
         {isArray(models) && <List models={models} />}
         {isString(models) && (
-          <Alert className='model_alert' status={models} subject='models' />
+          <FetchAlert className='model_alert' status={models} subject='models' />
         )}
       </Popup>
     </>

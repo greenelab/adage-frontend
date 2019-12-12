@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import SingleRow from '../single-row';
-import Alert from '../../../../components/alert';
+import FetchAlert from '../../../../components/fetch-alert';
 import HorizontalLine from '../../../../components/horizontal-line';
 import { isArray } from '../../../../util/types.js';
 import { isString } from '../../../../util/types.js';
@@ -33,7 +33,7 @@ let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => (
         </React.Fragment>
       ))}
     {isString(results) && (
-      <Alert
+      <FetchAlert
         className='gene_search_results_single_alert'
         status={results}
         subject='gene results'
