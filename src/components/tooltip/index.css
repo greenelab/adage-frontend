@@ -7,3 +7,17 @@
   pointer-events: none;
   z-index: 99;
 }
+.tooltip-enter {
+  opacity: 0;
+}
+.tooltip-enter-active {
+  opacity: 1;
+  transition: opacity var(--fast);
+}
+.tooltip-exit {
+  opacity: 1;
+}
+.tooltip-exit-active {
+  opacity: 0;
+  transition: opacity var(--fast);
+}

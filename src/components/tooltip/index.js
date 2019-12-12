@@ -7,10 +7,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { CSSTransition } from 'react-transition-group';
 
 import './index.css';
 
-const delay = 100;
+const delay = 250;
+const duration = 250;
 const padding = 5;
 
 const Tooltip = ({
@@ -111,7 +113,16 @@ const Tooltip = ({
   return (
     <>
       {children}
-      {open && <Portal text={text} style={style} />}
+      {
+        <CSSTransition
+          in={open}
+          timeout={duration}
+          classNames='tooltip'
+          unmountOnExit
+        >
+          <Portal text={text} style={style} />
+        </CSSTransition>
+      }
     </>
   );
 };
