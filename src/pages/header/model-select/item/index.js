@@ -26,7 +26,7 @@ const Item = ({
         {!selected && <Unradioed />}
       </div>
       <div className='model_summary'>
-        <div className='semibold nowrap'>{title}</div>
+        <div className='medium nowrap'>{title}</div>
         <div className='text_small nowrap'>
           {authors[0]}, et al · {journal} · {year}
         </div>
