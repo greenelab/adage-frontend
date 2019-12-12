@@ -82,11 +82,6 @@ img {
 .flip_vertical {
   transform: scaleY(-1);
 }
-.nowrap {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 *[data-highlight='true'] {
   background: var(--light-green);
 }
@@ -95,9 +90,4 @@ img {
 }
 *[data-shade='true'] {
   background: var(--off-white);
-}
-.field {
-  box-sizing: border-box;
-  display: inline-block;
-  padding: 0 5px;
 }

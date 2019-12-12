@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
+import Tooltip from '../../../components/tooltip';
 import Button from '../../../components/button';
 import Popup from '../../../components/popup';
 import Alert from '../../../components/alert';
@@ -20,13 +21,19 @@ let ModelSelect = ({ models }) => {
 
   return (
     <>
-      <Button
-        ref={buttonRef}
-        className='model_select_button'
-        onClick={() => setIsOpen(!isOpen)}
+      <Tooltip
+        text='Switch between machine learning models'
+        horizontalAlign='right'
+        verticalAlign='bottom'
       >
-        <Model />
-      </Button>
+        <Button
+          ref={buttonRef}
+          className='model_select_button'
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <Model />
+        </Button>
+      </Tooltip>
       <Popup
         isOpen={isOpen}
         anchorBbox={buttonBbox}

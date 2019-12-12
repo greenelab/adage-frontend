@@ -109,11 +109,13 @@ const Input = ({
         </Tooltip>
       )}
       {value.length > 0 && (
-        <Button
-          className='input_button'
-          icon={<Cross />}
-          onClick={() => changeValue('')}
-        />
+        <Tooltip text={'Clear search'} horizontalAlign='right'>
+          <Button
+            className='input_button'
+            icon={<Cross />}
+            onClick={() => changeValue('')}
+          />
+        </Tooltip>
       )}
       {value.length === 0 && (
         <div className='input_button'>

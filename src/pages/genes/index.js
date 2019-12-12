@@ -5,8 +5,7 @@ import Main from '../main';
 import Footer from '../footer';
 import SectionHeader from '../../components/section-header';
 import Search from './search';
-
-import placeholder from '../../images/placeholder.png';
+import Selected from './selected';
 
 import './index.css';
 
@@ -18,12 +17,9 @@ const Genes = () => (
       <section>
         <Search />
       </section>
+      <SectionHeader text='Selected Genes' />
       <section>
-        <img
-          src={placeholder}
-          title='placeholder screenshot'
-          alt='placeholder'
-        />
+        <Selected />
       </section>
     </Main>
     <Footer />

@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "homepage": "/",
   "dependencies": {
     "immer": "^5.0.0",
@@ -13,6 +13,7 @@
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0",
+    "react-transition-group": "^4.3.0",
     "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
     "redux-logger": "^3.0.6",

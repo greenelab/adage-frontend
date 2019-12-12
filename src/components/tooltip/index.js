@@ -7,11 +7,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { CSSTransition } from 'react-transition-group';
 
 import './index.css';
 
-const delay = 100;
-const padding = 2;
+const delay = 250;
+const duration = 250;
+const padding = 5;
 
 const Tooltip = ({
   children,
@@ -25,11 +27,11 @@ const Tooltip = ({
   const [anchor, setAnchor] = useState(null);
   const [style, setStyle] = useState({});
 
-  const onMouseEnter = (event) => {
+  const onEnter = (event) => {
     setAnchor(event.target);
     setHover(true);
   };
-  const onMouseLeave = () => {
+  const onLeave = () => {
     setAnchor(null);
     setHover(false);
   };
@@ -71,20 +73,36 @@ const Tooltip = ({
   children = Children.map(children, (element) => {
     if (isValidElement(element)) {
       return cloneElement(element, {
-        onMouseEnter: (event) => {
+        'onMouseEnter': (...args) => {
           if (element.onMouseEnter)
-            element.onMouseEnter(event);
-          onMouseEnter(event);
+            element.onMouseEnter(...args);
+          onEnter(...args);
         },
-        onMouseLeave: (event) => {
+        'onMouseLeave': (...args) => {
           if (element.onMouseLeave)
-            element.onMouseLeave(event);
-          onMouseLeave(event);
-        }
+            element.onMouseLeave(...args);
+          onLeave(...args);
+        },
+        'onFocus': (...args) => {
+          if (element.onFocus)
+            element.onFocus(...args);
+          onEnter(...args);
+        },
+        'onBlur': (...args) => {
+          if (element.onBlur)
+            element.onBlur(...args);
+          onLeave(...args);
+        },
+        'aria-label': text
       });
     } else if (typeof element === 'string') {
       return (
-        <span onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <span
+          onMouseEnter={onEnter}
+          onMouseLeave={onLeave}
+          onFocus={onEnter}
+          onBlur={onLeave}
+        >
           {element}
         </span>
       );
@@ -95,7 +113,16 @@ const Tooltip = ({
   return (
     <>
       {children}
-      {open && <Portal text={text} style={style} />}
+      {
+        <CSSTransition
+          in={open}
+          timeout={duration}
+          classNames='tooltip'
+          unmountOnExit
+        >
+          <Portal text={text} style={style} />
+        </CSSTransition>
+      }
     </>
   );
 };

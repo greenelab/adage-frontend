@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import SingleRow from '../single-row';
+import Tooltip from '../../../../components/tooltip';
+import Field from '../../../../components/field';
 import Alert from '../../../../components/alert';
 import Button from '../../../../components/button';
 import HorizontalLine from '../../../../components/horizontal-line';
@@ -25,8 +27,8 @@ const expandedResultLimit = 5;
 let MultiRow = ({ search, selectGene, deselectGene }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const onClick = (id, selected) =>
-    (selected ? deselectGene : selectGene)({ id: id });
+  const onClick = (result) =>
+    (result.selected ? deselectGene : selectGene)({ gene: result.raw });
 
   let content = <></>;
   if (isString(search.results)) {
@@ -38,46 +40,41 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
       />
     );
   } else if (isArray(search.results)) {
+    content = [];
     if (expanded) {
-      content = [];
-      for (
-        let index = 0;
-        index < expandedResultLimit && index < search.results.length;
-        index++
-      ) {
-        content.push(
-          <SingleRow
-            key={content.length}
-            onClick={onClick}
-            selected={search.results[index].selected}
-            id={search.results[index].id}
-            cols={search.results[index].cols}
-            highlightedCol={search.results[index].highlightedCol}
-          />
-        );
-        if (index < expandedResultLimit - 1)
-          content.push(<HorizontalLine key={content.length} />);
-      }
+      search.results
+        .slice(0, expandedResultLimit)
+        .forEach((result, index, array) => {
+          content.push(
+            <SingleRow
+              key={content.length}
+              onClick={() => onClick(result)}
+              selected={result.selected}
+              id={result.id}
+              cols={result.cols}
+              highlightedCol={result.highlightedCol}
+            />
+          );
+          if (index < array.length - 1)
+            content.push(<HorizontalLine key={content.length} />);
+        });
     } else {
-      content = [];
-      for (
-        let index = 0;
-        index < collapsedResultLimit && index < search.results.length;
-        index++
-      ) {
-        content.push(
-          <ResultButton
-            key={content.length}
-            onClick={onClick}
-            selected={search.results[index].selected}
-            id={search.results[index].id}
-            col1={search.results[index].cols[0]}
-            col2={search.results[index].cols[1]}
-          />
-        );
-        if (index < collapsedResultLimit - 1)
-          content.push(<VerticalLine key={content.length} />);
-      }
+      search.results
+        .slice(0, collapsedResultLimit)
+        .forEach((result, index, array) => {
+          content.push(
+            <ResultButton
+              key={content.length}
+              onClick={() => onClick(result)}
+              selected={result.selected}
+              id={result.id}
+              col1={result.cols[0]}
+              col2={result.cols[1]}
+            />
+          );
+          if (index < array.length - 1)
+            content.push(<VerticalLine key={content.length} />);
+        });
     }
   }
 
@@ -88,7 +85,7 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
           className='gene_search_result_multi_query text_small'
           data-expanded={expanded}
         >
-          <span className='field nowrap'>"{search.query}"</span>
+          <Field>"{search.query}"</Field>
         </div>
         {!expanded && (
           <>
@@ -133,33 +130,21 @@ const ResultButton = ({
   col1 = '-',
   col2 = '-'
 }) => (
-  <Button
-    className='gene_search_result_multi_button'
-    onClick={() => onClick(id, selected)}
-  >
-    <div className='gene_search_result_multi_check'>
-      {selected && <Checked />}
-      {!selected && <Unchecked />}
-    </div>
-    <span
-      className={`
-        gene_search_result_multi_details
-        field
-        text_small
-        nowrap
-      `}
+  <Button className='gene_search_result_multi_button' onClick={onClick}>
+    <Tooltip
+      text={(selected ? 'Deselect' : 'Select') + ' this gene'}
+      horizontalAlign='left'
     >
+      <div className='gene_search_result_multi_check'>
+        {selected && <Checked />}
+        {!selected && <Unchecked />}
+      </div>
+    </Tooltip>
+    <Field className={'gene_search_result_multi_details text_small'}>
       {col1}
-    </span>
-    <span
-      className={`
-        gene_search_result_multi_details
-        field
-        text_small
-        nowrap
-      `}
-    >
+    </Field>
+    <Field className={'gene_search_result_multi_details text_small'}>
       {col2}
-    </span>
+    </Field>
   </Button>
 );

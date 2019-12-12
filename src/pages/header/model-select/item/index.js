@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Tooltip from '../../../../components/tooltip';
+import Field from '../../../../components/field';
 import Button from '../../../../components/button';
 import Link from '../../../../components/link';
 
@@ -21,22 +23,22 @@ const Item = ({
 }) => (
   <div className='model_item'>
     <Button className='model_button' onClick={onClick}>
-      <div className='model_radio'>
-        {selected && <Radioed />}
-        {!selected && <Unradioed />}
-      </div>
-      <div className='model_summary'>
-        <div className='medium nowrap'>{title}</div>
-        <div className='text_small nowrap'>
-          {authors[0]}, et al · {journal} · {year}
+      <Tooltip text={'Select this model'} horizontalAlign='left'>
+        <div className='model_radio'>
+          {selected && <Radioed />}
+          {!selected && <Unradioed />}
         </div>
+      </Tooltip>
+      <div className='model_summary'>
+        <Field className='medium'>{title}</Field>
+        <Field className='text_small'>
+          {authors[0]}, et al · {journal} · {year}
+        </Field>
       </div>
     </Button>
-    <Link
-      to={'/model/' + id}
-      newTab
-      icon={<Info />}
-    />
+    <Tooltip text='View full model details' horizontalAlign='right'>
+      <Link to={'/model/' + id} newTab icon={<Info />} />
+    </Tooltip>
   </div>
 );
 

@@ -36,9 +36,9 @@ let Search = ({ results, selectGene, deselectGene, dispatch }) => (
     }}
     onKeySelect={(highlightedIndex) => {
       if (results[highlightedIndex].selected)
-        deselectGene({ id: results[highlightedIndex].id });
+        deselectGene({ gene: results[highlightedIndex].raw });
       else
-        selectGene({ id: results[highlightedIndex].id });
+        selectGene({ gene: results[highlightedIndex].raw });
     }}
     SingleComponent={<Single />}
     MultiComponent={<Multi />}
@@ -51,10 +51,9 @@ const mapStateToProps = (state) => ({
     state.gene.searches.length === 1 &&
     isArray(state.gene.searches[0].results) &&
     state.gene.searches[0].results.length ?
-      state.gene.searches[0].results.map((result) => ({
-        id: result.id,
-        selected: state.gene.selected.includes(result.id)
-      })) :
+      state.gene.searches[0].results.map((result) =>
+        mapGeneResult(result, state)
+      ) :
       null
 });
 
@@ -63,6 +62,23 @@ const mapDispatchToProps = (dispatch) => ({
   deselectGene: (...args) => dispatch(deselectGene(...args)),
   dispatch: dispatch
 });
+
+export const mapGeneResult = (result, state) => {
+  const colKeys = [
+    'standard_name',
+    'systematic_name',
+    'entrezid',
+    'description'
+  ];
+  const highlightedKey = result.max_similarity_field;
+  return {
+    id: result.id,
+    selected: state.gene.selected.some((selected) => selected.id === result.id),
+    cols: colKeys.map((key) => result[key]),
+    highlightedCol: colKeys.findIndex((key) => key === highlightedKey),
+    raw: result
+  };
+};
 
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);
 

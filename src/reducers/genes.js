@@ -10,7 +10,7 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.details = '';
     if (!isArray(draft.searches))
       draft.searches = [];
-    if (!isString(draft.selected) && !isArray(draft.selected))
+    if (!isArray(draft.selected))
       draft.selected = [];
   };
 
@@ -33,30 +33,39 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
 
     case 'SELECT_GENE':
-      if (!draft.selected.includes(payload.id))
-        draft.selected.push(payload.id);
+      if (!draft.selected.some((selected) => selected.id === payload.gene.id))
+        draft.selected.push(payload.gene);
       break;
 
     case 'DESELECT_GENE':
       draft.selected = draft.selected.filter(
-        (selected) => selected !== payload.id
+        (selected) => selected.id !== payload.gene.id
       );
       break;
 
     case 'SELECT_FIRST_GENES':
       for (const search of draft.searches) {
-        const firstResult = isArray(search.results) ? search.results[0] : null;
-        if (firstResult && !draft.selected.includes(firstResult.id))
-          draft.selected.push(firstResult.id);
+        const firstResult =
+          isArray(search.results) && search.results.length ?
+            search.results[0] :
+            null;
+        if (
+          firstResult &&
+          !draft.selected.some((selected) => selected.id === firstResult.id)
+        )
+          draft.selected.push(firstResult);
       }
       break;
 
     case 'DESELECT_FIRST_GENES':
       for (const search of draft.searches) {
-        const firstResult = isArray(search.results) ? search.results[0] : null;
+        const firstResult =
+          isArray(search.results) && search.results.length ?
+            search.results[0] :
+            null;
         if (firstResult) {
           draft.selected = draft.selected.filter(
-            (selected) => selected !== firstResult.id
+            (selected) => selected.id !== firstResult.id
           );
         }
       }
