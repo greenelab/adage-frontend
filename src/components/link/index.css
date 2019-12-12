@@ -1,9 +1,10 @@
-button {
+.link {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   min-width: 30px;
   min-height: 30px;
+  color: var(--black);
   margin: 0;
   padding: 0;
   background: none;
@@ -15,17 +16,17 @@ button {
   transition: color var(--fast), background var(--fast), opacity var(--fast),
   border var(--fast), border-color var(--fast);
 }
-button:hover,
-button:focus {
+.link:hover,
+.link:focus {
   color: var(--green);
 }
-button > svg:not(:first-child) {
+.link > svg:not(:first-child) {
   margin-left: 5px;
 }
-button > svg:not(:last-child) {
+.link > svg:not(:last-child) {
   margin-right: 5px;
 }
-button[data-text='true'] {
+.link[data-text='true'] {
   margin: 0 10px;
   padding: 0 10px;
   color: var(--green);
@@ -33,8 +34,8 @@ button[data-text='true'] {
   border: solid 2px transparent;
   outline: none;
 }
-button[data-text='true']:hover,
-button[data-text='true']:focus {
+.link[data-text='true']:hover,
+.link[data-text='true']:focus {
   border-color: var(--green);
   outline: none;
 }

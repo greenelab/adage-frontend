@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useEffect } from 'react';
 
 import Button from '../../../../components/button';
-import LinkIcon from '../../../../components/link-icon';
+import Link from '../../../../components/link';
 
 import { ReactComponent as Checked } from '../../../../images/checked.svg';
 import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
@@ -17,13 +17,13 @@ const SingleRow = ({
   id = null,
   selected = false,
   cols = [],
-  highlightedCol = -1,
-  outlined = false
+  highlighted = false,
+  highlightedCol = -1
 }) => {
   const ref = useRef(null);
 
   useEffect(() => {
-    if (outlined && ref.current)
+    if (highlighted && ref.current)
       ref.current.scrollIntoView({ block: 'nearest' });
   });
 
@@ -31,7 +31,7 @@ const SingleRow = ({
     <div
       className='gene_search_result_single'
       ref={ref}
-      data-outlined={outlined}
+      data-shade={highlighted}
     >
       <Button
         className='gene_search_result_single_button'
@@ -49,19 +49,18 @@ const SingleRow = ({
                 field
                 text_small
                 nowrap
+                ${highlightedCol === index ? 'semibold' : ''}
               `}
-              data-highlighted={highlightedCol === index}
             >
               {col}
             </span>
           ))}
         </div>
       </Button>
-      <LinkIcon
+      <Link
         to={'/gene/' + id}
         newTab
         icon={<Info />}
-        className='gene_search_result_single_info'
       />
     </div>
   );

@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import Tooltip from '../../components/tooltip';
-import ButtonIcon from '../../components/button-icon';
+import Button from '../../components/button';
 import { ReactComponent as ListMultiple } from '../../images/list-multiple.svg';
 import { ReactComponent as ListSingle } from '../../images/list-single.svg';
 import { ReactComponent as Search } from '../../images/search.svg';
@@ -101,7 +101,7 @@ const Input = ({
           text={expanded ? tooltip : multiTooltip}
           horizontalAlign='right'
         >
-          <ButtonIcon
+          <Button
             className='input_button'
             icon={expanded ? <ListSingle /> : <ListMultiple />}
             onClick={() => changeExpanded(!expanded)}
@@ -109,7 +109,7 @@ const Input = ({
         </Tooltip>
       )}
       {value.length > 0 && (
-        <ButtonIcon
+        <Button
           className='input_button'
           icon={<Cross />}
           onClick={() => changeValue('')}

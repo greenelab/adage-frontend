@@ -34,14 +34,14 @@ let Search = ({ results, selectGene, deselectGene, dispatch }) => (
       cancelAction({ cancelTypeRegex: /GENE_SEARCH.*/ });
       dispatch([clearGeneSearch(), [...actions]]);
     }}
-    onKeySelect={(outlinedIndex) => {
-      if (results[outlinedIndex].selected)
-        deselectGene({ id: results[outlinedIndex].id });
+    onKeySelect={(highlightedIndex) => {
+      if (results[highlightedIndex].selected)
+        deselectGene({ id: results[highlightedIndex].id });
       else
-        selectGene({ id: results[outlinedIndex].id });
+        selectGene({ id: results[highlightedIndex].id });
     }}
-    SingleComponent={Single}
-    MultiComponent={Multi}
+    SingleComponent={<Single />}
+    MultiComponent={<Multi />}
   />
 );
 

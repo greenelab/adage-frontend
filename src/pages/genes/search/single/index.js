@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import SingleRow from '../single-row';
 import Alert from '../../../../components/alert';
 import HorizontalLine from '../../../../components/horizontal-line';
-import SingleRow from '../single-row';
 import { isArray } from '../../../../util/types.js';
 import { isString } from '../../../../util/types.js';
 import { selectGene } from '../../../../actions/genes.js';
@@ -11,35 +11,33 @@ import { deselectGene } from '../../../../actions/genes.js';
 
 import './index.css';
 
-let Single = ({ results, outlinedIndex, selectGene, deselectGene }) => {
-  return (
-    <>
-      {isArray(results) &&
-        results.map((result, index, array) => (
-          <React.Fragment key={index}>
-            <SingleRow
-              onClick={(id, selected) =>
-                (selected ? deselectGene : selectGene)({ id: id })
-              }
-              id={result.id}
-              selected={result.selected}
-              cols={result.cols}
-              highlightedCol={result.highlightedCol}
-              outlined={index === outlinedIndex}
-            />
-            {index < array.length - 1 && <HorizontalLine />}
-          </React.Fragment>
-        ))}
-      {isString(results) && (
-        <Alert
-          className='gene_search_results_single_alert'
-          status={results}
-          subject='gene results'
-        />
-      )}
-    </>
-  );
-};
+let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => (
+  <div className='search_results'>
+    {isArray(results) &&
+      results.map((result, index, array) => (
+        <React.Fragment key={index}>
+          <SingleRow
+            onClick={(id, selected) =>
+              (selected ? deselectGene : selectGene)({ id: id })
+            }
+            id={result.id}
+            selected={result.selected}
+            cols={result.cols}
+            highlighted={index === highlightedIndex}
+            highlightedCol={result.highlightedCol}
+          />
+          {index < array.length - 1 && <HorizontalLine />}
+        </React.Fragment>
+      ))}
+    {isString(results) && (
+      <Alert
+        className='gene_search_results_single_alert'
+        status={results}
+        subject='gene results'
+      />
+    )}
+  </div>
+);
 
 const mapStateToProps = (state) => ({
   results: state.gene.searches[0] ?

@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { forwardRef } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import './index.css';
 
-let Button = (props, ref) => {
-  const { text, icon, flip = false, children, ...rest } = props;
-
+const Link = ({
+  to = '',
+  newTab = false,
+  className = '',
+  text,
+  overrideTextStyles = false,
+  icon,
+  flip = false,
+  children,
+  ...props
+}) => {
   let content = <></>;
   if (children)
     content = children;
@@ -29,23 +37,28 @@ let Button = (props, ref) => {
   }
 
   return (
-    <button
-      ref={ref}
-      {...rest}
-      data-text={text !== undefined}
+    <RouterLink
+      className={'link ' + className}
+      // target={newTab ? '_blank' : undefined}
+      to={to}
+      data-text={text !== undefined && !overrideTextStyles}
       data-icon={icon !== undefined}
+      {...props}
     >
       {content}
-    </button>
+    </RouterLink>
   );
 };
-Button = forwardRef(Button);
 
-Button.propTypes = {
+Link.propTypes = {
+  to: PropTypes.string.isRequired,
+  newTab: PropTypes.bool,
+  className: PropTypes.string,
   text: PropTypes.string,
+  overrideTextStyles: PropTypes.bool,
   icon: PropTypes.element,
   flip: PropTypes.bool,
   children: PropTypes.node
 };
 
-export default Button;
+export default Link;

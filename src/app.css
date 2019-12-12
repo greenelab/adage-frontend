@@ -58,8 +58,11 @@ section {
 img {
   max-width: 90%;
 }
-.semibold {
+.medium {
   font-weight: 500;
+}
+.semibold {
+  font-weight: 600;
 }
 .text_small {
   font-size: 9pt;
@@ -76,7 +79,7 @@ img {
 .flip_horizontal {
   transform: scaleX(-1);
 }
-.flip_vertically {
+.flip_vertical {
   transform: scaleY(-1);
 }
 .nowrap {
@@ -84,11 +87,14 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-*[data-highlighted='true'] {
+*[data-highlight='true'] {
   background: var(--light-green);
 }
-*[data-outlined='true'] {
+*[data-outline='true'] {
   outline: solid 1px var(--green);
+}
+*[data-shade='true'] {
+  background: var(--off-white);
 }
 .field {
   box-sizing: border-box;

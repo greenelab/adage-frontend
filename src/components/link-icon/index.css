@@ -1,8 +1,0 @@
-.link_icon {
-  color: var(--black);
-  transition: color var(--fast);
-}
-.link_icon:hover,
-.link_icon:focus {
-  color: var(--green);
-}
