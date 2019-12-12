@@ -8,6 +8,7 @@ import { isArray } from '../../../../util/types.js';
 import { isString } from '../../../../util/types.js';
 import { selectGene } from '../../../../actions/genes.js';
 import { deselectGene } from '../../../../actions/genes.js';
+import { mapGeneResult } from '../';
 
 import './index.css';
 
@@ -17,8 +18,10 @@ let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => (
       results.map((result, index, array) => (
         <React.Fragment key={index}>
           <SingleRow
-            onClick={(id, selected) =>
-              (selected ? deselectGene : selectGene)({ id: id })
+            onClick={() =>
+              (result.selected ? deselectGene : selectGene)({
+                gene: result.raw
+              })
             }
             id={result.id}
             selected={result.selected}
@@ -42,21 +45,9 @@ let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => (
 const mapStateToProps = (state) => ({
   results: state.gene.searches[0] ?
     isArray(state.gene.searches[0].results) ?
-      state.gene.searches[0].results.map((result) => {
-        const keys = [
-          'standard_name',
-          'systematic_name',
-          'entrezid',
-          'description'
-        ];
-        const highlightedKey = result.max_similarity_field;
-        return {
-          id: result.id,
-          selected: state.gene.selected.includes(result.id),
-          cols: keys.map((key) => result[key]),
-          highlightedCol: keys.findIndex((key) => key === highlightedKey)
-        };
-      }) :
+      state.gene.searches[0].results.map((result) =>
+        mapGeneResult(result, state)
+      ) :
       state.gene.searches[0].results :
     ''
 });

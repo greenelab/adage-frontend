@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
+import Tooltip from '../../../../components/tooltip';
+import Field from '../../../../components/field';
 import Button from '../../../../components/button';
 import Link from '../../../../components/link';
 
@@ -33,35 +35,32 @@ const SingleRow = ({
       ref={ref}
       data-shade={highlighted}
     >
-      <Button
-        className='gene_search_result_single_button'
-        onClick={() => onClick(id, selected)}
-      >
-        <div className='gene_search_result_single_check'>
-          {selected && <Checked />}
-          {!selected && <Unchecked />}
-        </div>
+      <Button className='gene_search_result_single_button' onClick={onClick}>
+        <Tooltip
+          text={(selected ? 'Deselect' : 'Select') + ' this gene'}
+          horizontalAlign='left'
+        >
+          <div className='gene_search_result_single_check'>
+            {selected && <Checked />}
+            {!selected && <Unchecked />}
+          </div>
+        </Tooltip>
         <div className='gene_search_result_single_summary'>
           {cols.map((col, index) => (
-            <span
+            <Field
               key={index}
-              className={`
-                field
-                text_small
-                nowrap
-                ${highlightedCol === index ? 'semibold' : ''}
-              `}
+              className={
+                'text_small ' + (highlightedCol === index ? 'semibold' : '')
+              }
             >
               {col}
-            </span>
+            </Field>
           ))}
         </div>
       </Button>
-      <Link
-        to={'/gene/' + id}
-        newTab
-        icon={<Info />}
-      />
+      <Tooltip text='View full gene details' horizontalAlign='right'>
+        <Link to={'/gene/' + id} newTab icon={<Info />} />
+      </Tooltip>
     </div>
   );
 };

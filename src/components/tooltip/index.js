@@ -11,7 +11,7 @@ import { createPortal } from 'react-dom';
 import './index.css';
 
 const delay = 100;
-const padding = 2;
+const padding = 5;
 
 const Tooltip = ({
   children,
@@ -71,16 +71,17 @@ const Tooltip = ({
   children = Children.map(children, (element) => {
     if (isValidElement(element)) {
       return cloneElement(element, {
-        onMouseEnter: (event) => {
+        'onMouseEnter': (event) => {
           if (element.onMouseEnter)
             element.onMouseEnter(event);
           onMouseEnter(event);
         },
-        onMouseLeave: (event) => {
+        'onMouseLeave': (event) => {
           if (element.onMouseLeave)
             element.onMouseLeave(event);
           onMouseLeave(event);
-        }
+        },
+        'aria-label': text
       });
     } else if (typeof element === 'string') {
       return (

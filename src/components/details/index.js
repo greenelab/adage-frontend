@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Linkify from 'react-linkify';
 
+import Field from '../../components/field';
 import HorizontalLine from '../../components/horizontal-line';
 
 import './index.css';
@@ -15,7 +16,7 @@ const Details = ({ data = {} }) => {
       {Object.keys(data).map((key, index, array) => (
         <React.Fragment key={index}>
           <div className='detail_row'>
-            <span className='text_small medium nowrap'>{key}</span>
+            <Field className='text_small medium'>{key}</Field>
             <span className='text_small'>
               <Linkify>{format(data[key])}</Linkify>
             </span>
