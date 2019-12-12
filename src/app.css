@@ -90,7 +90,7 @@ img {
 *[data-highlight='true'] {
   background: var(--light-green);
 }
-*[data-outlin='true'] {
+*[data-outline='true'] {
   outline: solid 1px var(--green);
 }
 *[data-shade='true'] {
