@@ -9,7 +9,7 @@ import './index.css';
 
 const Banner = ({ text }) => (
   <section>
-    <div className='banner text_medium semibold'>{text}</div>
+    <div className='banner text_medium medium'>{text}</div>
     <Link to='/genes' text='Explore' icon={<Arrow />} />
   </section>
 );
