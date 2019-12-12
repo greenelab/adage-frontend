@@ -58,8 +58,11 @@ section {
 img {
   max-width: 90%;
 }
-.semibold {
+.medium {
   font-weight: 500;
+}
+.semibold {
+  font-weight: 600;
 }
 .text_small {
   font-size: 9pt;
@@ -84,16 +87,15 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-*[data-highlighted='true'] {
+*[data-highlight='true'] {
   background: var(--light-green);
 }
-*[data-outlined='true'] {
+*[data-outlin='true'] {
   outline: solid 1px var(--green);
 }
-*[data-shaded='true'] {
+*[data-shade='true'] {
   background: var(--off-white);
 }
-
 .field {
   box-sizing: border-box;
   display: inline-block;

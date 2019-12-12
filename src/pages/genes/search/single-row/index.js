@@ -31,7 +31,7 @@ const SingleRow = ({
     <div
       className='gene_search_result_single'
       ref={ref}
-      data-shaded={highlighted}
+      data-shade={highlighted}
     >
       <Button
         className='gene_search_result_single_button'
@@ -49,8 +49,8 @@ const SingleRow = ({
                 field
                 text_small
                 nowrap
+                ${highlightedCol === index ? 'semibold' : ''}
               `}
-              data-highlighted={highlightedCol === index}
             >
               {col}
             </span>
