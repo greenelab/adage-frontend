@@ -25,11 +25,11 @@ const Tooltip = ({
   const [anchor, setAnchor] = useState(null);
   const [style, setStyle] = useState({});
 
-  const onMouseEnter = (event) => {
+  const onEnter = (event) => {
     setAnchor(event.target);
     setHover(true);
   };
-  const onMouseLeave = () => {
+  const onLeave = () => {
     setAnchor(null);
     setHover(false);
   };
@@ -71,21 +71,36 @@ const Tooltip = ({
   children = Children.map(children, (element) => {
     if (isValidElement(element)) {
       return cloneElement(element, {
-        'onMouseEnter': (event) => {
+        'onMouseEnter': (...args) => {
           if (element.onMouseEnter)
-            element.onMouseEnter(event);
-          onMouseEnter(event);
+            element.onMouseEnter(...args);
+          onEnter(...args);
         },
-        'onMouseLeave': (event) => {
+        'onMouseLeave': (...args) => {
           if (element.onMouseLeave)
-            element.onMouseLeave(event);
-          onMouseLeave(event);
+            element.onMouseLeave(...args);
+          onLeave(...args);
+        },
+        'onFocus': (...args) => {
+          if (element.onFocus)
+            element.onFocus(...args);
+          onEnter(...args);
+        },
+        'onBlur': (...args) => {
+          if (element.onBlur)
+            element.onBlur(...args);
+          onLeave(...args);
         },
         'aria-label': text
       });
     } else if (typeof element === 'string') {
       return (
-        <span onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+        <span
+          onMouseEnter={onEnter}
+          onMouseLeave={onLeave}
+          onFocus={onEnter}
+          onBlur={onLeave}
+        >
           {element}
         </span>
       );
