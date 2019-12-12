@@ -1,0 +1,14 @@
+.alert {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: var(--gray);
+}
+.alert > svg {
+  margin-right: 10px;
+}
+.alert[data-error='true'] {
+  color: var(--red);
+}

@@ -1,8 +1,7 @@
 import { createAction } from 'redux-actions';
 
-import { sleep } from '../util/debug.js';
-import { isArray } from '../util/types.js';
-import { isObject } from '../util/types.js';
+// import { sleep } from '../util/debug.js';
+import { isEmpty } from '../util/types.js';
 
 // replacement for redux-thunk-actions
 // provide the "cancelType" prop to any action made by this creator
@@ -55,7 +54,7 @@ export const createFetchAction = (type, urlFunction) => ({
     try {
       const { done, value } = generator.next(resumeValue);
       if (done) {
-        if (isEmptyResponse(value))
+        if (isEmpty(value))
           empty();
         else
           success(value);
@@ -81,10 +80,6 @@ const newAction = ({ cancelType }) => {
 const isStaleAction = ({ cancelType, actionId }) =>
   cancelType && actionStore[cancelType] !== actionId;
 
-const isEmptyResponse = (payload) =>
-  (isArray(payload) && !payload.length) ||
-  (isObject(payload) && !Object.keys(payload).length);
-
 export const cancelAction = ({ cancelTypeRegex }) => {
   for (const key of Object.keys(actionStore)) {
     if (key.match(cancelTypeRegex)) {
@@ -97,7 +92,7 @@ export const cancelAction = ({ cancelTypeRegex }) => {
 
 function* fetchJson(url, signal) {
   // artificial delay for testing loading spinners and race conditions
-  yield sleep(window.sleep || 0);
+  // yield sleep(500 + Math.random() * 500);
 
   const cachedResponse = window.sessionStorage.getItem(url);
   if (cachedResponse)

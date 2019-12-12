@@ -49,9 +49,7 @@ const SingleRow = ({
           {cols.map((col, index) => (
             <Field
               key={index}
-              className={
-                'text_small ' + (highlightedCol === index ? 'semibold' : '')
-              }
+              className={highlightedCol === index ? 'semibold' : ''}
             >
               {col}
             </Field>

@@ -27,8 +27,7 @@ import './app.css';
 window.sessionStorage.clear();
 
 const logger = createLogger({
-  collapsed: () =>
-    typeof window.collapsed === 'boolean' ? window.collapsed : true
+  collapsed: true
 });
 
 const store = createStore(

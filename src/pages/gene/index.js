@@ -8,7 +8,7 @@ import Main from '../main';
 import Footer from '../footer';
 import SectionHeader from '../../components/section-header';
 import Details from '../../components/details';
-import Alert from '../../components/alert';
+import FetchAlert from '../../components/fetch-alert';
 import { getGeneDetails } from '../../actions/genes.js';
 import { isObject } from '../../util/types.js';
 import { isString } from '../../util/types.js';
@@ -30,7 +30,7 @@ let Gene = ({ match, details, getGeneDetails }) => {
         <section>
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
-            <Alert status={details} subject='gene details' />
+            <FetchAlert status={details} subject='gene details' />
           )}
         </section>
       </Main>

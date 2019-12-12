@@ -6,11 +6,14 @@ import Tooltip from '../tooltip';
 
 import './index.css';
 
-const Field = ({ className, children }) => {
+const Field = ({ className, children, wrap, ...props }) => {
   const label = getLabelFromChildren(children);
   return (
     <Tooltip text={label} horizontalAlign='left'>
-      <span className={'field nowrap ' + (className || '')}>
+      <span
+        className={'field ' + (wrap ? '' : 'nowrap ') + (className || '')}
+        {...props}
+      >
         {children}
       </span>
     </Tooltip>
@@ -19,6 +22,7 @@ const Field = ({ className, children }) => {
 
 Field.propTypes = {
   className: PropTypes.string,
+  wrap: PropTypes.bool,
   children: PropTypes.node
 };
 
