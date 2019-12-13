@@ -29,11 +29,18 @@ Selected = connect(mapStateToProps)(Selected);
 
 export default Selected;
 
-export const mapGeneSelected = (selected, download) => ({
-  ...(!download && { id: selected.id }),
+export const mapGeneSelected = (selected) => ({
+  id: selected.id,
   systematicName: selected.systematic_name,
   standardName: selected.standard_name,
   entrezId: selected.entrezid,
   description: selected.description,
-  ...(!download && { raw: selected })
+  raw: selected
+});
+
+export const mapGeneSelectedDownload = (selected) => ({
+  'Systematic Name': selected.systematic_name,
+  'Standard Name': selected.standard_name,
+  'Entrez Id': selected.entrezid,
+  'Description': selected.description
 });
