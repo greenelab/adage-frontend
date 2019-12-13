@@ -6,7 +6,7 @@ import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
 import { isArray } from '../../../../util/types.js';
 import { downloadTsv } from '../../../../util/download.js';
-import { mapGeneSelected } from '../';
+import { mapGeneSelectedDownload } from '../';
 
 import { ReactComponent as Cross } from '../../../../images/cross.svg';
 import { ReactComponent as Download } from '../../../../images/download.svg';
@@ -30,7 +30,7 @@ let Controls = ({ selected, deselectAll }) => (
 
 const mapStateToProps = (state) => ({
   selected: isArray(state.gene.selected) ?
-    state.gene.selected.map((selected) => mapGeneSelected(selected, true)) :
+    state.gene.selected.map((selected) => mapGeneSelectedDownload(selected)) :
     []
 });
 
