@@ -34,10 +34,9 @@ const Head = () => {
           data-align={table.aligns[index] || ''}
           className='table_cell semibold'
         >
-          <Field>{key}</Field>
+          <Field wrap>{key}</Field>
         </div>
       ))}
-      <HorizontalLine />
     </div>
   );
 };
