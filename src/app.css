@@ -46,20 +46,8 @@ a {
 }
 section {
   box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   width: 100%;
-  max-width: 800px;
-  margin: 0;
   padding: 0 20px;
-}
-.section_tall {
-  margin: 40px 0;
-}
-img {
-  max-width: 90%;
 }
 .medium {
   font-weight: 500;
