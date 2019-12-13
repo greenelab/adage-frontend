@@ -1,16 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+import Alert from '../../../components/alert';
 import Table from './table';
 import Controls from './controls';
+import { isArray } from '../../../util/types.js';
 
 import './index.css';
 
-const Selected = () => (
+let Selected = ({ anySelected }) => (
   <>
-    <Table />
-    <Controls />
+    {anySelected === false && <Alert text='No genes selected' />}
+    {anySelected === true && (
+      <>
+        <Table />
+        <Controls />
+      </>
+    )}
   </>
 );
+
+const mapStateToProps = (state) => ({
+  anySelected:
+    isArray(state.gene.selected) && state.gene.selected.length ? true : false
+});
+
+Selected = connect(mapStateToProps)(Selected);
 
 export default Selected;
 
