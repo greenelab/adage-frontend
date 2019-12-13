@@ -2,7 +2,7 @@
   color: var(--gray);
   display: flex;
   flex-direction: row;
-  margin: 20px 0;
+  margin: 40px 0 20px 0;
 }
 .section_header:before,
 .section_header:after {
@@ -12,8 +12,8 @@
   height: 1px;
 }
 .section_header:before {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 .section_header:after {
-  margin-left: 10px;
+  margin-left: 20px;
 }

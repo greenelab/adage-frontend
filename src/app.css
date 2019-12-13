@@ -52,8 +52,11 @@ section {
   flex-direction: column;
   width: 100%;
   max-width: 800px;
-  margin: 10px 0;
+  margin: 0;
   padding: 0 20px;
+}
+.section_tall {
+  margin: 40px 0;
 }
 img {
   max-width: 90%;

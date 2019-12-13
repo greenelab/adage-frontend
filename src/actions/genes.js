@@ -20,6 +20,8 @@ export const selectGene = createAction('SELECT_GENE');
 
 export const deselectGene = createAction('DESELECT_GENE');
 
+export const deselectAllGenes = createAction('DESELECT_ALL_GENES');
+
 export const toggleSelectGene = createAction('TOGGLE_SELECT_GENE');
 
 export const selectFirstGenes = createAction('SELECT_FIRST_GENES');

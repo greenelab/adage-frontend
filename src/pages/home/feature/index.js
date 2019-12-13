@@ -43,7 +43,7 @@ const Feature = ({ left, icon, header, text, to }) => {
   }
 
   return (
-    <section>
+    <section className='section_tall'>
       <div className='feature'>{content}</div>
     </section>
   );

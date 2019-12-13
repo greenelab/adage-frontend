@@ -8,7 +8,7 @@ import { ReactComponent as Arrow } from '../../../images/arrow.svg';
 import './index.css';
 
 const Banner = ({ text }) => (
-  <section>
+  <section className="section_tall">
     <div className='banner text_medium medium'>{text}</div>
     <Link to='/genes' text='Explore' icon={<Arrow />} />
   </section>
