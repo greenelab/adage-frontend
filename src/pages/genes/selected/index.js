@@ -8,19 +8,17 @@ import './index.css';
 const Selected = () => (
   <>
     <Table />
-    <Controls/>
+    <Controls />
   </>
 );
 
 export default Selected;
 
-export const mapGeneSelected = (selected) => ({
-  id: selected.id,
+export const mapGeneSelected = (selected, download) => ({
+  ...(!download && { id: selected.id }),
   systematicName: selected.systematic_name,
   standardName: selected.standard_name,
   entrezId: selected.entrezid,
   description: selected.description,
-  aliases: selected.aliases,
-  weight: selected.weight,
-  raw: selected
+  ...(!download && { raw: selected })
 });

@@ -16,7 +16,6 @@ const Table = ({ ...props }) => (
   <div className='table'>
     <TableContext.Provider value={props}>
       <Head />
-      <HorizontalLine />
       <Body />
     </TableContext.Provider>
   </div>
@@ -27,7 +26,7 @@ export default Table;
 const Head = () => {
   const table = useContext(TableContext);
   return (
-    <div className='table_head'>
+    <div className='table_head_row'>
       {table.head.map((key, index) => (
         <div
           key={index}
@@ -38,6 +37,7 @@ const Head = () => {
           <Field>{key}</Field>
         </div>
       ))}
+      <HorizontalLine />
     </div>
   );
 };
@@ -45,14 +45,14 @@ const Head = () => {
 const Body = () => {
   const table = useContext(TableContext);
   return (
-    <div className='table_body'>
+    <>
       {table.data.map((datum, index, array) => (
         <React.Fragment key={index}>
           <Row datum={datum} />
           {index < array.length - 1 && <HorizontalLine />}
         </React.Fragment>
       ))}
-    </div>
+    </>
   );
 };
 

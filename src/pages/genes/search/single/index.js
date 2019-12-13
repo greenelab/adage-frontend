@@ -12,14 +12,14 @@ import { mapGeneResult } from '../';
 
 import './index.css';
 
-let Single = ({ results, highlightedIndex, selectGene, deselectGene }) => (
+let Single = ({ results, highlightedIndex, select, deselect }) => (
   <div className='search_results'>
     {isArray(results) &&
       results.map((result, index, array) => (
         <React.Fragment key={index}>
           <SingleRow
             onClick={() =>
-              (result.selected ? deselectGene : selectGene)({
+              (result.selected ? deselect : select)({
                 gene: result.raw
               })
             }
@@ -53,8 +53,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  selectGene: (...args) => dispatch(selectGene(...args)),
-  deselectGene: (...args) => dispatch(deselectGene(...args))
+  select: (...args) => dispatch(selectGene(...args)),
+  deselect: (...args) => dispatch(deselectGene(...args))
 });
 
 Single = connect(mapStateToProps, mapDispatchToProps)(Single);

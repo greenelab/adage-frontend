@@ -2,8 +2,7 @@ export const downloadTsv = (data = [], filename = 'download') => {
   if (!data.length)
     return;
 
-  const exclude = ['raw'];
-  const keys = Object.keys(data[0]).filter((key) => !exclude.includes(key));
+  const keys = Object.keys(data[0]);
   let content = [
     [...keys],
     ...data.map((datum) => keys.map((key) => datum[key]))

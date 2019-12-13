@@ -15,12 +15,12 @@ import { isString } from '../../util/types.js';
 
 import './index.css';
 
-let Model = ({ match, details, getModelDetails }) => {
+let Model = ({ match, details, getDetails }) => {
   const id = match.params.id;
 
   useEffect(() => {
-    getModelDetails({ id: id });
-  }, [id, getModelDetails]);
+    getDetails({ id: id });
+  }, [id, getDetails]);
 
   return (
     <>
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getModelDetails: (...args) => dispatch(getModelDetails(...args))
+  getDetails: (...args) => dispatch(getModelDetails(...args))
 });
 
 Model = withRouter(Model);

@@ -13,7 +13,7 @@ import { isArray } from '../../../util/types.js';
 
 import './index.css';
 
-let Search = ({ results, selectGene, deselectGene, dispatch }) => (
+let Search = ({ results, select, deselect, dispatch }) => (
   <SearchComponent
     length={results ? results.length : null}
     multi
@@ -36,9 +36,9 @@ let Search = ({ results, selectGene, deselectGene, dispatch }) => (
     }}
     onKeySelect={(highlightedIndex) => {
       if (results[highlightedIndex].selected)
-        deselectGene({ gene: results[highlightedIndex].raw });
+        deselect({ gene: results[highlightedIndex].raw });
       else
-        selectGene({ gene: results[highlightedIndex].raw });
+        select({ gene: results[highlightedIndex].raw });
     }}
     SingleComponent={<Single />}
     MultiComponent={<Multi />}
@@ -58,8 +58,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  selectGene: (...args) => dispatch(selectGene(...args)),
-  deselectGene: (...args) => dispatch(deselectGene(...args)),
+  select: (...args) => dispatch(selectGene(...args)),
+  deselect: (...args) => dispatch(deselectGene(...args)),
   dispatch: dispatch
 });
 

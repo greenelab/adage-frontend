@@ -15,56 +15,50 @@ import { ReactComponent as Cross } from '../../../../images/cross.svg';
 
 import './index.css';
 
-let Table = ({ selected, deselectGene }) => (
+let Table = ({ selected, deselect }) => (
   <>
     <TableComponent
       data={selected.map((selected) => ({
         ...selected,
+        deselect: (
+          <Tooltip text='Deselect this gene' horizontalAlign='left'>
+            <Button
+              icon={<Cross />}
+              onClick={() => deselect({ gene: selected.raw })}
+            />
+          </Tooltip>
+        ),
         info: (
           <Tooltip text='View full gene details' horizontalAlign='right'>
             <Link to={'/gene/' + selected.id} newTab icon={<Info />} />
           </Tooltip>
-        ),
-        deselect: (
-          <Tooltip text='Deselect this gene' horizontalAlign='right'>
-            <Button
-              icon={<Cross />}
-              onClick={() => deselectGene({ gene: selected.raw })}
-            />
-          </Tooltip>
         )
       }))}
       fields={[
+        'deselect',
         'standardName',
         'systematicName',
         'entrezId',
         'description',
-        'aliases',
-        'weight',
-        'info',
-        'deselect'
+        'info'
       ]}
       head={[
+        ' ',
         'Standard Name',
         'Systematic Name',
         'Entrez ID',
         'Description',
-        'Aliases',
-        'Weight',
-        ' ',
         ' '
       ]}
       widths={[
-        'calc((100% - 30px - 30px) * 0.15)',
-        'calc((100% - 30px - 30px) * 0.15)',
-        'calc((100% - 30px - 30px) * 0.15)',
-        'calc((100% - 30px - 30px) * 0.25)',
-        'calc((100% - 30px - 30px) * 0.15)',
-        'calc((100% - 30px - 30px) * 0.15)',
         '30px',
+        'calc((100% - 30px - 30px) * 0.15)',
+        'calc((100% - 30px - 30px) * 0.15)',
+        'calc((100% - 30px - 30px) * 0.15)',
+        'calc((100% - 30px - 30px) * 0.55)',
         '30px'
       ]}
-      aligns={['', '', '', '', 'center', 'center', 'center']}
+      aligns={[]}
     />
     {!selected.length && <Alert text='No genes selected' />}
   </>
@@ -77,7 +71,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deselectGene: (...args) => dispatch(deselectGene(...args))
+  deselect: (...args) => dispatch(deselectGene(...args))
 });
 
 Table = connect(mapStateToProps, mapDispatchToProps)(Table);
