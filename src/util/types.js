@@ -1,3 +1,6 @@
+export const isNumber = (value) =>
+  typeof value === 'number' && !Number.isNaN(value);
+
 export const isString = (value) => typeof value === 'string';
 
 export const isArray = (value) => Array.isArray(value);

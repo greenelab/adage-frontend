@@ -4,6 +4,8 @@ import { useContext } from 'react';
 
 import Field from '../field';
 import HorizontalLine from '../horizontal-line';
+import { isNumber } from '../../util/types.js';
+import { isString } from '../../util/types.js';
 import { isBlank } from '../../util/types.js';
 
 import './index.css';
@@ -59,16 +61,26 @@ const Row = ({ datum }) => {
 
   return (
     <div className='table_body_row'>
-      {table.fields.map((key, index) => (
-        <div
-          key={index}
-          style={{ width: table.widths[index] }}
-          data-align={table.aligns[index] || ''}
-          className='table_cell'
-        >
-          <Field>{isBlank(datum[key]) ? '-' : datum[key]}</Field>
-        </div>
-      ))}
+      {table.fields.map((key, index) => {
+        const value = datum[key];
+
+        let content = <>{value}</>;
+        if (isNumber(value) || isString(value))
+          content = <Field>{value}</Field>;
+        if (isBlank(value))
+          content = '-';
+
+        return (
+          <div
+            key={index}
+            style={{ width: table.widths[index] }}
+            data-align={table.aligns[index] || ''}
+            className='table_cell'
+          >
+            {content}
+          </div>
+        );
+      })}
     </div>
   );
 };

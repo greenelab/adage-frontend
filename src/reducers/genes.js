@@ -43,6 +43,10 @@ const reducer = produce((draft, type, payload, meta) => {
       );
       break;
 
+    case 'DESELECT_ALL_GENES':
+      draft.selected = [];
+      break;
+
     case 'SELECT_FIRST_GENES':
       for (const search of draft.searches) {
         const firstResult =
