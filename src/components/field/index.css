@@ -1,10 +1,10 @@
-.nowrap {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .field {
   box-sizing: border-box;
   display: inline-block;
   padding: 0 5px;
+}
+.nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

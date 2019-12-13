@@ -35,7 +35,7 @@ const Head = () => {
           data-align={table.aligns[index] || ''}
           className='table_cell semibold'
         >
-          <Field wrap>{key}</Field>
+          <Field>{key}</Field>
         </div>
       ))}
     </div>
