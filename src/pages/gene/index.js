@@ -15,12 +15,12 @@ import { isString } from '../../util/types.js';
 
 import './index.css';
 
-let Gene = ({ match, details, getGeneDetails }) => {
+let Gene = ({ match, details, getDetails }) => {
   const id = match.params.id;
 
   useEffect(() => {
-    getGeneDetails({ id: id });
-  }, [id, getGeneDetails]);
+    getDetails({ id: id });
+  }, [id, getDetails]);
 
   return (
     <>
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getGeneDetails: (...args) => dispatch(getGeneDetails(...args))
+  getDetails: (...args) => dispatch(getGeneDetails(...args))
 });
 
 Gene = withRouter(Gene);

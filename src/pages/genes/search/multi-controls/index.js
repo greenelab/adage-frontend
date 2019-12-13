@@ -8,22 +8,22 @@ import Button from '../../../../components/button';
 
 import './index.css';
 
-let MultiControls = ({ selectFirstGenes, deselectFirstGenes }) => (
+let MultiControls = ({ selectFirst, deselectFirst }) => (
   <div className='gene_search_results_multi_controls'>
     <Tooltip text='Select the first result for each search term'>
-      <Button text='select' onClick={selectFirstGenes} />
+      <Button text='select' onClick={selectFirst} />
     </Tooltip>
     /
     <Tooltip text='Deselect the first result for each search term'>
-      <Button text='deselect' onClick={deselectFirstGenes} />
+      <Button text='deselect' onClick={deselectFirst} />
     </Tooltip>
     <span>first results</span>
   </div>
 );
 
 const mapDispatchToProps = (dispatch) => ({
-  selectFirstGenes: () => dispatch(selectFirstGenes()),
-  deselectFirstGenes: () => dispatch(deselectFirstGenes())
+  selectFirst: () => dispatch(selectFirstGenes()),
+  deselectFirst: () => dispatch(deselectFirstGenes())
 });
 
 MultiControls = connect(null, mapDispatchToProps)(MultiControls);

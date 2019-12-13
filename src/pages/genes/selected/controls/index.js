@@ -12,9 +12,9 @@ import { ReactComponent as Download } from '../../../../images/download.svg';
 
 import './index.css';
 
-let Controls = ({ selected, deselectAllGenes }) => (
+let Controls = ({ selected, deselectAll }) => (
   <div className='gene_selected_controls'>
-    <Button text='Deselect All' icon={<Cross />} onClick={deselectAllGenes} />
+    <Button text='Deselect All' icon={<Cross />} onClick={deselectAll} />
     <Button
       text='Download'
       icon={<Download />}
@@ -25,12 +25,12 @@ let Controls = ({ selected, deselectAllGenes }) => (
 
 const mapStateToProps = (state) => ({
   selected: isArray(state.gene.selected) ?
-    state.gene.selected.map((selected) => mapGeneSelected(selected)) :
+    state.gene.selected.map((selected) => mapGeneSelected(selected, true)) :
     []
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deselectAllGenes: () => dispatch(deselectAllGenes())
+  deselectAll: () => dispatch(deselectAllGenes())
 });
 
 Controls = connect(mapStateToProps, mapDispatchToProps)(Controls);

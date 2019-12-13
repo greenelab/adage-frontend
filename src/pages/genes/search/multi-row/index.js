@@ -24,11 +24,11 @@ import './index.css';
 const collapsedResultLimit = 3;
 const expandedResultLimit = 5;
 
-let MultiRow = ({ search, selectGene, deselectGene }) => {
+let MultiRow = ({ search, select, deselect }) => {
   const [expanded, setExpanded] = useState(false);
 
   const onClick = (result) =>
-    (result.selected ? deselectGene : selectGene)({ gene: result.raw });
+    (result.selected ? deselect : select)({ gene: result.raw });
 
   let content = <></>;
   if (isString(search.results)) {
@@ -111,8 +111,8 @@ let MultiRow = ({ search, selectGene, deselectGene }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  selectGene: (...args) => dispatch(selectGene(...args)),
-  deselectGene: (...args) => dispatch(deselectGene(...args))
+  select: (...args) => dispatch(selectGene(...args)),
+  deselect: (...args) => dispatch(deselectGene(...args))
 });
 
 MultiRow = connect(null, mapDispatchToProps)(MultiRow);
@@ -125,7 +125,6 @@ export default MultiRow;
 
 const ResultButton = ({
   onClick = () => null,
-  id = null,
   selected = false,
   col1 = '-',
   col2 = '-'
@@ -140,11 +139,7 @@ const ResultButton = ({
         {!selected && <Unchecked />}
       </div>
     </Tooltip>
-    <Field className={'gene_search_result_multi_details'}>
-      {col1}
-    </Field>
-    <Field className={'gene_search_result_multi_details'}>
-      {col2}
-    </Field>
+    <Field className={'gene_search_result_multi_details'}>{col1}</Field>
+    <Field className={'gene_search_result_multi_details'}>{col2}</Field>
   </Button>
 );

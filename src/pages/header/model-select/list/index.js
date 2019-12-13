@@ -8,11 +8,11 @@ import { setSelectedModel } from '../../../../actions/models.js';
 
 import './index.css';
 
-let List = ({ models, setSelectedModel }) => (
+let List = ({ models, setSelected }) => (
   <>
     {models.map((model, index, array) => (
       <React.Fragment key={index}>
-        <Item onClick={() => setSelectedModel({ id: model.id })} {...model} />
+        <Item onClick={() => setSelected({ id: model.id })} {...model} />
         {index < array.length - 1 && <HorizontalLine />}
       </React.Fragment>
     ))}
@@ -24,7 +24,7 @@ List.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setSelectedModel: (...args) => dispatch(setSelectedModel(...args))
+  setSelected: (...args) => dispatch(setSelectedModel(...args))
 });
 
 List = connect(null, mapDispatchToProps)(List);
