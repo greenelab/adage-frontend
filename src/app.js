@@ -11,6 +11,7 @@ import thunk from 'redux-thunk';
 import sequenceAction from 'redux-sequence-action';
 import { createLogger } from 'redux-logger';
 
+import Head from './pages/head';
 import Home from './pages/home';
 import Genes from './pages/genes';
 import Experiments from './pages/experiments';
@@ -19,6 +20,7 @@ import Help from './pages/help';
 import Model from './pages/model';
 import Gene from './pages/gene';
 import reducer from './reducers';
+import querySync from './reducers/url.js';
 import { getModelList } from './actions/models.js';
 import { setSelectedModel } from './actions/models.js';
 
@@ -32,7 +34,7 @@ const logger = createLogger({
 
 const store = createStore(
   reducer,
-  compose(applyMiddleware(sequenceAction, thunk, logger))
+  compose(applyMiddleware(sequenceAction, thunk, logger), querySync)
 );
 
 const basename = process.env.REACT_APP_BASENAME;
@@ -45,6 +47,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter basename={basename}>
+        <Head />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/genes' component={Genes} />

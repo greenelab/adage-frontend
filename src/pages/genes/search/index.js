@@ -10,6 +10,7 @@ import { cancelAction } from '../../../actions/fetch.js';
 import { selectGene } from '../../../actions/genes.js';
 import { deselectGene } from '../../../actions/genes.js';
 import { isArray } from '../../../util/types.js';
+import { isSelected } from '../../../reducers/genes.js';
 
 import './index.css';
 
@@ -28,7 +29,7 @@ let Search = ({ results, select, deselect, dispatch }) => (
         getGeneSearch({
           index: index,
           query: string,
-          cancelType: 'GENE_SEARCH_' + index
+          cancelType: 'GET_GENE_SEARCH_' + index
         })
       );
       cancelAction({ cancelTypeRegex: /GENE_SEARCH.*/ });
@@ -36,9 +37,9 @@ let Search = ({ results, select, deselect, dispatch }) => (
     }}
     onKeySelect={(highlightedIndex) => {
       if (results[highlightedIndex].selected)
-        deselect({ gene: results[highlightedIndex].raw });
+        deselect({ id: results[highlightedIndex].id });
       else
-        select({ gene: results[highlightedIndex].raw });
+        select({ id: results[highlightedIndex].id });
     }}
     SingleComponent={<Single />}
     MultiComponent={<Multi />}
@@ -71,12 +72,12 @@ export const mapGeneResult = (result, state) => {
     'description'
   ];
   const highlightedKey = result.max_similarity_field;
+
   return {
     id: result.id,
-    selected: state.gene.selected.some((selected) => selected.id === result.id),
+    selected: isSelected(state.gene.selected, result.id),
     cols: colKeys.map((key) => result[key]),
-    highlightedCol: colKeys.findIndex((key) => key === highlightedKey),
-    raw: result
+    highlightedCol: colKeys.findIndex((key) => key === highlightedKey)
   };
 };
 

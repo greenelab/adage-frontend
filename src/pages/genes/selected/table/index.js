@@ -22,7 +22,7 @@ let Table = ({ selected, deselect }) => (
         <Tooltip text='Deselect this gene' horizontalAlign='left'>
           <Button
             icon={<Cross />}
-            onClick={() => deselect({ gene: selected.raw })}
+            onClick={() => deselect({ id: selected.id })}
           />
         </Tooltip>
       ),

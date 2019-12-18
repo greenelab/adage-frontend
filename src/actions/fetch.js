@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-// import { sleep } from '../util/debug.js';
+import { sleep } from '../util/debug.js';
 import { isEmpty } from '../util/types.js';
 
 // replacement for redux-thunk-actions
@@ -13,7 +13,8 @@ import { isEmpty } from '../util/types.js';
 export const fetchActionStatuses = {
   LOADING: 'LOADING',
   EMPTY: 'EMPTY',
-  ERROR: 'ERROR'
+  ERROR: 'ERROR',
+  SUCCESS: 'SUCCESS'
 };
 
 const actionStore = {};

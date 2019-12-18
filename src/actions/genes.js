@@ -27,3 +27,8 @@ export const toggleSelectGene = createAction('TOGGLE_SELECT_GENE');
 export const selectFirstGenes = createAction('SELECT_FIRST_GENES');
 
 export const deselectFirstGenes = createAction('DESELECT_FIRST_GENES');
+
+export const getGeneSelectedDetails = createFetchAction(
+  'GET_GENE_SELECTED_DETAILS',
+  urlGeneDetails
+);
