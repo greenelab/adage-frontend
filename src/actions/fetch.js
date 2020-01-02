@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { sleep } from '../util/debug.js';
+// import { sleep } from '../util/debug.js';
 import { isEmpty } from '../util/types.js';
 
 // replacement for redux-thunk-actions
@@ -96,10 +96,8 @@ function* fetchJson(url, signal) {
   // yield sleep(500 + Math.random() * 500);
 
   const cachedResponse = window.sessionStorage.getItem(url);
-  if (cachedResponse) {
-    console.log('cached response used')
+  if (cachedResponse)
     yield JSON.parse(cachedResponse);
-  }
 
   const fetchResponse = yield fetch(url, { signal });
 
