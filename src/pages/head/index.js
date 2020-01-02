@@ -1,21 +1,21 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
+import { useEffect } from 'react';
 
 let Head = ({ location }) => {
-  const path = location.pathname.slice(1);
+  useEffect(() => {
+    const path = location.pathname.slice(1);
 
-  const params =
-    (new URLSearchParams(location.search).get('selected') || '').split('-')
-      .length + ' selected';
+    const params =
+      (new URLSearchParams(location.search).get('selected') || '').split('-')
+        .length + ' selected';
 
-  const title = ['Adage', path, params].join(' · ');
+    const title = ['Adage', path, params].join(' · ');
 
-  return (
-    <Helmet>
-      <title>{title}</title>
-    </Helmet>
-  );
+    document.title = title;
+  }, [location]);
+
+  return <></>;
 };
 
 Head = withRouter(Head);

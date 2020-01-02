@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import { compose } from 'redux';
@@ -20,7 +20,8 @@ import Help from './pages/help';
 import Model from './pages/model';
 import Gene from './pages/gene';
 import reducer from './reducers';
-import querySync from './reducers/url.js';
+import { history } from './reducers/url.js';
+import { querySync } from './reducers/url.js';
 import { getModelList } from './actions/models.js';
 import { setSelectedModel } from './actions/models.js';
 
@@ -46,7 +47,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <BrowserRouter basename={basename}>
+      <Router basename={basename} history={history}>
         <Head />
         <Switch>
           <Route exact path='/' component={Home} />
@@ -57,7 +58,7 @@ const App = () => {
           <Route path='/model/:id' component={Model} />
           <Route path='/gene/:id' component={Gene} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Provider>
   );
 };

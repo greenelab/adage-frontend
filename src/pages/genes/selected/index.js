@@ -21,7 +21,7 @@ let Selected = ({ selected, anySelected, dispatch }) => {
         })
       );
     if (actions.length)
-      dispatch([...actions]);
+      dispatch(...actions);
   });
 
   return (

@@ -88,12 +88,13 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'SELECT_GENES_FROM_URL':
       if (!payload.ids || !isArray(payload.ids) || !payload.ids.length)
-        break;
-
-      draft.selected = payload.ids.map((id) => ({
-        id,
-        ...(draft.selected.find((selected) => selected.id === id) || {})
-      }));
+        draft.selected = [];
+      else {
+        draft.selected = payload.ids.map((id) => ({
+          id,
+          ...(draft.selected.find((selected) => selected.id === id) || {})
+        }));
+      }
 
       break;
 

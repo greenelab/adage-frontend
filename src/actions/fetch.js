@@ -96,8 +96,10 @@ function* fetchJson(url, signal) {
   // yield sleep(500 + Math.random() * 500);
 
   const cachedResponse = window.sessionStorage.getItem(url);
-  if (cachedResponse)
+  if (cachedResponse) {
+    console.log('cached response used')
     yield JSON.parse(cachedResponse);
+  }
 
   const fetchResponse = yield fetch(url, { signal });
 

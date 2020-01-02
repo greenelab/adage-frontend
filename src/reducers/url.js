@@ -1,12 +1,15 @@
 import reduxQuerySync from 'redux-query-sync';
+import { createBrowserHistory } from 'history';
 
-const querySync = reduxQuerySync.enhancer({
+export const history = createBrowserHistory();
+
+export const querySync = reduxQuerySync.enhancer({
   params: {
     selected: {
       selector: (state) =>
         state.gene.selected && state.gene.selected.length ?
           state.gene.selected.map((selected) => selected.id).join('-') :
-          '',
+          undefined,
       action: (value) => ({
         type: 'SELECT_GENES_FROM_URL',
         payload: {
@@ -15,7 +18,6 @@ const querySync = reduxQuerySync.enhancer({
       })
     }
   },
+  history: history,
   initialTruth: 'location'
 });
-
-export default querySync;
