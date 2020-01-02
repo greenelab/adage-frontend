@@ -1,5 +1,6 @@
 import produce from 'immer';
 
+import { fetchActionStatuses } from '../actions/fetch.js';
 import { isString } from '../util/types.js';
 import { isArray } from '../util/types.js';
 import { isObject } from '../util/types.js';
@@ -33,14 +34,13 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
 
     case 'SELECT_GENE':
-      if (!draft.selected.some((selected) => selected.id === payload.gene.id))
-        draft.selected.push(payload.gene);
+      if (isSelected(draft.selected, payload.id))
+        break;
+      draft.selected.push({ id: payload.id });
       break;
 
     case 'DESELECT_GENE':
-      draft.selected = draft.selected.filter(
-        (selected) => selected.id !== payload.gene.id
-      );
+      draft.selected = filterSelected(draft.selected, payload.id);
       break;
 
     case 'DESELECT_ALL_GENES':
@@ -53,11 +53,11 @@ const reducer = produce((draft, type, payload, meta) => {
           isArray(search.results) && search.results.length ?
             search.results[0] :
             null;
-        if (
-          firstResult &&
-          !draft.selected.some((selected) => selected.id === firstResult.id)
-        )
-          draft.selected.push(firstResult);
+        if (!firstResult)
+          break;
+        if (isSelected(draft.selected, firstResult.id))
+          break;
+        draft.selected.push({ id: firstResult.id });
       }
       break;
 
@@ -67,12 +67,35 @@ const reducer = produce((draft, type, payload, meta) => {
           isArray(search.results) && search.results.length ?
             search.results[0] :
             null;
-        if (firstResult) {
-          draft.selected = draft.selected.filter(
-            (selected) => selected.id !== firstResult.id
-          );
-        }
+        if (!firstResult)
+          break;
+
+        draft.selected = filterSelected(draft.selected, firstResult.id);
       }
+      break;
+
+    case 'GET_GENE_SELECTED_DETAILS':
+      const index = findSelected(draft.selected, meta.id);
+      if (index === -1)
+        break;
+      if (isString(payload))
+        draft.selected[index].status = payload;
+      else if (isObject(payload)) {
+        draft.selected[index].status = fetchActionStatuses.SUCCESS;
+        draft.selected[index] = { ...draft.selected[index], ...payload };
+      }
+      break;
+
+    case 'SELECT_GENES_FROM_URL':
+      if (!payload.ids || !isArray(payload.ids) || !payload.ids.length)
+        draft.selected = [];
+      else {
+        draft.selected = payload.ids.map((id) => ({
+          id,
+          ...(draft.selected.find((selected) => selected.id === id) || {})
+        }));
+      }
+
       break;
 
     default:
@@ -83,3 +106,12 @@ const reducer = produce((draft, type, payload, meta) => {
 }, {});
 
 export default reducer;
+
+export const isSelected = (selected, id) =>
+  selected.some((selected) => selected.id === id);
+
+export const filterSelected = (selected, id) =>
+  selected.filter((selected) => !(selected.id === id));
+
+export const findSelected = (selected, id) =>
+  selected.findIndex((selected) => selected.id === id);

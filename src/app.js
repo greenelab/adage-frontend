@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import { compose } from 'redux';
@@ -11,6 +11,7 @@ import thunk from 'redux-thunk';
 import sequenceAction from 'redux-sequence-action';
 import { createLogger } from 'redux-logger';
 
+import Head from './pages/head';
 import Home from './pages/home';
 import Genes from './pages/genes';
 import Experiments from './pages/experiments';
@@ -19,6 +20,8 @@ import Help from './pages/help';
 import Model from './pages/model';
 import Gene from './pages/gene';
 import reducer from './reducers';
+import { history } from './reducers/url.js';
+import { querySync } from './reducers/url.js';
 import { getModelList } from './actions/models.js';
 import { setSelectedModel } from './actions/models.js';
 
@@ -32,7 +35,7 @@ const logger = createLogger({
 
 const store = createStore(
   reducer,
-  compose(applyMiddleware(sequenceAction, thunk, logger))
+  compose(applyMiddleware(sequenceAction, thunk, logger), querySync)
 );
 
 const basename = process.env.REACT_APP_BASENAME;
@@ -44,7 +47,8 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <BrowserRouter basename={basename}>
+      <Router basename={basename} history={history}>
+        <Head />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/genes' component={Genes} />
@@ -54,7 +58,7 @@ const App = () => {
           <Route path='/model/:id' component={Model} />
           <Route path='/gene/:id' component={Gene} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Provider>
   );
 };

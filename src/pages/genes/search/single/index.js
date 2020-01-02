@@ -20,7 +20,7 @@ let Single = ({ results, highlightedIndex, select, deselect }) => (
           <SingleRow
             onClick={() =>
               (result.selected ? deselect : select)({
-                gene: result.raw
+                id: result.id
               })
             }
             id={result.id}
@@ -28,7 +28,7 @@ let Single = ({ results, highlightedIndex, select, deselect }) => (
             cols={result.cols}
             highlighted={index === highlightedIndex}
             highlightedCol={result.highlightedCol}
-          />
+            />
           {index < array.length - 1 && <HorizontalLine />}
         </React.Fragment>
       ))}

@@ -13,7 +13,8 @@ import { isEmpty } from '../util/types.js';
 export const fetchActionStatuses = {
   LOADING: 'LOADING',
   EMPTY: 'EMPTY',
-  ERROR: 'ERROR'
+  ERROR: 'ERROR',
+  SUCCESS: 'SUCCESS'
 };
 
 const actionStore = {};

@@ -28,7 +28,7 @@ let MultiRow = ({ search, select, deselect }) => {
   const [expanded, setExpanded] = useState(false);
 
   const onClick = (result) =>
-    (result.selected ? deselect : select)({ gene: result.raw });
+    (result.selected ? deselect : select)({ id: result.id });
 
   let content = <></>;
   if (isString(search.results)) {
