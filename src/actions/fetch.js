@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import sizeof from 'object-sizeof';
 
 // import { sleep } from '../util/debug.js';
 import { isEmpty } from '../util/types.js';
@@ -18,6 +19,10 @@ export const fetchActionStatuses = {
 };
 
 const actionStore = {};
+
+const cache = {};
+cache.size = 0;
+cache.limit = 200 * 1000000; // in bytes
 
 export const createFetchAction = (type, urlFunction) => ({
   ...props
@@ -95,9 +100,8 @@ function* fetchJson(url, signal) {
   // artificial delay for testing loading spinners and race conditions
   // yield sleep(500 + Math.random() * 500);
 
-  const cachedResponse = window.sessionStorage.getItem(url);
-  if (cachedResponse)
-    yield JSON.parse(cachedResponse);
+  if (cache[url])
+    return cache[url];
 
   const fetchResponse = yield fetch(url, { signal });
 
@@ -112,9 +116,12 @@ function* fetchJson(url, signal) {
   else
     results = json;
 
-  const stringifiedResults = yield JSON.stringify(results);
+  const size = yield sizeof(results);
 
-  yield window.sessionStorage.setItem(url, stringifiedResults);
+  if (cache.size + size < cache.limit) {
+    cache[url] = results;
+    cache.size += size;
+  }
 
   return results;
 }

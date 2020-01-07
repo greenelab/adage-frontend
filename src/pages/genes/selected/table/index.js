@@ -6,7 +6,6 @@ import Link from '../../../../components/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
 import { deselectGene } from '../../../../actions/genes.js';
-import { isArray } from '../../../../util/types.js';
 import { mapGeneSelected } from '../';
 
 import { ReactComponent as Info } from '../../../../images/info.svg';
@@ -61,9 +60,7 @@ let Table = ({ selected, deselect }) => (
 );
 
 const mapStateToProps = (state) => ({
-  selected: isArray(state.gene.selected) ?
-    state.gene.selected.map((selected) => mapGeneSelected(selected)) :
-    []
+  selected: state.gene.selected.map((selected) => mapGeneSelected(selected))
 });
 
 const mapDispatchToProps = (dispatch) => ({

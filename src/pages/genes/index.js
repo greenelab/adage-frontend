@@ -6,6 +6,7 @@ import Footer from '../footer';
 import SectionHeader from '../../components/section-header';
 import Search from './search';
 import Selected from './selected';
+import Enriched from './enriched';
 
 import './index.css';
 
@@ -20,6 +21,10 @@ const Genes = () => (
       <SectionHeader text='Selected Genes' />
       <section>
         <Selected />
+      </section>
+      <SectionHeader text='Enriched Signatures' />
+      <section>
+        <Enriched />
       </section>
     </Main>
     <Footer />

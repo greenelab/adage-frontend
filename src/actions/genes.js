@@ -3,6 +3,7 @@ import { createFetchAction } from './fetch.js';
 
 import { urlGeneSearch } from '../backend/genes.js';
 import { urlGeneDetails } from '../backend/genes.js';
+import { urlGeneParticipations } from '../backend/genes.js';
 
 export const getGeneSearch = createFetchAction(
   'GET_GENE_SEARCH',
@@ -31,4 +32,9 @@ export const deselectFirstGenes = createAction('DESELECT_FIRST_GENES');
 export const getGeneSelectedDetails = createFetchAction(
   'GET_GENE_SELECTED_DETAILS',
   urlGeneDetails
+);
+
+export const getGeneParticipations = createFetchAction(
+  'GET_GENE_PARTICIPATIONS',
+  urlGeneParticipations
 );

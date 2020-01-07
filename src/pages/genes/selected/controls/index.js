@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { deselectAllGenes } from '../../../../actions/genes.js';
 import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
-import { isArray } from '../../../../util/types.js';
 import { downloadTsv } from '../../../../util/download.js';
 import { mapGeneSelectedDownload } from '../';
 
@@ -29,9 +28,9 @@ let Controls = ({ selected, deselectAll }) => (
 );
 
 const mapStateToProps = (state) => ({
-  selected: isArray(state.gene.selected) ?
-    state.gene.selected.map((selected) => mapGeneSelectedDownload(selected)) :
-    []
+  selected: state.gene.selected.map((selected) =>
+    mapGeneSelectedDownload(selected)
+  )
 });
 
 const mapDispatchToProps = (dispatch) => ({

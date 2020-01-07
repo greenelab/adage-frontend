@@ -3,3 +3,6 @@
 
 // production server
 export const server = 'https://py3-adage.greenelab.com/api/v1/';
+
+// default result limit
+export const defaultLimit = 25;

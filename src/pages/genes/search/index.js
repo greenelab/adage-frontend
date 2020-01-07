@@ -48,7 +48,6 @@ let Search = ({ results, select, deselect, dispatch }) => (
 
 const mapStateToProps = (state) => ({
   results:
-    isArray(state.gene.searches) &&
     state.gene.searches.length === 1 &&
     isArray(state.gene.searches[0].results) &&
     state.gene.searches[0].results.length ?

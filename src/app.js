@@ -24,10 +24,9 @@ import { history } from './reducers/url.js';
 import { querySync } from './reducers/url.js';
 import { getModelList } from './actions/models.js';
 import { setSelectedModel } from './actions/models.js';
+import { getSignatureList } from './actions/signatures.js';
 
 import './app.css';
-
-window.sessionStorage.clear();
 
 const logger = createLogger({
   collapsed: true
@@ -42,7 +41,7 @@ const basename = process.env.REACT_APP_BASENAME;
 
 const App = () => {
   useEffect(() => {
-    store.dispatch([getModelList(), setSelectedModel()]);
+    store.dispatch([getModelList(), setSelectedModel(), getSignatureList()]);
   }, []);
 
   return (

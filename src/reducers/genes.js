@@ -13,6 +13,8 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.searches = [];
     if (!isArray(draft.selected))
       draft.selected = [];
+    if (!isString(draft.participations) && !isObject(draft.participations))
+      draft.participations = '';
   };
 
   typeCheck();
@@ -96,6 +98,10 @@ const reducer = produce((draft, type, payload, meta) => {
         }));
       }
 
+      break;
+
+    case 'GET_GENE_PARTICIPATIONS':
+      draft.participations = payload;
       break;
 
     default:
