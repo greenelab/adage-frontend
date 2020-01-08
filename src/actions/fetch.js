@@ -24,11 +24,11 @@ cache.limit = 20 * 1000000; // in bytes
 export const createFetchAction = (type, urlFunction) => ({
   ...props
 }) => async (dispatch) => {
-  const meta = () => ({ ...props });
-  const cancelType = props.cancelType;
-  delete props.cancelType;
+  const { cancelType, count } = props;
+
+  const meta = () => props;
   const actionId = newAction({ cancelType: cancelType });
-  const url = urlFunction({ ...props });
+  const url = urlFunction(props);
 
   const setStatus = (status) => {
     if (isStaleAction({ cancelType, actionId })) {
@@ -43,7 +43,7 @@ export const createFetchAction = (type, urlFunction) => ({
 
   setStatus(fetchActionStatuses.LOADING);
   try {
-    const value = await fetchJson(url);
+    const value = await fetchJson(url, count);
     if (isEmpty(value))
       setStatus(fetchActionStatuses.EMPTY);
     else
@@ -73,7 +73,7 @@ export const cancelAction = ({ cancelTypeRegex }) => {
   }
 };
 
-const fetchJson = async (url) => {
+const fetchJson = async (url, count) => {
   // artificial delay for testing loading spinners and race conditions
   // await sleep(500 + Math.random() * 500);
 
@@ -88,30 +88,15 @@ const fetchJson = async (url) => {
   const json = await fetchResponse.json();
 
   let results;
-  if (json && json.results)
-    results = json.results;
+  if (count)
+    results = json?.count || 0;
   else
-    results = json;
+    results = json?.results || json;
 
-  results.timestamp = window.performance.now();
-  results.size = sizeof(results);
+  const size = sizeof(results);
 
-  if (results.size < cache.limit) {
-    while (cache.size + results.size > cache.limit) {
-      let oldestUrl;
-      let oldestTimestamp = results.timestamp;
-      for (const url of Object.keys(cache)) {
-        if (cache[url].timestamp < oldestTimestamp) {
-          oldestUrl = url;
-          oldestTimestamp = cache[url].timestamp;
-        }
-      }
-      if (oldestUrl) {
-        cache.size -= cache[oldestUrl].size;
-        delete cache[oldestUrl];
-      }
-    }
-    cache.size += results.size;
+  if (cache.size + size < cache.limit) {
+    cache.size += size;
     cache[url] = results;
   }
 

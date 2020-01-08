@@ -24,6 +24,10 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.details = payload;
       break;
 
+    case 'GET_GENE_COUNT':
+      draft.count = payload;
+      break;
+
     case 'GET_GENE_SEARCH':
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};

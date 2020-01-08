@@ -1,13 +1,19 @@
 import { createAction } from 'redux-actions';
 import { createFetchAction } from './fetch.js';
 
-import { urlGeneSearch } from '../backend/genes.js';
 import { urlGeneDetails } from '../backend/genes.js';
+import { urlGeneCount } from '../backend/genes.js';
+import { urlGeneSearch } from '../backend/genes.js';
 import { urlGeneParticipations } from '../backend/genes.js';
 
 export const getGeneDetails = createFetchAction(
   'GET_GENE_DETAILS',
   urlGeneDetails
+);
+
+export const getGeneCount = createFetchAction(
+  'GET_GENE_COUNT',
+  urlGeneCount
 );
 
 export const getGeneSearch = createFetchAction(

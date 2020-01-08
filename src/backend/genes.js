@@ -9,11 +9,20 @@ export const urlGeneDetails = ({ id }) => {
   return url;
 };
 
+export const urlGeneCount = ({ organism, limit = defaultLimit }) => {
+  const params = new URLSearchParams();
+  params.set('limit', limit);
+  if (organism)
+    params.set('organism', organism);
+  const url = server + prefixA + '?' + params.toString();
+  return url;
+};
+
 export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
   const params = new URLSearchParams();
+  params.set('limit', limit);
   if (query)
     params.set('autocomplete', query);
-  params.set('limit', limit);
 
   const url = server + prefixA + '?' + params.toString();
 
@@ -22,9 +31,9 @@ export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
 
 export const urlGeneParticipations = ({ genes, limit = defaultLimit }) => {
   const params = new URLSearchParams();
+  params.set('limit', limit);
   if (genes)
     params.set('related-genes', genes.join(','));
-  params.set('limit', limit);
 
   const url = server + prefixB + '?' + params.toString();
 
