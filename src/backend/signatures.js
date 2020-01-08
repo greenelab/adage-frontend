@@ -8,9 +8,11 @@ export const urlSignatureDetails = ({ id }) => {
   return url;
 };
 
-export const urlSignatureList = ({ limit = defaultLimit }) => {
+export const urlSignatureList = ({ model, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
+  if (model)
+    params.set('mlmodel', model);
   const url = server + prefix + '?' + params.toString();
   return url;
 };

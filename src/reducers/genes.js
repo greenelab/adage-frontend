@@ -101,7 +101,14 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
 
     case 'GET_GENE_PARTICIPATIONS':
-      draft.participations = payload;
+      if (meta.genes.length)
+        draft.participations = payload;
+      else
+        draft.participations = fetchActionStatuses.EMPTY;
+      break;
+
+    case 'GET_ORGANISM_GENES':
+      draft.inModel = payload;
       break;
 
     default:

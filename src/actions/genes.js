@@ -5,17 +5,17 @@ import { urlGeneSearch } from '../backend/genes.js';
 import { urlGeneDetails } from '../backend/genes.js';
 import { urlGeneParticipations } from '../backend/genes.js';
 
+export const getGeneDetails = createFetchAction(
+  'GET_GENE_DETAILS',
+  urlGeneDetails
+);
+
 export const getGeneSearch = createFetchAction(
   'GET_GENE_SEARCH',
   urlGeneSearch
 );
 
 export const clearGeneSearch = createAction('CLEAR_GENE_SEARCH');
-
-export const getGeneDetails = createFetchAction(
-  'GET_GENE_DETAILS',
-  urlGeneDetails
-);
 
 export const selectGene = createAction('SELECT_GENE');
 

@@ -7,13 +7,13 @@ import { usePrev } from '../../../util/hooks.js';
 
 import './index.css';
 
-let Enriched = ({ selected, getParticipations }) => {
+let Enriched = ({ selected, model, getParticipations }) => {
   const prevSelected = usePrev(selected) || [];
   useEffect(() => {
     if (selected.length !== prevSelected.length) {
       getParticipations({
         genes: selected,
-        limit: 999999,
+        limit: selected.length ? 999999 : 1,
         cancelType: 'GET_GENE_PARTICIPATIONS'
       });
     }
@@ -23,7 +23,8 @@ let Enriched = ({ selected, getParticipations }) => {
 };
 
 const mapStateToProps = (state) => ({
-  selected: state.gene.selected.map((selected) => selected.id)
+  selected: state.gene.selected.map((selected) => selected.id),
+  model: state.model.selected
 });
 
 const mapDispatchToProps = (dispatch) => ({

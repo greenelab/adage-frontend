@@ -8,9 +8,6 @@ import { isEmpty } from '../util/types.js';
 // provide the "cancelType" prop to any action made by this creator
 // any new action will cancel all previous in-progress actions of the same type
 
-// inspired by the technique illustrated here:
-// https://dev.to/chromiumdev/cancellable-async-functions-in-javascript-5gp7
-
 export const fetchActionStatuses = {
   LOADING: 'LOADING',
   EMPTY: 'EMPTY',
@@ -18,97 +15,77 @@ export const fetchActionStatuses = {
   SUCCESS: 'SUCCESS'
 };
 
-const actionStore = {};
+const actions = {};
 
 const cache = {};
 cache.size = 0;
-cache.limit = 200 * 1000000; // in bytes
+cache.limit = 20 * 1000000; // in bytes
 
 export const createFetchAction = (type, urlFunction) => ({
   ...props
 }) => async (dispatch) => {
   const meta = () => ({ ...props });
-  const action = createAction(type, null, meta);
-
-  const loading = () => dispatch(action(fetchActionStatuses.LOADING));
-  const empty = () => dispatch(action(fetchActionStatuses.EMPTY));
-  const error = () => dispatch(action(fetchActionStatuses.ERROR));
-  const success = (payload) => dispatch(action(payload));
-
   const cancelType = props.cancelType;
   delete props.cancelType;
   const actionId = newAction({ cancelType: cancelType });
-
   const url = urlFunction({ ...props });
-  const controller = new AbortController();
-  const signal = controller.signal;
-  const generator = fetchJson(url, signal);
 
-  loading();
-
-  let resumeValue;
-  for (let step = 0; step < 20; step++) {
+  const setStatus = (status) => {
     if (isStaleAction({ cancelType, actionId })) {
       console.groupCollapsed('stale action canceled');
       console.log('cancelType', cancelType);
       console.log('url', url);
       console.log('props', props);
       console.groupEnd('stale action canceled');
-      controller.abort();
-      break;
-    }
-    try {
-      const { done, value } = generator.next(resumeValue);
-      if (done) {
-        if (isEmpty(value))
-          empty();
-        else
-          success(value);
-        break;
-      }
-      resumeValue = await Promise.resolve(value);
-    } catch (errorMessage) {
-      console.log(errorMessage);
-      controller.abort();
-      error();
-      break;
-    }
+    } else
+      dispatch(createAction(type, null, meta)(status));
+  };
+
+  setStatus(fetchActionStatuses.LOADING);
+  try {
+    const value = await fetchJson(url);
+    if (isEmpty(value))
+      setStatus(fetchActionStatuses.EMPTY);
+    else
+      setStatus(value);
+  } catch (error) {
+    console.log(error);
+    setStatus(fetchActionStatuses.ERROR);
   }
 };
 
 const newAction = ({ cancelType }) => {
-  if (cancelType)
-    return (actionStore[cancelType] = new AbortController());
-  else
+  if (cancelType) {
+    actions[cancelType] = window.performance.now();
+    return actions[cancelType];
+  } else
     return null;
 };
 
-const isStaleAction = ({ cancelType, actionId }) =>
-  cancelType && actionStore[cancelType] !== actionId;
+const isStaleAction = ({ cancelType, actionId }) => {
+  return cancelType && actions[cancelType] !== actionId;
+};
 
 export const cancelAction = ({ cancelTypeRegex }) => {
-  for (const key of Object.keys(actionStore)) {
-    if (key.match(cancelTypeRegex)) {
-      if (actionStore[key] instanceof AbortController)
-        actionStore[key].abort();
-      delete actionStore[key];
-    }
+  for (const key of Object.keys(actions)) {
+    if (key.match(cancelTypeRegex))
+      delete actions[key];
   }
 };
 
-function* fetchJson(url, signal) {
+const fetchJson = async (url) => {
   // artificial delay for testing loading spinners and race conditions
-  // yield sleep(500 + Math.random() * 500);
+  // await sleep(500 + Math.random() * 500);
 
   if (cache[url])
     return cache[url];
 
-  const fetchResponse = yield fetch(url, { signal });
+  const fetchResponse = await fetch(url);
 
   if (!fetchResponse.ok)
     throw new Error('Response not ok');
 
-  const json = yield fetchResponse.json();
+  const json = await fetchResponse.json();
 
   let results;
   if (json && json.results)
@@ -116,12 +93,27 @@ function* fetchJson(url, signal) {
   else
     results = json;
 
-  const size = yield sizeof(results);
+  results.timestamp = window.performance.now();
+  results.size = sizeof(results);
 
-  if (cache.size + size < cache.limit) {
+  if (results.size < cache.limit) {
+    while (cache.size + results.size > cache.limit) {
+      let oldestUrl;
+      let oldestTimestamp = results.timestamp;
+      for (const url of Object.keys(cache)) {
+        if (cache[url].timestamp < oldestTimestamp) {
+          oldestUrl = url;
+          oldestTimestamp = cache[url].timestamp;
+        }
+      }
+      if (oldestUrl) {
+        cache.size -= cache[oldestUrl].size;
+        delete cache[oldestUrl];
+      }
+    }
+    cache.size += results.size;
     cache[url] = results;
-    cache.size += size;
   }
 
   return results;
-}
+};
