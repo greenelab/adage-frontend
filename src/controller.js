@@ -28,11 +28,13 @@ let Controller = ({
   }, [modelList, setSelectedModel]);
 
   useEffect(() => {
-    getGeneCount({ organism: selectedOrganism, limit: 1, count: true });
+    if (selectedOrganism)
+      getGeneCount({ organism: selectedOrganism, limit: 1, count: true });
   }, [selectedOrganism, getGeneCount]);
 
   useEffect(() => {
-    getSignatureList({ model: selectedModel, limit: 999999 });
+    if (selectedModel)
+      getSignatureList({ model: selectedModel, limit: 999999 });
   }, [selectedModel, getSignatureList]);
 
   return <></>;

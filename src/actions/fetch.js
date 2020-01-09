@@ -8,7 +8,7 @@ import { isEmpty } from '../util/types.js';
 // provide the "cancelType" prop to any action made by this creator
 // any new action will cancel all previous in-progress actions of the same type
 
-export const fetchActionStatuses = {
+export const actionStatuses = {
   LOADING: 'LOADING',
   EMPTY: 'EMPTY',
   ERROR: 'ERROR',
@@ -41,16 +41,16 @@ export const createFetchAction = (type, urlFunction) => ({
       dispatch(createAction(type, null, meta)(status));
   };
 
-  setStatus(fetchActionStatuses.LOADING);
+  setStatus(actionStatuses.LOADING);
   try {
     const value = await fetchJson(url, count);
     if (isEmpty(value))
-      setStatus(fetchActionStatuses.EMPTY);
+      setStatus(actionStatuses.EMPTY);
     else
       setStatus(value);
   } catch (error) {
     console.log(error);
-    setStatus(fetchActionStatuses.ERROR);
+    setStatus(actionStatuses.ERROR);
   }
 };
 

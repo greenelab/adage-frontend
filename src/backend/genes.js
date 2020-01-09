@@ -29,11 +29,14 @@ export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
   return url;
 };
 
-export const urlGeneParticipations = ({ genes, limit = defaultLimit }) => {
+export const urlGeneEnrichedSignatures = ({
+  ids,
+  limit = defaultLimit
+}) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (genes)
-    params.set('related-genes', genes.join(','));
+  if (ids)
+    params.set('related-genes', ids.join(','));
 
   const url = server + prefixB + '?' + params.toString();
 

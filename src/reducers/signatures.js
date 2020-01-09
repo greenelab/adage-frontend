@@ -7,9 +7,9 @@ import { isObject } from '../util/types.js';
 const reducer = produce((draft, type, payload, meta) => {
   const typeCheck = () => {
     if (!isString(draft.details) && !isObject(draft.details))
-      draft.details = '';
+      draft.details = {};
     if (!isString(draft.list) && !isArray(draft.list))
-      draft.list = '';
+      draft.list = [];
   };
 
   typeCheck();

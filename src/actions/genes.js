@@ -4,17 +4,14 @@ import { createFetchAction } from './fetch.js';
 import { urlGeneDetails } from '../backend/genes.js';
 import { urlGeneCount } from '../backend/genes.js';
 import { urlGeneSearch } from '../backend/genes.js';
-import { urlGeneParticipations } from '../backend/genes.js';
+import { urlGeneEnrichedSignatures } from '../backend/genes.js';
 
 export const getGeneDetails = createFetchAction(
   'GET_GENE_DETAILS',
   urlGeneDetails
 );
 
-export const getGeneCount = createFetchAction(
-  'GET_GENE_COUNT',
-  urlGeneCount
-);
+export const getGeneCount = createFetchAction('GET_GENE_COUNT', urlGeneCount);
 
 export const getGeneSearch = createFetchAction(
   'GET_GENE_SEARCH',
@@ -40,7 +37,7 @@ export const getGeneSelectedDetails = createFetchAction(
   urlGeneDetails
 );
 
-export const getGeneParticipations = createFetchAction(
-  'GET_GENE_PARTICIPATIONS',
-  urlGeneParticipations
+export const getGeneEnrichedSignatures = createFetchAction(
+  'GET_GENE_ENRICHED_SIGNATURES',
+  urlGeneEnrichedSignatures
 );
