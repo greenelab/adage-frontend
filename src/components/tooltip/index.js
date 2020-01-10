@@ -28,7 +28,7 @@ const Tooltip = ({
   const [style, setStyle] = useState({});
 
   const onEnter = (event) => {
-    if (window.matchMedia('(hover: none)')) {
+    if (!window.matchMedia('(hover: none)').matches) {
       setAnchor(event.target);
       setHover(true);
     }
