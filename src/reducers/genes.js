@@ -108,7 +108,6 @@ const reducer = produce((draft, type, payload, meta) => {
           ...(draft.selected.find((selected) => selected.id === id) || {})
         }));
       }
-
       break;
 
     case 'GET_GENE_ENRICHED_SIGNATURES':

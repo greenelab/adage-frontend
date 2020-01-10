@@ -28,8 +28,10 @@ const Tooltip = ({
   const [style, setStyle] = useState({});
 
   const onEnter = (event) => {
-    setAnchor(event.target);
-    setHover(true);
+    if (!window.matchMedia('(hover: none)').matches) {
+      setAnchor(event.target);
+      setHover(true);
+    }
   };
   const onLeave = () => {
     setAnchor(null);
@@ -120,7 +122,7 @@ const Tooltip = ({
           classNames='tooltip'
           unmountOnExit
         >
-          <Portal text={text} style={style} />
+          <Portal text={text} style={style} setHover={setHover} />
         </CSSTransition>
       }
     </>
@@ -136,9 +138,13 @@ Tooltip.propTypes = {
 
 export default Tooltip;
 
-const Portal = ({ text, style }) => {
+const Portal = ({ text, style, setHover }) => {
   return createPortal(
-    <div className='tooltip text_small' style={style}>
+    <div
+      className='tooltip text_small'
+      style={style}
+      onClick={() => setHover(false)}
+    >
       {text}
     </div>,
     document.body

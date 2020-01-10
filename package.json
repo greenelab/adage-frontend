@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "homepage": "/",
   "dependencies": {
     "history": "^4.10.1",
