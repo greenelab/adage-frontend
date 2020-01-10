@@ -5,6 +5,15 @@ export const history = createBrowserHistory();
 
 export const querySync = reduxQuerySync.enhancer({
   params: {
+    model: {
+      selector: (state) => state.model.selected,
+      action: (value) => ({
+        type: 'SELECT_MODEL_FROM_URL',
+        payload: {
+          id: Number(value)
+        }
+      })
+    },
     selected: {
       selector: (state) =>
         state.gene.selected && state.gene.selected.length ?
