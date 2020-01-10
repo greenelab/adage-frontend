@@ -4,7 +4,6 @@
   padding: 5px 10px;
   background: var(--black);
   color: var(--white);
-  pointer-events: none;
   z-index: 99;
 }
 .tooltip-enter {
