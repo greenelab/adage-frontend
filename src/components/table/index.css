@@ -33,8 +33,9 @@
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
+}
+.table_body_row > .table_cell {
   height: 100%;
-  padding: 0;
 }
 .table_cell[data-align='left'] {
   justify-content: flex-start;
