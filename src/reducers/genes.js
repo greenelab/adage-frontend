@@ -1,6 +1,8 @@
 import produce from 'immer';
 
-import { fetchActionStatuses } from '../actions/fetch.js';
+import { actionStatuses } from '../actions/fetch.js';
+import { calculateEnrichedSignatures } from '../util/math.js';
+import { isNumber, isEmpty } from '../util/types.js';
 import { isString } from '../util/types.js';
 import { isArray } from '../util/types.js';
 import { isObject } from '../util/types.js';
@@ -8,11 +10,18 @@ import { isObject } from '../util/types.js';
 const reducer = produce((draft, type, payload, meta) => {
   const typeCheck = () => {
     if (!isString(draft.details) && !isObject(draft.details))
-      draft.details = '';
+      draft.details = {};
+    if (!isNumber(draft.count))
+      draft.count = 0;
     if (!isArray(draft.searches))
       draft.searches = [];
     if (!isArray(draft.selected))
       draft.selected = [];
+    if (
+      !isString(draft.enrichedSignatures) &&
+      !isArray(draft.enrichedSignatures)
+    )
+      draft.enrichedSignatures = actionStatuses.EMPTY;
   };
 
   typeCheck();
@@ -20,6 +29,10 @@ const reducer = produce((draft, type, payload, meta) => {
   switch (type) {
     case 'GET_GENE_DETAILS':
       draft.details = payload;
+      break;
+
+    case 'GET_GENE_COUNT':
+      draft.count = payload;
       break;
 
     case 'GET_GENE_SEARCH':
@@ -81,7 +94,7 @@ const reducer = produce((draft, type, payload, meta) => {
       if (isString(payload))
         draft.selected[index].status = payload;
       else if (isObject(payload)) {
-        draft.selected[index].status = fetchActionStatuses.SUCCESS;
+        draft.selected[index].status = actionStatuses.SUCCESS;
         draft.selected[index] = { ...draft.selected[index], ...payload };
       }
       break;
@@ -96,6 +109,25 @@ const reducer = produce((draft, type, payload, meta) => {
         }));
       }
 
+      break;
+
+    case 'GET_GENE_ENRICHED_SIGNATURES':
+      const participations = payload;
+      if (isArray(participations)) {
+        const { selectedGenes, geneCount, signatures } = meta;
+
+        const result = calculateEnrichedSignatures({
+          selectedGenes,
+          participations,
+          geneCount,
+          signatures
+        });
+        if (isEmpty(result))
+          draft.enrichedSignatures = actionStatuses.EMPTY;
+        else
+          draft.enrichedSignatures = result;
+      } else
+        draft.enrichedSignatures = participations;
       break;
 
     default:

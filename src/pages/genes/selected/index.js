@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Alert from '../../../components/alert';
 import Table from './table';
 import Controls from './controls';
-import { isArray } from '../../../util/types.js';
 import { getGeneSelectedDetails } from '../../../actions/genes.js';
 
 import './index.css';
@@ -39,8 +38,7 @@ let Selected = ({ selected, anySelected, dispatch }) => {
 
 const mapStateToProps = (state) => ({
   selected: state.gene.selected,
-  anySelected:
-    isArray(state.gene.selected) && state.gene.selected.length ? true : false
+  anySelected: state.gene.selected.length ? true : false
 });
 
 const mapDispatchToProps = (dispatch) => ({ dispatch: dispatch });

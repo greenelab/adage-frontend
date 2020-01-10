@@ -15,19 +15,12 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck();
 
   switch (type) {
-    case 'GET_MODEL_DETAILS':
+    case 'GET_SIGNATURE_DETAILS':
       draft.details = payload;
       break;
 
-    case 'GET_MODEL_LIST':
+    case 'GET_SIGNATURE_LIST':
       draft.list = payload;
-      break;
-
-    case 'SET_SELECTED_MODEL':
-      if (payload.id)
-        draft.selected = payload.id;
-      if (!draft.selected && isArray(draft.list) && draft.list.length)
-        draft.selected = draft.list[0].id;
       break;
 
     default:

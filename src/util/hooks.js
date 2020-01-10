@@ -17,3 +17,11 @@ export const useBbox = () => {
 
   return [bbox, ref];
 };
+
+export const usePrev = (previousValue) => {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = previousValue;
+  });
+  return ref.current;
+};

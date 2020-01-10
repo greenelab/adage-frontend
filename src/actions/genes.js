@@ -1,8 +1,17 @@
 import { createAction } from 'redux-actions';
 import { createFetchAction } from './fetch.js';
 
-import { urlGeneSearch } from '../backend/genes.js';
 import { urlGeneDetails } from '../backend/genes.js';
+import { urlGeneCount } from '../backend/genes.js';
+import { urlGeneSearch } from '../backend/genes.js';
+import { urlGeneEnrichedSignatures } from '../backend/genes.js';
+
+export const getGeneDetails = createFetchAction(
+  'GET_GENE_DETAILS',
+  urlGeneDetails
+);
+
+export const getGeneCount = createFetchAction('GET_GENE_COUNT', urlGeneCount);
 
 export const getGeneSearch = createFetchAction(
   'GET_GENE_SEARCH',
@@ -10,11 +19,6 @@ export const getGeneSearch = createFetchAction(
 );
 
 export const clearGeneSearch = createAction('CLEAR_GENE_SEARCH');
-
-export const getGeneDetails = createFetchAction(
-  'GET_GENE_DETAILS',
-  urlGeneDetails
-);
 
 export const selectGene = createAction('SELECT_GENE');
 
@@ -31,4 +35,9 @@ export const deselectFirstGenes = createAction('DESELECT_FIRST_GENES');
 export const getGeneSelectedDetails = createFetchAction(
   'GET_GENE_SELECTED_DETAILS',
   urlGeneDetails
+);
+
+export const getGeneEnrichedSignatures = createFetchAction(
+  'GET_GENE_ENRICHED_SIGNATURES',
+  urlGeneEnrichedSignatures
 );
