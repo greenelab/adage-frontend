@@ -44,13 +44,13 @@ const App = () => (
       <Controller />
       <Head />
       <Switch>
-        <Route exact path='/' component={Home} />
         <Route path='/genes' component={Genes} />
         <Route path='/experiments' component={Experiments} />
         <Route path='/signatures' component={Signatures} />
         <Route path='/help' component={Help} />
         <Route path='/model/:id' component={Model} />
         <Route path='/gene/:id' component={Gene} />
+        <Route path='/' component={Home} />
       </Switch>
     </Router>
   </Provider>

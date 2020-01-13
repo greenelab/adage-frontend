@@ -1,4 +1,3 @@
-const process = require('process');
 const fetch = require('node-fetch');
 
 const head = require('../package.json');
@@ -40,14 +39,8 @@ const compareVersions = (previous, next) => {
   return next.length > previous.length;
 };
 
-fetch(upstream)
-  .then((upstream) => upstream.json())
-  .then((upstream) => {
-    if (compareVersions(upstream.version, head.version)) {
-      console.log('Version check PASSED');
-      process.exit(0);
-    } else {
-      console.log('Version check FAILED');
-      process.exit(1);
-    }
-  });
+it('Version number updated', async () => {
+  const result = await (await fetch(upstream)).json();
+  const updated = compareVersions(result.version, head.version);
+  expect(updated).toEqual(true);
+});

@@ -13,6 +13,10 @@ config.optimization.splitChunks = {
 // Move runtime into bundle instead of separate file
 config.optimization.runtimeChunk = false;
 
+// remove preceding "/" in build/index.html static resource urls
+// (how it should be by default, so that assets are always relative to index)
+config.output.publicPath = '';
+
 // JS
 config.output.filename = 'static/js/main.js';
 // CSS. "5" is MiniCssPlugin
