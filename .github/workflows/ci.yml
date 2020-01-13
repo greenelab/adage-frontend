@@ -1,7 +1,7 @@
 name: ci
 
 env:
- CI: 'true'
+ CI: true
 
 on:
   push:
