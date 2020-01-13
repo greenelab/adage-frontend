@@ -21,7 +21,7 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: Test code
-        run: npm test --passWithNoTests
+        run: npm test
       - name: Build app
         run: npm run build
       - name: Deploy
