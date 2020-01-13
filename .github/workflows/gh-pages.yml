@@ -29,6 +29,9 @@ jobs:
         run: npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2
+        if: github.event_name == 'push'
+        with:
+          keepFiles: false
         env:
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./build
