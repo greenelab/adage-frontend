@@ -1,3 +1,4 @@
+// reconfigure default create-react-app build script
 // from https://github.com/facebook/create-react-app/issues/5306
 
 const rewire = require('rewire');
