@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/static/css/main.css",
+    "main.js": "/static/js/main.js",
+    "main.js.map": "/static/js/main.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.df9c9b9d6a90dc93adf5b22c9c0f7bbd.js": "/precache-manifest.df9c9b9d6a90dc93adf5b22c9c0f7bbd.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.css.map": "/static/css/main.css.map",
+    "static/js/main.js.LICENSE": "/static/js/main.js.LICENSE",
+    "static/media/alert.996fd198.svg": "/static/media/alert.996fd198.svg",
+    "static/media/arrow.4c0d2bcf.svg": "/static/media/arrow.4c0d2bcf.svg",
+    "static/media/caret.e58289e2.svg": "/static/media/caret.e58289e2.svg",
+    "static/media/checked.89cd4709.svg": "/static/media/checked.89cd4709.svg",
+    "static/media/cross.67bfd660.svg": "/static/media/cross.67bfd660.svg",
+    "static/media/download.387e0757.svg": "/static/media/download.387e0757.svg",
+    "static/media/experiments.dbfd0fdd.svg": "/static/media/experiments.dbfd0fdd.svg",
+    "static/media/genes.dd5643b7.svg": "/static/media/genes.dd5643b7.svg",
+    "static/media/greene-lab-logo.4b73ee20.svg": "/static/media/greene-lab-logo.4b73ee20.svg",
+    "static/media/help.221dbd40.svg": "/static/media/help.221dbd40.svg",
+    "static/media/info.32f4b1c6.svg": "/static/media/info.32f4b1c6.svg",
+    "static/media/list-multiple.28e10c1d.svg": "/static/media/list-multiple.28e10c1d.svg",
+    "static/media/list-single.5335ab00.svg": "/static/media/list-single.5335ab00.svg",
+    "static/media/loading.c7a3c1b6.svg": "/static/media/loading.c7a3c1b6.svg",
+    "static/media/logo-small.919c9b6e.svg": "/static/media/logo-small.919c9b6e.svg",
+    "static/media/logo.5236f8a9.svg": "/static/media/logo.5236f8a9.svg",
+    "static/media/model.feef2269.svg": "/static/media/model.feef2269.svg",
+    "static/media/radioed.0cffc9eb.svg": "/static/media/radioed.0cffc9eb.svg",
+    "static/media/search.ef92e4eb.svg": "/static/media/search.ef92e4eb.svg",
+    "static/media/signatures.6e2929f7.svg": "/static/media/signatures.6e2929f7.svg",
+    "static/media/unchecked.f5d25c00.svg": "/static/media/unchecked.f5d25c00.svg",
+    "static/media/unradioed.aa83f2b6.svg": "/static/media/unradioed.aa83f2b6.svg"
+  },
+  "entrypoints": [
+    "static/css/main.css",
+    "static/js/main.js"
+  ]
+}

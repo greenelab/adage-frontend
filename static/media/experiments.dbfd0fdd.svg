@@ -1,0 +1,55 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="0 0 100 100"
+>
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 10 5
+      L 10 80
+      A 12 12 0 0 0 34 80
+      L 34 5
+      z
+      M 0 5
+      L 45 5
+    "
+  />
+  <path
+    fill="currentColor"
+    d="
+      M 10 45
+      L 10 80
+      A 12 12 0 0 0 34 80
+      L 34 45
+      z
+    "
+  />
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 65 5
+      L 65 80
+      A 12 12 0 0 0 89 80
+      L 89 5
+      z
+      M 55 5
+      L 100 5
+    "
+  />
+  <path
+    fill="currentColor"
+    d="
+      M 65 65
+      L 65 80
+      A 12 12 0 0 0 89 80
+      L 89 65
+      z
+    "
+  />
+</svg>

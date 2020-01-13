@@ -1,0 +1,19 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="0 0 100 100"
+>
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    transform="translate(50,50) rotate(45) translate(-50,-50)"
+    d="
+      M 50 10
+      L 50 90
+      M 10 50
+      L 90 50
+    "
+  />
+</svg>

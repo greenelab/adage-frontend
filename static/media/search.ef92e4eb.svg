@@ -1,0 +1,23 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="0 0 100 100"
+>
+  <circle
+    cx="40"
+    cy="40"
+    r="35"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+  />
+  <line
+    x1="65"
+    y1="65"
+    x2="95"
+    y2="95"
+    stroke="currentColor"
+    stroke-width="10"
+  />
+</svg>
