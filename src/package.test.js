@@ -5,9 +5,6 @@ const upstream =
   'https://raw.githubusercontent.com/greenelab/adage-frontend/master/package.json';
 
 const compareVersions = (previous, next) => {
-  console.log('Previous (upstream) version:', previous);
-  console.log('Next (current head) version:', next);
-
   previous = previous
     .split('.')
     .map((token) => token.trim())
@@ -42,5 +39,7 @@ const compareVersions = (previous, next) => {
 it('Version number updated', async () => {
   const result = await (await fetch(upstream)).json();
   const updated = compareVersions(result.version, head.version);
+  console.log('Previous (upstream) version:', result.version);
+  console.log('Next (current head) version:', head.version);
   expect(updated).toEqual(true);
 });
