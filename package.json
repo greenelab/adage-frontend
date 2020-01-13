@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "homepage": "/",
   "dependencies": {
     "history": "^4.10.1",
@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "node ./scripts/build-non-split.js",
+    "build": "node ./scripts/check-version.js && node ./scripts/build-non-split.js",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject"
   },
@@ -49,6 +49,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-react": "^7.17.0",
-    "rewire": "^4.0.1"
+    "rewire": "^4.0.1",
+    "node-fetch": "^2.6.0"
   }
 }
