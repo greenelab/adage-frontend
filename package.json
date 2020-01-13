@@ -1,7 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.0.29",
-  "homepage": "/",
+  "version": "0.0.31",
   "dependencies": {
     "history": "^4.10.1",
     "immer": "^5.0.0",
@@ -26,8 +25,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "node ./scripts/check-version.js && node ./scripts/build-non-split.js",
-    "test": "react-scripts test --passWithNoTests",
+    "build": "node ./scripts/build.js",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

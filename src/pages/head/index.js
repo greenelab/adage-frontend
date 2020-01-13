@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 let Head = ({ location }) => {
   useEffect(() => {
-    const path = location.pathname.slice(1);
+    const path = location.pathname.slice(1) || 'home';
 
     const params =
       (new URLSearchParams(location.search).get('selected') || '').split('-')

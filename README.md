@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/greenelab/adage-frontend.svg?style=svg)](https://circleci.com/gh/greenelab/adage-frontend)
+![](https://github.com/greenelab/adage-frontend/workflows/ci/badge.svg)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
