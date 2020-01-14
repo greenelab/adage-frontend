@@ -2,7 +2,7 @@ name: ci
 
 env:
  CI: true
- REACT_APP_BASENAME: https://greenelab.github.io/adage-frontend
+ REACT_APP_BASENAME: https://greenelab.github.io/adage-frontend/
 
 on:
   push:

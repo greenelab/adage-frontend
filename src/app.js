@@ -38,6 +38,8 @@ const store = createStore(
 
 const basename = process.env.REACT_APP_BASENAME;
 
+console.log('Environment variables:', process.env);
+
 const App = () => (
   <Provider store={store}>
     <Router basename={basename} history={history}>
