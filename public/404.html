@@ -1,27 +1,31 @@
-<!-- from https://github.com/rafrex/spa-github-pages/blob/gh-pages/404.html -->
+<!-- based on https://github.com/rafrex/spa-github-pages/blob/gh-pages/404.html -->
+
 <html>
   <body>
     <script type="text/javascript">
-      var l = window.location;
-      l.replace(
-        l.protocol +
-          '//' +
-          l.hostname +
-          (l.port ? ':' + l.port : '') +
-          l.pathname
-            .split('/')
-            .slice(0, 1 + segmentCount)
-            .join('/') +
-          '/?p=/' +
-          l.pathname
-            .slice(1)
-            .split('/')
-            .slice(segmentCount)
-            .join('/')
-            .replace(/&/g, '~and~') +
-          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-          l.hash
-      );
+      const basename = '/adage-frontend';
+      let { protocol, hostname, port, pathname, search } = window.location;
+
+      pathname = pathname
+        .split('/')
+        .filter(
+          (segment) => !basename || !basename.split('/').includes(segment)
+        )
+        .join('/');
+
+      let params;
+      if (pathname && search)
+        params = window.btoa(JSON.stringify({ pathname, search }));
+
+      const url =
+        protocol +
+        '//' +
+        hostname +
+        (port ? ':' + port : '') +
+        basename +
+        (params ? '/?path=' + params : '');
+
+      window.location.replace(url);
     </script>
   </body>
 </html>
