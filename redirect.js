@@ -7,5 +7,5 @@ const path = JSON.parse(
 
 if (path) {
   const url = (path.pathname || '') + (path.search || '');
-  window.history.replace(null, null, url);
+  window.history.replaceState(null, null, url);
 }
