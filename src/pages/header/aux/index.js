@@ -17,7 +17,7 @@ const Aux = () => (
       horizontalAlign='right'
       verticalAlign='bottom'
     >
-      <Link to='help' newTab icon={<Help />} />
+      <Link to='/help' newTab icon={<Help />} />
     </Tooltip>
   </div>
 );
