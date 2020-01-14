@@ -25,6 +25,7 @@ jobs:
       - name: Install packages
         run: yarn install
       - name: Test code
+        if: github.event_name == 'pull_request'
         run: npm test
       - name: Build app
         run: npm run build
