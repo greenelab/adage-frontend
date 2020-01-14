@@ -36,9 +36,9 @@ const store = createStore(
   compose(applyMiddleware(sequenceAction, thunk, logger), querySync)
 );
 
-const basename = process.env.REACT_APP_BASENAME;
+const basename = process.env.REACT_APP_BASENAME || '';
 
-console.log('Environment variables:', process.env);
+console.log('Environment variables:', process.env, basename);
 
 const App = () => (
   <Provider store={store}>
@@ -46,6 +46,7 @@ const App = () => (
       <Controller />
       <Head />
       <Switch>
+        {console.log()}
         <Route path='/genes' component={Genes} />
         <Route path='/experiments' component={Experiments} />
         <Route path='/signatures' component={Signatures} />
