@@ -13,17 +13,14 @@
         )
         .join('/');
 
-      let params;
-      if (pathname && search)
-        params = window.btoa(JSON.stringify({ pathname, search }));
-
+      const path = window.encodeURIComponent(pathname + search);
       const url =
         protocol +
         '//' +
         hostname +
         (port ? ':' + port : '') +
         basename +
-        (params ? '/?path=' + params : '');
+        (path ? '/?path=' + path : '');
 
       window.location.replace(url);
     </script>
