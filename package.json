@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "dependencies": {
     "history": "^4.10.1",
     "immer": "^5.2.1",
