@@ -46,13 +46,13 @@ const App = () => (
       <Controller />
       <Head />
       <Switch>
-        <Route path='/genes' component={Genes} />
-        <Route path='/experiments' component={Experiments} />
-        <Route path='/signatures' component={Signatures} />
-        <Route path='/help' component={Help} />
-        <Route path='/model/:id' component={Model} />
-        <Route path='/gene/:id' component={Gene} />
-        <Route path='/' component={Home} />
+        <Route exact path='/' component={Home} />
+        <Route exact path='/genes' component={Genes} />
+        <Route exact path='/experiments' component={Experiments} />
+        <Route exact path='/signatures' component={Signatures} />
+        <Route exact path='/help' component={Help} />
+        <Route exact path='/model/:id' component={Model} />
+        <Route exact path='/gene/:id' component={Gene} />
       </Switch>
     </Router>
   </Provider>
