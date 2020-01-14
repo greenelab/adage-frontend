@@ -27,7 +27,7 @@ let Table = ({ selected, deselect }) => (
       ),
       info: (
         <Tooltip text='View full gene details' horizontalAlign='right'>
-          <Link to={'/gene/' + selected.id} newTab icon={<Info />} />
+          <Link to={'gene/' + selected.id} newTab icon={<Info />} />
         </Tooltip>
       )
     }))}

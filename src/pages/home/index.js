@@ -27,14 +27,14 @@ const Home = () => (
         icon={<Genes />}
         header='explore genes...'
         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
-        to='/genes'
+        to='genes'
       />
       <HorizontalLine />
       <Feature
         icon={<Experiments />}
         header='explore experiments...'
         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
-        to='/experiments'
+        to='experiments'
       />
       <HorizontalLine />
       <Feature
@@ -42,7 +42,7 @@ const Home = () => (
         icon={<Signatures />}
         header='explore signatures...'
         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
-        to='/signatures'
+        to='signatures'
       />
     </Main>
     <Footer />
