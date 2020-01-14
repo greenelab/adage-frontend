@@ -14,7 +14,7 @@ let Button = ({ location = {}, icon = <></>, text = '' }) => (
     text={text}
     flip
     overrideTextStyles
-    data-active={location.pathname.includes(text.toLowerCase())}
+    data-active={location.pathname.toLowerCase().includes(text.toLowerCase())}
   />
 );
 
