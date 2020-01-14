@@ -1,7 +1,15 @@
 import reduxQuerySync from 'redux-query-sync';
 import { createBrowserHistory } from 'history';
 
-export const history = createBrowserHistory();
+import packageJson from './../../package.json';
+
+export const basename =
+  process.env.REACT_APP_BASENAME ||
+  process.env.PUBLIC_URL ||
+  packageJson.homepage ||
+  '';
+
+export const history = createBrowserHistory({ basename });
 
 export const querySync = reduxQuerySync.enhancer({
   params: {

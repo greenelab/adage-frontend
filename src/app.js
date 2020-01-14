@@ -20,12 +20,24 @@ import Help from './pages/help';
 import Model from './pages/model';
 import Gene from './pages/gene';
 import reducer from './reducers';
+import { basename } from './reducers/url.js';
 import { history } from './reducers/url.js';
 import { querySync } from './reducers/url.js';
+
+import packageJson from './../package.json';
 
 import './util/debug.js';
 
 import './app.css';
+
+// log some important overall things for the app
+console.groupCollapsed('Package.json');
+console.log(packageJson);
+console.groupEnd();
+console.groupCollapsed('Environment variables');
+console.log(process.env);
+console.log({ basename });
+console.groupEnd();
 
 const logger = createLogger({
   collapsed: true
@@ -36,23 +48,19 @@ const store = createStore(
   compose(applyMiddleware(sequenceAction, thunk, logger), querySync)
 );
 
-const basename = process.env.REACT_APP_BASENAME || '';
-
-console.log('Environment variables:', process.env, basename);
-
 const App = () => (
   <Provider store={store}>
     <Router basename={basename} history={history}>
       <Controller />
       <Head />
       <Switch>
-        <Route exact path='/' component={Home} />
         <Route path='/genes' component={Genes} />
         <Route path='/experiments' component={Experiments} />
         <Route path='/signatures' component={Signatures} />
         <Route path='/help' component={Help} />
         <Route path='/model/:id' component={Model} />
         <Route path='/gene/:id' component={Gene} />
+        <Route path='/' component={Home} />
       </Switch>
     </Router>
   </Provider>
