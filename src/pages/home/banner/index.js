@@ -11,7 +11,7 @@ const Banner = ({ text }) => (
   <section>
     <div className='banner'>
       <div className='text_medium medium'>{text}</div>
-      <Link to='/genes' text='Explore' icon={<Arrow />} />
+      <Link to='genes' text='Explore' icon={<Arrow />} />
     </div>
   </section>
 );

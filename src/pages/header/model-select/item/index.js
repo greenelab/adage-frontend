@@ -37,7 +37,7 @@ const Item = ({
       </div>
     </Button>
     <Tooltip text='View full model details' horizontalAlign='right'>
-      <Link to={'/model/' + id} newTab icon={<Info />} />
+      <Link to={'model/' + id} newTab icon={<Info />} />
     </Tooltip>
   </div>
 );

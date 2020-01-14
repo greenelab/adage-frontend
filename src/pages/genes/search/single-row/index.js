@@ -57,7 +57,7 @@ const SingleRow = ({
         </div>
       </Button>
       <Tooltip text='View full gene details' horizontalAlign='right'>
-        <Link to={'/gene/' + id} newTab icon={<Info />} />
+        <Link to={'gene/' + id} newTab icon={<Info />} />
       </Tooltip>
     </div>
   );
