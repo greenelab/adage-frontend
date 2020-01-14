@@ -46,7 +46,6 @@ const App = () => (
       <Controller />
       <Head />
       <Switch>
-        {console.log()}
         <Route path='/genes' component={Genes} />
         <Route path='/experiments' component={Experiments} />
         <Route path='/signatures' component={Signatures} />
