@@ -22,6 +22,13 @@ const reducer = produce((draft, type, payload, meta) => {
       !isArray(draft.enrichedSignatures)
     )
       draft.enrichedSignatures = actionStatuses.EMPTY;
+
+    if (draft.searches.length < 1)
+      draft.searches[0] = {};
+    for (let index = 0; index < draft.searches.length; index++) {
+      if (!draft.searches[index].results)
+        draft.searches[index].results = actionStatuses.LOADING;
+    }
   };
 
   typeCheck();
@@ -43,7 +50,9 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
 
     case 'CLEAR_GENE_SEARCH':
-      draft.searches = [];
+      draft.searches.forEach(
+        (search) => (search.results = actionStatuses.EMPTY)
+      );
       break;
 
     case 'SELECT_GENE':

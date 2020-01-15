@@ -5,6 +5,7 @@
   background: var(--black);
   color: var(--white);
   z-index: 99;
+  pointer-events: none;
 }
 .tooltip-enter {
   opacity: 0;

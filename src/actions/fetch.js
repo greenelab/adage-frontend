@@ -17,9 +17,9 @@ export const actionStatuses = {
 
 const actions = {};
 
-const cache = {};
+let cache = {};
 cache.size = 0;
-cache.limit = 20 * 1000000; // in bytes
+cache.limit = 50 * 1000000; // in bytes
 
 export const createFetchAction = (type, urlFunction) => ({
   ...props
@@ -102,3 +102,5 @@ const fetchJson = async (url, count) => {
 
   return results;
 };
+
+window.clearCache = () => cache = {};

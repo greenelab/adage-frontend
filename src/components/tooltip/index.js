@@ -124,7 +124,7 @@ const Tooltip = ({
           classNames='tooltip'
           unmountOnExit
         >
-          <Portal text={text} style={style} setHover={setHover} />
+          <Portal text={text} style={style}/>
         </CSSTransition>
       )}
     </>
@@ -140,12 +140,11 @@ Tooltip.propTypes = {
 
 export default Tooltip;
 
-const Portal = ({ text, style, setHover }) => {
+const Portal = ({ text, style }) => {
   return createPortal(
     <div
       className='tooltip text_small'
       style={style}
-      onClick={() => setHover(false)}
     >
       {text}
     </div>,

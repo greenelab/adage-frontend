@@ -14,51 +14,49 @@ import './index.css';
 
 let Table = ({ selected, deselect }) => (
   <TableComponent
-    data={selected.map((selected) => ({
-      ...selected,
-      deselect: (
-        <Tooltip text='Deselect this gene' horizontalAlign='left'>
-          <Button
-            icon={<Cross />}
-            onClick={() => deselect({ id: selected.id })}
-          />
-        </Tooltip>
-      ),
-      standardName: (
-        <Link
-          to={'/gene/' + selected.id}
-          newTab
-          button={false}
-          text={selected.standardName}
-        />
-      )
-    }))}
+    data={selected}
     columns={[
       {
         name: ' ',
-        accessor: 'deselect',
+        value: 'deselect',
         width: '30px',
         padded: false,
-        sortable: false
+        sortable: false,
+        render: (cell) => (
+          <Tooltip text='Deselect this gene' horizontalAlign='left'>
+            <Button
+              icon={<Cross />}
+              onClick={() => deselect({ id: cell.id })}
+            />
+          </Tooltip>
+        )
       },
       {
         name: 'Standard Name',
-        accessor: 'standardName',
-        width: 'calc((100% - 30px) * 0.2)'
+        value: 'standardName',
+        width: 'calc((100% - 30px) * 0.2)',
+        render: (cell) => (
+          <Link
+            to={'/gene/' + cell.id}
+            newTab
+            button={false}
+            text={cell.standardName || '-'}
+          />
+        )
       },
       {
         name: 'Systematic Name',
-        accessor: 'systematicName',
+        value: 'systematicName',
         width: 'calc((100% - 30px) * 0.2)'
       },
       {
         name: 'Entrez ID',
-        accessor: 'entrezId',
+        value: 'entrezId',
         width: 'calc((100% - 30px) * 0.2)'
       },
       {
         name: 'Description',
-        accessor: 'description',
+        value: 'description',
         width: 'calc((100% - 30px) * 0.4)'
       }
     ]}

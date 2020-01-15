@@ -22,9 +22,9 @@ const Genes = () => (
       <section>
         <Selected />
       </section>
-      {/* <SectionHeader text='Enriched Signatures' /> */}
+      <SectionHeader text='Enriched Signatures' />
       <section>
-        {/* <Enriched /> */}
+        <Enriched />
       </section>
     </Main>
     <Footer />
