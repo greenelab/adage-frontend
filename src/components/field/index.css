@@ -1,5 +1,4 @@
 .field {
-  box-sizing: border-box;
   max-width: calc(100%);
   display: inline-block;
 }

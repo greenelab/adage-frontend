@@ -8,7 +8,6 @@ import TableComponent from '../../../../components/table';
 import { deselectGene } from '../../../../actions/genes.js';
 import { mapGeneSelected } from '../';
 
-import { ReactComponent as Info } from '../../../../images/info.svg';
 import { ReactComponent as Cross } from '../../../../images/cross.svg';
 
 import './index.css';
@@ -25,42 +24,42 @@ let Table = ({ selected, deselect }) => (
           />
         </Tooltip>
       ),
-      info: (
-        <Tooltip text='View full gene details' horizontalAlign='right'>
-          <Link to={'/gene/' + selected.id} newTab icon={<Info />} />
-        </Tooltip>
+      standardName: (
+        <Link
+          to={'/gene/' + selected.id}
+          newTab
+          button={false}
+          text={selected.standardName}
+        />
       )
     }))}
     columns={[
       {
         name: ' ',
         accessor: 'deselect',
-        width: '30px'
+        width: '30px',
+        padded: false,
+        sortable: false
       },
       {
         name: 'Standard Name',
         accessor: 'standardName',
-        width: 'calc((100% - 30px - 30px) * 0.2)'
+        width: 'calc((100% - 30px) * 0.2)'
       },
       {
         name: 'Systematic Name',
         accessor: 'systematicName',
-        width: 'calc((100% - 30px - 30px) * 0.2)'
+        width: 'calc((100% - 30px) * 0.2)'
       },
       {
         name: 'Entrez ID',
         accessor: 'entrezId',
-        width: 'calc((100% - 30px - 30px) * 0.2)'
+        width: 'calc((100% - 30px) * 0.2)'
       },
       {
         name: 'Description',
         accessor: 'description',
-        width: 'calc((100% - 30px - 30px) * 0.4)'
-      },
-      {
-        name: ' ',
-        accessor: 'info',
-        width: '30px'
+        width: 'calc((100% - 30px) * 0.4)'
       }
     ]}
   />

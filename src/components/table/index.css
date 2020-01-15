@@ -6,7 +6,7 @@
 .thead,
 .tbody {
   overflow-x: auto;
-  min-width: 400px;
+  min-width: 500px;
 }
 .tr {
   display: flex;
@@ -14,19 +14,30 @@
   height: 30px;
 }
 .tbody {
-  max-height: 600px;
+  max-height: calc((6 * 30px) + ((6 - 1) * 1px));
   overflow-y: auto;
 }
 .th {
+  height: 28px;
+  transition: color var(--fast);
+  user-select: none;
+}
+.th:hover {
+  color: var(--green);
   cursor: pointer;
 }
 .th,
 .td {
+  box-sizing: border-box;
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
 }
+.th[data-padded='true'],
+.td[data-padded='true'] {
+  padding: 0 5px;
+}
 .th > svg {
   flex-shrink: 0;
-  margin-right: 10px;
+  margin-left: 3px;
 }

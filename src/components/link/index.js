@@ -9,8 +9,8 @@ const Link = ({
   newTab = false,
   className = '',
   text,
-  overrideTextStyles = false,
   icon,
+  button = true,
   flip = false,
   children,
   ...props
@@ -38,10 +38,11 @@ const Link = ({
 
   return (
     <RouterLink
-      className={'link ' + className}
-      // target={newTab ? '_blank' : undefined}
+      className={'clickable ' + className}
+      target={newTab ? '_blank' : undefined}
       to={to}
-      data-text={text !== undefined && !overrideTextStyles}
+      data-button={button}
+      data-text={text !== undefined}
       data-icon={icon !== undefined}
       {...props}
     >
@@ -55,8 +56,8 @@ Link.propTypes = {
   newTab: PropTypes.bool,
   className: PropTypes.string,
   text: PropTypes.string,
-  overrideTextStyles: PropTypes.bool,
   icon: PropTypes.element,
+  button: PropTypes.bool,
   flip: PropTypes.bool,
   children: PropTypes.node
 };

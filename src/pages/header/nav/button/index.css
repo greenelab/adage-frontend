@@ -1,8 +1,8 @@
 .nav_button {
   position: relative;
-  margin: 5px;
-  padding: 0 5px;
-  height: 30px;
+  margin: 5px !important;
+  padding: 2px 5px !important;
+  text-decoration: none !important;
 }
 .nav_button > svg:not(:last-child) {
   margin-right: 10px;

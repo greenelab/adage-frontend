@@ -1,40 +1,52 @@
-button {
+button,
+.clickable {
+  box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  min-width: 30px;
-  min-height: 30px;
   margin: 0;
   padding: 0;
   background: none;
   border: none;
-  text-decoration: none;
   cursor: pointer;
   outline: none;
   font-size: 11pt;
-  transition: color var(--fast), background var(--fast), opacity var(--fast),
-  border var(--fast), border-color var(--fast);
+  text-decoration: none;
 }
-button:hover,
-button:focus {
+.clickable {
+  transition: color var(--fast), background var(--fast), opacity var(--fast),
+    border var(--fast), border-color var(--fast);
+}
+.clickable:hover,
+.clickable:focus,
+.clickable[data-button][data-text]:hover,
+.clickable[data-button][data-text]:focus {
   color: var(--green);
 }
-button > svg:not(:first-child) {
+.clickable > svg:not(:first-child) {
   margin-left: 5px;
 }
-button > svg:not(:last-child) {
+.clickable > svg:not(:last-child) {
   margin-right: 5px;
 }
-button[data-text='true'] {
+.clickable[data-button='true'] {
+  min-width: 30px;
+  min-height: 30px;
+}
+.clickable[data-button='true'][data-text='true'] {
   margin: 0 10px;
   padding: 0 10px;
+  border: solid 2px transparent;
   color: var(--green);
   font-weight: 500;
-  border: solid 2px transparent;
-  outline: none;
 }
-button[data-text='true']:hover,
-button[data-text='true']:focus {
+.clickable[data-button='true'][data-text='false'] {
+  color: var(--black);
+}
+.clickable[data-button="false"] {
+  color: var(--black);
+  text-decoration: underline;
+}
+.clickable[data-button='true'][data-text='true']:hover {
   border-color: var(--green);
-  outline: none;
 }

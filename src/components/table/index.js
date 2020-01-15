@@ -16,7 +16,9 @@ const Table = ({ columns, data }) => {
     Header: column.name,
     accessor: column.accessor,
     width: column.width,
-    align: column.align
+    align: column.align,
+    padded: column.padded,
+    sortable: column.sortable
   }));
 
   const {
@@ -37,7 +39,9 @@ const Table = ({ columns, data }) => {
     <div className='table' {...getTableProps()}>
       <div
         className='thead medium'
-        style={{ width: tbodyBbox ? tbodyBbox.clientWidth - 1 + 'px' : undefined }}
+        style={{
+          width: tbodyBbox ? tbodyBbox.clientWidth - 1 + 'px' : undefined
+        }}
       >
         {headerGroups.map((headerGroup) => (
           <div className='tr' {...headerGroup.getHeaderGroupProps()}>
@@ -48,6 +52,16 @@ const Table = ({ columns, data }) => {
                 style={{
                   width: column.width,
                   justifyContent: column.align
+                }}
+                data-padded={column.padded === false ? false : true}
+                title=''
+                tabIndex={column.sortable === false ? '-1' : '0'}
+                onKeyPress={(event) => {
+                  if (
+                    column.sortable !== false &&
+                    (event.key === 'Enter' || event.key === ' ')
+                  )
+                    column.toggleSortBy();
                 }}
               >
                 <Field>{column.render('Header')}</Field>
@@ -73,6 +87,7 @@ const Table = ({ columns, data }) => {
               <span
                 className='td'
                 {...cell.getCellProps()}
+                data-padded={cell.column.padded === false ? false : true}
                 style={{
                   width: cell.column.width,
                   justifyContent: cell.column.align

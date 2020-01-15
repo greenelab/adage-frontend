@@ -5,7 +5,7 @@ import { forwardRef } from 'react';
 import './index.css';
 
 let Button = (props, ref) => {
-  const { text, icon, flip = false, children, ...rest } = props;
+  const { className = '', text, icon, flip = false, children, ...rest } = props;
 
   let content = <></>;
   if (children)
@@ -32,6 +32,8 @@ let Button = (props, ref) => {
     <button
       ref={ref}
       {...rest}
+      className={'clickable ' + className}
+      data-button='true'
       data-text={text !== undefined}
       data-icon={icon !== undefined}
     >
@@ -42,6 +44,7 @@ let Button = (props, ref) => {
 Button = forwardRef(Button);
 
 Button.propTypes = {
+  className: PropTypes.string,
   text: PropTypes.string,
   icon: PropTypes.element,
   flip: PropTypes.bool,
