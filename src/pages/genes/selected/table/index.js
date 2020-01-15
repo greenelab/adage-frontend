@@ -31,31 +31,38 @@ let Table = ({ selected, deselect }) => (
         </Tooltip>
       )
     }))}
-    fields={[
-      'deselect',
-      'standardName',
-      'systematicName',
-      'entrezId',
-      'description',
-      'info'
+    columns={[
+      {
+        name: ' ',
+        accessor: 'deselect',
+        width: '30px'
+      },
+      {
+        name: 'Standard Name',
+        accessor: 'standardName',
+        width: 'calc((100% - 30px - 30px) * 0.2)'
+      },
+      {
+        name: 'Systematic Name',
+        accessor: 'systematicName',
+        width: 'calc((100% - 30px - 30px) * 0.2)'
+      },
+      {
+        name: 'Entrez ID',
+        accessor: 'entrezId',
+        width: 'calc((100% - 30px - 30px) * 0.2)'
+      },
+      {
+        name: 'Description',
+        accessor: 'description',
+        width: 'calc((100% - 30px - 30px) * 0.4)'
+      },
+      {
+        name: ' ',
+        accessor: 'info',
+        width: '30px'
+      }
     ]}
-    head={[
-      ' ',
-      'Standard Name',
-      'Systematic Name',
-      'Entrez ID',
-      'Description',
-      ' '
-    ]}
-    widths={[
-      '30px',
-      'calc((100% - 30px - 30px) * 0.15)',
-      'calc((100% - 30px - 30px) * 0.15)',
-      'calc((100% - 30px - 30px) * 0.15)',
-      'calc((100% - 30px - 30px) * 0.55)',
-      '30px'
-    ]}
-    aligns={[]}
   />
 );
 

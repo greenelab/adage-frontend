@@ -73,6 +73,12 @@ section {
 .flip_vertical {
   transform: scaleY(-1);
 }
+.rotate_cw {
+  transform: rotate(90deg);
+}
+.rotate_ccw {
+  transform: rotate(-90deg);
+}
 *[data-highlight='true'] {
   background: var(--light-green);
 }

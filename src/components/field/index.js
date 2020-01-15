@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Children } from 'react';
+import { isValidElement } from 'react';
 
 import Tooltip from '../tooltip';
 
@@ -32,9 +33,11 @@ const getLabelFromChildren = (children) => {
   let label = '';
 
   Children.forEach(children, (child) => {
-    if (typeof child === 'string')
-      label += child;
-    if (typeof child === 'number')
+    if (isValidElement(child)) {
+      const cell = child?.props?.cell?.value;
+      if (typeof cell === 'number' || typeof cell === 'string')
+        label += cell;
+    } else if (typeof child === 'number' || typeof child === 'string')
       label += String(child);
   });
 

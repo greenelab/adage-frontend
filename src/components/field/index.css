@@ -1,7 +1,7 @@
 .field {
   box-sizing: border-box;
+  max-width: calc(100%);
   display: inline-block;
-  padding: 0 5px;
 }
 .nowrap {
   white-space: nowrap;

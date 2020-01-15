@@ -1,48 +1,32 @@
 .table {
   width: 100%;
-  max-height: calc((10 * 30px) + ((10 - 1) * 1px));
-  overflow-y: auto;
   overflow-x: auto;
-  word-break: break-word;
+  overflow-y: visible;
 }
-.table > * {
-  min-width: 500px;
+.thead,
+.tbody {
+  overflow-x: auto;
+  min-width: 400px;
 }
-.table_head_row {
+.tr {
   display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  position: sticky;
-  top: 0;
-  align-items: flex-end;
-  width: 100%;
-  min-height: 30px;
-  padding-bottom: 5px;
-  border-bottom: solid 1px var(--light-gray);
-  background: var(--white);
-  z-index: 10;
-}
-.table_body_row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
+  align-items: center;
   height: 30px;
 }
-.table_cell {
+.tbody {
+  max-height: 1000px;
+  overflow-y: auto;
+}
+.th {
+  cursor: pointer;
+}
+.th,
+.td {
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
 }
-.table_body_row > .table_cell {
-  height: 100%;
-}
-.table_cell[data-align='left'] {
-  justify-content: flex-start;
-}
-.table_cell[data-align='center'] {
-  justify-content: center;
-}
-.table_cell[data-align='right'] {
-  justify-content: flex-end;
+.th > svg {
+  flex-shrink: 0;
+  margin-right: 10px;
 }
