@@ -3,12 +3,15 @@ import { useTable } from 'react-table';
 import { useSortBy } from 'react-table';
 
 import Field from '../../components/field';
+import { useBbox } from '../../util/hooks.js';
 
 import { ReactComponent as Arrow } from '../../images/arrow.svg';
 
 import './index.css';
 
 const Table = ({ columns, data }) => {
+  const [tbodyBbox, tbodyRef] = useBbox();
+
   columns = columns.map((column) => ({
     Header: column.name,
     accessor: column.accessor,
@@ -32,7 +35,10 @@ const Table = ({ columns, data }) => {
 
   return (
     <div className='table' {...getTableProps()}>
-      <div className='thead'>
+      <div
+        className='thead medium'
+        style={{ width: tbodyBbox ? tbodyBbox.clientWidth - 1 + 'px' : undefined }}
+      >
         {headerGroups.map((headerGroup) => (
           <div className='tr' {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column, index) => (
@@ -59,7 +65,7 @@ const Table = ({ columns, data }) => {
           </div>
         ))}
       </div>
-      <div className='tbody' {...getTableBodyProps()}>
+      <div className='tbody' {...getTableBodyProps()} ref={tbodyRef}>
         {rows.forEach(prepareRow)}
         {rows.map((row) => (
           <div className='tr' {...row.getRowProps()}>

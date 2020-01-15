@@ -7,7 +7,15 @@ export const useBbox = () => {
   const [bbox, setBbox] = useState(null);
 
   const set = () =>
-    setBbox(ref && ref.current ? ref.current.getBoundingClientRect() : null);
+    setBbox(
+      ref?.current ?
+        {
+          ...ref.current.getBoundingClientRect(),
+          clientWidth: ref.current.clientWidth,
+          clientHeight: ref.current.clientHeight,
+        } :
+        null
+    );
 
   useEffect(() => {
     set();
