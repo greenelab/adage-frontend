@@ -4,25 +4,33 @@
   <body>
     <script type="text/javascript">
       const basename = '/adage-frontend';
-      let { protocol, hostname, port, pathname, search } = window.location;
+      const {
+        protocol,
+        hostname,
+        port,
+        pathname,
+        search,
+        href: originalUrl
+      } = location;
 
-      pathname = pathname
-        .split('/')
-        .filter(
-          (segment) => !basename || !basename.split('/').includes(segment)
-        )
-        .join('/');
+      let includeBasename = false;
+      if (pathname.includes(basename)) {
+        includeBasename = true;
+        pathname = pathname.replace(basename, '');
+      }
 
-      const path = window.encodeURIComponent(pathname + search);
-      const url =
+      const path = encodeURIComponent(pathname + search);
+      const newUrl =
         protocol +
         '//' +
         hostname +
         (port ? ':' + port : '') +
-        basename +
+        (includeBasename ? basename : '') +
         (path ? '/?path=' + path : '');
 
-      window.location.replace(url);
+      console.log({ originalUrl, newUrl });
+
+      location.replace(newUrl);
     </script>
   </body>
 </html>

@@ -82,8 +82,9 @@ let MultiRow = ({ search, select, deselect }) => {
     <>
       <div className='gene_search_result_multi'>
         <div
-          className='gene_search_result_multi_query'
+          className='td gene_search_result_multi_query'
           data-expanded={expanded}
+          data-padded='true'
         >
           <Field>"{search.query}"</Field>
         </div>

@@ -26,21 +26,17 @@ export const useBbox = () => {
 
   useEffect(() => {
     set();
-    if (window.ResizeObserver) {
-      const observer = new ResizeObserver(set);
-      if (ref?.current)
-        observer.observe(ref.current);
-      return () => observer.disconnect();
-    } else {
-      const observer = new MutationObserver(set);
-      window.addEventListener('resize', set);
-      if (ref?.current)
-        observer.observe(ref.current, { childList: true });
-      return () => {
-        window.removeEventListener('resize', set);
+    window.addEventListener('resize', set);
+    let observer;
+    if (window.ResizeObserver)
+      observer = new ResizeObserver(set);
+    if (observer && ref?.current)
+      observer.observe(ref.current);
+    return () => {
+      window.removeEventListener('resize', set);
+      if (observer)
         observer.disconnect();
-      };
-    }
+    };
   }, [ref]);
 
   return [bbox, ref];

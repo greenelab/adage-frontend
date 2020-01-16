@@ -20,11 +20,15 @@ let Enriched = ({
   getEnrichedSignatures
 }) => {
   useEffect(() => {
-    if (selectedGenesLoaded && geneCount && isArray(signatures)) {
+    if (
+      isArray(selectedGenes) &&
+      selectedGenes.length &&
+      selectedGenesLoaded &&
+      geneCount &&
+      isArray(signatures)
+    ) {
       getEnrichedSignatures({
-        ids: isArray(selectedGenes) ?
-          selectedGenes.map((gene) => gene.id) :
-          null,
+        ids: selectedGenes.map((gene) => gene.id),
         limit: selectedGenes.length ? 999999 : 1,
         cancelType: 'GET_GENE_ENRICHED_SIGNATURES',
         selectedGenes,
