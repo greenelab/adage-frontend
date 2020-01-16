@@ -1,37 +1,30 @@
-<!-- from https://github.com/rafrex/spa-github-pages/blob/gh-pages/404.html -->
+<!-- based on https://github.com/rafrex/spa-github-pages/blob/gh-pages/404.html -->
 
 <html>
   <body>
     <script type="text/javascript">
-      const {
-        protocol,
-        hostname,
-        port,
-        pathname,
-        search,
-        hash
-      } = window.location;
-      const segmentCount = pathname.includes('adage-frontend') ? 1 : 0;
+      const original = window.location.href;
+      const basename = '/adage-frontend';
+      let { protocol, hostname, port, pathname, search } = window.location;
 
-      window.location.replace(
+      pathname = pathname
+        .split('/')
+        .filter(
+          (segment) => !basename || !basename.split('/').includes(segment)
+        )
+        .join('/');
+
+      const path = window.encodeURIComponent(pathname + search);
+      const url =
         protocol +
-          '//' +
-          hostname +
-          (port ? ':' + port : '') +
-          pathname
-            .split('/')
-            .slice(0, 1 + segmentCount)
-            .join('/') +
-          '/?p=/' +
-          pathname
-            .slice(1)
-            .split('/')
-            .slice(segmentCount)
-            .join('/')
-            .replace(/&/g, '~and~') +
-          (search ? '&q=' + search.slice(1).replace(/&/g, '~and~') : '') +
-          hash
-      );
+        '//' +
+        hostname +
+        (port ? ':' + port : '') +
+        basename +
+        (path ? '/?path=' + path : '');
+
+      console.log(original, url);
+      window.setTimeout(() => window.location.replace(url), 10 * 1000);
     </script>
   </body>
 </html>
