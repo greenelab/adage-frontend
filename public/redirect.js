@@ -2,8 +2,9 @@
 
 const { search, href: originalUrl } = location;
 
-const newUrl =
-  decodeURIComponent(new URLSearchParams(search).get('path') || '') || null;
+const newUrl = decodeURIComponent(
+  new URLSearchParams(search).get('path') || ''
+);
 
 console.log({ originalUrl, newUrl });
 
