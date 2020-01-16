@@ -44,6 +44,7 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'CLEAR_GENE_SEARCH':
       draft.searches = [];
+      draft.searches[0] = { results: actionStatuses.EMPTY };
       break;
 
     case 'SELECT_GENE':

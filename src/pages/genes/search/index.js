@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import SearchComponent from '../../../components/search';
+import Link from '../../../components/link';
 import Single from './single';
 import Multi from './multi';
 import { getGeneSearch } from '../../../actions/genes.js';
@@ -16,7 +17,7 @@ import './index.css';
 
 let Search = ({ results, select, deselect, dispatch }) => (
   <SearchComponent
-    length={results ? results.length : null}
+    length={results?.length || null}
     multi
     placeholder='search for a gene'
     multiPlaceholder='search for a list of genes'
@@ -75,7 +76,19 @@ export const mapGeneResult = (result, state) => {
   return {
     id: result.id,
     selected: isSelected(state.gene.selected, result.id),
-    cols: colKeys.map((key) => result[key]),
+    cols: colKeys.map((key) => {
+      if (key === 'standard_name') {
+        return (
+          <Link
+            to={'/gene/' + result.id}
+            newTab
+            button={false}
+            text={result.standard_name}
+          />
+        );
+      } else
+        return result[key];
+    }),
     highlightedCol: colKeys.findIndex((key) => key === highlightedKey)
   };
 };

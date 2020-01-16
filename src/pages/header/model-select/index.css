@@ -7,8 +7,8 @@
 }
 .model_select_button:hover,
 .model_select_button:focus {
-  background: var(--green);
-  color: var(--white);
+  background: var(--green) !important;
+  color: var(--white) !important;
 }
 .model_select_popup {
   width: 280px;

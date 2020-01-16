@@ -1,7 +1,6 @@
 .gene_search_result_multi {
   display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
+  align-items: center;
   height: 30px;
 }
 .gene_search_result_multi_query {
@@ -16,35 +15,30 @@
   flex: 0 0 calc(100% - 30px);
   width: calc(100% - 30px);
 }
-.gene_search_result_multi_summary {
+.gene_search_result_multi_results {
   display: inline-flex;
-  justify-content: flex-start;
-  align-items: stretch;
+  align-items: center;
   width: calc(100% - 60px - 30px - 1px - 1px);
+  height: 100%;
 }
-.gene_search_result_multi_button {
-  justify-content: flex-start;
-  width: calc((100% - 1px - 1px) / 3);
+.gene_search_result_multi_results > .td {
+  width: calc((100% - 30px - 30px - 30px - 1px - 1px) / 6);
 }
 .gene_search_result_multi_check {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  flex: 0 0 30px;
   width: 30px;
 }
-.gene_search_result_multi_details {
-  text-align: left;
-}
-.gene_search_result_multi_caret {
+.gene_search_result_multi_expand {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 30px;
 }
 
-@media screen and (max-width: 500px) {
-  .gene_search_result_multi_details:nth-child(2) {
+@media screen and (max-width: 650px) {
+  .gene_search_result_multi_results > .td {
+    width: calc((100% - 30px - 30px - 30px - 1px - 1px) / 3);
+  }
+  .gene_search_result_multi_results > .td + .td {
     display: none;
   }
 }

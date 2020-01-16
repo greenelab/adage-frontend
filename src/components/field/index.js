@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Children } from 'react';
 
 import Tooltip from '../tooltip';
+import { useInnerText } from '../../util/hooks.js';
 
 import './index.css';
 
 const Field = ({ className, children, wrap, ...props }) => {
-  const label = getLabelFromChildren(children);
+  const [label, ref] = useInnerText();
+
   return (
     <Tooltip text={label} horizontalAlign='left'>
       <span
+        ref={ref}
         className={'field ' + (wrap ? '' : 'nowrap ') + (className || '')}
         {...props}
       >
@@ -27,16 +29,3 @@ Field.propTypes = {
 };
 
 export default Field;
-
-const getLabelFromChildren = (children) => {
-  let label = '';
-
-  Children.forEach(children, (child) => {
-    if (typeof child === 'string')
-      label += child;
-    if (typeof child === 'number')
-      label += String(child);
-  });
-
-  return label;
-};

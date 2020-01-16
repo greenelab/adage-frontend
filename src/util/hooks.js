@@ -6,14 +6,42 @@ export const useBbox = () => {
   const ref = useRef();
   const [bbox, setBbox] = useState(null);
 
-  const set = () =>
-    setBbox(ref && ref.current ? ref.current.getBoundingClientRect() : null);
+  const set = () => {
+    const bbox = ref.current.getBoundingClientRect();
+    setBbox(
+      ref?.current ?
+        {
+          left: bbox.left,
+          top: bbox.top,
+          right: bbox.right,
+          bottom: bbox.bottom,
+          width: bbox.width,
+          height: bbox.height,
+          clientWidth: ref.current.clientWidth,
+          clientHeight: ref.current.clientHeight
+        } :
+        null
+    );
+  };
 
   useEffect(() => {
     set();
-    window.addEventListener('resize', set);
-    return () => window.removeEventListener('resize', set);
-  }, []);
+    if (window.ResizeObserver) {
+      const observer = new ResizeObserver(set);
+      if (ref?.current)
+        observer.observe(ref.current);
+      return () => observer.disconnect();
+    } else {
+      const observer = new MutationObserver(set);
+      window.addEventListener('resize', set);
+      if (ref?.current)
+        observer.observe(ref.current, { childList: true });
+      return () => {
+        window.removeEventListener('resize', set);
+        observer.disconnect();
+      };
+    }
+  }, [ref]);
 
   return [bbox, ref];
 };
@@ -24,4 +52,11 @@ export const usePrev = (previousValue) => {
     ref.current = previousValue;
   });
   return ref.current;
+};
+
+export const useInnerText = () => {
+  const ref = useRef();
+  const text = ref?.current?.innerText ? ref.current.innerText : '';
+
+  return [text, ref];
 };

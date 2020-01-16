@@ -1,31 +1,16 @@
 .gene_search_result_single {
   display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
+  align-items: center;
   height: 30px;
 }
 .gene_search_result_single_button {
-  display: inline-flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  width: calc(100% - 30px);
-  text-align: left;
-}
-.gene_search_result_single_check {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  flex: 0 0 30px;
   width: 30px;
 }
-.gene_search_result_single_summary {
-  width: calc(100% - 30px);
+.gene_search_result_single > .td:nth-child(2),
+.gene_search_result_single > .td:nth-child(3),
+.gene_search_result_single > .td:nth-child(4) {
+  width: calc((100% - 30px) * 0.15);
 }
-.gene_search_result_single .field:nth-child(1),
-.gene_search_result_single .field:nth-child(2),
-.gene_search_result_single .field:nth-child(3) {
-  width: 15%;
-}
-.gene_search_result_single .field:nth-child(4) {
-  width: 55%;
+.gene_search_result_single > .td:nth-child(5) {
+  width: calc((100% - 30px) * 0.55);
 }

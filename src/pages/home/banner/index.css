@@ -4,6 +4,6 @@
   margin-left: auto;
   margin-right: auto;
 }
-.banner > .link {
-  margin-top: 20px;
+.banner > a {
+  margin-top: 20px !important;
 }

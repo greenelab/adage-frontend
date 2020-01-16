@@ -28,7 +28,7 @@ const Tooltip = ({
   const [style, setStyle] = useState({});
 
   const onEnter = (event) => {
-    if (!window.matchMedia('(hover: none)').matches) {
+    if (text && !window.matchMedia('(hover: none)').matches) {
       setAnchor(event.target);
       setHover(true);
     }
@@ -72,59 +72,61 @@ const Tooltip = ({
     return () => window.removeEventListener('resize', onResize);
   }, [onResize]);
 
-  children = Children.map(children, (element) => {
-    if (isValidElement(element)) {
-      return cloneElement(element, {
-        'onMouseEnter': (...args) => {
-          if (element.onMouseEnter)
-            element.onMouseEnter(...args);
-          onEnter(...args);
-        },
-        'onMouseLeave': (...args) => {
-          if (element.onMouseLeave)
-            element.onMouseLeave(...args);
-          onLeave(...args);
-        },
-        'onFocus': (...args) => {
-          if (element.onFocus)
-            element.onFocus(...args);
-          onEnter(...args);
-        },
-        'onBlur': (...args) => {
-          if (element.onBlur)
-            element.onBlur(...args);
-          onLeave(...args);
-        },
-        'aria-label': text
-      });
-    } else if (typeof element === 'string') {
-      return (
-        <span
-          onMouseEnter={onEnter}
-          onMouseLeave={onLeave}
-          onFocus={onEnter}
-          onBlur={onLeave}
-        >
-          {element}
-        </span>
-      );
-    } else
-      return element;
-  });
+  if (text) {
+    children = Children.map(children, (element) => {
+      if (isValidElement(element)) {
+        return cloneElement(element, {
+          'onMouseEnter': (...args) => {
+            if (element.onMouseEnter)
+              element.onMouseEnter(...args);
+            onEnter(...args);
+          },
+          'onMouseLeave': (...args) => {
+            if (element.onMouseLeave)
+              element.onMouseLeave(...args);
+            onLeave(...args);
+          },
+          'onFocus': (...args) => {
+            if (element.onFocus)
+              element.onFocus(...args);
+            onEnter(...args);
+          },
+          'onBlur': (...args) => {
+            if (element.onBlur)
+              element.onBlur(...args);
+            onLeave(...args);
+          },
+          'aria-label': text
+        });
+      } else if (typeof element === 'string') {
+        return (
+          <span
+            onMouseEnter={onEnter}
+            onMouseLeave={onLeave}
+            onFocus={onEnter}
+            onBlur={onLeave}
+          >
+            {element}
+          </span>
+        );
+      } else
+        return element;
+    });
+  }
 
   return (
     <>
       {children}
-      {
+      {text && (
         <CSSTransition
           in={open}
           timeout={duration}
           classNames='tooltip'
           unmountOnExit
         >
-          <Portal text={text} style={style} setHover={setHover} />
+          <Portal text={text} style={style}/>
         </CSSTransition>
-      }
+      )}
     </>
   );
 };
@@ -138,12 +140,11 @@ Tooltip.propTypes = {
 
 export default Tooltip;
 
-const Portal = ({ text, style, setHover }) => {
+const Portal = ({ text, style }) => {
   return createPortal(
     <div
       className='tooltip text_small'
       style={style}
-      onClick={() => setHover(false)}
     >
       {text}
     </div>,

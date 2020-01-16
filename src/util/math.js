@@ -83,7 +83,5 @@ export const calculateEnrichedSignatures = ({
     pValue: correctedPValues[index].toFixed(5)
   }));
 
-  enrichedSignatures.sort((a, b) => a.pValue - b.pValue);
-
   return enrichedSignatures;
 };

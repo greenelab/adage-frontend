@@ -4,13 +4,17 @@ import { useEffect } from 'react';
 
 let Head = ({ location }) => {
   useEffect(() => {
-    const path = location.pathname.slice(1) || 'home';
+    const path = location.pathname.slice(1);
+    const selected = (
+      new URLSearchParams(location.search).get('selected') || ''
+    )
+      .split('-')
+      .filter((id) => id).length;
+    let params;
+    if (selected)
+      params = selected + ' selected';
 
-    const params =
-      (new URLSearchParams(location.search).get('selected') || '').split('-')
-        .length + ' selected';
-
-    const title = ['Adage', path, params].join(' · ');
+    const title = ['Adage', path, params].filter((entry) => entry).join(' · ');
 
     document.title = title;
   }, [location]);
