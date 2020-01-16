@@ -42,7 +42,8 @@ a {
   color: var(--green);
 }
 *:focus {
-  outline: solid 1px var(--green);
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--green);
 }
 section {
   box-sizing: border-box;
@@ -81,9 +82,6 @@ section {
 }
 *[data-highlight='true'] {
   background: var(--light-green);
-}
-*[data-outline='true'] {
-  outline: solid 1px var(--green);
 }
 *[data-shade='true'] {
   background: var(--off-white);

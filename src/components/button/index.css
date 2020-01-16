@@ -9,7 +9,6 @@ button,
   background: none;
   border: none;
   cursor: pointer;
-  outline: none;
   font-size: 11pt;
   text-decoration: none;
 }
@@ -40,13 +39,16 @@ button,
   color: var(--green);
   font-weight: 500;
 }
+.clickable[data-button='true'][data-text='true']:hover,
+.clickable[data-button='true'][data-text='true']:focus {
+  border-color: var(--green);
+  box-shadow: none;
+}
+
 .clickable[data-button='true'][data-text='false'] {
   color: var(--black);
 }
 .clickable[data-button="false"] {
   color: var(--black);
   text-decoration: underline;
-}
-.clickable[data-button='true'][data-text='true']:hover {
-  border-color: var(--green);
 }
