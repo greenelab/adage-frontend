@@ -21,7 +21,6 @@
     "redux-query-sync": "^0.1.9",
     "redux-sequence-action": "^0.2.1",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0",
     "use-debounce": "^3.3.0"
   },
   "scripts": {

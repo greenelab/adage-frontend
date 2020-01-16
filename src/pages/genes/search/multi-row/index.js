@@ -90,12 +90,12 @@ let MultiRow = ({ search, select, deselect }) => {
         {!expanded && (
           <>
             <VerticalLine />
-            <div className='gene_search_result_multi_summary'>{content}</div>
+            <div className='gene_search_result_multi_results'>{content}</div>
             <VerticalLine />
           </>
         )}
         <Button
-          className='gene_search_result_multi_caret'
+          className='gene_search_result_multi_expand'
           icon={<Caret className={expanded ? 'flip_vertical' : ''} />}
           onClick={() => setExpanded(!expanded)}
         />
@@ -129,17 +129,21 @@ const ResultButton = ({
   col1 = '-',
   col2 = '-'
 }) => (
-  <Button className='gene_search_result_multi_button' onClick={onClick}>
+  <>
     <Tooltip
       text={(selected ? 'Deselect' : 'Select') + ' this gene'}
       horizontalAlign='left'
     >
-      <div className='gene_search_result_multi_check'>
+      <Button className='gene_search_result_multi_check' onClick={onClick}>
         {selected && <Checked />}
         {!selected && <Unchecked />}
-      </div>
+      </Button>
     </Tooltip>
-    <Field className={'gene_search_result_multi_details'}>{col1}</Field>
-    <Field className={'gene_search_result_multi_details'}>{col2}</Field>
-  </Button>
+    <span className='td' data-padded='true'>
+      <Field>{col1}</Field>
+    </span>
+    <span className='td' data-padded='true'>
+      <Field>{col2}</Field>
+    </span>
+  </>
 );

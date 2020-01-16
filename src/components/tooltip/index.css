@@ -1,6 +1,6 @@
 .tooltip {
   position: absolute;
-  max-width: 180px;
+  max-width: 200px;
   padding: 5px 10px;
   background: var(--black);
   color: var(--white);

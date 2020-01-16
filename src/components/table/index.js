@@ -88,7 +88,7 @@ const Table = ({ columns, data, defaultSort = [] }) => {
       </div>
       <div className='tbody' {...getTableBodyProps()} ref={tbodyRef}>
         {rows.forEach(prepareRow)}
-        {rows.map((row, index) => (
+        {rows.map((row, index, array) => (
           <React.Fragment key={index}>
             <div className='tr' {...row.getRowProps()}>
               {row.cells.map((cell) => (
@@ -105,7 +105,7 @@ const Table = ({ columns, data, defaultSort = [] }) => {
                 </span>
               ))}
             </div>
-            <HorizontalLine />
+            {index < array.length - 1 && <HorizontalLine />}
           </React.Fragment>
         ))}
       </div>
