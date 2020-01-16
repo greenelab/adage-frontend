@@ -43,11 +43,8 @@ const SingleRow = ({
         </Button>
       </Tooltip>
       {cols.map((col, index) => (
-        <span className='td' data-padded='true'>
-          <Field
-            key={index}
-            className={highlightedCol === index ? 'semibold' : ''}
-          >
+        <span key={index} className='td' data-padded='true'>
+          <Field className={highlightedCol === index ? 'semibold' : ''}>
             {col}
           </Field>
         </span>
@@ -59,9 +56,7 @@ SingleRow.propTypes = {
   onClick: PropTypes.func,
   selected: PropTypes.bool,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  cols: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  ),
+  cols: PropTypes.array,
   highlightedCol: PropTypes.number
 };
 
