@@ -23,7 +23,8 @@
         basename +
         (path ? '/?path=' + path : '');
 
-      console.log(original, url);
+      console.log(original);
+      console.log(url);
       window.setTimeout(() => window.location.replace(url), 10 * 1000);
     </script>
   </body>

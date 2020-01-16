@@ -5,7 +5,12 @@ const path =
     new URLSearchParams(window.location.search).get('path') || ''
   ) || null;
 
-console.log(window.location.href, path);
+console.log(window.location.href);
+console.log(path);
 
-if (path)
-  window.history.replaceState(null, null, path);
+if (path) {
+  window.setTimeout(
+    () => window.history.replaceState(null, null, path),
+    10 * 1000
+  );
+}
