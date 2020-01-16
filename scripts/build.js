@@ -16,7 +16,7 @@ config.optimization.runtimeChunk = false;
 
 // remove preceding "/" in build/index.html static resource urls
 // (how it should be by default, so that assets are always relative to index)
-config.output.publicPath = '';
+config.output.publicPath = process.env.REACT_APP_BASENAME || '/';
 
 // JS
 config.output.filename = 'static/js/main.js';
