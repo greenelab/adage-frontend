@@ -56,10 +56,7 @@ export const usePrev = (previousValue) => {
 
 export const useInnerText = () => {
   const ref = useRef();
-
-  let text = '';
-  if (ref?.current?.innerText !== text)
-    text = ref?.current ? ref.current.innerText : '';
+  const text = ref?.current?.innerText ? ref.current.innerText : '';
 
   return [text, ref];
 };
