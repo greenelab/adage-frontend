@@ -8,4 +8,4 @@ const newUrl =
 console.log({ originalUrl, newUrl });
 
 if (newUrl)
-  setTimeout(() => history.replaceState(null, null, newUrl), 10 * 1000);
+  history.replaceState(null, null, newUrl), 10 * 1000;
