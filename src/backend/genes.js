@@ -9,7 +9,7 @@ export const urlGeneDetails = ({ id }) => {
   return url;
 };
 
-export const urlGeneCount = ({ organism, limit = defaultLimit }) => {
+export const urlGeneList = ({ organism, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (organism)

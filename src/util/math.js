@@ -1,4 +1,5 @@
 import { fdr } from 'multtest';
+import { isArray } from './types';
 
 // reference
 // https://bitbucket.org/cgreene/integrator/src/1194f7ae1b11057a4649114e1f55570542acbcde/integrator/static/js/imp.js?
@@ -37,9 +38,21 @@ export const mean = (array) =>
 export const calculateEnrichedSignatures = ({
   selectedGenes,
   participations,
-  geneCount,
+  genes,
   signatures
 }) => {
+  if (
+    !isArray(selectedGenes) ||
+    !selectedGenes.length ||
+    !isArray(participations) ||
+    !participations.length ||
+    !isArray(genes) ||
+    !genes.length ||
+    !isArray(signatures) ||
+    !signatures.length
+  )
+    return [];
+
   let enrichedSignatures = signatures
     // for each signature
     .map((signature) => {
@@ -64,7 +77,7 @@ export const calculateEnrichedSignatures = ({
     .filter((signatures) => signatures.participatingGenes.length)
     // compute p value of enriched signature
     .map((signature) => {
-      const N = geneCount;
+      const N = genes.length;
       const K = selectedGenes.length;
       const n = signature.participatingGenes.length;
       const k = signature.matchedGenes.length;

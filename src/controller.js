@@ -3,59 +3,104 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getModelList } from './actions/models.js';
-import { setSelectedModel } from './actions/models.js';
-import { getGeneCount } from './actions/genes.js';
+import { getGeneList } from './actions/genes.js';
 import { getSignatureList } from './actions/signatures.js';
+import { getGeneSelectedDetails } from './actions/genes.js';
+import { setSelectedModel } from './actions/models.js';
+import { getGeneEnrichedSignatures } from './actions/genes.js';
 import { isArray } from './util/types.js';
 
-// dispatches new actions in response to state changes
-// only for pieces of state needed globally across app
+// dispatch new actions in response to redux state changes
 let Controller = ({
   modelList,
+  signatures,
+  genes,
   selectedModel,
   selectedOrganism,
-  getModelList,
   setSelectedModel,
-  getGeneCount,
-  getSignatureList
+  selectedGenesLoaded,
+  selectedGenes,
+  getModelList,
+  getGeneList,
+  getSignatureList,
+  getGeneSelectedDetails,
+  getEnrichedSignatures
 }) => {
   useEffect(() => {
     getModelList();
   }, [getModelList]);
 
   useEffect(() => {
-    setSelectedModel();
-  }, [modelList, setSelectedModel]);
-
-  useEffect(() => {
     if (selectedOrganism)
-      getGeneCount({ organism: selectedOrganism, limit: 1, count: true });
-  }, [selectedOrganism, getGeneCount]);
+      getGeneList({ organism: selectedOrganism, limit: 999999 });
+  }, [selectedOrganism, getGeneList]);
 
   useEffect(() => {
     if (selectedModel)
       getSignatureList({ model: selectedModel, limit: 999999 });
   }, [selectedModel, getSignatureList]);
 
+  useEffect(() => {
+    setSelectedModel();
+  }, [modelList, setSelectedModel]);
+
+  useEffect(() => {
+    getGeneSelectedDetails();
+  }, [genes.length, selectedGenes.length, getGeneSelectedDetails]);
+
+  useEffect(() => {
+    if (
+      isArray(genes) &&
+      genes.length &&
+      isArray(signatures) &&
+      signatures.length &&
+      selectedGenesLoaded
+    ) {
+      getEnrichedSignatures({
+        ids: selectedGenes.map((gene) => gene.id),
+        limit: selectedGenes.length ? 999999 : 1,
+        cancelType: 'GET_GENE_ENRICHED_SIGNATURES',
+        genes: genes,
+        signatures: signatures,
+        selectedGenes: selectedGenes
+      });
+    }
+  }, [
+    selectedGenesLoaded,
+    selectedGenes,
+    genes,
+    signatures,
+    getEnrichedSignatures
+  ]);
+
   return <></>;
 };
 
 const mapStateToProps = (state) => ({
   modelList: state.model.list,
+  genes: state.gene.list,
+  signatures: state.signature.list,
   selectedModel: state.model.selected,
   selectedOrganism: isArray(state.model.list) ?
     (
       state.model.list.find((model) => model.id === state.model.selected) ||
         {}
     ).organism || null :
-    null
+    null,
+  selectedGenesLoaded: state.gene.selected.every(
+    (selected) => selected.standard_name
+  ),
+  selectedGenes: state.gene.selected
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getModelList: () => dispatch(getModelList()),
+  getGeneList: (...args) => dispatch(getGeneList(...args)),
+  getSignatureList: (...args) => dispatch(getSignatureList(...args)),
+  getGeneSelectedDetails: () => dispatch(getGeneSelectedDetails()),
   setSelectedModel: () => dispatch(setSelectedModel()),
-  getGeneCount: (...args) => dispatch(getGeneCount(...args)),
-  getSignatureList: (...args) => dispatch(getSignatureList(...args))
+  getEnrichedSignatures: (...args) =>
+    dispatch(getGeneEnrichedSignatures(...args))
 });
 
 Controller = connect(mapStateToProps, mapDispatchToProps)(Controller);
