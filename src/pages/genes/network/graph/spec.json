@@ -7,14 +7,6 @@
     { "name": "nodeColor", "value": "#26a36c" },
     { "name": "nodeRadius", "value": 25 },
     { "name": "strokeWidth", "value": 2 },
-    {
-      "name": "test",
-      "value": 500,
-      "bind": { "input": "range", "min": 50, "max": 2000, "step": 1 }
-    },
-    { "name": "domain", "update": "{ x: [0, test], y: [0, test] }" },
-    { "name": "range", "update": "{ x: [0, width], y: [0, height] }" },
-    { "name": "centeringForce", "value": 2 },
     { "name": "nodeRepulsion", "value": 200 },
     { "name": "linkDistance", "value": 100 },
     { "name": "center", "update": "{ x: width / 2, y: height / 2 }" },
@@ -60,19 +52,6 @@
     }
   ],
 
-  "scales": [
-    {
-      "name": "xScale",
-      "domain": { "signal": "domain.x" },
-      "range": { "signal": "range.x" }
-    },
-    {
-      "name": "yScale",
-      "domain": { "signal": "domain.y" },
-      "range": { "signal": "range.y" }
-    }
-  ],
-
   "marks": [
     {
       "name": "nodeCircle",
@@ -105,8 +84,7 @@
             {
               "force": "center",
               "x": { "signal": "center.x" },
-              "y": { "signal": "center.y" },
-              "strength": { "signal": "centeringForce / 100" }
+              "y": { "signal": "center.y" }
             },
             { "force": "collide", "radius": { "signal": "nodeRadius" } },
             {
@@ -172,8 +150,8 @@
           "limit": { "signal": "nodeRadius * 2 - 10" }
         },
         "update": {
-          "x": { "scale": "xScale", "field": "x" },
-          "y": { "scale": "yScale", "field": "y" }
+          "x": { "field": "x" },
+          "y": { "field": "y" }
         }
       }
     }
