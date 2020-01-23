@@ -21,13 +21,23 @@ const Graph = ({ nodes, links }) => {
   }, [containerRef, viewRef]);
 
   useEffect(() => {
-    if (!viewRef.current || !nodes?.length || !links?.length)
+    if (!viewRef.current)
       return;
 
-    viewRef.current.remove('nodeData');
-    viewRef.current.remove('linkData');
-    viewRef.current.insert('nodeData', nodes);
-    viewRef.current.insert('linkData', links);
+    viewRef.current.change(
+      'nodeData',
+      vega
+        .changeset()
+        .remove(() => true)
+        .insert(nodes)
+    );
+    viewRef.current.change(
+      'linkData',
+      vega
+        .changeset()
+        .remove(() => true)
+        .insert(links)
+    );
     viewRef.current.runAsync();
   }, [nodes, links]);
 

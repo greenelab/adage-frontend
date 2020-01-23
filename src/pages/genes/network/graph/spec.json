@@ -1,27 +1,37 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
+
   "data": [{ "name": "nodeData" }, { "name": "linkData" }],
+
   "signals": [
     { "name": "nodeColor", "value": "#26a36c" },
     { "name": "nodeRadius", "value": 25 },
     { "name": "strokeWidth", "value": 2 },
+    {
+      "name": "test",
+      "value": 500,
+      "bind": { "input": "range", "min": 50, "max": 2000, "step": 1 }
+    },
+    { "name": "domain", "update": "{ x: [0, test], y: [0, test] }" },
+    { "name": "range", "update": "{ x: [0, width], y: [0, height] }" },
     { "name": "centeringForce", "value": 2 },
     { "name": "nodeRepulsion", "value": 200 },
     { "name": "linkDistance", "value": 100 },
-
     { "name": "center", "update": "{ x: width / 2, y: height / 2 }" },
-
     {
       "name": "alpha",
       "value": 1,
-      "on": [{ "events": "symbol:mousedown", "update": "1" }]
+      "on": [{ "events": "@nodeCircle:mousedown", "update": "1" }]
     },
     {
       "name": "alphaTarget",
       "value": 0,
       "on": [
-        { "events": "symbol:mousedown", "update": "1" },
-        { "events": "window:mouseup", "update": "0" }
+        {
+          "events": "@nodeCircle:mousedown, @nodeCircle:touchstart",
+          "update": "1"
+        },
+        { "events": "window:mouseup, window:touchend", "update": "0" }
       ]
     },
     {
@@ -29,7 +39,7 @@
       "value": { "x": null, "y": null },
       "on": [
         {
-          "events": "window:mousemove",
+          "events": "window:mousemove, window:touchmove",
           "update": "{ x: x(), y: y() }"
         }
       ]
@@ -39,19 +49,33 @@
       "value": null,
       "on": [
         {
-          "events": "symbol:mousedown",
+          "events": "@nodeCircle:mousedown, @nodeCircle:touchstart",
           "update": "item()"
         },
         {
-          "events": "window:mouseup",
+          "events": "window:mouseup, window:touchend",
           "update": "null"
         }
       ]
     }
   ],
+
+  "scales": [
+    {
+      "name": "xScale",
+      "domain": { "signal": "domain.x" },
+      "range": { "signal": "range.x" }
+    },
+    {
+      "name": "yScale",
+      "domain": { "signal": "domain.y" },
+      "range": { "signal": "range.y" }
+    }
+  ],
+
   "marks": [
     {
-      "name": "nodeCircles",
+      "name": "nodeCircle",
       "type": "symbol",
       "from": { "data": "nodeData" },
       "zindex": 1,
@@ -96,11 +120,21 @@
               "distance": { "signal": "linkDistance" }
             }
           ]
+        },
+        {
+          "type": "extent",
+          "field": "x",
+          "signal": "xExtent"
+        },
+        {
+          "type": "extent",
+          "field": "y",
+          "signal": "yExtent"
         }
       ]
     },
     {
-      "name": "linkLines",
+      "name": "linkLine",
       "type": "path",
       "from": { "data": "linkData" },
       "encode": {
@@ -123,9 +157,9 @@
       ]
     },
     {
-      "name": "nodeLabels",
+      "name": "nodeLabel",
       "type": "text",
-      "from": { "data": "nodeCircles" },
+      "from": { "data": "nodeCircle" },
       "interactive": false,
       "zindex": 2,
       "encode": {
@@ -138,8 +172,8 @@
           "limit": { "signal": "nodeRadius * 2 - 10" }
         },
         "update": {
-          "x": { "field": "x" },
-          "y": { "field": "y" }
+          "x": { "scale": "xScale", "field": "x" },
+          "y": { "scale": "yScale", "field": "y" }
         }
       }
     }

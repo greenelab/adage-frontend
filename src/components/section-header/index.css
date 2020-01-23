@@ -1,4 +1,5 @@
 .section_header {
+  box-sizing: border-box;
   color: var(--gray);
   display: flex;
   justify-content: center;
