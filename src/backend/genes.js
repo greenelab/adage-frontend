@@ -3,6 +3,7 @@ import { defaultLimit } from '.';
 
 const prefixA = 'gene/';
 const prefixB = 'participation/';
+const prefixC = 'edge/';
 
 export const urlGeneDetails = ({ id }) => {
   const url = server + prefixA + id;
@@ -29,16 +30,26 @@ export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
   return url;
 };
 
-export const urlGeneEnrichedSignatures = ({
-  ids,
-  limit = defaultLimit
-}) => {
+export const urlGeneEnrichedSignatures = ({ ids, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (ids)
     params.set('related-genes', ids.join(','));
 
   const url = server + prefixB + '?' + params.toString();
+
+  return url;
+};
+
+export const urlGeneEdges = ({ modelId, geneIds, limit = defaultLimit }) => {
+  const params = new URLSearchParams();
+  params.set('limit', limit);
+  if (modelId)
+    params.set('mlmodel', modelId);
+  if (geneIds)
+    params.set('genes', geneIds.join(','));
+
+  const url = server + prefixC + '?' + params.toString();
 
   return url;
 };

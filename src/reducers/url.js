@@ -1,20 +1,20 @@
 import reduxQuerySync from 'redux-query-sync';
 import { createBrowserHistory } from 'history';
 
-import packageJson from './../../package.json';
-
 export const basename =
   process.env.REACT_APP_BASENAME ||
   process.env.PUBLIC_URL ||
-  packageJson.homepage ||
-  '';
+  '/';
 
 export const history = createBrowserHistory({ basename });
 
 export const querySync = reduxQuerySync.enhancer({
   params: {
     model: {
-      selector: (state) => state.model.selected,
+      selector: (...args) =>
+        window.location.pathname.replace(basename, '').length !== 0 ?
+          args[0].model.selected :
+          undefined,
       action: (value) => ({
         type: 'SELECT_MODEL_FROM_URL',
         payload: {

@@ -8,6 +8,7 @@ import { getSignatureList } from './actions/signatures.js';
 import { getGeneSelectedDetails } from './actions/genes.js';
 import { setSelectedModel } from './actions/models.js';
 import { getGeneEnrichedSignatures } from './actions/genes.js';
+import { getGeneEdges } from './actions/genes.js';
 import { isArray } from './util/types.js';
 
 // dispatch new actions in response to redux state changes
@@ -24,7 +25,8 @@ let Controller = ({
   getGeneList,
   getSignatureList,
   getGeneSelectedDetails,
-  getEnrichedSignatures
+  getEnrichedSignatures,
+  getGeneEdges
 }) => {
   useEffect(() => {
     getModelList();
@@ -73,6 +75,16 @@ let Controller = ({
     getEnrichedSignatures
   ]);
 
+  useEffect(() => {
+    if (selectedGenesLoaded && selectedGenes.length) {
+      getGeneEdges({
+        modelId: selectedModel,
+        geneIds: selectedGenes.map((selected) => selected.id),
+        limit: 100
+      });
+    }
+  }, [selectedModel, selectedGenes, selectedGenesLoaded, getGeneEdges]);
+
   return <></>;
 };
 
@@ -100,7 +112,8 @@ const mapDispatchToProps = (dispatch) => ({
   getGeneSelectedDetails: () => dispatch(getGeneSelectedDetails()),
   setSelectedModel: () => dispatch(setSelectedModel()),
   getEnrichedSignatures: (...args) =>
-    dispatch(getGeneEnrichedSignatures(...args))
+    dispatch(getGeneEnrichedSignatures(...args)),
+  getGeneEdges: (...args) => dispatch(getGeneEdges(...args))
 });
 
 Controller = connect(mapStateToProps, mapDispatchToProps)(Controller);

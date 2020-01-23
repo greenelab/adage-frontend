@@ -5,6 +5,7 @@ import { urlGeneDetails } from '../backend/genes.js';
 import { urlGeneList } from '../backend/genes.js';
 import { urlGeneSearch } from '../backend/genes.js';
 import { urlGeneEnrichedSignatures } from '../backend/genes.js';
+import { urlGeneEdges } from '../backend/genes.js';
 
 export const getGeneDetails = createFetchAction(
   'GET_GENE_DETAILS',
@@ -38,3 +39,5 @@ export const getGeneEnrichedSignatures = createFetchAction(
   'GET_GENE_ENRICHED_SIGNATURES',
   urlGeneEnrichedSignatures
 );
+
+export const getGeneEdges = createFetchAction('GET_GENE_EDGES', urlGeneEdges);

@@ -7,6 +7,7 @@ import SectionHeader from '../../components/section-header';
 import Search from './search';
 import Selected from './selected';
 import Enriched from './enriched';
+import Network from './network';
 
 import './index.css';
 
@@ -14,7 +15,7 @@ const Genes = () => (
   <>
     <Header />
     <Main>
-      <SectionHeader text='Search Genes' />
+      <SectionHeader text='Gene Search' />
       <section>
         <Search />
       </section>
@@ -26,9 +27,32 @@ const Genes = () => (
       <section>
         <Enriched />
       </section>
+      <SectionHeader text='Gene Network' />
+      <section>
+        <Network />
+      </section>
     </Main>
     <Footer />
   </>
 );
 
 export default Genes;
+
+export const mapGene = (gene) => ({
+  id: gene.id,
+  standardName: gene.standard_name,
+  systematicName: gene.systematic_name,
+  entrezId: gene.entrezid,
+  description: gene.description,
+  aliases: gene.aliases,
+  organism: gene.organism
+});
+
+export const mapGeneDownload = (gene) => ({
+  'Standard Name': gene.standard_name || '-',
+  'Systematic Name': gene.systematic_name || '-',
+  'Entrez Id': gene.entrezid || '-',
+  'Description': gene.description || '-',
+  'Aliases': gene.aliases || '-',
+  'Organism': gene.organism || '-'
+});

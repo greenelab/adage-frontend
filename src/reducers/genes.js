@@ -22,6 +22,8 @@ const reducer = produce((draft, type, payload, meta) => {
       !isArray(draft.enrichedSignatures)
     )
       draft.enrichedSignatures = actionStatuses.EMPTY;
+    if (!isString(draft.edges) && !isArray(draft.edges))
+      draft.edges = [];
   };
 
   typeCheck();
@@ -103,7 +105,6 @@ const reducer = produce((draft, type, payload, meta) => {
       else
         draft.selected = payload.ids.map((id) => ({ id: id }));
 
-      console.log(payload.ids.map((id) => ({ id: id })));
       break;
 
     case 'GET_GENE_ENRICHED_SIGNATURES':
@@ -123,6 +124,10 @@ const reducer = produce((draft, type, payload, meta) => {
           draft.enrichedSignatures = result;
       } else
         draft.enrichedSignatures = participations;
+      break;
+
+    case 'GET_GENE_EDGES':
+      draft.edges = payload;
       break;
 
     default:
