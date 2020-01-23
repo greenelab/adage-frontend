@@ -130,7 +130,7 @@
       "zindex": 2,
       "encode": {
         "enter": {
-          "text": { "field": "datum.standardName" },
+          "text": { "field": "datum.name" },
           "fill": { "value": "white" },
           "font": { "value": "Poppins" },
           "align": { "value": "center" },

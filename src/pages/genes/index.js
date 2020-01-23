@@ -42,6 +42,7 @@ export const mapGene = (gene) => ({
   id: gene.id,
   standardName: gene.standard_name,
   systematicName: gene.systematic_name,
+  name: gene.standard_name || gene.systematic_name || gene.entrezid || '???',
   entrezId: gene.entrezid,
   description: gene.description,
   aliases: gene.aliases,
