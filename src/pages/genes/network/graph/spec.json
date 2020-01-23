@@ -100,13 +100,14 @@
       ]
     },
     {
-      "name": "links",
+      "name": "linkLines",
       "type": "path",
       "from": { "data": "linkData" },
       "encode": {
         "enter": {
           "stroke": { "value": "black" },
-          "strokeWidth": { "signal": "strokeWidth" }
+          "strokeWidth": { "signal": "strokeWidth" },
+          "opacity": { "signal": "datum.normalizedWeight" }
         },
         "update": {}
       },
@@ -131,9 +132,10 @@
         "enter": {
           "text": { "field": "datum.standardName" },
           "fill": { "value": "white" },
-          "font": "Poppins",
+          "font": { "value": "Poppins" },
           "align": { "value": "center" },
-          "baseline": { "value": "middle" }
+          "baseline": { "value": "middle" },
+          "limit": { "signal": "nodeRadius * 2 - 10" }
         },
         "update": {
           "x": { "field": "x" },

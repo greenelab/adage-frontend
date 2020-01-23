@@ -23,13 +23,24 @@ const mapStateToProps = (state) => {
     .filter((node) => node)
     .map(mapGene);
 
-  const links = state.gene.edges
+  let links = state.gene.edges
     .map((edge) => ({
       ...edge,
       source: nodes.findIndex((node) => node.id === edge.gene1),
       target: nodes.findIndex((node) => node.id === edge.gene2)
     }))
-    .filter((edge) => edge.source !== -1 && edge.target !== -1);
+    .filter((edge) => edge.source !== -1 && edge.target !== -1)
+    .map((edge) => ({ ...edge, normalizedWeight: edge.weight }));
+
+  if (links.length) {
+    const weights = links.map((link) => link.weight);
+    const minWeight = Math.min(...weights);
+    const maxWeight = Math.max(...weights);
+    links = links.map((link) => ({
+      ...link,
+      normalizedWeight: (link.weight - minWeight) / (maxWeight - minWeight)
+    }));
+  }
 
   return { nodes, links };
 };
