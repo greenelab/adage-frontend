@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
 import Link from '../../../../components/link';
+import { mapGene } from '../../';
 
 import './index.css';
 
@@ -54,10 +55,7 @@ const mapStateToProps = (state) => ({
   enrichedSignatures: state.gene.enrichedSignatures.map((signature) => ({
     id: signature.id,
     name: signature.name,
-    genes: signature.matchedGenes.map((gene) => ({
-      id: gene.id,
-      name: gene.standard_name
-    })),
+    genes: signature.matchedGenes.map(mapGene),
     pValue: signature.pValue
   }))
 });

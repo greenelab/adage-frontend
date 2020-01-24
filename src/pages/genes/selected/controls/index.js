@@ -5,7 +5,7 @@ import { deselectAllGenes } from '../../../../actions/genes.js';
 import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
 import { downloadTsv } from '../../../../util/download.js';
-import { mapGeneSelectedDownload } from '../';
+import { mapGeneDownload } from '../../';
 
 import { ReactComponent as Cross } from '../../../../images/cross.svg';
 import { ReactComponent as Download } from '../../../../images/download.svg';
@@ -29,7 +29,7 @@ let Controls = ({ selected, deselectAll }) => (
 
 const mapStateToProps = (state) => ({
   selected: state.gene.selected.map((selected) =>
-    mapGeneSelectedDownload(selected)
+    mapGeneDownload(selected)
   )
 });
 

@@ -24,7 +24,7 @@ cache.limit = 50 * 1000000; // in bytes
 export const createFetchAction = (type, urlFunction) => ({
   ...props
 }) => async (dispatch) => {
-  const { cancelType, count } = props;
+  const { cancelType } = props;
 
   const meta = () => props;
   const actionId = newAction({ cancelType: cancelType });
@@ -43,7 +43,7 @@ export const createFetchAction = (type, urlFunction) => ({
 
   setStatus(actionStatuses.LOADING);
   try {
-    const value = await fetchJson(url, count);
+    const value = await fetchJson(url);
     if (isEmpty(value))
       setStatus(actionStatuses.EMPTY);
     else
@@ -73,7 +73,7 @@ export const cancelAction = ({ cancelTypeRegex }) => {
   }
 };
 
-const fetchJson = async (url, count) => {
+const fetchJson = async (url) => {
   // artificial delay for testing loading spinners and race conditions
   // await sleep(500 + Math.random() * 500);
 
@@ -87,11 +87,7 @@ const fetchJson = async (url, count) => {
 
   const json = await fetchResponse.json();
 
-  let results;
-  if (count)
-    results = json?.count || 0;
-  else
-    results = json?.results || json;
+  const results = json?.results || json;
 
   const size = sizeof(results);
 
@@ -103,4 +99,4 @@ const fetchJson = async (url, count) => {
   return results;
 };
 
-window.clearCache = () => cache = {};
+window.clearCache = () => (cache = {});

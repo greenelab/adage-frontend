@@ -1,8 +1,10 @@
 .section_header {
+  box-sizing: border-box;
   color: var(--gray);
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 20px;
 }
 .section_header:before,
 .section_header:after {

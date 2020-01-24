@@ -1,0 +1,159 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+
+  "data": [{ "name": "nodeData" }, { "name": "linkData" }],
+
+  "signals": [
+    { "name": "nodeColor", "value": "#26a36c" },
+    { "name": "nodeRadius", "value": 25 },
+    { "name": "strokeWidth", "value": 2 },
+    { "name": "nodeRepulsion", "value": 200 },
+    { "name": "linkDistance", "value": 100 },
+    { "name": "center", "update": "{ x: width / 2, y: height / 2 }" },
+    {
+      "name": "alpha",
+      "value": 1,
+      "on": [{ "events": "@nodeCircle:mousedown", "update": "1" }]
+    },
+    {
+      "name": "alphaTarget",
+      "value": 0,
+      "on": [
+        {
+          "events": "@nodeCircle:mousedown, @nodeCircle:touchstart",
+          "update": "1"
+        },
+        { "events": "window:mouseup, window:touchend", "update": "0" }
+      ]
+    },
+    {
+      "name": "mouse",
+      "value": { "x": null, "y": null },
+      "on": [
+        {
+          "events": "window:mousemove, window:touchmove",
+          "update": "{ x: x(), y: y() }"
+        }
+      ]
+    },
+    {
+      "name": "activeNode",
+      "value": null,
+      "on": [
+        {
+          "events": "@nodeCircle:mousedown, @nodeCircle:touchstart",
+          "update": "item()"
+        },
+        {
+          "events": "window:mouseup, window:touchend",
+          "update": "null"
+        }
+      ]
+    }
+  ],
+
+  "marks": [
+    {
+      "name": "nodeCircle",
+      "type": "symbol",
+      "from": { "data": "nodeData" },
+      "zindex": 1,
+      "cursor": "pointer",
+      "on": [
+        {
+          "trigger": "activeNode",
+          "modify": "activeNode",
+          "values": "{ fx: mouse.x, fy: mouse.y }"
+        }
+      ],
+      "encode": {
+        "enter": {
+          "size": { "signal": "3.14 * nodeRadius * nodeRadius" },
+          "fill": { "signal": "nodeColor" },
+          "cursor": { "value": "pointer" }
+        }
+      },
+      "transform": [
+        {
+          "type": "force",
+          "iterations": 100,
+          "alpha": { "signal": "alpha" },
+          "alphaTarget": { "signal": "alphaTarget" },
+          "signal": "force",
+          "forces": [
+            {
+              "force": "center",
+              "x": { "signal": "center.x" },
+              "y": { "signal": "center.y" }
+            },
+            { "force": "collide", "radius": { "signal": "nodeRadius" } },
+            {
+              "force": "nbody",
+              "strength": { "signal": "-nodeRepulsion" },
+              "distanceMax": { "signal": "2 * linkDistance" }
+            },
+            {
+              "force": "link",
+              "links": "linkData",
+              "distance": { "signal": "linkDistance" }
+            }
+          ]
+        },
+        {
+          "type": "extent",
+          "field": "x",
+          "signal": "xExtent"
+        },
+        {
+          "type": "extent",
+          "field": "y",
+          "signal": "yExtent"
+        }
+      ]
+    },
+    {
+      "name": "linkLine",
+      "type": "path",
+      "from": { "data": "linkData" },
+      "encode": {
+        "enter": {
+          "stroke": { "value": "black" },
+          "strokeWidth": { "signal": "strokeWidth" },
+          "opacity": { "signal": "datum.normalizedWeight" }
+        },
+        "update": {}
+      },
+      "transform": [
+        {
+          "type": "linkpath",
+          "require": { "signal": "force" },
+          "sourceX": "datum.source.x",
+          "sourceY": "datum.source.y",
+          "targetX": "datum.target.x",
+          "targetY": "datum.target.y"
+        }
+      ]
+    },
+    {
+      "name": "nodeLabel",
+      "type": "text",
+      "from": { "data": "nodeCircle" },
+      "interactive": false,
+      "zindex": 2,
+      "encode": {
+        "enter": {
+          "text": { "field": "datum.name" },
+          "fill": { "value": "white" },
+          "font": { "value": "Poppins" },
+          "align": { "value": "center" },
+          "baseline": { "value": "middle" },
+          "limit": { "signal": "nodeRadius * 2 - 10" }
+        },
+        "update": {
+          "x": { "field": "x" },
+          "y": { "field": "y" }
+        }
+      }
+    }
+  ]
+}

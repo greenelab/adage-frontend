@@ -2,7 +2,7 @@ import produce from 'immer';
 
 import { actionStatuses } from '../actions/fetch.js';
 import { calculateEnrichedSignatures } from '../util/math.js';
-import { isNumber, isEmpty } from '../util/types.js';
+import { isEmpty } from '../util/types.js';
 import { isString } from '../util/types.js';
 import { isArray } from '../util/types.js';
 import { isObject } from '../util/types.js';
@@ -11,8 +11,8 @@ const reducer = produce((draft, type, payload, meta) => {
   const typeCheck = () => {
     if (!isString(draft.details) && !isObject(draft.details))
       draft.details = {};
-    if (!isNumber(draft.count))
-      draft.count = 0;
+    if (!isString(draft.list) && !isArray(draft.list))
+      draft.list = [];
     if (!isArray(draft.searches))
       draft.searches = [];
     if (!isArray(draft.selected))
@@ -22,6 +22,8 @@ const reducer = produce((draft, type, payload, meta) => {
       !isArray(draft.enrichedSignatures)
     )
       draft.enrichedSignatures = actionStatuses.EMPTY;
+    if (!isString(draft.edges) && !isArray(draft.edges))
+      draft.edges = [];
   };
 
   typeCheck();
@@ -31,8 +33,8 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.details = payload;
       break;
 
-    case 'GET_GENE_COUNT':
-      draft.count = payload;
+    case 'GET_GENE_LIST':
+      draft.list = payload;
       break;
 
     case 'GET_GENE_SEARCH':
@@ -89,37 +91,31 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
 
     case 'GET_GENE_SELECTED_DETAILS':
-      const index = findSelected(draft.selected, meta.id);
-      if (index === -1)
+      if (!isArray(draft.list) || !draft.list.length)
         break;
-      if (isString(payload))
-        draft.selected[index].status = payload;
-      else if (isObject(payload)) {
-        draft.selected[index].status = actionStatuses.SUCCESS;
-        draft.selected[index] = { ...draft.selected[index], ...payload };
-      }
+      draft.selected = draft.selected.map((selected) =>
+        draft.list.find((gene) => gene.id === selected.id)
+      );
+
       break;
 
     case 'SELECT_GENES_FROM_URL':
       if (!payload.ids || !isArray(payload.ids) || !payload.ids.length)
         draft.selected = [];
-      else {
-        draft.selected = payload.ids.map((id) => ({
-          id,
-          ...(draft.selected.find((selected) => selected.id === id) || {})
-        }));
-      }
+      else
+        draft.selected = payload.ids.map((id) => ({ id: id }));
+
       break;
 
     case 'GET_GENE_ENRICHED_SIGNATURES':
       const participations = payload;
       if (isArray(participations)) {
-        const { selectedGenes, geneCount, signatures } = meta;
+        const { selectedGenes, genes, signatures } = meta;
 
         const result = calculateEnrichedSignatures({
           selectedGenes,
           participations,
-          geneCount,
+          genes,
           signatures
         });
         if (isEmpty(result))
@@ -128,6 +124,10 @@ const reducer = produce((draft, type, payload, meta) => {
           draft.enrichedSignatures = result;
       } else
         draft.enrichedSignatures = participations;
+      break;
+
+    case 'GET_GENE_EDGES':
+      draft.edges = payload;
       break;
 
     default:
