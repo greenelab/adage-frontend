@@ -1,57 +1,71 @@
 import React from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import * as vega from 'vega';
-
-import { useBbox } from '../../../../util/hooks.js';
+import * as d3 from 'd3';
 
 import './index.css';
 
-import spec from './spec.json';
+window.d3 = d3;
+
+const minZoom = 0.1;
+const maxZoom = 4;
+const fitPadding = 10;
+
+export let svg;
+export let view;
+export let viewHandler;
 
 const Graph = ({ nodes, links }) => {
-  const [containerBbox, containerRef] = useBbox();
-  const viewRef = useRef();
+  svg = d3.select('#graph');
+  view = d3.select('#graph_view');
 
-  useEffect(() => {
-    viewRef.current = new vega.View(vega.parse(spec), {
-      container: containerRef.current
-    });
-    viewRef.current.runAsync();
-  }, [containerRef, viewRef]);
+  const onZoom = () => view.attr('transform', d3.event.transform);
+  viewHandler = d3
+    .zoom()
+    .scaleExtent([minZoom, maxZoom])
+    .on('zoom', onZoom);
+  viewHandler(svg);
 
-  useEffect(() => {
-    if (!viewRef.current)
-      return;
+  const onClick = () => null;
+  svg.on('click', onClick);
 
-    viewRef.current.change(
-      'nodeData',
-      vega
-        .changeset()
-        .remove(() => true)
-        .insert(nodes)
-    );
-    viewRef.current.change(
-      'linkData',
-      vega
-        .changeset()
-        .remove(() => true)
-        .insert(links)
-    );
-    viewRef.current.runAsync();
-  }, [nodes, links]);
+  svg.on('dblclick.zoom', null);
+  svg.on('dblclick', fitView);
 
-  useEffect(() => {
-    if (!viewRef.current || !containerBbox)
-      return;
-
-    viewRef.current.width(containerBbox.width);
-    viewRef.current.height(containerBbox.height);
-  }, [containerBbox]);
-
-  window.view = viewRef.current;
-
-  return <div ref={containerRef} id='graph'></div>;
+  return (
+    <svg id='graph'>
+      <g id='graph_view'>
+        <circle cx='100' cy='100' r='100' />
+      </g>
+    </svg>
+  );
 };
 
 export default Graph;
+
+export const fitView = () => {
+  const container = svg.node().getBoundingClientRect();
+  const contents = view.node().getBBox();
+
+  contents.midX = contents.x + contents.width / 2;
+  contents.midY = contents.y + contents.height / 2;
+
+  let scale = Math.max(
+    contents.width / (container.width - fitPadding * 2),
+    contents.height / (container.height - fitPadding * 2)
+  );
+  scale = 1 / scale;
+  if (!scale)
+    scale = 1;
+
+  const translateX = container.width / 2 - scale * contents.midX;
+  const translateY = container.height / 2 - scale * contents.midY;
+
+  console.log(container, contents, translateX, translateY, scale);
+
+  viewHandler.transform(
+    svg,
+    d3.zoomIdentity.translate(translateX, translateY).scale(scale)
+  );
+};
