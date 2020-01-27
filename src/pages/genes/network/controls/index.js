@@ -14,29 +14,39 @@ import { ReactComponent as Download } from '../../../../images/download.svg';
 
 import './index.css';
 
-const Controls = ({ nodes }) => (
-  <div className='gene_network_controls'>
-    <Tooltip text='Fit view to contents of graph'>
-      <Button text='Fit View' icon={<Fit />} onClick={fitView} />
-    </Tooltip>
-    <Tooltip text='Unpin all nodes'>
-      <Button
-        text='Unpin all'
-        icon={<Unpin />}
-        onClick={() => unpinAll({ nodes })}
-      />
-    </Tooltip>
-    <Tooltip text='Pin all nodes'>
-      <Button
-        text='Pin all'
-        icon={<Pin />}
-        onClick={() => pinAll({ nodes })}
-      />
-    </Tooltip>
-    <Tooltip text='Download gene network as .svg'>
-      <Button text='Download' icon={<Download />} onClick={download} />
-    </Tooltip>
-  </div>
+const Controls = ({ nodes, minEdgeWeight, setMinEdgeWeight }) => (
+  <>
+    <input
+      type='range'
+      min='0.0'
+      max='1.0'
+      step='0.01'
+      value={minEdgeWeight}
+      onChange={(event) => setMinEdgeWeight(Number(event.target.value))}
+    />
+    <div className='gene_network_controls'>
+      <Tooltip text='Fit view to contents of graph'>
+        <Button text='Fit View' icon={<Fit />} onClick={fitView} />
+      </Tooltip>
+      <Tooltip text='Unpin all nodes'>
+        <Button
+          text='Unpin all'
+          icon={<Unpin />}
+          onClick={() => unpinAll({ nodes })}
+        />
+      </Tooltip>
+      <Tooltip text='Pin all nodes'>
+        <Button
+          text='Pin all'
+          icon={<Pin />}
+          onClick={() => pinAll({ nodes })}
+        />
+      </Tooltip>
+      <Tooltip text='Download gene network as .svg'>
+        <Button text='Download' icon={<Download />} onClick={download} />
+      </Tooltip>
+    </div>
+  </>
 );
 
 export default Controls;

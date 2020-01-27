@@ -12,6 +12,6 @@ export const stroke = '#606060';
 export const strokeWidth = 2;
 export const fontSize = 12;
 export const weightGradient = [
-  [0, '#e0e0e0'],
+  [0, '#a0a0a0'],
   [1, '#26a36c']
 ];

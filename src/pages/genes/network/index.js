@@ -1,68 +1,82 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import FetchAlert from '../../../components/fetch-alert';
 import { mapGene } from '../';
 import { isArray } from '../../../util/types.js';
+import { isString } from '../../../util/types.js';
 import Graph from './graph';
 import Controls from './controls';
 
 import './index.css';
 
-let Network = ({ nodes, links, edges }) => (
-  <>
-    {(!nodes?.length || !links?.length) && (
-      <FetchAlert status={edges} subject='edges' />
-    )}
-    {!(!nodes?.length || !links?.length) && (
-      <>
-        <Graph nodes={nodes} links={links} />
-        <Controls nodes={nodes} links={links} />
-      </>
-    )}
-  </>
-);
+let Network = ({ list, selected, edges }) => {
+  const [minEdgeWeight, setMinEdgeWeight] = useState(0.9);
+  const [graph, setGraph] = useState();
 
-const mapStateToProps = (state) => {
+  useEffect(() => {
+    setGraph(constructGraph({ list, selected, edges, minEdgeWeight }));
+  }, [list, selected, edges, minEdgeWeight]);
+
+  return (
+    <>
+      {isString(edges) && <FetchAlert status={edges} subject='edges' />}
+      {graph && (
+        <>
+          <Graph nodes={graph.nodes} links={graph.links} />
+          <Controls
+            nodes={graph.nodes}
+            links={graph.links}
+            minEdgeWeight={minEdgeWeight}
+            setMinEdgeWeight={setMinEdgeWeight}
+          />
+        </>
+      )}
+    </>
+  );
+};
+
+const constructGraph = ({ list, selected, edges, minEdgeWeight, maxNodes }) => {
   if (
-    !isArray(state.gene.list) ||
-    !isArray(state.gene.edges) ||
-    !state.gene.edges.length ||
-    !isArray(state.gene.selected) ||
-    !state.gene.selected.length
+    !isArray(list) ||
+    !isArray(edges) ||
+    !edges.length ||
+    !isArray(selected) ||
+    !selected.length
   )
-    return { nodes: [], links: [], edges: state.gene.edges };
+    return;
 
   console.time('construct graph');
 
+  edges = edges.filter((edge) => edge.weight >= minEdgeWeight);
+
   let nodes = new Set();
-  state.gene.edges.forEach((edge) => nodes.add(edge.gene1).add(edge.gene2));
-  state.gene.selected.forEach((selected) => nodes.add(selected.id));
-  nodes = [...nodes];
-  nodes = nodes
-    .map((node) => state.gene.list.find((gene) => gene.id === node))
+  edges.forEach((edge) => nodes.add(edge.gene1).add(edge.gene2));
+  selected.forEach((selected) => nodes.add(selected.id));
+
+  nodes = [...nodes]
+    .map((node) => list.find((gene) => gene.id === node))
     .filter((node) => node)
     .map(mapGene)
-    .map((gene) => ({
-      ...gene,
+    .map((node) => ({
+      ...node,
       selected:
-        state.gene.selected.find((selected) => selected.id === gene.id) !==
-        undefined
+        selected.find((selected) => selected.id === node.id) !== undefined
     }));
 
-  nodes = nodes.slice(0, 50);
-
-  let links = state.gene.edges
-    .map((edge) => ({
-      ...edge,
-      source: edge.gene1,
-      target: edge.gene2
+  let links = edges
+    .map((link) => ({
+      ...link,
+      source: link.gene1,
+      target: link.gene2
     }))
-    .map((edge) => ({ ...edge, normalizedWeight: edge.weight }))
+    .map((link) => ({ ...link, normalizedWeight: link.weight }))
     .filter(
-      (edge) =>
-        nodes.find((node) => node.id === edge.gene1) &&
-        nodes.find((node) => node.id === edge.gene2)
+      (link) =>
+        nodes.find((node) => node.id === link.gene1) &&
+        nodes.find((node) => node.id === link.gene2)
     );
 
   if (links.length) {
@@ -78,8 +92,14 @@ const mapStateToProps = (state) => {
 
   console.timeEnd('construct graph');
 
-  return { nodes, links, edges: state.gene.edges };
+  return { nodes, links };
 };
+
+const mapStateToProps = (state) => ({
+  list: state.gene.list,
+  selected: state.gene.selected,
+  edges: state.gene.edges
+});
 
 Network = connect(mapStateToProps)(Network);
 
