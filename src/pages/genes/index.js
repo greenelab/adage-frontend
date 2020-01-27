@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
-import SectionHeader from '../../components/section-header';
+import Section from '../../components/section';
 import Search from './search';
 import Selected from './selected';
 import Enriched from './enriched';
@@ -15,22 +15,18 @@ const Genes = () => (
   <>
     <Header />
     <Main>
-      <SectionHeader text='Gene Search' />
-      <section>
+      <Section text='Gene Search'>
         <Search />
-      </section>
-      <SectionHeader text='Selected Genes' />
-      <section>
+      </Section>
+      <Section text='Selected Genes'>
         <Selected />
-      </section>
-      <SectionHeader text='Enriched Signatures' />
-      <section>
+      </Section>
+      <Section text='Enriched Signatures'>
         <Enriched />
-      </section>
-      <SectionHeader text='Gene Network' />
-      <section>
+      </Section>
+      <Section text='Gene Network'>
         <Network />
-      </section>
+      </Section>
     </Main>
     <Footer />
   </>

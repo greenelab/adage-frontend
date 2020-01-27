@@ -21,10 +21,10 @@
   height: 28px;
   transition: color var(--fast);
   user-select: none;
+  cursor: pointer;
 }
 .th:hover {
   color: var(--green);
-  cursor: pointer;
 }
 .th,
 .td {
