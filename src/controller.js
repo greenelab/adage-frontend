@@ -80,7 +80,7 @@ let Controller = ({
       getGeneEdges({
         modelId: selectedModel,
         geneIds: selectedGenes.map((selected) => selected.id),
-        limit: 100
+        limit: 999999
       });
     }
   }, [selectedModel, selectedGenes, selectedGenesLoaded, getGeneEdges]);

@@ -2,7 +2,7 @@
 
 * {
   --green: #26a36c;
-  --light-green: #def9ed;
+  --blue: #2196f3;
   --red: #e91e63;
   --black: #000000;
   --dark-gray: #606060;
@@ -79,9 +79,6 @@ section {
 }
 .rotate_ccw {
   transform: rotate(-90deg);
-}
-*[data-highlight='true'] {
-  background: var(--light-green);
 }
 *[data-shade='true'] {
   background: var(--off-white);

@@ -15,7 +15,10 @@ export const drawLinkLines = ({ links }) => {
     .merge(linkLines)
     .attr('class', 'graph_link_line')
     .attr('stroke', (d) => toGradient(d.normalizedWeight, weightGradient))
-    .attr('stroke-width', strokeWidth);
+    .attr(
+      'stroke-width',
+      (d) => (0.1 + d.normalizedWeight * 0.9) * strokeWidth
+    );
 
   linkLines.exit().remove();
 };

@@ -1,9 +1,9 @@
 import * as d3 from 'd3';
 
-import { fitPadding, minZoom, maxZoom } from './constants.js';
+import { fitPadding, minZoom, maxZoom, defaultZoom } from './constants.js';
 import { svg, view } from './';
 
-export let viewHandler;
+export let viewHandler = () => null;
 
 export const initView = () => {
   viewHandler = d3
@@ -21,7 +21,7 @@ export const onZoom = () => view.attr('transform', d3.event.transform);
 export const resetView = () => {
   const container = svg.node().getBoundingClientRect();
 
-  const scale = 1;
+  const scale = defaultZoom;
   const translateX = container.width / 2;
   const translateY = container.height / 2;
 
