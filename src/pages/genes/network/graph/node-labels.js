@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
+import Color from 'color';
 
-import { textColor, fontSize } from './constants.js';
+import { fillA, fillB, fontSize } from './constants.js';
 
 export const drawNodeLabels = ({ nodes }) => {
   const layer = d3.select('#graph_node_label_layer');
@@ -12,7 +13,9 @@ export const drawNodeLabels = ({ nodes }) => {
     .append('text')
     .merge(nodeLabels)
     .attr('class', 'graph_node_label')
-    .attr('fill', textColor)
+    .attr('fill', (d) =>
+      Color(d.selected ? fillA : fillB).isLight() ? '#000000' : '#ffffff'
+    )
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .style('font-size', fontSize)
