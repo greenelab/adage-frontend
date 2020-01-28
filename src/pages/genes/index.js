@@ -35,6 +35,7 @@ const Genes = () => (
 export default Genes;
 
 export const mapGene = (gene) => ({
+  ...gene,
   id: gene.id,
   standardName: gene.standard_name,
   systematicName: gene.systematic_name,
