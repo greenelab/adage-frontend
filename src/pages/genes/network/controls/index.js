@@ -14,34 +14,8 @@ import { ReactComponent as Download } from '../../../../images/download.svg';
 
 import './index.css';
 
-const Controls = ({
-  nodes,
-  minEdgeWeight,
-  setMinEdgeWeight,
-  maxNodes,
-  setMaxNodes
-}) => (
+const Controls = ({ nodes }) => (
   <>
-    Min Edge Weight: {minEdgeWeight}
-    <input
-      type='range'
-      min='0.4'
-      max='1.0'
-      step='0.01'
-      value={minEdgeWeight}
-      onChange={(event) => setMinEdgeWeight(Number(event.target.value))}
-    />
-    <br />
-    Max Nodes: {maxNodes}
-    <input
-      type='range'
-      min='0'
-      max='100'
-      step='1'
-      value={maxNodes}
-      onChange={(event) => setMaxNodes(Number(event.target.value))}
-    />
-    <br />
     <div className='gene_network_controls'>
       <Tooltip text='Fit view to contents of graph'>
         <Button text='Fit View' icon={<Fit />} onClick={fitView} />

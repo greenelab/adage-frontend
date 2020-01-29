@@ -2,7 +2,7 @@ import React from 'react';
 
 import Title from './title';
 import Nav from './nav';
-import Aux from './aux';
+import Right from './right';
 
 import './index.css';
 
@@ -12,7 +12,7 @@ const Header = ({ justTitle }) => (
     {!justTitle && (
       <>
         <Nav />
-        <Aux />
+        <Right />
       </>
     )}
   </header>
