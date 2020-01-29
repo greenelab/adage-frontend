@@ -3,6 +3,8 @@ import * as d3 from 'd3';
 import { positionLinkLines } from './link-lines.js';
 import { positionNodeCircles } from './node-circles.js';
 import { positionNodeLabels } from './node-labels.js';
+import { autoFit } from './view.js';
+import { fitView } from './view.js';
 
 import {
   nodeRadius,
@@ -34,7 +36,8 @@ export const initSimulation = () => {
     )
     .force('centerX', d3.forceX(0).strength(centerForce))
     .force('centerY', d3.forceY(0).strength(centerForce))
-    .on('tick', onTick);
+    .on('tick', onTick)
+    .on('end', onEnd);
 };
 
 export const updateSimulation = ({ nodes, links, reheat }) => {
@@ -50,11 +53,16 @@ export const updateSimulation = ({ nodes, links, reheat }) => {
     simulation.restart();
 };
 
-export const onTick = () => {
+const onTick = () => {
   positionLinkLines();
   positionNodeCircles();
   positionNodeLabels();
+
+  if (autoFit)
+    fitView();
 };
+
+const onEnd = () => {};
 
 export const unpinAll = ({ nodes }) => {
   nodes.forEach((node) => {

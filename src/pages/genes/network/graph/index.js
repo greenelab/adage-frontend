@@ -3,14 +3,15 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import * as d3 from 'd3';
 
-import { initView } from './view.js';
-import { resetView } from './view.js';
+import { initView, setAutoFit } from './view.js';
+import { fitView } from './view.js';
 import { initSimulation } from './simulation.js';
 import { updateSimulation } from './simulation.js';
 import { initDragHandler } from './drag.js';
 import { drawLinkLines } from './link-lines.js';
 import { drawNodeCircles } from './node-circles.js';
 import { drawNodeLabels } from './node-labels.js';
+import { useBbox } from '../../../../util/hooks.js';
 
 import './index.css';
 
@@ -19,13 +20,22 @@ export let view;
 
 const Graph = ({ nodes, links }) => {
   const [mounted, setMounted] = useState(false);
+  const [bbox, ref] = useBbox();
 
   svg = d3.select('#graph');
   view = d3.select('#graph_view');
 
   useEffect(() => {
+    setAutoFit(true);
+  });
+
+  useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    fitView();
+  }, [bbox]);
 
   useEffect(() => {
     if (!mounted)
@@ -33,7 +43,6 @@ const Graph = ({ nodes, links }) => {
     initView();
     initSimulation();
     initDragHandler();
-    resetView();
   }, [mounted]);
 
   useEffect(() => {
@@ -46,7 +55,7 @@ const Graph = ({ nodes, links }) => {
   }, [mounted, nodes, links]);
 
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' id='graph'>
+    <svg ref={ref} xmlns='http://www.w3.org/2000/svg' id='graph'>
       <g id='graph_view'>
         <g id='graph_link_line_layer'></g>
         <g id='graph_node_circle_layer'></g>

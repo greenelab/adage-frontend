@@ -98,3 +98,5 @@ export const calculateEnrichedSignatures = ({
 
   return enrichedSignatures;
 };
+
+export const xor = (a, b) => Boolean(a) ^ Boolean(b);

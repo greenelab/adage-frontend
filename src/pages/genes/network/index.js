@@ -7,19 +7,24 @@ import FetchAlert from '../../../components/fetch-alert';
 import { mapGene } from '../';
 import { isArray } from '../../../util/types.js';
 import { isString } from '../../../util/types.js';
-import { transferProps } from '../../../util/object';
+import { transferProps } from '../../../util/object.js';
+import { xor } from '../../../util/math.js';
 import Filters from './filters';
 import Graph from './graph';
 import Controls from './controls';
 
 import './index.css';
 
+let oldGraph;
+
 let Network = ({ list, selected, edges }) => {
-  const [maxNodes, setMaxNodes] = useState(5);
+  const [maxNodes, setMaxNodes] = useState(50);
   const [minEdgeWeight, setMinEdgeWeight] = useState(0.4);
   const [graph, setGraph] = useState();
 
   useEffect(() => {
+    console.time('construct graph');
+
     const newGraph = constructGraph({
       list,
       selected,
@@ -27,8 +32,8 @@ let Network = ({ list, selected, edges }) => {
       minEdgeWeight,
       maxNodes
     });
-    if (newGraph?.nodes && graph?.nodes) {
-      newGraph.nodes = transferProps(graph.nodes, newGraph.nodes, 'id', [
+    if (oldGraph?.nodes && newGraph?.nodes) {
+      newGraph.nodes = transferProps(oldGraph.nodes, newGraph.nodes, 'id', [
         'x',
         'y',
         'fx',
@@ -37,24 +42,28 @@ let Network = ({ list, selected, edges }) => {
         'vy'
       ]);
     }
-    setGraph(newGraph);
+    if (newGraph)
+      setGraph(newGraph);
+    oldGraph = newGraph;
+
+    console.timeEnd('construct graph');
   }, [list, selected, edges, minEdgeWeight, maxNodes]);
 
   return (
     <>
       {isString(edges) && <FetchAlert status={edges} subject='edges' />}
+      <Filters
+        nodeCount={graph?.nodes?.length}
+        linkCount={graph?.links?.length}
+        nodeTotal={graph?.nodeTotal}
+        linkTotal={graph?.linkTotal}
+        maxNodes={maxNodes}
+        setMaxNodes={setMaxNodes}
+        minEdgeWeight={minEdgeWeight}
+        setMinEdgeWeight={setMinEdgeWeight}
+      />
       {graph && (
         <>
-          <Filters
-            nodeCount={graph?.nodes?.length}
-            linkCount={graph?.links?.length}
-            nodeTotal={graph?.nodeTotal}
-            linkTotal={graph?.linkTotal}
-            maxNodes={maxNodes}
-            setMaxNodes={setMaxNodes}
-            minEdgeWeight={minEdgeWeight}
-            setMinEdgeWeight={setMinEdgeWeight}
-          />
           <Graph nodes={graph.nodes} links={graph.links} />
           <Controls nodes={graph.nodes} links={graph.links} />
         </>
@@ -73,14 +82,19 @@ const constructGraph = ({ list, selected, edges, minEdgeWeight, maxNodes }) => {
   )
     return;
 
-  console.time('construct graph');
-
   let links = edges;
   let nodes = new Set();
 
   links.forEach((link) => nodes.add(link.gene1).add(link.gene2));
   selected.forEach((selected) => nodes.add(selected.id));
   nodes = [...nodes];
+
+  const selectedLinks = links.filter((link) =>
+    xor(
+      selected.find((selected) => link.gene1 === selected.id),
+      selected.find((selected) => link.gene2 === selected.id)
+    )
+  );
 
   nodes = nodes
     .map((node) => list.find((gene) => gene.id === node))
@@ -93,16 +107,10 @@ const constructGraph = ({ list, selected, edges, minEdgeWeight, maxNodes }) => {
     }))
     .map((node) => ({
       ...node,
-      degree: node.selected ?
-        1 :
-        links
-          .filter((link) => link.gene1 === node.id || link.gene2 === node.id)
-          .map((link) => link.weight)
-          .reduce(
-            (sum, weight, index, array) =>
-              sum + Math.abs(weight) / array.length,
-            0
-          ) || 0
+      degree: selectedLinks
+        .filter((link) => link.gene1 === node.id || link.gene2 === node.id)
+        .map((link) => link.weight)
+        .reduce((sum, weight) => sum + weight, 0)
     }));
   const nodeTotal = nodes.length;
   nodes = nodes.sort((a, b) => b.degree - a.degree).slice(0, maxNodes);
@@ -121,19 +129,20 @@ const constructGraph = ({ list, selected, edges, minEdgeWeight, maxNodes }) => {
         nodes.find((node) => node.id === link.gene1) &&
         nodes.find((node) => node.id === link.gene2)
     )
-    .filter((link) => link.weight >= minEdgeWeight);
-
-  if (links.length) {
-    const weights = links.map((link) => link.weight);
-    const minWeight = Math.min(...weights);
-    const maxWeight = Math.max(...weights);
-    links = links.map((link) => ({
+    .filter((link) => link.weight >= minEdgeWeight)
+    .sort((a, b) => a.weight - b.weight)
+    .map((link, index, array) => ({
       ...link,
-      normalizedWeight: (link.weight - minWeight) / (maxWeight - minWeight)
+      normalizedWeight:
+        (link.weight - array[0].weight) /
+        (array[array.length - 1].weight - array[0].weight)
     }));
-  }
 
-  console.timeEnd('construct graph');
+  nodes = nodes.filter(
+    (node) =>
+      node.selected ||
+      links.find((link) => link.gene1 === node.id || link.gene2 === node.id)
+  );
 
   return { nodes, links, nodeTotal, linkTotal };
 };

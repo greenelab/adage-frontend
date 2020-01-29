@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 
 import { simulation } from './simulation.js';
+import { setAutoFit } from './view.js';
 
 export let dragHandler = () => null;
 
@@ -13,6 +14,7 @@ export const initDragHandler = () => {
 };
 
 export const onDragStart = () => {
+  setAutoFit(false);
   simulation.alphaTarget(1).restart();
 };
 
