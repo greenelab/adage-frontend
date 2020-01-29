@@ -28,13 +28,11 @@ export const fitView = () => {
   const contents = view?.node()?.getBBox();
 
   if (
-    !container ||
-    !contents ||
     !viewHandler ||
-    !container.width ||
-    !container.height ||
-    !contents.width ||
-    !contents.height
+    !container?.width ||
+    !container?.height ||
+    !contents?.width ||
+    !contents?.height
   )
     return;
 
