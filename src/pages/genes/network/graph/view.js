@@ -48,6 +48,10 @@ export const fitView = () => {
   scale = 1 / scale;
   if (!scale)
     scale = 1;
+  if (scale < minZoom)
+    scale = minZoom;
+  if (scale > maxZoom)
+    scale = maxZoom;
 
   const translateX = container.width / 2 - scale * contents.midX;
   const translateY = container.height / 2 - scale * contents.midY;

@@ -1,5 +1,5 @@
-export const minZoom = 0.1;
-export const maxZoom = 4;
+export const minZoom = 0.25;
+export const maxZoom = 3;
 export const fitPadding = 20;
 export const nodeRadius = 30;
 export const nodeDistance = 150;

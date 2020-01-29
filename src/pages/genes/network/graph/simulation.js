@@ -4,6 +4,7 @@ import { positionLinkLines } from './link-lines.js';
 import { positionNodeCircles } from './node-circles.js';
 import { positionNodeLabels } from './node-labels.js';
 import { autoFit } from './view.js';
+import { setAutoFit } from './view.js';
 import { fitView } from './view.js';
 
 import {
@@ -70,6 +71,8 @@ export const unpinAll = ({ nodes }) => {
     node.fy = null;
   });
 
+  setAutoFit(true);
+
   simulation.alpha(1).restart();
 };
 
@@ -78,4 +81,6 @@ export const pinAll = ({ nodes }) => {
     node.fx = node.x;
     node.fy = node.y;
   });
+
+  setAutoFit(false);
 };
