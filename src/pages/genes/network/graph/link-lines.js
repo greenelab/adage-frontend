@@ -17,7 +17,7 @@ export const drawLinkLines = ({ links }) => {
     .attr('stroke', (d) => toGradient(d.normalizedWeight, weightGradient))
     .attr(
       'stroke-width',
-      (d) => (0.25 + d.normalizedWeight * 0.75) * strokeWidth
+      (d) => (0.25 + d.normalizedWeight * 0.75) * strokeWidth * 2
     );
 
   linkLines.exit().remove();
