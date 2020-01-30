@@ -54,3 +54,16 @@ export const mapGeneDownload = (gene) => ({
   'Aliases': gene.aliases || '-',
   'Organism': gene.organism || '-'
 });
+
+export const mapGeneTooltip = (gene) => ({
+  'Standard Name': gene.standard_name || '-',
+  'Systematic Name': gene.systematic_name || '-',
+  'Entrez Id': gene.entrezid || '-',
+  'Description': gene.description || '-',
+  'Aliases': gene.aliases || '-',
+  'Organism': gene.organism || '-'
+});
+
+export const mapEdgeTooltip = (link) => ({
+  Weight: link.weight.toFixed(4) || '-'
+});

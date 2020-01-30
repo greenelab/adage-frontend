@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Linkify from 'react-linkify';
 
@@ -14,7 +15,7 @@ const Details = ({ data = {} }) => {
   return (
     <>
       {Object.keys(data).map((key, index, array) => (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           <div className='detail_row'>
             <Field className='medium'>{key}</Field>
             <span>
@@ -22,7 +23,7 @@ const Details = ({ data = {} }) => {
             </span>
           </div>
           {index < array.length - 1 && <HorizontalLine />}
-        </React.Fragment>
+        </Fragment>
       ))}
     </>
   );

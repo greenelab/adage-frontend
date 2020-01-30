@@ -18,7 +18,8 @@ export const drawLinkLines = ({ links }) => {
     .attr(
       'stroke-width',
       (d) => (0.25 + d.normalizedWeight * 0.75) * strokeWidth * 2
-    );
+    )
+    .style('pointer-events', 'none');
 
   linkLines.exit().remove();
 };

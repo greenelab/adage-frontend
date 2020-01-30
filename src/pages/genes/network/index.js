@@ -126,7 +126,7 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
       ...link,
       normalizedWeight:
         (link.weight - array[0].weight) /
-        (array[array.length - 1].weight - array[0].weight)
+          (array[array.length - 1].weight - array[0].weight) || 1
     }));
 
   nodes = nodes.filter(
@@ -134,6 +134,9 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
       node.selected ||
       links.find((link) => link.gene1 === node.id || link.gene2 === node.id)
   );
+
+  nodes = nodes.map((node) => ({ ...node, node: true }));
+  links = links.map((link) => ({ ...link, link: true }));
 
   return { nodes, links };
 };

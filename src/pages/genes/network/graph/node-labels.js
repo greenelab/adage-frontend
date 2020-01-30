@@ -1,6 +1,8 @@
 import * as d3 from 'd3';
 import Color from 'color';
 
+import { tooltip } from './tooltip.js';
+
 import { fillA, fillB, fontSize } from './constants.js';
 
 export const drawNodeLabels = ({ nodes }) => {
@@ -20,7 +22,9 @@ export const drawNodeLabels = ({ nodes }) => {
     .attr('dominant-baseline', 'middle')
     .style('font-size', fontSize)
     .style('pointer-events', 'none')
-    .text((d) => d.name);
+    .text((d) => d.name)
+    .on('mouseover', tooltip.show)
+    .on('mouseout', tooltip.hide);
 
   nodeLabels.exit().remove();
 };

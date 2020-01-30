@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
@@ -30,14 +31,14 @@ let Table = ({ enrichedSignatures }) => (
         width: '60%',
         render: (cell) =>
           cell.genes.map((gene, index) => (
-            <React.Fragment key={index}>
+            <Fragment key={index}>
               <Link
                 to={'/gene/' + gene.id}
                 newTab
                 button={false}
                 text={gene.name}
               />{' '}
-            </React.Fragment>
+            </Fragment>
           ))
       },
       {

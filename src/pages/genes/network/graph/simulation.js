@@ -1,7 +1,9 @@
 import * as d3 from 'd3';
 
 import { positionLinkLines } from './link-lines.js';
+import { positionLinkHighlights } from './link-highlights.js';
 import { positionNodeCircles } from './node-circles.js';
+import { positionNodeHighlights } from './node-highlights.js';
 import { positionNodeLabels } from './node-labels.js';
 import { autoFit } from './view.js';
 import { setAutoFit } from './view.js';
@@ -56,7 +58,9 @@ export const updateSimulation = ({ nodes, links, reheat }) => {
 
 const onTick = () => {
   positionLinkLines();
+  positionLinkHighlights();
   positionNodeCircles();
+  positionNodeHighlights();
   positionNodeLabels();
 
   if (autoFit)

@@ -3,13 +3,17 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import * as d3 from 'd3';
 
-import { initView, setAutoFit } from './view.js';
-import { fitView } from './view.js';
+import { initView } from './view.js';
 import { initSimulation } from './simulation.js';
-import { updateSimulation } from './simulation.js';
 import { initDragHandler } from './drag.js';
+import { initTooltip } from './tooltip.js';
+import { setAutoFit } from './view.js';
+import { fitView } from './view.js';
+import { updateSimulation } from './simulation.js';
 import { drawLinkLines } from './link-lines.js';
+import { drawLinkHighlights } from './link-highlights.js';
 import { drawNodeCircles } from './node-circles.js';
+import { drawNodeHighlights } from './node-highlights.js';
 import { drawNodeLabels } from './node-labels.js';
 import { useBbox } from '../../../../util/hooks.js';
 
@@ -34,22 +38,26 @@ const Graph = ({ nodes, links }) => {
   }, []);
 
   useEffect(() => {
+    if (!mounted)
+      return;
+
+    initView();
+    initSimulation();
+    initDragHandler();
+    initTooltip();
+  }, [mounted]);
+
+  useEffect(() => {
     fitView();
   }, [bbox]);
 
   useEffect(() => {
     if (!mounted)
       return;
-    initView();
-    initSimulation();
-    initDragHandler();
-  }, [mounted]);
-
-  useEffect(() => {
-    if (!mounted)
-      return;
     updateSimulation({ nodes, links, reheat: true });
+    drawLinkHighlights({ links });
     drawLinkLines({ links });
+    drawNodeHighlights({ nodes });
     drawNodeCircles({ nodes });
     drawNodeLabels({ nodes });
   }, [mounted, nodes, links]);
@@ -57,7 +65,9 @@ const Graph = ({ nodes, links }) => {
   return (
     <svg ref={ref} xmlns='http://www.w3.org/2000/svg' id='graph'>
       <g id='graph_view'>
+        <g id='graph_link_highlight_layer'></g>
         <g id='graph_link_line_layer'></g>
+        <g id='graph_node_highlight_layer'></g>
         <g id='graph_node_circle_layer'></g>
         <g id='graph_node_label_layer'></g>
       </g>
