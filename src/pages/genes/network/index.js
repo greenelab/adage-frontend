@@ -135,8 +135,8 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
       links.find((link) => link.gene1 === node.id || link.gene2 === node.id)
   );
 
-  nodes = nodes.map((node) => ({ ...node, node: true }));
-  links = links.map((link) => ({ ...link, link: true }));
+  nodes.forEach((node) => (node.node = true));
+  links.forEach((link) => (link.link = true));
 
   return { nodes, links };
 };
