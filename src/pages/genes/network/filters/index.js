@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Slider from '../../../../components/slider';
 import Tooltip from '../../../../components/tooltip';
@@ -8,7 +9,8 @@ import { ReactComponent as Link } from '../../../../images/link.svg';
 
 import './index.css';
 
-const Filters = ({
+let Filters = ({
+  minEdgeWeightCutoff,
   selectedNodes,
   filteredNodes,
   filteredLinks,
@@ -31,7 +33,7 @@ const Filters = ({
     <Slider
       title='Edge weight cutoff'
       value={edgeWeightCutoff}
-      min={0.4}
+      min={minEdgeWeightCutoff}
       max={1}
       step={0.01}
       reverse
@@ -61,5 +63,13 @@ const Filters = ({
     </div>
   </>
 );
+
+const mapStateToProps = (state) => ({
+  minEdgeWeightCutoff:
+    (state.model.list.find((model) => state.model.selected === model.id) || {})
+      .g2g_edge_cutoff || 0
+});
+
+Filters = connect(mapStateToProps)(Filters);
 
 export default Filters;
