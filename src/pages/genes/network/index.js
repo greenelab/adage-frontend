@@ -15,10 +15,8 @@ import Controls from './controls';
 import './index.css';
 
 let Network = ({ list, selected, edges }) => {
-  const [maxNodes, setMaxNodes] = useState(50);
-  const [minEdgeWeight, setMinEdgeWeight] = useState(0.4);
-
-  console.time('construct graph');
+  const [nodeCutoff, setNodeCutoff] = useState(50);
+  const [edgeWeightCutoff, setEdgeWeightCutoff] = useState(0.4);
 
   const fullGraph = useMemo(() => constructGraph({ list, selected, edges }), [
     list,
@@ -27,11 +25,9 @@ let Network = ({ list, selected, edges }) => {
   ]);
 
   const filteredGraph = useMemo(
-    () => filterGraph({ fullGraph, maxNodes, minEdgeWeight }),
-    [fullGraph, maxNodes, minEdgeWeight]
+    () => filterGraph({ fullGraph, nodeCutoff, edgeWeightCutoff }),
+    [fullGraph, nodeCutoff, edgeWeightCutoff]
   );
-
-  console.timeEnd('construct graph');
 
   return (
     <>
@@ -40,14 +36,15 @@ let Network = ({ list, selected, edges }) => {
       {filteredGraph && (
         <>
           <Filters
-            nodeCount={filteredGraph?.nodes?.length}
-            linkCount={filteredGraph?.links?.length}
-            nodeTotal={fullGraph?.nodes?.length}
-            linkTotal={fullGraph?.links?.length}
-            maxNodes={maxNodes}
-            setMaxNodes={setMaxNodes}
-            minEdgeWeight={minEdgeWeight}
-            setMinEdgeWeight={setMinEdgeWeight}
+            selectedNodes={selected?.length}
+            filteredNodes={filteredGraph?.nodes?.length}
+            filteredLinks={filteredGraph?.links?.length}
+            fullNodes={fullGraph?.nodes?.length}
+            fullLinks={fullGraph?.links?.length}
+            nodeCutoff={nodeCutoff}
+            setNodeCutoff={setNodeCutoff}
+            edgeWeightCutoff={edgeWeightCutoff}
+            setEdgeWeightCutoff={setEdgeWeightCutoff}
           />
           <Graph nodes={filteredGraph.nodes} links={filteredGraph.links} />
           <Controls nodes={filteredGraph.nodes} links={filteredGraph.links} />
@@ -108,14 +105,14 @@ const constructGraph = ({ list, selected, edges }) => {
   return { nodes, links };
 };
 
-const filterGraph = ({ fullGraph, minEdgeWeight, maxNodes }) => {
+const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
   let nodes = fullGraph?.nodes;
   let links = fullGraph?.links;
 
   if (!isArray(nodes) || !isArray(links))
     return;
 
-  nodes = nodes.slice(0, maxNodes);
+  nodes = nodes.slice(0, nodeCutoff);
 
   links = links
     .filter(
@@ -123,7 +120,7 @@ const filterGraph = ({ fullGraph, minEdgeWeight, maxNodes }) => {
         nodes.find((node) => node.id === link.gene1) &&
         nodes.find((node) => node.id === link.gene2)
     )
-    .filter((link) => link.weight >= minEdgeWeight)
+    .filter((link) => link.weight >= edgeWeightCutoff)
     .sort((a, b) => a.weight - b.weight)
     .map((link, index, array) => ({
       ...link,

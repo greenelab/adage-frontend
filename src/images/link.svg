@@ -1,0 +1,27 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="0 0 100 100"
+>
+  <path
+    transform="translate(50,50) scale(1.1) rotate(-45) translate(-50,-50)"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 32 35
+      L 20 35
+      A 15 15 0 0 0 20 65
+      L 45 65
+      A 15 15 0 0 0 60 50
+      L 60 47
+      M 40 53
+      L 40 50
+      A 15 15 0 0 1 55 35
+      L 80 35
+      A 15 15 0 0 1 80 65
+      L 68 65
+    "
+  />
+</svg>

@@ -1,0 +1,14 @@
+.gene_network_info {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.gene_network_info > span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+}
+.gene_network_info > span > svg {
+  margin-right: 10px;
+}

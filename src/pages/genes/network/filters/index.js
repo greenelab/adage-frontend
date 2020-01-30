@@ -1,42 +1,64 @@
 import React from 'react';
 
+import Slider from '../../../../components/slider';
+import Tooltip from '../../../../components/tooltip';
+
+import { ReactComponent as Genes } from '../../../../images/genes.svg';
+import { ReactComponent as Link } from '../../../../images/link.svg';
+
 import './index.css';
 
 const Filters = ({
-  nodeCount,
-  linkCount,
-  nodeTotal,
-  linkTotal,
-  maxNodes,
-  setMaxNodes,
-  minEdgeWeight,
-  setMinEdgeWeight
+  selectedNodes,
+  filteredNodes,
+  filteredLinks,
+  fullNodes,
+  fullLinks,
+  nodeCutoff,
+  setNodeCutoff,
+  edgeWeightCutoff,
+  setEdgeWeightCutoff
 }) => (
   <>
-    {nodeCount} of {nodeTotal} nodes
-    <br />
-    {linkCount} of {linkTotal} links
-    <br />
-    Max Nodes: {maxNodes}
-    <input
-      type='range'
-      min='0'
-      max='100'
-      step='1'
-      value={maxNodes}
-      onChange={(event) => setMaxNodes(Number(event.target.value))}
+    <Slider
+      title='Node cutoff'
+      value={nodeCutoff}
+      min={selectedNodes}
+      max={fullNodes}
+      step={1}
+      onChange={setNodeCutoff}
     />
-    <br />
-    Min Edge Weight: {minEdgeWeight}
-    <input
-      type='range'
-      min='0.4'
-      max='1.0'
-      step='0.01'
-      value={minEdgeWeight}
-      onChange={(event) => setMinEdgeWeight(Number(event.target.value))}
+    <Slider
+      title='Edge weight cutoff'
+      value={edgeWeightCutoff}
+      min={0.4}
+      max={1}
+      step={0.01}
+      reverse
+      onChange={setEdgeWeightCutoff}
     />
-    <br />
+    <div className='gene_network_info medium'>
+      <Tooltip
+        text={
+          'Showing ' + filteredNodes + ' of ' + fullNodes + ' nodes (genes)'
+        }
+      >
+        <span>
+          <Genes />
+          {filteredNodes} of {fullNodes}
+        </span>
+      </Tooltip>
+      <Tooltip
+        text={
+          'Showing ' + filteredLinks + ' of ' + fullLinks + ' edges (links)'
+        }
+      >
+        <span>
+          <Link />
+          {filteredLinks} of {fullLinks}
+        </span>
+      </Tooltip>
+    </div>
   </>
 );
 
