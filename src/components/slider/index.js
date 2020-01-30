@@ -3,7 +3,16 @@ import RCSlider from 'rc-slider';
 
 import './index.css';
 
-const Slider = ({ title, value, onChange, min, max, step, reverse }) => {
+const Slider = ({
+  title,
+  value,
+  onChange,
+  min,
+  max,
+  step,
+  precision,
+  reverse
+}) => {
   if (value > max)
     value = max;
   if (value < min)
@@ -17,6 +26,11 @@ const Slider = ({ title, value, onChange, min, max, step, reverse }) => {
     marks[min] = min;
   if (Math.abs(max - value) > Math.abs(max - min) * percent)
     marks[max] = max;
+
+  if (precision) {
+    for (const key of Object.keys(marks))
+      marks[key] = marks[key].toFixed(precision);
+  }
 
   return (
     <div className='slider' data-reverse={reverse}>

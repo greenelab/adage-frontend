@@ -38,6 +38,7 @@ let Filters = ({
       step={0.01}
       reverse
       onChange={setEdgeWeightCutoff}
+      precision={2}
     />
     <div className='gene_network_info medium'>
       <Tooltip
