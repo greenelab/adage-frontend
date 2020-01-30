@@ -15,7 +15,7 @@ import Controls from './controls';
 import './index.css';
 
 let Network = ({ list, selected, edges }) => {
-  const [nodeCutoff, setNodeCutoff] = useState(50);
+  const [nodeCutoff, setNodeCutoff] = useState(10);
   const [edgeWeightCutoff, setEdgeWeightCutoff] = useState(0.4);
 
   const fullGraph = useMemo(() => constructGraph({ list, selected, edges }), [
