@@ -1,12 +1,16 @@
 import * as d3 from 'd3';
 import Color from 'color';
 
+import { tooltip } from './tooltip.js';
+
+import { nodeData } from './';
+
 import { fillA, fillB, fontSize } from './constants.js';
 
-export const drawNodeLabels = ({ nodes }) => {
+export const drawNodeLabels = () => {
   const layer = d3.select('#graph_node_label_layer');
 
-  const nodeLabels = layer.selectAll('.graph_node_label').data(nodes);
+  const nodeLabels = layer.selectAll('.graph_node_label').data(nodeData);
 
   nodeLabels
     .enter()
@@ -20,7 +24,9 @@ export const drawNodeLabels = ({ nodes }) => {
     .attr('dominant-baseline', 'middle')
     .style('font-size', fontSize)
     .style('pointer-events', 'none')
-    .text((d) => d.name);
+    .text((d) => d.name)
+    .on('mouseover', tooltip.show)
+    .on('mouseout', tooltip.hide);
 
   nodeLabels.exit().remove();
 };

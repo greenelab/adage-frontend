@@ -1,25 +1,24 @@
 import * as d3 from 'd3';
 
+import { nodeData } from './';
+
 import { nodeRadius, fillA, fillB, stroke, strokeWidth } from './constants.js';
 
-import { dragHandler } from './drag.js';
-
-export const drawNodeCircles = ({ nodes }) => {
+export const drawNodeCircles = () => {
   const layer = d3.select('#graph_node_circle_layer');
 
-  const nodeCircles = layer.selectAll('.graph_node_circle').data(nodes);
+  const nodeCircles = layer.selectAll('.graph_node_circle').data(nodeData);
 
   nodeCircles
     .enter()
     .append('circle')
-    .call(dragHandler)
     .merge(nodeCircles)
     .attr('class', 'graph_node_circle')
     .attr('r', nodeRadius)
     .attr('fill', (d) => (d.selected ? fillA : fillB))
     .attr('stroke', stroke)
     .attr('stroke-width', strokeWidth)
-    .style('cursor', 'pointer');
+    .style('pointer-events', 'none');
 
   nodeCircles.exit().remove();
 };

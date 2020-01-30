@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,10 +12,10 @@ import './index.css';
 let List = ({ models, setSelected }) => (
   <>
     {models.map((model, index, array) => (
-      <React.Fragment key={index}>
+      <Fragment key={index}>
         <Item onClick={() => setSelected({ id: model.id })} {...model} />
         {index < array.length - 1 && <HorizontalLine />}
-      </React.Fragment>
+      </Fragment>
     ))}
   </>
 );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import SingleRow from '../single-row';
@@ -16,7 +17,7 @@ let Single = ({ results, highlightedIndex, select, deselect }) => (
   <div className='search_results'>
     {isArray(results) &&
       results.map((result, index, array) => (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           <SingleRow
             onClick={() =>
               (result.selected ? deselect : select)({
@@ -30,7 +31,7 @@ let Single = ({ results, highlightedIndex, select, deselect }) => (
             highlightedCol={result.highlightedCol}
           />
           {index < array.length - 1 && <HorizontalLine />}
-        </React.Fragment>
+        </Fragment>
       ))}
     {isString(results) && (
       <FetchAlert

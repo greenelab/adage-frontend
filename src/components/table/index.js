@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import { useTable } from 'react-table';
 import { useSortBy } from 'react-table';
 
@@ -48,7 +49,7 @@ const Table = ({ columns, data, defaultSort = [] }) => {
         }}
       >
         {headerGroups.map((headerGroup, index) => (
-          <React.Fragment key={index}>
+          <Fragment key={index}>
             <div className='tr' {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <span
@@ -83,13 +84,13 @@ const Table = ({ columns, data, defaultSort = [] }) => {
               ))}
             </div>
             <HorizontalLine />
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
       <div className='tbody' {...getTableBodyProps()} ref={tbodyRef}>
         {rows.forEach(prepareRow)}
         {rows.map((row, index, array) => (
-          <React.Fragment key={index}>
+          <Fragment key={index}>
             <div className='tr' {...row.getRowProps()}>
               {row.cells.map((cell) => (
                 <span
@@ -106,7 +107,7 @@ const Table = ({ columns, data, defaultSort = [] }) => {
               ))}
             </div>
             {index < array.length - 1 && <HorizontalLine />}
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
     </div>

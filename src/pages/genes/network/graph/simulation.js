@@ -1,11 +1,16 @@
 import * as d3 from 'd3';
 
 import { positionLinkLines } from './link-lines.js';
+import { positionLinkHighlights } from './link-highlights.js';
 import { positionNodeCircles } from './node-circles.js';
+import { positionNodeHighlights } from './node-highlights.js';
 import { positionNodeLabels } from './node-labels.js';
 import { autoFit } from './view.js';
 import { setAutoFit } from './view.js';
 import { fitView } from './view.js';
+
+import { nodeData } from './';
+import { linkData } from './';
 
 import {
   nodeRadius,
@@ -41,12 +46,12 @@ export const initSimulation = () => {
     .on('end', onEnd);
 };
 
-export const updateSimulation = ({ nodes, links, reheat }) => {
+export const updateSimulation = (reheat) => {
   if (!simulation)
     return;
 
-  simulation.nodes(nodes);
-  simulation.force('link').links(links);
+  simulation.nodes(nodeData);
+  simulation.force('link').links(linkData);
 
   if (reheat)
     simulation.alpha(1).restart();
@@ -56,7 +61,9 @@ export const updateSimulation = ({ nodes, links, reheat }) => {
 
 const onTick = () => {
   positionLinkLines();
+  positionLinkHighlights();
   positionNodeCircles();
+  positionNodeHighlights();
   positionNodeLabels();
 
   if (autoFit)
@@ -65,8 +72,8 @@ const onTick = () => {
 
 const onEnd = () => {};
 
-export const unpinAll = ({ nodes }) => {
-  nodes.forEach((node) => {
+export const unpinAll = () => {
+  nodeData.forEach((node) => {
     node.fx = null;
     node.fy = null;
   });
@@ -76,8 +83,8 @@ export const unpinAll = ({ nodes }) => {
   simulation.alpha(1).restart();
 };
 
-export const pinAll = ({ nodes }) => {
-  nodes.forEach((node) => {
+export const pinAll = () => {
+  nodeData.forEach((node) => {
     node.fx = node.x;
     node.fy = node.y;
   });

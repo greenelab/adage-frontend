@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import HorizontalLine from '../../../../components/horizontal-line';
@@ -13,10 +14,10 @@ let Multi = ({ searches }) => (
   <>
     <div className='search_results'>
       {searches.map((search, index, array) => (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           <MultiRow search={search} />
           {index < array.length - 1 && <HorizontalLine />}
-        </React.Fragment>
+        </Fragment>
       ))}
     </div>
     <MultiControls />

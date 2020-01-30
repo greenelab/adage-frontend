@@ -1,9 +1,10 @@
 {
   "name": "adage-frontend",
-  "version": "0.0.50",
+  "version": "0.0.51",
   "dependencies": {
     "color": "^3.1.2",
     "d3": "^5.15.0",
+    "d3-tip": "^0.9.1",
     "history": "^4.10.1",
     "immer": "^5.3.2",
     "multtest": "^0.1.7",
