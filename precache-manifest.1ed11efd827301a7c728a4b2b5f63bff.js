@@ -4,15 +4,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontendindex.html"
   },
   {
-    "revision": "04e42ac82673f46c72c4",
+    "revision": "b62f0e71f3d6a2990586",
     "url": "/adage-frontendstatic/css/main.css"
   },
   {
-    "revision": "04e42ac82673f46c72c4",
+    "revision": "b62f0e71f3d6a2990586",
     "url": "/adage-frontendstatic/js/main.js"
   },
   {
-    "revision": "5e072f358a402633f4aa0149c1f87f46",
+    "revision": "a620bce1539cfa4b385e353f9082373c",
     "url": "/adage-frontendstatic/js/main.js.LICENSE"
   },
   {
@@ -44,6 +44,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontendstatic/media/experiments.dbfd0fdd.svg"
   },
   {
+    "revision": "3ff065e0f18e802bb6c0d6fb8d2cb2cc",
+    "url": "/adage-frontendstatic/media/fit.3ff065e0.svg"
+  },
+  {
     "revision": "dd5643b70ad8c35f4289cc7f975adb22",
     "url": "/adage-frontendstatic/media/genes.dd5643b7.svg"
   },
@@ -58,6 +62,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "32f4b1c61130cf5767dba855808028ae",
     "url": "/adage-frontendstatic/media/info.32f4b1c6.svg"
+  },
+  {
+    "revision": "576582bb9133f748762921060e80f3e5",
+    "url": "/adage-frontendstatic/media/link.576582bb.svg"
   },
   {
     "revision": "28e10c1d82653221009c7c617c918a39",
@@ -84,6 +92,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontendstatic/media/model.feef2269.svg"
   },
   {
+    "revision": "8cdb848b30d92a16a82690c3ad23063b",
+    "url": "/adage-frontendstatic/media/pin.8cdb848b.svg"
+  },
+  {
     "revision": "0cffc9eb9ac383665751186d1fad56f9",
     "url": "/adage-frontendstatic/media/radioed.0cffc9eb.svg"
   },
@@ -98,6 +110,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "bfb9e3109a2dfac827d099af76557b38",
     "url": "/adage-frontendstatic/media/unchecked.bfb9e310.svg"
+  },
+  {
+    "revision": "f4d98f1c58dcda3cdcbb1e1daad2360c",
+    "url": "/adage-frontendstatic/media/unpin.f4d98f1c.svg"
   },
   {
     "revision": "ffc4750597451e78b83374b5a7360ce7",
