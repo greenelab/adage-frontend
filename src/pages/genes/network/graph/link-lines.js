@@ -2,12 +2,14 @@ import * as d3 from 'd3';
 
 import { toGradient } from '../../../../util/color.js';
 
+import { linkData } from './';
+
 import { strokeWidth, weightGradient } from './constants.js';
 
-export const drawLinkLines = ({ links }) => {
+export const drawLinkLines = () => {
   const layer = d3.select('#graph_link_line_layer');
 
-  const linkLines = layer.selectAll('.graph_link_line').data(links);
+  const linkLines = layer.selectAll('.graph_link_line').data(linkData);
 
   linkLines
     .enter()

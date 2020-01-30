@@ -7,18 +7,23 @@ import { svg } from './';
 import { mapGeneTooltip } from '../../';
 import { mapEdgeTooltip } from '../../';
 
+const delay = 100;
+
 export let tooltip;
 
 export const initTooltip = () => {
   tooltip = tip()
     .attr('class', 'd3-tip')
     .html((d) => renderToString(<Tooltip {...d} />))
-    .offset((d, index, array) => [
-      d.link ?
-        (d3.zoomTransform(svg.node()).k * array[index].getBBox().height) / 2 :
-        0,
-      0
-    ]);
+    .offset((d, index, array) => {
+      if (d.link) {
+        return [
+          (d3.zoomTransform(svg.node()).k * array[index].getBBox().height) / 2,
+          0
+        ];
+      } else
+        return [0, 0];
+    });
 
   svg.call(tooltip);
 };
@@ -45,4 +50,19 @@ const Tooltip = (d) => {
   ));
 
   return <div className='tooltip graph_tooltip text_small'>{rows}</div>;
+};
+
+let timer;
+
+export const openTooltip = (...args) => {
+  const [, index, array] = args;
+  const thisArg = array[index];
+
+  window.clearTimeout(timer);
+  timer = window.setTimeout(() => tooltip.show.apply(thisArg, args), delay);
+};
+
+export const closeTooltip = () => {
+  window.clearTimeout(timer);
+  tooltip.hide();
 };

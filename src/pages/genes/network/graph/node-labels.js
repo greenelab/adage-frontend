@@ -3,12 +3,14 @@ import Color from 'color';
 
 import { tooltip } from './tooltip.js';
 
+import { nodeData } from './';
+
 import { fillA, fillB, fontSize } from './constants.js';
 
-export const drawNodeLabels = ({ nodes }) => {
+export const drawNodeLabels = () => {
   const layer = d3.select('#graph_node_label_layer');
 
-  const nodeLabels = layer.selectAll('.graph_node_label').data(nodes);
+  const nodeLabels = layer.selectAll('.graph_node_label').data(nodeData);
 
   nodeLabels
     .enter()

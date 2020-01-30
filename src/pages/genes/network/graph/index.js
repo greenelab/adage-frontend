@@ -22,6 +22,9 @@ import './index.css';
 export let svg;
 export let view;
 
+export const nodeData = [];
+export const linkData = [];
+
 const Graph = ({ nodes, links }) => {
   const [mounted, setMounted] = useState(false);
   const [bbox, ref] = useBbox();
@@ -54,12 +57,14 @@ const Graph = ({ nodes, links }) => {
   useEffect(() => {
     if (!mounted)
       return;
-    updateSimulation({ nodes, links, reheat: true });
-    drawLinkHighlights({ links });
-    drawLinkLines({ links });
-    drawNodeHighlights({ nodes });
-    drawNodeCircles({ nodes });
-    drawNodeLabels({ nodes });
+
+    updateData(nodes, links);
+    updateSimulation(true);
+    drawLinkHighlights();
+    drawLinkLines();
+    drawNodeHighlights();
+    drawNodeCircles();
+    drawNodeLabels();
   }, [mounted, nodes, links]);
 
   return (
@@ -76,3 +81,28 @@ const Graph = ({ nodes, links }) => {
 };
 
 export default Graph;
+
+const updateData = (nodes, links) => {
+  nodes.forEach((node) => {
+    if (!nodeData.find((d) => d.id === node.id))
+      nodeData.push(node);
+  });
+  for (let index = 0; index < nodeData.length; index++) {
+    const d = nodeData[index];
+    if (!nodes.find((node) => node.id === d.id)) {
+      nodeData.splice(index, 1);
+      index--;
+    }
+  }
+  links.forEach((link) => {
+    if (!linkData.find((d) => d.id === link.id))
+      linkData.push(link);
+  });
+  for (let index = 0; index < linkData.length; index++) {
+    const d = linkData[index];
+    if (!links.find((link) => link.id === d.id)) {
+      linkData.splice(index, 1);
+      index--;
+    }
+  }
+};

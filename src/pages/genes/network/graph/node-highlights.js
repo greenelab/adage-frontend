@@ -1,14 +1,19 @@
 import * as d3 from 'd3';
 
 import { dragHandler } from './drag.js';
-import { tooltip } from './tooltip.js';
+import { openTooltip } from './tooltip.js';
+import { closeTooltip } from './tooltip.js';
+
+import { nodeData } from './';
 
 import { nodeRadius, strokeWidth } from './constants.js';
 
-export const drawNodeHighlights = ({ nodes }) => {
+export const drawNodeHighlights = () => {
   const layer = d3.select('#graph_node_highlight_layer');
 
-  const nodeHighlights = layer.selectAll('.graph_node_highlight').data(nodes);
+  const nodeHighlights = layer
+    .selectAll('.graph_node_highlight')
+    .data(nodeData);
 
   nodeHighlights
     .enter()
@@ -19,8 +24,8 @@ export const drawNodeHighlights = ({ nodes }) => {
     .attr('r', nodeRadius + strokeWidth * 2)
     .attr('fill', 'var(--blue)')
     .style('cursor', 'pointer')
-    .on('mouseover', tooltip.show)
-    .on('mouseout', tooltip.hide);
+    .on('mouseover', openTooltip)
+    .on('mouseout', closeTooltip);
 
   nodeHighlights.exit().remove();
 };

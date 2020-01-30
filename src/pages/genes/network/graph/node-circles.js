@@ -1,11 +1,13 @@
 import * as d3 from 'd3';
 
+import { nodeData } from './';
+
 import { nodeRadius, fillA, fillB, stroke, strokeWidth } from './constants.js';
 
-export const drawNodeCircles = ({ nodes }) => {
+export const drawNodeCircles = () => {
   const layer = d3.select('#graph_node_circle_layer');
 
-  const nodeCircles = layer.selectAll('.graph_node_circle').data(nodes);
+  const nodeCircles = layer.selectAll('.graph_node_circle').data(nodeData);
 
   nodeCircles
     .enter()

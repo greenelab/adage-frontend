@@ -9,6 +9,9 @@ import { autoFit } from './view.js';
 import { setAutoFit } from './view.js';
 import { fitView } from './view.js';
 
+import { nodeData } from './';
+import { linkData } from './';
+
 import {
   nodeRadius,
   nodeDistance,
@@ -43,12 +46,12 @@ export const initSimulation = () => {
     .on('end', onEnd);
 };
 
-export const updateSimulation = ({ nodes, links, reheat }) => {
+export const updateSimulation = (reheat) => {
   if (!simulation)
     return;
 
-  simulation.nodes(nodes);
-  simulation.force('link').links(links);
+  simulation.nodes(nodeData);
+  simulation.force('link').links(linkData);
 
   if (reheat)
     simulation.alpha(1).restart();
@@ -69,8 +72,8 @@ const onTick = () => {
 
 const onEnd = () => {};
 
-export const unpinAll = ({ nodes }) => {
-  nodes.forEach((node) => {
+export const unpinAll = () => {
+  nodeData.forEach((node) => {
     node.fx = null;
     node.fy = null;
   });
@@ -80,8 +83,8 @@ export const unpinAll = ({ nodes }) => {
   simulation.alpha(1).restart();
 };
 
-export const pinAll = ({ nodes }) => {
-  nodes.forEach((node) => {
+export const pinAll = () => {
+  nodeData.forEach((node) => {
     node.fx = node.x;
     node.fy = node.y;
   });

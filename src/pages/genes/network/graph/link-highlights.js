@@ -1,13 +1,18 @@
 import * as d3 from 'd3';
 
-import { tooltip } from './tooltip.js';
+import { openTooltip } from './tooltip.js';
+import { closeTooltip } from './tooltip.js';
+
+import { linkData } from './';
 
 import { strokeWidth } from './constants.js';
 
-export const drawLinkHighlights = ({ links }) => {
+export const drawLinkHighlights = () => {
   const layer = d3.select('#graph_link_highlight_layer');
 
-  const linkHighlights = layer.selectAll('.graph_link_highlight').data(links);
+  const linkHighlights = layer
+    .selectAll('.graph_link_highlight')
+    .data(linkData);
 
   linkHighlights
     .enter()
@@ -17,8 +22,8 @@ export const drawLinkHighlights = ({ links }) => {
     .attr('stroke', 'var(--blue)')
     .attr('stroke-width', strokeWidth * 4)
     .style('cursor', 'pointer')
-    .on('mouseover', tooltip.show)
-    .on('mouseout', tooltip.hide);
+    .on('mouseover', openTooltip)
+    .on('mouseout', closeTooltip);
 
   linkHighlights.exit().remove();
 };
