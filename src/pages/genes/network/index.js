@@ -109,8 +109,7 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
   let nodes = fullGraph?.nodes;
   let links = fullGraph?.links;
 
-  if (!isArray(nodes) || !isArray(links))
-    return;
+  if (!isArray(nodes) || !isArray(links)) return;
 
   nodes = nodes.slice(0, nodeCutoff);
 
@@ -121,13 +120,19 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
         nodes.find((node) => node.id === link.gene2)
     )
     .filter((link) => link.weight >= edgeWeightCutoff)
-    .sort((a, b) => a.weight - b.weight)
-    .map((link, index, array) => ({
-      ...link,
-      normalizedWeight:
-        (link.weight - array[0].weight) /
-          (array[array.length - 1].weight - array[0].weight) || 1
-    }));
+    .sort((a, b) => b.weight - a.weight);
+
+  if (links.length) {
+    const weights = links.map((link) => link.weight);
+    const maxWeight = Math.max(...weights);
+    const minWeight = Math.min(...weights);
+    links.forEach((link) => {
+      link.normalizedWeight = Math.pow(
+        (link.weight - minWeight) / (maxWeight - minWeight),
+        2
+      );
+    });
+  }
 
   nodes = nodes.filter(
     (node) =>

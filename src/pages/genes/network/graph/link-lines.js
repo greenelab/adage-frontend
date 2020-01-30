@@ -19,7 +19,7 @@ export const drawLinkLines = () => {
     .attr('stroke', (d) => toGradient(d.normalizedWeight, weightGradient))
     .attr(
       'stroke-width',
-      (d) => (0.25 + d.normalizedWeight * 0.75) * strokeWidth * 2
+      (d) => (0.1 + d.normalizedWeight * 0.9) * strokeWidth * 1.5
     )
     .style('pointer-events', 'none');
 

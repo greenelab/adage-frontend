@@ -87,6 +87,7 @@ const updateData = (nodes, links) => {
     if (!nodeData.find((d) => d.id === node.id))
       nodeData.push(node);
   });
+
   for (let index = 0; index < nodeData.length; index++) {
     const d = nodeData[index];
     if (!nodes.find((node) => node.id === d.id)) {
@@ -94,10 +95,19 @@ const updateData = (nodes, links) => {
       index--;
     }
   }
+
+  let linkAdded = false;
+
   links.forEach((link) => {
-    if (!linkData.find((d) => d.id === link.id))
+    if (!linkData.find((d) => d.id === link.id)) {
       linkData.push(link);
+      linkAdded = true;
+    }
   });
+
+  if (linkAdded)
+    linkData.sort((a, b) => a.weight - b.weight);
+
   for (let index = 0; index < linkData.length; index++) {
     const d = linkData[index];
     if (!links.find((link) => link.id === d.id)) {
