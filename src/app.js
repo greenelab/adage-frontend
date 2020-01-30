@@ -39,9 +39,7 @@ console.log(process.env);
 console.log({ basename });
 console.groupEnd();
 
-const logger = createLogger({
-  collapsed: true
-});
+const logger = createLogger({ collapsed: true });
 
 const store = createStore(
   reducer,

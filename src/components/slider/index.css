@@ -1,0 +1,51 @@
+.rc-slider {
+  box-sizing: border-box;
+  position: relative;
+  height: 35px;
+  margin: 15px;
+  touch-action: none;
+  cursor: pointer;
+}
+.rc-slider * {
+  box-sizing: border-box;
+}
+.rc-slider-rail {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: 5px;
+  background: var(--light-gray);
+}
+.slider[data-reverse='true'] .rc-slider-rail {
+  background: var(--green);
+}
+.rc-slider-track {
+  position: absolute;
+  height: 5px;
+  left: 0;
+  top: 5px;
+  background: var(--green);
+}
+.slider[data-reverse='true'] .rc-slider-track {
+  background: var(--light-gray);
+}
+.rc-slider-handle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background: var(--white);
+  border: solid 2px var(--green);
+}
+.rc-slider-mark {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 100%;
+}
+.rc-slider-mark-text {
+  position: absolute;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}

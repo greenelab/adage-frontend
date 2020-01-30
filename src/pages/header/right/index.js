@@ -9,7 +9,7 @@ import { ReactComponent as Help } from '../../../images/help.svg';
 
 import './index.css';
 
-const Aux = () => (
+const Right = () => (
   <div className='page_header_column'>
     <ModelSelect />
     <Tooltip
@@ -22,4 +22,4 @@ const Aux = () => (
   </div>
 );
 
-export default Aux;
+export default Right;

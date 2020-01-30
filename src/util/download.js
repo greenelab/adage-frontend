@@ -22,3 +22,15 @@ export const downloadTsv = (data = [], filename = 'download') => {
   window.URL.revokeObjectURL(url);
   link.remove();
 };
+
+export const downloadSvg = (data, filename) => {
+  const blob = new Blob([data], { type: 'image/svg+xml' });
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  document.body.appendChild(link);
+  link.href = url;
+  link.download = (filename || 'data') + '.svg';
+  link.click();
+  window.URL.revokeObjectURL(url);
+  link.remove();
+};

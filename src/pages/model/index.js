@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
-import SectionHeader from '../../components/section-header';
+import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
 import { getModelDetails } from '../../actions/models.js';
@@ -26,13 +26,12 @@ let Model = ({ match, details, getDetails }) => {
     <>
       <Header justTitle />
       <Main>
-        <SectionHeader text='Model Details' />
-        <section>
+        <Section text='Model Details'>
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
             <FetchAlert status={details} subject='model details' />
           )}
-        </section>
+        </Section>
       </Main>
       <Footer />
     </>

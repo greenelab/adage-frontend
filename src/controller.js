@@ -11,6 +11,8 @@ import { getGeneEnrichedSignatures } from './actions/genes.js';
 import { getGeneEdges } from './actions/genes.js';
 import { isArray } from './util/types.js';
 
+const MAX_INT = 9999999;
+
 // dispatch new actions in response to redux state changes
 let Controller = ({
   modelList,
@@ -33,13 +35,21 @@ let Controller = ({
   }, [getModelList]);
 
   useEffect(() => {
-    if (selectedOrganism)
-      getGeneList({ organism: selectedOrganism, limit: 999999 });
+    if (selectedOrganism) {
+      getGeneList({
+        organism: selectedOrganism,
+        limit: MAX_INT
+      });
+    }
   }, [selectedOrganism, getGeneList]);
 
   useEffect(() => {
-    if (selectedModel)
-      getSignatureList({ model: selectedModel, limit: 999999 });
+    if (selectedModel) {
+      getSignatureList({
+        model: selectedModel,
+        limit: MAX_INT
+      });
+    }
   }, [selectedModel, getSignatureList]);
 
   useEffect(() => {
@@ -60,7 +70,7 @@ let Controller = ({
     ) {
       getEnrichedSignatures({
         ids: selectedGenes.map((gene) => gene.id),
-        limit: selectedGenes.length ? 999999 : 1,
+        limit: selectedGenes.length ? MAX_INT : 1,
         cancelType: 'GET_GENE_ENRICHED_SIGNATURES',
         genes: genes,
         signatures: signatures,
@@ -80,7 +90,7 @@ let Controller = ({
       getGeneEdges({
         modelId: selectedModel,
         geneIds: selectedGenes.map((selected) => selected.id),
-        limit: 100
+        limit: MAX_INT
       });
     }
   }, [selectedModel, selectedGenes, selectedGenesLoaded, getGeneEdges]);

@@ -23,7 +23,7 @@ const reducer = produce((draft, type, payload, meta) => {
     )
       draft.enrichedSignatures = actionStatuses.EMPTY;
     if (!isString(draft.edges) && !isArray(draft.edges))
-      draft.edges = [];
+      draft.edges = actionStatuses.EMPTY;
   };
 
   typeCheck();

@@ -1,57 +1,68 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useRef } from 'react';
-import * as vega from 'vega';
+import { useState } from 'react';
+import * as d3 from 'd3';
 
+import { initView, setAutoFit } from './view.js';
+import { fitView } from './view.js';
+import { initSimulation } from './simulation.js';
+import { updateSimulation } from './simulation.js';
+import { initDragHandler } from './drag.js';
+import { drawLinkLines } from './link-lines.js';
+import { drawNodeCircles } from './node-circles.js';
+import { drawNodeLabels } from './node-labels.js';
 import { useBbox } from '../../../../util/hooks.js';
 
 import './index.css';
 
-import spec from './spec.json';
+export let svg;
+export let view;
 
 const Graph = ({ nodes, links }) => {
-  const [containerBbox, containerRef] = useBbox();
-  const viewRef = useRef();
+  const [mounted, setMounted] = useState(false);
+  const [bbox, ref] = useBbox();
+
+  svg = d3.select('#graph');
+  view = d3.select('#graph_view');
 
   useEffect(() => {
-    viewRef.current = new vega.View(vega.parse(spec), {
-      container: containerRef.current
-    });
-    viewRef.current.runAsync();
-  }, [containerRef, viewRef]);
+    setAutoFit(true);
+  });
 
   useEffect(() => {
-    if (!viewRef.current)
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    fitView();
+  }, [bbox]);
+
+  useEffect(() => {
+    if (!mounted)
       return;
-
-    viewRef.current.change(
-      'nodeData',
-      vega
-        .changeset()
-        .remove(() => true)
-        .insert(nodes)
-    );
-    viewRef.current.change(
-      'linkData',
-      vega
-        .changeset()
-        .remove(() => true)
-        .insert(links)
-    );
-    viewRef.current.runAsync();
-  }, [nodes, links]);
+    initView();
+    initSimulation();
+    initDragHandler();
+  }, [mounted]);
 
   useEffect(() => {
-    if (!viewRef.current || !containerBbox)
+    if (!mounted)
       return;
+    updateSimulation({ nodes, links, reheat: true });
+    drawLinkLines({ links });
+    drawNodeCircles({ nodes });
+    drawNodeLabels({ nodes });
+  }, [mounted, nodes, links]);
 
-    viewRef.current.width(containerBbox.width);
-    viewRef.current.height(containerBbox.height);
-  }, [containerBbox]);
-
-  window.view = viewRef.current;
-
-  return <div ref={containerRef} id='graph'></div>;
+  return (
+    <svg ref={ref} xmlns='http://www.w3.org/2000/svg' id='graph'>
+      <g id='graph_view'>
+        <g id='graph_link_line_layer'></g>
+        <g id='graph_node_circle_layer'></g>
+        <g id='graph_node_label_layer'></g>
+      </g>
+    </svg>
+  );
 };
 
 export default Graph;

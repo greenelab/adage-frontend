@@ -1,3 +1,11 @@
+section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 20px;
+}
+section[data-expanded='false'] {
+  display: none;
+}
 .section_header {
   box-sizing: border-box;
   color: var(--gray);
@@ -5,6 +13,12 @@
   justify-content: center;
   align-items: center;
   padding: 0 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--fast);
+}
+.section_header:hover {
+  color: var(--green);
 }
 .section_header:before,
 .section_header:after {
@@ -12,6 +26,11 @@
   flex-grow: 1;
   background: var(--light-gray);
   height: 1px;
+  transition: background var(--fast);
+}
+.section_header:hover:before,
+.section_header:hover:after {
+  background: var(--green);
 }
 .section_header:before {
   margin-right: 20px;
