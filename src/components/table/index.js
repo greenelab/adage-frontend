@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useTable } from 'react-table';
 import { useSortBy } from 'react-table';
@@ -11,7 +12,13 @@ import { ReactComponent as Arrow } from '../../images/arrow.svg';
 
 import './index.css';
 
-const Table = ({ columns, data, defaultSort = [] }) => {
+const Table = ({
+  columns,
+  data,
+  defaultSort = [],
+  sortable = true,
+  highlightedIndex
+}) => {
   const [tbodyBbox, tbodyRef] = useBbox();
 
   columns = columns.map((column) => ({
@@ -21,8 +28,7 @@ const Table = ({ columns, data, defaultSort = [] }) => {
       column.render ? column.render(row.original) : String(cell.value || '-'),
     width: column.width,
     align: column.align,
-    padded: column.padded,
-    sortable: column.sortable
+    padded: column.padded
   }));
 
   const {
@@ -35,13 +41,20 @@ const Table = ({ columns, data, defaultSort = [] }) => {
     {
       columns,
       data,
-      initialState: { sortBy: defaultSort }
+      initialState: { sortBy: defaultSort },
+      disableSortBy: !sortable
     },
     useSortBy
   );
 
+  useEffect(() => {
+    const element = document.querySelector('*[data-shade="true"]');
+    if (element)
+      element.scrollIntoView({ block: 'nearest' });
+  });
+
   return (
-    <div className='table' {...getTableProps()}>
+    <div {...getTableProps()} className='table' data-sortable={sortable}>
       <div
         className='thead medium'
         style={{
@@ -50,18 +63,18 @@ const Table = ({ columns, data, defaultSort = [] }) => {
       >
         {headerGroups.map((headerGroup, index) => (
           <Fragment key={index}>
-            <div className='tr' {...headerGroup.getHeaderGroupProps()}>
+            <div {...headerGroup.getHeaderGroupProps()} className='tr'>
               {headerGroup.headers.map((column) => (
                 <span
-                  className='th'
                   {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className='th'
                   style={{
                     width: column.width,
                     justifyContent: column.align
                   }}
                   data-padded={column.padded === false ? false : true}
                   title=''
-                  tabIndex={column.sortable === false ? '-1' : '0'}
+                  tabIndex={sortable ? '0' : '-1'}
                   onKeyPress={(event) => {
                     if (
                       column.sortable !== false &&
@@ -87,22 +100,33 @@ const Table = ({ columns, data, defaultSort = [] }) => {
           </Fragment>
         ))}
       </div>
-      <div className='tbody' {...getTableBodyProps()} ref={tbodyRef}>
+      <div {...getTableBodyProps()} className='tbody' ref={tbodyRef}>
         {rows.forEach(prepareRow)}
         {rows.map((row, index, array) => (
           <Fragment key={index}>
-            <div className='tr' {...row.getRowProps()}>
+            <div
+              {...row.getRowProps()}
+              className='tr'
+              data-shade={index === highlightedIndex}
+            >
               {row.cells.map((cell) => (
                 <span
-                  className='td'
                   {...cell.getCellProps()}
+                  className='td'
+                  data-highlight={
+                    cell.column.id === row.original.highlightedField
+                  }
                   data-padded={cell.column.padded === false ? false : true}
                   style={{
                     width: cell.column.width,
                     justifyContent: cell.column.align
                   }}
                 >
-                  <Field>{cell.render('Cell')}</Field>
+                  {cell.value === undefined ? (
+                    cell.render('Cell')
+                  ) : (
+                    <Field>{cell.render('Cell')}</Field>
+                  )}
                 </span>
               ))}
             </div>

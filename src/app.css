@@ -81,3 +81,6 @@ a {
 *[data-shade='true'] {
   background: var(--off-white);
 }
+*[data-highlight='true'] {
+  font-weight: 600;
+}

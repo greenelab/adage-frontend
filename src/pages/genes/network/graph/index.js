@@ -60,6 +60,8 @@ const Graph = ({ nodes, links }) => {
 
     nodeData = nodes;
     linkData = links;
+    nodeData.sort((a, b) => a.degree - b.degree);
+    linkData.sort((a, b) => a.weight - b.weight);
     updateSimulation(true);
     drawLinkHighlights();
     drawLinkLines();

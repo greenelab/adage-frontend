@@ -38,7 +38,7 @@ const Link = ({
 
   return (
     <RouterLink
-      className={'clickable ' + className}
+      className={'clickable field nowrap ' + className}
       target={newTab ? '_blank' : undefined}
       to={to}
       data-button={button}

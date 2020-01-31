@@ -1,38 +1,19 @@
 import React from 'react';
-import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import SingleRow from '../single-row';
+import SingleTable from '../single-table';
 import FetchAlert from '../../../../components/fetch-alert';
-import HorizontalLine from '../../../../components/horizontal-line';
 import { isArray } from '../../../../util/types.js';
 import { isString } from '../../../../util/types.js';
-import { selectGene } from '../../../../actions/genes.js';
-import { deselectGene } from '../../../../actions/genes.js';
 import { mapGeneResult } from '../';
 
 import './index.css';
 
-let Single = ({ results, highlightedIndex, select, deselect }) => (
+let Single = ({ results, highlightedIndex }) => (
   <div className='search_results'>
-    {isArray(results) &&
-      results.map((result, index, array) => (
-        <Fragment key={index}>
-          <SingleRow
-            onClick={() =>
-              (result.selected ? deselect : select)({
-                id: result.id
-              })
-            }
-            id={result.id}
-            selected={result.selected}
-            cols={result.cols}
-            highlighted={index === highlightedIndex}
-            highlightedCol={result.highlightedCol}
-          />
-          {index < array.length - 1 && <HorizontalLine />}
-        </Fragment>
-      ))}
+    {isArray(results) && (
+      <SingleTable results={results} highlightedIndex={highlightedIndex} />
+    )}
     {isString(results) && (
       <FetchAlert
         className='gene_search_results_single_alert'
@@ -53,11 +34,6 @@ const mapStateToProps = (state) => ({
     ''
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  select: (...args) => dispatch(selectGene(...args)),
-  deselect: (...args) => dispatch(deselectGene(...args))
-});
-
-Single = connect(mapStateToProps, mapDispatchToProps)(Single);
+Single = connect(mapStateToProps)(Single);
 
 export default Single;

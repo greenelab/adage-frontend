@@ -4,8 +4,6 @@ import * as d3 from 'd3';
 import tip from 'd3-tip';
 
 import { svg } from './';
-import { mapGeneTooltip } from '../../';
-import { mapEdgeTooltip } from '../../';
 
 const delay = 100;
 
@@ -66,3 +64,16 @@ export const closeTooltip = () => {
   window.clearTimeout(timer);
   tooltip.hide();
 };
+
+const mapGeneTooltip = (gene) => ({
+  'Standard Name': gene.standardName || '-',
+  'Systematic Name': gene.systematicName || '-',
+  'Entrez Id': gene.entrezId || '-',
+  'Description': gene.description || '-',
+  'Aliases': gene.aliases || '-',
+  'Organism': gene.organism || '-'
+});
+
+const mapEdgeTooltip = (link) => ({
+  Weight: link.weight.toFixed(4) || '-'
+});

@@ -35,7 +35,6 @@ const Genes = () => (
 export default Genes;
 
 export const mapGene = (gene) => ({
-  ...gene,
   id: gene.id,
   standardName: gene.standard_name,
   systematicName: gene.systematic_name,
@@ -53,17 +52,4 @@ export const mapGeneDownload = (gene) => ({
   'Description': gene.description || '-',
   'Aliases': gene.aliases || '-',
   'Organism': gene.organism || '-'
-});
-
-export const mapGeneTooltip = (gene) => ({
-  'Standard Name': gene.standard_name || '-',
-  'Systematic Name': gene.systematic_name || '-',
-  'Entrez Id': gene.entrezid || '-',
-  'Description': gene.description || '-',
-  'Aliases': gene.aliases || '-',
-  'Organism': gene.organism || '-'
-});
-
-export const mapEdgeTooltip = (link) => ({
-  Weight: link.weight.toFixed(4) || '-'
 });

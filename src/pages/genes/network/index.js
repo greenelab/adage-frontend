@@ -80,20 +80,20 @@ const constructGraph = ({ list, selected, edges }) => {
   nodes = nodes
     .map((node) => list.find((gene) => gene.id === node))
     .filter((node) => node)
-    .map(mapGene)
-    .map((node) => ({
-      ...node,
-      selected:
-        selected.find((selected) => selected.id === node.id) !== undefined
-    }))
-    .map((node) => ({
-      ...node,
-      degree: selectedLinks
-        .filter((link) => link.gene1 === node.id || link.gene2 === node.id)
-        .map((link) => link.weight)
-        .reduce((sum, weight) => sum + weight, 0)
-    }))
-    .sort((a, b) => b.degree - a.degree);
+    .map(mapGene);
+
+  nodes.forEach((node) => {
+    node.selected = selected.find((selected) => selected.id === node.id);
+  });
+
+  nodes.forEach((node) => {
+    node.degree = selectedLinks
+      .filter((link) => link.gene1 === node.id || link.gene2 === node.id)
+      .map((link) => link.weight)
+      .reduce((sum, weight) => sum + weight, 0);
+  });
+
+  nodes.sort((a, b) => b.degree - a.degree);
 
   links = links.map((link) => ({
     ...link,
@@ -119,8 +119,9 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
         nodes.find((node) => node.id === link.gene1) &&
         nodes.find((node) => node.id === link.gene2)
     )
-    .filter((link) => link.weight >= edgeWeightCutoff)
-    .sort((a, b) => b.weight - a.weight);
+    .filter((link) => link.weight >= edgeWeightCutoff);
+
+  links.sort((a, b) => b.weight - a.weight);
 
   if (links.length) {
     const weights = links.map((link) => link.weight);
