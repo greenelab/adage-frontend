@@ -10,8 +10,3 @@ export const fillB = '#e0e0e0';
 export const stroke = '#000000';
 export const strokeWidth = 2;
 export const fontSize = 12;
-export const weightGradient = [
-  [0, '#26a36c'],
-  [0.5, '#26a36c'],
-  [1, '#26a36c']
-];

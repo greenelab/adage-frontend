@@ -32,7 +32,6 @@ let Network = ({ list, selected, edges }) => {
   return (
     <>
       {isString(edges) && <FetchAlert status={edges} subject='edges' />}
-
       {graph && (
         <>
           <Filters
@@ -109,7 +108,8 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
   let nodes = fullGraph?.nodes;
   let links = fullGraph?.links;
 
-  if (!isArray(nodes) || !isArray(links)) return;
+  if (!isArray(nodes) || !isArray(links))
+    return;
 
   nodes = nodes.slice(0, nodeCutoff);
 
@@ -127,10 +127,8 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
     const maxWeight = Math.max(...weights);
     const minWeight = Math.min(...weights);
     links.forEach((link) => {
-      link.normalizedWeight = Math.pow(
-        (link.weight - minWeight) / (maxWeight - minWeight),
-        2
-      );
+      link.normalizedWeight =
+        (link.weight - minWeight) / (maxWeight - minWeight);
     });
   }
 

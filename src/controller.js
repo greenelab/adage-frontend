@@ -69,12 +69,12 @@ let Controller = ({
       selectedGenesLoaded
     ) {
       getEnrichedSignatures({
-        ids: selectedGenes.map((gene) => gene.id),
-        limit: selectedGenes.length ? MAX_INT : 1,
         cancelType: 'GET_GENE_ENRICHED_SIGNATURES',
+        ids: selectedGenes.map((gene) => gene.id),
         genes: genes,
         signatures: signatures,
-        selectedGenes: selectedGenes
+        selectedGenes: selectedGenes,
+        limit: selectedGenes.length ? MAX_INT : 1
       });
     }
   }, [
@@ -86,11 +86,13 @@ let Controller = ({
   ]);
 
   useEffect(() => {
-    if (selectedGenesLoaded && selectedGenes.length) {
+    if (selectedGenesLoaded) {
       getGeneEdges({
+        cancelType: 'GET_GENE_EDGES',
         modelId: selectedModel,
         geneIds: selectedGenes.map((selected) => selected.id),
-        limit: MAX_INT
+        selectedGenes: selectedGenes,
+        limit: selectedGenes.length ? MAX_INT : 1
       });
     }
   }, [selectedModel, selectedGenes, selectedGenesLoaded, getGeneEdges]);

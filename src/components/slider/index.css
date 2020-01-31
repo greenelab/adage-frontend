@@ -33,6 +33,7 @@
   position: absolute;
   width: 15px;
   height: 15px;
+  top: 0;
   border-radius: 15px;
   background: var(--white);
   border: solid 2px var(--green);

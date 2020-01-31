@@ -1,4 +1,4 @@
-import Color from 'color';
+import * as color from 'color';
 
 // map number to css color based on specified gradient
 // gradient should be in format [ ... , [number, 'rgba()'], ... ]
@@ -30,14 +30,14 @@ export const toGradient = (value, gradient) => {
 
   // get number and color below and above provided number
   const lowerNumber = gradient[lowerIndex][0];
-  const lowerColor = Color(gradient[lowerIndex][1]);
+  const lowerColor = color(gradient[lowerIndex][1]);
   const upperNumber = gradient[upperIndex][0];
-  const upperColor = Color(gradient[upperIndex][1]);
+  const upperColor = color(gradient[upperIndex][1]);
 
   // interpolate between below and above colors
   const percent = (number - lowerNumber) / (upperNumber - lowerNumber);
-  const color = lowerColor.mix(upperColor, percent);
+  const resultColor = lowerColor.mix(upperColor, percent);
 
   // return color
-  return color || 'rgba(255, 255, 255, 0)';
+  return resultColor || 'rgba(255, 255, 255, 0)';
 };

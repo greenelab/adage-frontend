@@ -111,7 +111,6 @@ const reducer = produce((draft, type, payload, meta) => {
       const participations = payload;
       if (isArray(participations)) {
         const { selectedGenes, genes, signatures } = meta;
-
         const result = calculateEnrichedSignatures({
           selectedGenes,
           participations,
@@ -127,7 +126,11 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
 
     case 'GET_GENE_EDGES':
-      draft.edges = payload;
+      const { selectedGenes } = meta;
+      if (selectedGenes.length)
+        draft.edges = payload;
+      else
+        draft.edges = actionStatuses.EMPTY;
       break;
 
     default:

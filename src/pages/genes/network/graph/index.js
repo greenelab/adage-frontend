@@ -22,8 +22,8 @@ import './index.css';
 export let svg;
 export let view;
 
-export const nodeData = [];
-export const linkData = [];
+export let nodeData = [];
+export let linkData = [];
 
 const Graph = ({ nodes, links }) => {
   const [mounted, setMounted] = useState(false);
@@ -58,7 +58,8 @@ const Graph = ({ nodes, links }) => {
     if (!mounted)
       return;
 
-    updateData(nodes, links);
+    nodeData = nodes;
+    linkData = links;
     updateSimulation(true);
     drawLinkHighlights();
     drawLinkLines();
@@ -81,38 +82,3 @@ const Graph = ({ nodes, links }) => {
 };
 
 export default Graph;
-
-const updateData = (nodes, links) => {
-  nodes.forEach((node) => {
-    if (!nodeData.find((d) => d.id === node.id))
-      nodeData.push(node);
-  });
-
-  for (let index = 0; index < nodeData.length; index++) {
-    const d = nodeData[index];
-    if (!nodes.find((node) => node.id === d.id)) {
-      nodeData.splice(index, 1);
-      index--;
-    }
-  }
-
-  let linkAdded = false;
-
-  links.forEach((link) => {
-    if (!linkData.find((d) => d.id === link.id)) {
-      linkData.push(link);
-      linkAdded = true;
-    }
-  });
-
-  if (linkAdded)
-    linkData.sort((a, b) => a.weight - b.weight);
-
-  for (let index = 0; index < linkData.length; index++) {
-    const d = linkData[index];
-    if (!links.find((link) => link.id === d.id)) {
-      linkData.splice(index, 1);
-      index--;
-    }
-  }
-};
