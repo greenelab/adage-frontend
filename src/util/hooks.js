@@ -27,15 +27,8 @@ export const useBbox = () => {
   useEffect(() => {
     set();
     window.addEventListener('resize', set);
-    let observer;
-    if (window.ResizeObserver)
-      observer = new ResizeObserver(set);
-    if (observer && ref?.current)
-      observer.observe(ref.current);
     return () => {
       window.removeEventListener('resize', set);
-      if (observer)
-        observer.disconnect();
     };
   }, [ref]);
 

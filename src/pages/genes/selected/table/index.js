@@ -21,7 +21,6 @@ let Table = ({ selected, deselect }) => (
         value: 'deselect',
         width: '30px',
         padded: false,
-        sortable: false,
         render: (cell) => (
           <Tooltip text='Deselect this gene' horizontalAlign='left'>
             <Button

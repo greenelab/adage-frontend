@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import SearchComponent from '../../../components/search';
-import Link from '../../../components/link';
 import Single from './single';
 import Multi from './multi';
 import { getGeneSearch } from '../../../actions/genes.js';
@@ -12,6 +11,7 @@ import { selectGene } from '../../../actions/genes.js';
 import { deselectGene } from '../../../actions/genes.js';
 import { isArray } from '../../../util/types.js';
 import { isSelected } from '../../../reducers/genes.js';
+import { mapGene } from '../';
 
 import './index.css';
 
@@ -65,32 +65,26 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export const mapGeneResult = (result, state) => {
-  const colKeys = [
-    'standard_name',
-    'systematic_name',
-    'entrezid',
-    'description'
-  ];
-  const highlightedKey = result.max_similarity_field;
-
-  return {
-    id: result.id,
-    selected: isSelected(state.gene.selected, result.id),
-    cols: colKeys.map((key) => {
-      if (key === 'standard_name') {
-        return (
-          <Link
-            to={'/gene/' + result.id}
-            newTab
-            button={false}
-            text={result.standard_name}
-          />
-        );
-      } else
-        return result[key];
-    }),
-    highlightedCol: colKeys.findIndex((key) => key === highlightedKey)
-  };
+  const gene = mapGene(result);
+  gene.selected = isSelected(state.gene.selected, result.id);
+  switch (result.max_similarity_field) {
+    case 'standard_name':
+      gene.highlightedField = 'standardName';
+      break;
+    case 'systematic_name':
+      gene.highlightedField = 'systematicName';
+      break;
+    case 'entrezid':
+      gene.highlightedField = 'entrezId';
+      break;
+    case 'description':
+      gene.highlightedField = 'description';
+      break;
+    default:
+      gene.highlightedField = '';
+      break;
+  }
+  return gene;
 };
 
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);

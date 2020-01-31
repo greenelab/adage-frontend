@@ -22,12 +22,13 @@ import './index.css';
 export let svg;
 export let view;
 
-export const nodeData = [];
-export const linkData = [];
+export let nodeData = [];
+export let linkData = [];
 
 const Graph = ({ nodes, links }) => {
   const [mounted, setMounted] = useState(false);
   const [bbox, ref] = useBbox();
+  const { width, height } = bbox || {};
 
   svg = d3.select('#graph');
   view = d3.select('#graph_view');
@@ -52,13 +53,16 @@ const Graph = ({ nodes, links }) => {
 
   useEffect(() => {
     fitView();
-  }, [bbox]);
+  }, [width, height]);
 
   useEffect(() => {
     if (!mounted)
       return;
 
-    updateData(nodes, links);
+    nodeData = nodes;
+    linkData = links;
+    nodeData.sort((a, b) => a.degree - b.degree);
+    linkData.sort((a, b) => a.weight - b.weight);
     updateSimulation(true);
     drawLinkHighlights();
     drawLinkLines();
@@ -81,28 +85,3 @@ const Graph = ({ nodes, links }) => {
 };
 
 export default Graph;
-
-const updateData = (nodes, links) => {
-  nodes.forEach((node) => {
-    if (!nodeData.find((d) => d.id === node.id))
-      nodeData.push(node);
-  });
-  for (let index = 0; index < nodeData.length; index++) {
-    const d = nodeData[index];
-    if (!nodes.find((node) => node.id === d.id)) {
-      nodeData.splice(index, 1);
-      index--;
-    }
-  }
-  links.forEach((link) => {
-    if (!linkData.find((d) => d.id === link.id))
-      linkData.push(link);
-  });
-  for (let index = 0; index < linkData.length; index++) {
-    const d = linkData[index];
-    if (!links.find((link) => link.id === d.id)) {
-      linkData.splice(index, 1);
-      index--;
-    }
-  }
-};

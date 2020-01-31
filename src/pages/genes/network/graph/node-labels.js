@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import Color from 'color';
+import * as color from 'color';
 
 import { tooltip } from './tooltip.js';
 
@@ -18,7 +18,7 @@ export const drawNodeLabels = () => {
     .merge(nodeLabels)
     .attr('class', 'graph_node_label')
     .attr('fill', (d) =>
-      Color(d.selected ? fillA : fillB).isLight() ? '#000000' : '#ffffff'
+      color(d.selected ? fillA : fillB).isLight() ? '#000000' : '#ffffff'
     )
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')

@@ -1,10 +1,3 @@
-.search_results {
-  width: 100%;
-  margin-top: 10px;
-  max-height: calc((6 * 30px) + ((6 - 1) * 1px));
-  overflow-x: auto;
-  overflow-y: auto;
-}
-.search_results > * {
-  min-width: 500px;
+.search_bar {
+  margin-bottom: 10px;
 }

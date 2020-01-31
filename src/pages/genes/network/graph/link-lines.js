@@ -1,10 +1,8 @@
 import * as d3 from 'd3';
 
-import { toGradient } from '../../../../util/color.js';
-
 import { linkData } from './';
 
-import { strokeWidth, weightGradient } from './constants.js';
+import { strokeWidth } from './constants.js';
 
 export const drawLinkLines = () => {
   const layer = d3.select('#graph_link_line_layer');
@@ -16,10 +14,10 @@ export const drawLinkLines = () => {
     .append('line')
     .merge(linkLines)
     .attr('class', 'graph_link_line')
-    .attr('stroke', (d) => toGradient(d.normalizedWeight, weightGradient))
+    .attr('stroke', 'var(--green)')
     .attr(
       'stroke-width',
-      (d) => (0.25 + d.normalizedWeight * 0.75) * strokeWidth * 2
+      (d) => (0.1 + Math.pow(d.normalizedWeight, 4) * 0.9) * strokeWidth * 1.5
     )
     .style('pointer-events', 'none');
 

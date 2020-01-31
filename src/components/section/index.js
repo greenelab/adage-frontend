@@ -11,7 +11,17 @@ const Section = ({ text = '', children = <></> }) => {
 
   return (
     <>
-      <div className='section_header text_medium' onClick={onClick}>
+      <div
+        className='section_header text_medium'
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            onClick();
+          }
+        }}
+        onClick={onClick}
+        tabIndex='0'
+      >
         {text}
       </div>
       <section data-expanded={expanded}>{children}</section>

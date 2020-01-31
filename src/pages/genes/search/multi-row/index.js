@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import SingleRow from '../single-row';
+import SingleTable from '../single-table';
 import Tooltip from '../../../../components/tooltip';
+import Link from '../../../../components/link';
 import Field from '../../../../components/field';
 import FetchAlert from '../../../../components/fetch-alert';
 import Button from '../../../../components/button';
@@ -42,22 +43,12 @@ let MultiRow = ({ search, select, deselect }) => {
   } else if (isArray(search.results)) {
     content = [];
     if (expanded) {
-      search.results
-        .slice(0, expandedResultLimit)
-        .forEach((result, index, array) => {
-          content.push(
-            <SingleRow
-              key={content.length}
-              onClick={() => onClick(result)}
-              selected={result.selected}
-              id={result.id}
-              cols={result.cols}
-              highlightedCol={result.highlightedCol}
-            />
-          );
-          if (index < array.length - 1)
-            content.push(<HorizontalLine key={content.length} />);
-        });
+      content.push(
+        <SingleTable
+          key={content.length}
+          results={search.results.slice(0, expandedResultLimit)}
+        />
+      );
     } else {
       search.results
         .slice(0, collapsedResultLimit)
@@ -66,10 +57,10 @@ let MultiRow = ({ search, select, deselect }) => {
             <ResultButton
               key={content.length}
               onClick={() => onClick(result)}
-              selected={result.selected}
               id={result.id}
-              col1={result.cols[0]}
-              col2={result.cols[1]}
+              selected={result.selected}
+              standardName={result.standardName}
+              systematicName={result.systematicName}
             />
           );
           if (index < array.length - 1)
@@ -127,8 +118,9 @@ export default MultiRow;
 const ResultButton = ({
   onClick = () => null,
   selected = false,
-  col1 = '-',
-  col2 = '-'
+  id = -1,
+  standardName = '-',
+  systematicName = '-'
 }) => (
   <>
     <Tooltip
@@ -141,10 +133,15 @@ const ResultButton = ({
       </Button>
     </Tooltip>
     <span className='td' data-padded='true'>
-      <Field>{col1}</Field>
+      <Link
+        to={'/gene/' + id}
+        newTab
+        button={false}
+        text={standardName || '-'}
+      />
     </span>
     <span className='td' data-padded='true'>
-      <Field>{col2}</Field>
+      <Field>{systematicName}</Field>
     </span>
   </>
 );
