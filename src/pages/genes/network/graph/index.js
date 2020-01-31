@@ -28,6 +28,7 @@ export let linkData = [];
 const Graph = ({ nodes, links }) => {
   const [mounted, setMounted] = useState(false);
   const [bbox, ref] = useBbox();
+  const { width, height } = bbox || {};
 
   svg = d3.select('#graph');
   view = d3.select('#graph_view');
@@ -52,7 +53,7 @@ const Graph = ({ nodes, links }) => {
 
   useEffect(() => {
     fitView();
-  }, [bbox]);
+  }, [width, height]);
 
   useEffect(() => {
     if (!mounted)

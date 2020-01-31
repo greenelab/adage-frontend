@@ -90,4 +90,9 @@ export const pinAll = () => {
   });
 
   setAutoFit(false);
+
+  simulation
+    .alpha(0)
+    .alphaTarget(0)
+    .stop();
 };

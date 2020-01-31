@@ -64,3 +64,5 @@ export const fitView = () => {
 export let autoFit = true;
 
 export const setAutoFit = (value) => (autoFit = value);
+
+window.setAutoFit = setAutoFit;
