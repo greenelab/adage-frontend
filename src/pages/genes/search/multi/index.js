@@ -12,14 +12,12 @@ import './index.css';
 
 let Multi = ({ searches }) => (
   <>
-    <div className='search_results'>
-      {searches.map((search, index, array) => (
-        <Fragment key={index}>
-          <MultiRow search={search} />
-          {index < array.length - 1 && <HorizontalLine />}
-        </Fragment>
-      ))}
-    </div>
+    {searches.map((search, index, array) => (
+      <Fragment key={index}>
+        <MultiRow search={search} />
+        {index < array.length - 1 && <HorizontalLine />}
+      </Fragment>
+    ))}
     <MultiControls />
   </>
 );

@@ -73,6 +73,7 @@ const Search = ({
   return (
     <>
       <Input
+        className="search_bar"
         multi={multi}
         placeholder={placeholder}
         multiPlaceholder={multiPlaceholder}

@@ -15,7 +15,7 @@ let Table = ({ enrichedSignatures }) => (
       {
         name: 'Name',
         value: 'name',
-        width: '20%',
+        width: '25%',
         render: (cell) => (
           <Link
             to={'/signature/' + cell.id}
@@ -28,7 +28,7 @@ let Table = ({ enrichedSignatures }) => (
       {
         name: 'Overlapping Genes',
         value: (cell) => cell.genes.map((gene) => gene.name).join(' '),
-        width: '60%',
+        width: '50%',
         render: (cell) =>
           cell.genes.map((gene, index) => (
             <Fragment key={index}>
@@ -44,7 +44,7 @@ let Table = ({ enrichedSignatures }) => (
       {
         name: 'p-value',
         value: 'pValue',
-        width: '20%',
+        width: '25%',
         align: 'center'
       }
     ]}

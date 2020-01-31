@@ -17,6 +17,7 @@ import './index.css';
 const debounceDelay = 200;
 
 const Input = ({
+  className = '',
   onChange = () => null,
   onChangeExpanded = () => null,
   onFocus = () => null,
@@ -63,7 +64,11 @@ const Input = ({
   getClearFunc(() => changeValue(''));
 
   return (
-    <div className='input' data-focused={focused} data-expanded={expanded}>
+    <div
+      className={'input ' + className}
+      data-focused={focused}
+      data-expanded={expanded}
+    >
       {!expanded && (
         <input
           {...props}
@@ -127,6 +132,7 @@ const Input = ({
 };
 
 Input.propTypes = {
+  className: PropTypes.string,
   onChange: PropTypes.func,
   onChangeExpanded: PropTypes.func,
   onFocus: PropTypes.func,

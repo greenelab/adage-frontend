@@ -6,7 +6,7 @@
 .thead,
 .tbody {
   overflow-x: auto;
-  min-width: 500px;
+  min-width: 350px;
 }
 .tr {
   display: flex;

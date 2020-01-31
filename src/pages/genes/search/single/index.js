@@ -10,7 +10,7 @@ import { mapGeneResult } from '../';
 import './index.css';
 
 let Single = ({ results, highlightedIndex }) => (
-  <div className='search_results'>
+  <>
     {isArray(results) && (
       <SingleTable results={results} highlightedIndex={highlightedIndex} />
     )}
@@ -21,7 +21,7 @@ let Single = ({ results, highlightedIndex }) => (
         subject='gene results'
       />
     )}
-  </div>
+  </>
 );
 
 const mapStateToProps = (state) => ({
