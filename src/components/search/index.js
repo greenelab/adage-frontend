@@ -9,14 +9,14 @@ import Input from '../input';
 import './index.css';
 
 const Search = ({
-  length,
-  multi,
-  placeholder,
-  multiPlaceholder,
+  length = 0,
+  multi = false,
+  placeholder = '',
+  multiPlaceholder = '',
   onSearch,
   onKeySelect,
-  SingleComponent,
-  MultiComponent
+  SingleComponent = <></>,
+  MultiComponent = <></>
 }) => {
   const [focused, setFocused] = useState(false);
   const [expanded, setExpanded] = useState(false);

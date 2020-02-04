@@ -39,7 +39,7 @@ const Link = ({
   return (
     <RouterLink
       className={
-        'clickable nowrap ' + (!button ? 'field nowrap' : '') + ' ' + className
+        'clickable nowrap ' + (!icon ? 'field nowrap' : '') + ' ' + className
       }
       target={newTab ? '_blank' : undefined}
       to={to}

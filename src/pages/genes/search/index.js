@@ -61,7 +61,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   select: (...args) => dispatch(selectGene(...args)),
   deselect: (...args) => dispatch(deselectGene(...args)),
-  dispatch: dispatch
+  dispatch
 });
 
 export const mapGeneResult = (result, state) => {

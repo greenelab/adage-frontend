@@ -9,28 +9,28 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getModelDetails } from '../../actions/models.js';
+import { getExperimentDetails } from '../../actions/experiments.js';
 import { isObject } from '../../util/types.js';
 import { isString } from '../../util/types.js';
-import { flatten } from '../../util/object';
+import { flatten } from '../../util/object.js';
 
 import './index.css';
 
-let Model = ({ match, details, getDetails }) => {
-  const id = match.params.id;
+let Experiment = ({ match, details, getDetails }) => {
+  const accession = match.params.accession;
 
   useEffect(() => {
-    getDetails({ id: id });
-  }, [id, getDetails]);
+    getDetails({ accession: accession });
+  }, [accession, getDetails]);
 
   return (
     <>
       <Header justTitle />
       <Main>
-        <Section text='Model Details'>
+        <Section text='Experiment Details'>
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
-            <FetchAlert status={details} subject='model details' />
+            <FetchAlert status={details} subject='experiment details' />
           )}
         </Section>
       </Main>
@@ -40,14 +40,14 @@ let Model = ({ match, details, getDetails }) => {
 };
 
 const mapStateToProps = (state) => ({
-  details: flatten(state.model.details)
+  details: flatten(state.experiment.details)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getDetails: (...args) => dispatch(getModelDetails(...args))
+  getDetails: (...args) => dispatch(getExperimentDetails(...args))
 });
 
-Model = withRouter(Model);
-Model = connect(mapStateToProps, mapDispatchToProps)(Model);
+Experiment = withRouter(Experiment);
+Experiment = connect(mapStateToProps, mapDispatchToProps)(Experiment);
 
-export default Model;
+export default Experiment;

@@ -15,6 +15,7 @@ export const urlGeneList = ({ organism, limit = defaultLimit }) => {
   params.set('limit', limit);
   if (organism)
     params.set('organism', organism);
+
   const url = server + prefixA + '?' + params.toString();
   return url;
 };
@@ -26,7 +27,6 @@ export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
     params.set('autocomplete', query);
 
   const url = server + prefixA + '?' + params.toString();
-
   return url;
 };
 
@@ -37,7 +37,6 @@ export const urlGeneEnrichedSignatures = ({ ids, limit = defaultLimit }) => {
     params.set('related-genes', ids.join(','));
 
   const url = server + prefixB + '?' + params.toString();
-
   return url;
 };
 
@@ -50,6 +49,5 @@ export const urlGeneEdges = ({ modelId, geneIds, limit = defaultLimit }) => {
     params.set('genes', geneIds.join(','));
 
   const url = server + prefixC + '?' + params.toString();
-
   return url;
 };
