@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.0.53",
+  "version": "0.1.0",
   "dependencies": {
     "color": "^3.1.2",
     "d3": "^5.15.0",
