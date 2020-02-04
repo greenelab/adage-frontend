@@ -1,8 +1,10 @@
 import React from 'react';
+import { Fragment } from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import Link from '../../components/link';
 import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
@@ -39,9 +41,29 @@ let Experiment = ({ match, details, getDetails }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  details: flatten(state.experiment.details)
-});
+const mapStateToProps = (state) => {
+  const details = flatten(state.experiment.details);
+
+  if (details.samples) {
+    details.samples = (
+      <>
+        {details.samples.map((sample, index) => (
+          <Fragment key={index}>
+            <Link
+              to={'/sample/' + sample.id}
+              newTab
+              button={false}
+              text={sample.name || '-'}
+            />
+            <br />
+          </Fragment>
+        ))}
+      </>
+    );
+  }
+
+  return { details };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   getDetails: (...args) => dispatch(getExperimentDetails(...args))
