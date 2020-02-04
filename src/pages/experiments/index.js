@@ -5,7 +5,7 @@ import Main from '../main';
 import Footer from '../footer';
 import Section from '../../components/section';
 import Search from './search';
-import { humanizeString } from '../../util/string';
+import { humanize } from '../../util/string';
 
 import './index.css';
 
@@ -34,7 +34,7 @@ export const mapExperiment = (experiment) => ({
 export const mapSample = (sample) => {
   const annotations = { ...sample.annotations };
   for (const key of Object.keys(annotations)) {
-    const newKey = humanizeString(key);
+    const newKey = humanize(key);
     if (key !== newKey) {
       annotations[newKey] = annotations[key];
       delete annotations[key];

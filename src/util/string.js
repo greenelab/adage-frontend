@@ -1,4 +1,4 @@
-export const humanizeString = (string) => {
+export const humanize = (string) => {
   string = string.split(/_|-/);
   string = string.map(
     (word) => word.charAt(0).toUpperCase() + word.substring(1)
