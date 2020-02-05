@@ -5,7 +5,8 @@ import Main from '../main';
 import Footer from '../footer';
 import Section from '../../components/section';
 import Search from './search';
-import { humanize } from '../../util/string';
+import { humanizeObject } from '../../util/object';
+import { flattenObject } from '../../util/object';
 
 import './index.css';
 
@@ -31,20 +32,4 @@ export const mapExperiment = (experiment) => ({
   samples: (experiment.samples || []).map(mapSample)
 });
 
-export const mapSample = (sample) => {
-  const annotations = { ...sample.annotations };
-  for (const key of Object.keys(annotations)) {
-    const newKey = humanize(key);
-    if (key !== newKey) {
-      annotations[newKey] = annotations[key];
-      delete annotations[key];
-    }
-  }
-
-  return {
-    id: sample.id,
-    name: sample.name,
-    dataSource: sample.ml_data_source,
-    annotations: annotations
-  };
-};
+export const mapSample = (sample) => humanizeObject(flattenObject(sample));
