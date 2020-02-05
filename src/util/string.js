@@ -1,3 +1,4 @@
+// convert underscore_case and dash-case to Human Case
 export const humanize = (string) => {
   string = string.split(/_|-/);
   string = string.map(
