@@ -2,9 +2,7 @@ import reduxQuerySync from 'redux-query-sync';
 import { createBrowserHistory } from 'history';
 
 export const basename =
-  process.env.REACT_APP_BASENAME ||
-  process.env.PUBLIC_URL ||
-  '/';
+  process.env.REACT_APP_BASENAME || process.env.PUBLIC_URL || '/';
 
 export const history = createBrowserHistory({ basename });
 
@@ -22,7 +20,7 @@ export const querySync = reduxQuerySync.enhancer({
         }
       })
     },
-    selected: {
+    genes: {
       selector: (state) =>
         state.gene.selected && state.gene.selected.length ?
           state.gene.selected
@@ -33,6 +31,15 @@ export const querySync = reduxQuerySync.enhancer({
         type: 'SELECT_GENES_FROM_URL',
         payload: {
           ids: value ? value.split('-').map((id) => Number(id)) : null
+        }
+      })
+    },
+    experiments: {
+      selector: (state) => state.experiment.selected.accession,
+      action: (value) => ({
+        type: 'SELECT_EXPERIMENTS_FROM_URL',
+        payload: {
+          accession: Number(value) || null
         }
       })
     }

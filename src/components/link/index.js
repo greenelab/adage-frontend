@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import './index.css';
 
-const Link = ({
+let Link = ({
+  location,
   to = '',
   newTab = false,
   className = '',
@@ -42,7 +44,7 @@ const Link = ({
         'clickable nowrap ' + (!icon ? 'field nowrap' : '') + ' ' + className
       }
       target={newTab ? '_blank' : undefined}
-      to={to}
+      to={{ pathname: to, search: location.search }}
       data-button={button}
       data-text={text !== undefined}
       data-icon={icon !== undefined}
@@ -52,6 +54,8 @@ const Link = ({
     </RouterLink>
   );
 };
+
+Link = withRouter(Link);
 
 Link.propTypes = {
   to: PropTypes.string.isRequired,
