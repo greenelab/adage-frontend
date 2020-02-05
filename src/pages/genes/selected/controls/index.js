@@ -28,9 +28,7 @@ let Controls = ({ selected, deselectAll }) => (
 );
 
 const mapStateToProps = (state) => ({
-  selected: state.gene.selected.map((selected) =>
-    mapGeneDownload(selected)
-  )
+  selected: state.gene.selected.map(mapGeneDownload)
 });
 
 const mapDispatchToProps = (dispatch) => ({

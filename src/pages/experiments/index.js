@@ -5,6 +5,8 @@ import Main from '../main';
 import Footer from '../footer';
 import Section from '../../components/section';
 import Search from './search';
+import Selected from './selected';
+import { camelizeObject } from '../../util/object';
 import { humanizeObject } from '../../util/object';
 import { flattenObject } from '../../util/object';
 
@@ -17,7 +19,9 @@ const Experiments = () => (
       <Section text='Experiment Search'>
         <Search />
       </Section>
-      <Section text='Selected Experiment'></Section>
+      <Section text='Selected Experiment'>
+        <Selected />
+      </Section>
     </Main>
     <Footer />
   </>
@@ -25,11 +29,8 @@ const Experiments = () => (
 
 export default Experiments;
 
-export const mapExperiment = (experiment) => ({
-  accession: experiment.accession,
-  name: experiment.name,
-  description: experiment.description,
-  samples: (experiment.samples || []).map(mapSample)
-});
+export const mapExperiment = (experiment) =>
+  camelizeObject(flattenObject(experiment));
 
-export const mapSample = (sample) => humanizeObject(flattenObject(sample));
+export const mapExperimentDownload = (experiment) =>
+  humanizeObject(flattenObject(experiment));
