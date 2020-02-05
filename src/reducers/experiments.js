@@ -43,7 +43,6 @@ const reducer = produce((draft, type, payload, meta) => {
         draft.selected = [];
       else
         draft.selected = { accession: payload.accession };
-
       break;
 
     case 'GET_EXPERIMENT_SELECTED_DETAILS':

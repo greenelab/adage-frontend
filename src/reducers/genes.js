@@ -92,7 +92,6 @@ const reducer = produce((draft, type, payload, meta) => {
         draft.selected = [];
       else
         draft.selected = payload.ids.map((id) => ({ id: id }));
-
       break;
 
     case 'GET_GENE_SELECTED_DETAILS':
@@ -101,7 +100,6 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.selected = draft.selected.map((selected) =>
         draft.list.find((gene) => gene.id === selected.id)
       );
-
       break;
 
     case 'GET_GENE_ENRICHED_SIGNATURES':
