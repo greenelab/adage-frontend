@@ -39,7 +39,7 @@ export const querySync = reduxQuerySync.enhancer({
       action: (value) => ({
         type: 'SELECT_EXPERIMENTS_FROM_URL',
         payload: {
-          accession: Number(value) || null
+          accession: value || null
         }
       })
     }

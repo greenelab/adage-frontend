@@ -37,7 +37,8 @@ let Table = ({ enrichedSignatures }) => (
                 newTab
                 button={false}
                 text={gene.name}
-              />{' '}
+              />
+              &nbsp;
             </Fragment>
           ))
       },
@@ -45,7 +46,8 @@ let Table = ({ enrichedSignatures }) => (
         name: 'p-value',
         value: 'pValue',
         width: '25%',
-        align: 'center'
+        align: 'center',
+        field: true
       }
     ]}
     defaultSort={[{ id: 'pValue', desc: false }]}

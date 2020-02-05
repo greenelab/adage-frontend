@@ -22,7 +22,6 @@ let Table = ({ samples, deselect }) => (
       },
       {
         name: 'Name',
-        value: 'name',
         width: 'calc((100% - 60px) * 0.25)',
         render: (cell) => (
           <Link
@@ -36,17 +35,20 @@ let Table = ({ samples, deselect }) => (
       {
         name: 'Genotype',
         value: 'genotype',
-        width: 'calc((100% - 60px) * 0.25)'
+        width: 'calc((100% - 60px) * 0.25)',
+        field: true
       },
       {
         name: 'Strain',
         value: 'strain',
-        width: 'calc((100% - 60px) * 0.10)'
+        width: 'calc((100% - 60px) * 0.10)',
+        field: true
       },
       {
         name: 'Description',
         value: 'description',
-        width: 'calc((100% - 60px) * 0.40)'
+        width: 'calc((100% - 60px) * 0.40)',
+        field: true
       }
     ]}
   />

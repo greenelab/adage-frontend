@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
+import Tooltip from '../tooltip';
+
 import './index.css';
 
 let Link = ({
@@ -42,19 +44,21 @@ let Link = ({
   }
 
   return (
-    <RouterLink
-      className={
-        'clickable nowrap ' + (!icon ? 'field nowrap' : '') + ' ' + className
-      }
-      target={newTab ? '_blank' : undefined}
-      to={{ pathname: to, search: location.search }}
-      data-button={button}
-      data-text={text !== undefined}
-      data-icon={icon !== undefined}
-      {...props}
-    >
-      {content}
-    </RouterLink>
+    <Tooltip text={'View full details of ' + text}>
+      <RouterLink
+        className={
+          'clickable nowrap ' + (!icon ? 'field nowrap' : '') + ' ' + className
+        }
+        target={newTab ? '_blank' : undefined}
+        to={{ pathname: to, search: location.search }}
+        data-button={button}
+        data-text={text !== undefined}
+        data-icon={icon !== undefined}
+        {...props}
+      >
+        {content}
+      </RouterLink>
+    </Tooltip>
   );
 };
 
