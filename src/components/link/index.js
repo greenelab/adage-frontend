@@ -7,6 +7,9 @@ import './index.css';
 
 let Link = ({
   location,
+  match,
+  history,
+  staticContext,
   to = '',
   newTab = false,
   className = '',
