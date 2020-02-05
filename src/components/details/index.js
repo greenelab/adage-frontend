@@ -1,4 +1,5 @@
 import React from 'react';
+import { isValidElement } from 'react';
 import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Linkify from 'react-linkify';
@@ -7,6 +8,9 @@ import Field from '../../components/field';
 import HorizontalLine from '../../components/horizontal-line';
 
 import './index.css';
+import { isNumber } from '../../util/types';
+import { isString } from '../../util/types';
+import { isArray } from '../../util/types';
 
 const Details = ({ data = {} }) => {
   if (typeof data !== 'object' || data === null || !Object.keys(data).length)
@@ -36,13 +40,14 @@ Details.propTypes = {
 export default Details;
 
 const format = (value) => {
-  const type = typeof value;
-  if (type === 'string' || (type === 'number' && !Number.isNaN(value))) {
+  if (isNumber(value) || isString(value)) {
     value = String(value);
     value = value
       .split('\n')
       .map((line, index) => <div key={index}>{line}</div>);
-  } else
+  } else if (isArray(value))
+    value = value.length;
+  else if (!isValidElement(value))
     value = '-';
 
   return value;

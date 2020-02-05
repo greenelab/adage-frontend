@@ -1,28 +1,23 @@
 .nav_button {
   position: relative;
   margin: 5px !important;
-  padding: 2px 5px !important;
+  padding: 3px 8px !important;
   text-decoration: none !important;
 }
-.nav_button > svg:not(:last-child) {
-  margin-right: 10px;
+.nav_button > svg {
+  margin-right: 8px !important;
 }
 .nav_button:after {
   content: '';
   position: absolute;
-  left: 50%;
-  right: 50%;
+  left: 0;
+  right: 0;
   bottom: 0;
   height: 2px;
   opacity: 0;
   background: var(--green);
-  transition: left var(--fast), right var(--fast), opacity var(--fast);
+  transition: opacity var(--fast);
 }
-.nav_button:hover:after,
-.nav_button:focus:after,
 .nav_button[data-active='true']:after {
-  left: 0;
-  right: 0;
   opacity: 1;
-  background: var(--green);
 }

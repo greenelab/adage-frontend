@@ -8,18 +8,18 @@
   <style>
     #loading > .spinner {
       animation: offset 2s ease-in-out forwards infinite,
-        rotate 2s ease-in-out forwards infinite;
-      stroke-dasharray: 282.743338823;
+        rotate 4s linear forwards infinite;
+      stroke-dasharray: 141.391;
     }
     @keyframes offset {
       0% {
         stroke-dashoffset: 0;
       }
-      50% {
-        stroke-dashoffset: -282.743338823;
+      90% {
+        stroke-dashoffset: -282.782;
       }
       100% {
-        stroke-dashoffset: -565.486677646;
+        stroke-dashoffset: -282.782;
       }
     }
     @keyframes rotate {
@@ -27,17 +27,28 @@
         transform: rotate(0deg);
       }
       100% {
-        transform: rotate(360deg);
+        transform: rotate(-360deg);
       }
     }
   </style>
-  <circle
+  <path
     class="spinner"
     fill="none"
     stroke="currentColor"
     stroke-width="10"
-    cx="0"
-    cy="0"
-    r="45"
+    d="
+      M -45 0
+      A 45 45 0 0 0 45 0
+    "
+  />
+  <path
+    class="spinner"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 45 0
+      A 45 45 0 0 0 -45 0
+    "
   />
 </svg>

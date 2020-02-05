@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: 5px 0;
 }
 .detail_row > span {
   display: inline-block;

@@ -12,6 +12,7 @@ import FetchAlert from '../../components/fetch-alert';
 import { getGeneDetails } from '../../actions/genes.js';
 import { isObject } from '../../util/types.js';
 import { isString } from '../../util/types.js';
+import { flatten } from '../../util/object';
 
 import './index.css';
 
@@ -39,7 +40,7 @@ let Gene = ({ match, details, getDetails }) => {
 };
 
 const mapStateToProps = (state) => ({
-  details: state.gene.details
+  details: flatten(state.gene.details)
 });
 
 const mapDispatchToProps = (dispatch) => ({

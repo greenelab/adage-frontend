@@ -4,15 +4,15 @@ import { isString } from '../util/types.js';
 import { isArray } from '../util/types.js';
 import { isObject } from '../util/types.js';
 
-const reducer = produce((draft, type, payload, meta) => {
-  const typeCheck = () => {
-    if (!isString(draft.details) && !isObject(draft.details))
-      draft.details = {};
-    if (!isString(draft.list) && !isArray(draft.list))
-      draft.list = [];
-  };
+const typeCheck = (draft) => {
+  if (!isString(draft.details) && !isObject(draft.details))
+    draft.details = {};
+  if (!isString(draft.list) && !isArray(draft.list))
+    draft.list = [];
+};
 
-  typeCheck();
+const reducer = produce((draft, type, payload, meta) => {
+  typeCheck(draft);
 
   switch (type) {
     case 'GET_MODEL_DETAILS':
@@ -41,7 +41,7 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
   }
 
-  typeCheck();
+  typeCheck(draft);
 }, {});
 
 export default reducer;

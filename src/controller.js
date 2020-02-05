@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 
 import { getModelList } from './actions/models.js';
 import { getGeneList } from './actions/genes.js';
+import { getExperimentList } from './actions/experiments.js';
 import { getSignatureList } from './actions/signatures.js';
 import { getGeneSelectedDetails } from './actions/genes.js';
+import { getExperimentSelectedDetails } from './actions/experiments.js';
 import { setSelectedModel } from './actions/models.js';
 import { getGeneEnrichedSignatures } from './actions/genes.js';
 import { getGeneEdges } from './actions/genes.js';
@@ -15,18 +17,22 @@ const MAX_INT = 9999999;
 
 // dispatch new actions in response to redux state changes
 let Controller = ({
-  modelList,
-  signatures,
+  models,
   genes,
+  experiments,
+  signatures,
   selectedModel,
   selectedOrganism,
   setSelectedModel,
   selectedGenesLoaded,
   selectedGenes,
+  selectedExperimentAccession,
   getModelList,
   getGeneList,
+  getExperimentList,
   getSignatureList,
   getGeneSelectedDetails,
+  getExperimentSelectedDetails,
   getEnrichedSignatures,
   getGeneEdges
 }) => {
@@ -44,6 +50,10 @@ let Controller = ({
   }, [selectedOrganism, getGeneList]);
 
   useEffect(() => {
+    getExperimentList({ limit: MAX_INT });
+  }, [getExperimentList]);
+
+  useEffect(() => {
     if (selectedModel) {
       getSignatureList({
         model: selectedModel,
@@ -54,11 +64,19 @@ let Controller = ({
 
   useEffect(() => {
     setSelectedModel();
-  }, [modelList, setSelectedModel]);
+  }, [models, setSelectedModel]);
 
   useEffect(() => {
     getGeneSelectedDetails();
   }, [genes.length, selectedGenes.length, getGeneSelectedDetails]);
+
+  useEffect(() => {
+    getExperimentSelectedDetails();
+  }, [
+    experiments.length,
+    selectedExperimentAccession,
+    getExperimentSelectedDetails
+  ]);
 
   useEffect(() => {
     if (
@@ -101,8 +119,9 @@ let Controller = ({
 };
 
 const mapStateToProps = (state) => ({
-  modelList: state.model.list,
+  models: state.model.list,
   genes: state.gene.list,
+  experiments: state.experiment.list,
   signatures: state.signature.list,
   selectedModel: state.model.selected,
   selectedOrganism: isArray(state.model.list) ?
@@ -114,14 +133,17 @@ const mapStateToProps = (state) => ({
   selectedGenesLoaded: state.gene.selected.every(
     (selected) => selected.standard_name
   ),
-  selectedGenes: state.gene.selected
+  selectedGenes: state.gene.selected,
+  selectedExperimentAccession: state.experiment.selected.accession
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getModelList: () => dispatch(getModelList()),
   getGeneList: (...args) => dispatch(getGeneList(...args)),
+  getExperimentList: (...args) => dispatch(getExperimentList(...args)),
   getSignatureList: (...args) => dispatch(getSignatureList(...args)),
   getGeneSelectedDetails: () => dispatch(getGeneSelectedDetails()),
+  getExperimentSelectedDetails: () => dispatch(getExperimentSelectedDetails()),
   setSelectedModel: () => dispatch(setSelectedModel()),
   getEnrichedSignatures: (...args) =>
     dispatch(getGeneEnrichedSignatures(...args)),

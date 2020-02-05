@@ -74,8 +74,7 @@ export const cancelAction = ({ cancelTypeRegex }) => {
 };
 
 const fetchJson = async (url) => {
-  // artificial delay for testing loading spinners and race conditions
-  // await sleep(500 + Math.random() * 500);
+  // await sleep(1000 + Math.random() * 100);
 
   if (cache[url])
     return cache[url];

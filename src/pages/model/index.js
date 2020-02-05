@@ -12,6 +12,7 @@ import FetchAlert from '../../components/fetch-alert';
 import { getModelDetails } from '../../actions/models.js';
 import { isObject } from '../../util/types.js';
 import { isString } from '../../util/types.js';
+import { flatten } from '../../util/object';
 
 import './index.css';
 
@@ -39,7 +40,7 @@ let Model = ({ match, details, getDetails }) => {
 };
 
 const mapStateToProps = (state) => ({
-  details: state.model.details
+  details: flatten(state.model.details)
 });
 
 const mapDispatchToProps = (dispatch) => ({

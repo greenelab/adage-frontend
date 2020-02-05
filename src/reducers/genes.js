@@ -7,26 +7,23 @@ import { isString } from '../util/types.js';
 import { isArray } from '../util/types.js';
 import { isObject } from '../util/types.js';
 
-const reducer = produce((draft, type, payload, meta) => {
-  const typeCheck = () => {
-    if (!isString(draft.details) && !isObject(draft.details))
-      draft.details = {};
-    if (!isString(draft.list) && !isArray(draft.list))
-      draft.list = [];
-    if (!isArray(draft.searches))
-      draft.searches = [];
-    if (!isArray(draft.selected))
-      draft.selected = [];
-    if (
-      !isString(draft.enrichedSignatures) &&
-      !isArray(draft.enrichedSignatures)
-    )
-      draft.enrichedSignatures = actionStatuses.EMPTY;
-    if (!isString(draft.edges) && !isArray(draft.edges))
-      draft.edges = actionStatuses.EMPTY;
-  };
+const typeCheck = (draft) => {
+  if (!isString(draft.details) && !isObject(draft.details))
+    draft.details = {};
+  if (!isString(draft.list) && !isArray(draft.list))
+    draft.list = [];
+  if (!isArray(draft.searches))
+    draft.searches = [];
+  if (!isArray(draft.selected))
+    draft.selected = [];
+  if (!isString(draft.enrichedSignatures) && !isArray(draft.enrichedSignatures))
+    draft.enrichedSignatures = actionStatuses.EMPTY;
+  if (!isString(draft.edges) && !isArray(draft.edges))
+    draft.edges = actionStatuses.EMPTY;
+};
 
-  typeCheck();
+const reducer = produce((draft, type, payload, meta) => {
+  typeCheck(draft);
 
   switch (type) {
     case 'GET_GENE_DETAILS':
@@ -137,7 +134,7 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
   }
 
-  typeCheck();
+  typeCheck(draft);
 }, {});
 
 export default reducer;
@@ -147,6 +144,3 @@ export const isSelected = (selected, id) =>
 
 export const filterSelected = (selected, id) =>
   selected.filter((selected) => !(selected.id === id));
-
-export const findSelected = (selected, id) =>
-  selected.findIndex((selected) => selected.id === id);
