@@ -38,6 +38,13 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.selected = payload;
       break;
 
+    case 'SELECT_EXPERIMENTS_FROM_URL':
+      if (!payload.accession)
+        draft.selected = [];
+      else
+        draft.selected = { accession: payload.accession };
+      break;
+
     case 'GET_EXPERIMENT_SELECTED_DETAILS':
       if (!isArray(draft.list) || !draft.list.length)
         break;

@@ -11,7 +11,7 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getExperimentDetails } from '../../actions/experiments.js';
+import { getSampleDetails } from '../../actions/samples.js';
 import { isObject } from '../../util/types.js';
 import { isString } from '../../util/types.js';
 import { humanizeObject } from '../../util/object.js';
@@ -19,21 +19,21 @@ import { flattenObject } from '../../util/object.js';
 
 import './index.css';
 
-let Experiment = ({ match, details, getDetails }) => {
-  const accession = match.params.accession;
+let Sample = ({ match, details, getDetails }) => {
+  const id = match.params.id;
 
   useEffect(() => {
-    getDetails({ accession: accession });
-  }, [accession, getDetails]);
+    getDetails({ id: id });
+  }, [id, getDetails]);
 
   return (
     <>
       <Header justTitle />
       <Main>
-        <Section text='Experiment Details'>
+        <Section text='Sample Details'>
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
-            <FetchAlert status={details} subject='experiment details' />
+            <FetchAlert status={details} subject='sample details' />
           )}
         </Section>
       </Main>
@@ -43,20 +43,20 @@ let Experiment = ({ match, details, getDetails }) => {
 };
 
 const mapStateToProps = (state) => {
-  let details = state.experiment.details;
+  let details = state.sample.details;
 
   if (isObject(details)) {
     details = flattenObject(details);
-    if (details.samples) {
-      details.samples = (
+    if (details.experiments) {
+      details.experiments = (
         <>
-          {details.samples.map((sample, index) => (
+          {details.experiments.map((experiment, index) => (
             <Fragment key={index}>
               <Link
-                to={'/sample/' + sample.id}
+                to={'/experiment/' + experiment}
                 newTab
                 button={false}
-                text={sample.name || '-'}
+                text={experiment || '-'}
               />
               <br />
             </Fragment>
@@ -71,10 +71,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getDetails: (...args) => dispatch(getExperimentDetails(...args))
+  getDetails: (...args) => dispatch(getSampleDetails(...args))
 });
 
-Experiment = withRouter(Experiment);
-Experiment = connect(mapStateToProps, mapDispatchToProps)(Experiment);
+Sample = withRouter(Sample);
+Sample = connect(mapStateToProps, mapDispatchToProps)(Sample);
 
-export default Experiment;
+export default Sample;

@@ -87,21 +87,19 @@ const reducer = produce((draft, type, payload, meta) => {
       }
       break;
 
+    case 'SELECT_GENES_FROM_URL':
+      if (!payload.ids || !isArray(payload.ids) || !payload.ids.length)
+        draft.selected = [];
+      else
+        draft.selected = payload.ids.map((id) => ({ id: id }));
+      break;
+
     case 'GET_GENE_SELECTED_DETAILS':
       if (!isArray(draft.list) || !draft.list.length)
         break;
       draft.selected = draft.selected.map((selected) =>
         draft.list.find((gene) => gene.id === selected.id)
       );
-
-      break;
-
-    case 'SELECT_GENES_FROM_URL':
-      if (!payload.ids || !isArray(payload.ids) || !payload.ids.length)
-        draft.selected = [];
-      else
-        draft.selected = payload.ids.map((id) => ({ id: id }));
-
       break;
 
     case 'GET_GENE_ENRICHED_SIGNATURES':
