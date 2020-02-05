@@ -4,11 +4,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontendindex.html"
   },
   {
-    "revision": "03581998a5db9f405414",
+    "revision": "8d356a14e412045e0d94",
     "url": "/adage-frontendstatic/css/main.css"
   },
   {
-    "revision": "03581998a5db9f405414",
+    "revision": "8d356a14e412045e0d94",
     "url": "/adage-frontendstatic/js/main.js"
   },
   {
@@ -76,8 +76,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontendstatic/media/list-single.5335ab00.svg"
   },
   {
-    "revision": "c7a3c1b655547ba76d47cb2751a71ba3",
-    "url": "/adage-frontendstatic/media/loading.c7a3c1b6.svg"
+    "revision": "37dd42edab2d358fcdc1e2ff92e8efad",
+    "url": "/adage-frontendstatic/media/loading.37dd42ed.svg"
   },
   {
     "revision": "919c9b6e9939cf0b4b711ff4578b0124",
