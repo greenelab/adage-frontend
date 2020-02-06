@@ -26,7 +26,6 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
           render: (cell) => (
             <Tooltip
               text={(cell.selected ? 'Deselect' : 'Select') + ' this gene'}
-              horizontalAlign='left'
             >
               <Button
                 icon={cell.selected ? <CheckedIcon /> : <UncheckedIcon />}

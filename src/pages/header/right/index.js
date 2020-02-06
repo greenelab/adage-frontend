@@ -12,11 +12,7 @@ import './index.css';
 const Right = () => (
   <div className='page_header_column'>
     <ModelSelect />
-    <Tooltip
-      text='View help documentation for this page'
-      horizontalAlign='right'
-      verticalAlign='bottom'
-    >
+    <Tooltip text='View help documentation for this page'>
       <Link to='/help' newTab icon={<HelpIcon />} />
     </Tooltip>
   </div>

@@ -22,7 +22,7 @@ let Table = ({ results, highlightedIndex, select }) => {
           width: '30px',
           padded: false,
           render: (cell) => (
-            <Tooltip text={'Select this experiment'} horizontalAlign='left'>
+            <Tooltip text={'Select this experiment'}>
               <Button
                 icon={cell.selected ? <RadioedIcon /> : <UnradioedIcon />}
                 onClick={() => select({ accession: cell.accession })}

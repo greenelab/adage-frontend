@@ -23,7 +23,7 @@ const Item = ({
 }) => (
   <div className='model_item'>
     <Button className='model_button' onClick={onClick}>
-      <Tooltip text={'Select this model'} horizontalAlign='left'>
+      <Tooltip text={'Select this model'}>
         <div className='model_radio'>
           {selected && <RadioedIcon />}
           {!selected && <UnradioedIcon />}
@@ -36,7 +36,7 @@ const Item = ({
         </Field>
       </div>
     </Button>
-    <Tooltip text='View full model details' horizontalAlign='right'>
+    <Tooltip text='View full model details'>
       <Link
         to={'/model/' + id}
         newTab

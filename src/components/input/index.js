@@ -102,10 +102,7 @@ const Input = ({
         />
       )}
       {multi && (
-        <Tooltip
-          text={expanded ? tooltip : multiTooltip}
-          horizontalAlign='right'
-        >
+        <Tooltip text={expanded ? tooltip : multiTooltip}>
           <Button
             className='input_button'
             icon={expanded ? <ListSingleIcon /> : <ListMultipleIcon />}
@@ -114,7 +111,7 @@ const Input = ({
         </Tooltip>
       )}
       {value.length > 0 && (
-        <Tooltip text={'Clear search'} horizontalAlign='right'>
+        <Tooltip text={'Clear search'}>
           <Button
             className='input_button'
             icon={<CrossIcon />}

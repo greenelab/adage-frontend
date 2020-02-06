@@ -123,10 +123,7 @@ const ResultButton = ({
   systematicName = '-'
 }) => (
   <>
-    <Tooltip
-      text={(selected ? 'Deselect' : 'Select') + ' this gene'}
-      horizontalAlign='left'
-    >
+    <Tooltip text={(selected ? 'Deselect' : 'Select') + ' this gene'}>
       <Button className='gene_search_result_multi_check' onClick={onClick}>
         {selected && <CheckedIcon />}
         {!selected && <UncheckedIcon />}

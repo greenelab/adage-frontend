@@ -10,7 +10,7 @@ const Field = ({ className, children, wrap, ...props }) => {
   const [label, ref] = useInnerText();
 
   return (
-    <Tooltip text={label} horizontalAlign='left'>
+    <Tooltip text={label}>
       <span
         ref={ref}
         className={'field ' + (wrap ? '' : 'nowrap ') + (className || '')}

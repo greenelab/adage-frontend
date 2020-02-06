@@ -21,11 +21,7 @@ let ModelSelect = ({ models }) => {
 
   return (
     <>
-      <Tooltip
-        text='Switch between machine learning models'
-        horizontalAlign='right'
-        verticalAlign='bottom'
-      >
+      <Tooltip text='Switch between machine learning models'>
         <Button
           ref={buttonRef}
           className='model_select_button'
@@ -42,7 +38,11 @@ let ModelSelect = ({ models }) => {
       >
         {isArray(models) && <List models={models} />}
         {isString(models) && (
-          <FetchAlert className='model_alert' status={models} subject='models' />
+          <FetchAlert
+            className='model_alert'
+            status={models}
+            subject='models'
+          />
         )}
       </Popup>
     </>

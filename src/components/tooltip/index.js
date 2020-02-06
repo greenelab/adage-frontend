@@ -15,12 +15,7 @@ const delay = 250;
 const duration = 250;
 const padding = 5;
 
-const Tooltip = ({
-  children,
-  text = '',
-  horizontalAlign = 'center',
-  verticalAlign = 'top'
-}) => {
+const Tooltip = ({ children, text = '' }) => {
   const [hover, setHover] = useState(false);
   const [open, setOpen] = useState(false);
   const [timer, setTimer] = useState(null);
@@ -63,8 +58,8 @@ const Tooltip = ({
 
   const onResize = useCallback(() => {
     if (anchor)
-      setStyle(computeStyle({ anchor, horizontalAlign, verticalAlign }));
-  }, [anchor, horizontalAlign, verticalAlign]);
+      setStyle(computeStyle({ anchor }));
+  }, [anchor]);
 
   useEffect(() => {
     onResize();
@@ -124,7 +119,7 @@ const Tooltip = ({
           classNames='tooltip'
           unmountOnExit
         >
-          <Portal text={text} style={style}/>
+          <Portal text={text} style={style} />
         </CSSTransition>
       )}
     </>
@@ -142,17 +137,17 @@ export default Tooltip;
 
 const Portal = ({ text, style }) => {
   return createPortal(
-    <div
-      className='tooltip text_small'
-      style={style}
-    >
+    <div className='tooltip text_small' style={style}>
       {text}
     </div>,
     document.body
   );
 };
 
-const computeStyle = ({ anchor, horizontalAlign, verticalAlign }) => {
+const horizontalMargin = 200;
+const verticalMargin = 100;
+
+const computeStyle = ({ anchor }) => {
   const anchorBbox = anchor.getBoundingClientRect();
   const bodyBbox = document.body.getBoundingClientRect();
   const bbox = {
@@ -164,6 +159,18 @@ const computeStyle = ({ anchor, horizontalAlign, verticalAlign }) => {
     height: anchorBbox.height
   };
   const style = {};
+
+  let horizontalAlign = 'left';
+  let verticalAlign = 'top';
+
+  if (anchorBbox.left > window.innerWidth - horizontalMargin) {
+    horizontalAlign = 'right';
+    if (anchorBbox.left < horizontalMargin)
+      horizontalAlign = 'center';
+  }
+
+  if (anchorBbox.top < verticalMargin)
+    verticalAlign = 'bottom';
 
   switch (horizontalAlign) {
     case 'center':

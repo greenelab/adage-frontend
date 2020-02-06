@@ -22,7 +22,7 @@ let Table = ({ selected, deselect }) => (
         width: '30px',
         padded: false,
         render: (cell) => (
-          <Tooltip text='Deselect this gene' horizontalAlign='left'>
+          <Tooltip text='Deselect this gene'>
             <Button
               icon={<CrossIcon />}
               onClick={() => deselect({ id: cell.id })}
