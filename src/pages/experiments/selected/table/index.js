@@ -34,20 +34,17 @@ let Table = ({ samples, deselect }) => (
       {
         name: 'Genotype',
         value: 'genotype',
-        width: 'calc((100% - 60px) * 0.25)',
-        field: true
+        width: 'calc((100% - 60px) * 0.25)'
       },
       {
         name: 'Strain',
         value: 'strain',
-        width: 'calc((100% - 60px) * 0.10)',
-        field: true
+        width: 'calc((100% - 60px) * 0.10)'
       },
       {
         name: 'Description',
         value: 'description',
-        width: 'calc((100% - 60px) * 0.40)',
-        field: true
+        width: 'calc((100% - 60px) * 0.40)'
       }
     ]}
   />

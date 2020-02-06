@@ -46,8 +46,7 @@ let Table = ({ enrichedSignatures }) => (
         name: 'p-value',
         value: 'pValue',
         width: '25%',
-        align: 'center',
-        field: true
+        align: 'center'
       }
     ]}
     defaultSort={[{ id: 'pValue', desc: false }]}

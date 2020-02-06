@@ -47,14 +47,12 @@ let Table = ({ results, highlightedIndex, select }) => {
           name: 'Samples',
           value: (row) => row?.samples?.length,
           width: 'calc((100% - 30px) * 0.15)',
-          align: 'center',
-          field: true
+          align: 'center'
         },
         {
           name: 'Name',
           value: 'name',
-          width: 'calc((100% - 30px) * 0.6)',
-          field: true
+          width: 'calc((100% - 30px) * 0.6)'
         }
       ]}
       highlightedIndex={highlightedIndex}

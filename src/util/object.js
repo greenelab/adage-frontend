@@ -3,6 +3,7 @@ import decode from 'unescape';
 import { isString } from './types';
 import { isNumber } from './types';
 import { isObject } from './types';
+import { isFunction } from './types';
 import { toHumanCase } from './string';
 import { toCamelCase } from './string';
 
@@ -44,16 +45,23 @@ export const camelizeKeys = (object) => {
   return object;
 };
 
+export const normalizeValue = (value) => {
+  if (isNumber(value))
+    return value;
+  if (isString(value)) {
+    if (!value.trim())
+      return '-';
+    else
+      return decode(value);
+  }
+
+  return '-';
+};
+
 export const normalizeValues = (object) => {
   object = { ...object };
-  for (const [key, value] of Object.entries(object)) {
-    if (isNumber(value))
-      object[key] = value;
-    else if (isString(value))
-      object[key] = decode(value);
-    else
-      object[key] = '-';
-  }
+  for (const [key, value] of Object.entries(object))
+    object[key] = normalizeValue(value);
   return object;
 };
 

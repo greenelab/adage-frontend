@@ -7,8 +7,7 @@ import { useSortBy } from 'react-table';
 import Field from '../../components/field';
 import HorizontalLine from '../../components/horizontal-line';
 import { useBbox } from '../../util/hooks.js';
-import { isNumber } from '../../util/types.js';
-import { isString } from '../../util/types.js';
+import { normalizeValue } from '../../util/object.js';
 
 import { ReactComponent as Arrow } from '../../images/arrow.svg';
 
@@ -26,12 +25,12 @@ const Table = ({
   columns = columns.map((column) => ({
     Header: column.name,
     accessor: column.value,
+    customRender: column.render ? true : false,
     Cell: ({ row, cell }) =>
       column.render ? column.render(row.original) : String(cell.value),
     width: column.width,
     align: column.align,
-    padded: column.padded,
-    field: column.field ? true : false
+    padded: column.padded
   }));
 
   const {
@@ -116,13 +115,12 @@ const Table = ({
                 let contents = cell.render('Cell');
 
                 if (
-                  !isNumber(cell.value) &&
-                  !isString(cell.value) &&
-                  !cell.render
+                  normalizeValue(cell.value) === '-' &&
+                  !cell.column.customRender
                 )
                   contents = '-';
 
-                if (cell.column.field)
+                if (!cell.column.customRender)
                   contents = <Field>{contents}</Field>;
 
                 return (

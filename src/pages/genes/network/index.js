@@ -8,6 +8,7 @@ import { mapGene } from '../';
 import { isArray } from '../../../util/types.js';
 import { isString } from '../../../util/types.js';
 import { xor } from '../../../util/math.js';
+import { clean } from '../../../util/object.js';
 import Filters from './filters';
 import Graph from './graph';
 import Controls from './controls';
@@ -146,9 +147,15 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
 };
 
 const mapStateToProps = (state) => ({
-  list: state.gene.list,
-  selected: state.gene.selected,
-  edges: state.gene.edges
+  list: isArray(state.gene.list) ?
+    state.gene.list.map((gene) => clean(gene)) :
+    [],
+  selected: isArray(state.gene.selected) ?
+    state.gene.selected.map((gene) => clean(gene)) :
+    [],
+  edges: isArray(state.gene.edges) ?
+    state.gene.edges.map((gene) => clean(gene)) :
+    []
 });
 
 Network = connect(mapStateToProps)(Network);

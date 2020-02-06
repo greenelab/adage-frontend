@@ -18,3 +18,5 @@ export const isBlank = (value) =>
   isEmpty(value) ||
   value === '' ||
   Number.isNaN(value);
+
+export const isFunction = (value) => typeof value === 'function';
