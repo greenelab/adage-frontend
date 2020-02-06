@@ -6,7 +6,7 @@ import { mapExperiment } from '../../';
 
 import './index.css';
 
-const limit = 150;
+const limit = 200;
 
 let Details = ({ experiment }) => (
   <div className='experiment_selected_details'>
