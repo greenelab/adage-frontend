@@ -149,13 +149,13 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
 const mapStateToProps = (state) => ({
   list: isArray(state.gene.list) ?
     state.gene.list.map((gene) => clean(gene)) :
-    [],
+    state.gene.list,
   selected: isArray(state.gene.selected) ?
     state.gene.selected.map((gene) => clean(gene)) :
-    [],
+    state.gene.selected,
   edges: isArray(state.gene.edges) ?
     state.gene.edges.map((gene) => clean(gene)) :
-    []
+    state.gene.edges
 });
 
 Network = connect(mapStateToProps)(Network);

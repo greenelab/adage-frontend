@@ -10,7 +10,7 @@ import './index.css';
 
 const Nav = () => (
   <nav className='page_header_column'>
-    <Button icon={<GeneIcon />} text='GeneIcon' />
+    <Button icon={<GeneIcon />} text='Genes' />
     <Button icon={<ExperimentIcon />} text='Experiments' />
     <Button icon={<SignatureIcon />} text='Signatures' />
   </nav>
