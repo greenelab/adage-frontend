@@ -23,7 +23,7 @@ let Details = ({ experiment }) => (
       to={'/experiment/' + experiment.accession}
       newTab
       button={false}
-      text={experiment.accession || '-'}
+      text={experiment.accession}
     />
   </div>
 );

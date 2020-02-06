@@ -1,25 +1,29 @@
-import { isObject } from './types';
-import { humanizeString } from './string';
-import { camelizeString } from './string';
+import decode from 'unescape';
 
-export const flattenObject = (object) => {
+import { isString } from './types';
+import { isNumber } from './types';
+import { isObject } from './types';
+import { toHumanCase } from './string';
+import { toCamelCase } from './string';
+
+export const flatten = (object) => {
   if (!isObject(object))
     return object;
 
   let result = {};
   for (const [key, value] of Object.entries(object)) {
     if (isObject(value))
-      result = { ...result, ...flattenObject(value) };
+      result = { ...result, ...flatten(value) };
     else
       result[key] = value;
   }
   return result;
 };
 
-export const humanizeObject = (object) => {
+export const humanizeKeys = (object) => {
   object = { ...object };
   for (const key of Object.keys(object)) {
-    const newKey = humanizeString(key);
+    const newKey = toHumanCase(key);
     if (key !== newKey) {
       object[newKey] = object[key];
       delete object[key];
@@ -28,10 +32,10 @@ export const humanizeObject = (object) => {
   return object;
 };
 
-export const camelizeObject = (object) => {
+export const camelizeKeys = (object) => {
   object = { ...object };
   for (const key of Object.keys(object)) {
-    const newKey = camelizeString(key);
+    const newKey = toCamelCase(key);
     if (key !== newKey) {
       object[newKey] = object[key];
       delete object[key];
@@ -39,3 +43,22 @@ export const camelizeObject = (object) => {
   }
   return object;
 };
+
+export const normalizeValues = (object) => {
+  object = { ...object };
+  for (const [key, value] of Object.entries(object)) {
+    if (isNumber(value))
+      object[key] = value;
+    else if (isString(value))
+      object[key] = decode(value);
+    else
+      object[key] = '-';
+  }
+  return object;
+};
+
+export const clean = (object, human) =>
+  [flatten, human ? humanizeKeys : camelizeKeys, normalizeValues].reduce(
+    (object, func) => func(object),
+    object
+  );

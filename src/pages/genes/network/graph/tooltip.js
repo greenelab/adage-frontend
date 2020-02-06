@@ -66,12 +66,12 @@ export const closeTooltip = () => {
 };
 
 const mapGeneTooltip = (gene) => ({
-  'Standard Name': gene.standardName || '-',
-  'Systematic Name': gene.systematicName || '-',
-  'Entrez Id': gene.entrezId || '-',
-  'Description': gene.description || '-',
-  'Aliases': gene.aliases || '-',
-  'Organism': gene.organism || '-'
+  'Standard Name': gene.standardName,
+  'Systematic Name': gene.systematicName,
+  'Entrez Id': gene.entrezId,
+  'Description': gene.description,
+  'Aliases': gene.aliases,
+  'Organism': gene.organism
 });
 
 const mapEdgeTooltip = (link) => ({

@@ -137,7 +137,7 @@ const ResultButton = ({
         to={'/gene/' + id}
         newTab
         button={false}
-        text={standardName || '-'}
+        text={standardName}
       />
     </span>
     <span className='td' data-padded='true'>

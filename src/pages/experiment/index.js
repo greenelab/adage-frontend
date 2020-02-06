@@ -14,8 +14,7 @@ import FetchAlert from '../../components/fetch-alert';
 import { getExperimentDetails } from '../../actions/experiments.js';
 import { isObject } from '../../util/types.js';
 import { isString } from '../../util/types.js';
-import { humanizeObject } from '../../util/object.js';
-import { flattenObject } from '../../util/object.js';
+import { clean } from '../../util/object.js';
 
 import './index.css';
 
@@ -46,17 +45,17 @@ const mapStateToProps = (state) => {
   let details = state.experiment.details;
 
   if (isObject(details)) {
-    details = flattenObject(details);
-    if (details.samples) {
-      details.samples = (
+    details = clean(details, true);
+    if (details.Samples) {
+      details.Samples = (
         <>
-          {details.samples.map((sample, index) => (
+          {details.Samples.map((sample, index) => (
             <Fragment key={index}>
               <Link
                 to={'/sample/' + sample.id}
                 newTab
                 button={false}
-                text={sample.name || '-'}
+                text={sample.name}
               />
               <br />
             </Fragment>
@@ -64,7 +63,6 @@ const mapStateToProps = (state) => {
         </>
       );
     }
-    details = humanizeObject(details);
   }
 
   return { details };

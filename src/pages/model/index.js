@@ -12,8 +12,7 @@ import FetchAlert from '../../components/fetch-alert';
 import { getModelDetails } from '../../actions/models.js';
 import { isObject } from '../../util/types.js';
 import { isString } from '../../util/types.js';
-import { humanizeObject } from '../../util/object';
-import { flattenObject } from '../../util/object';
+import { clean } from '../../util/object';
 
 import './index.css';
 
@@ -44,7 +43,7 @@ const mapStateToProps = (state) => {
   let details = state.model.details;
 
   if (isObject(details))
-    details = humanizeObject(flattenObject(details));
+    details = clean(details, true);
 
   return { details };
 };

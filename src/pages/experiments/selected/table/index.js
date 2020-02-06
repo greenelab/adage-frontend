@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import Link from '../../../../components/link';
 import TableComponent from '../../../../components/table';
 
-import { camelizeObject } from '../../../../util/object.js';
-import { flattenObject } from '../../../../util/object.js';
+import { clean } from '../../../../util/object.js';
 
 import './index.css';
 
@@ -28,7 +27,7 @@ let Table = ({ samples, deselect }) => (
             to={'/sample/' + cell.id}
             newTab
             button={false}
-            text={cell.name || '-'}
+            text={cell.name}
           />
         )
       },
@@ -56,7 +55,7 @@ let Table = ({ samples, deselect }) => (
 
 const mapStateToProps = (state) => ({
   samples: (state.experiment.selected.samples || []).map((sample) =>
-    camelizeObject(flattenObject(sample))
+    clean(sample)
   )
 });
 

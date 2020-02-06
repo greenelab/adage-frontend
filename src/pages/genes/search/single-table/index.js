@@ -46,7 +46,7 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
               to={'/gene/' + cell.id}
               newTab
               button={false}
-              text={cell.standardName || '-'}
+              text={cell.standardName}
             />
           )
         },

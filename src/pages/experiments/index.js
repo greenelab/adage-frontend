@@ -6,9 +6,7 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Search from './search';
 import Selected from './selected';
-import { camelizeObject } from '../../util/object';
-import { humanizeObject } from '../../util/object';
-import { flattenObject } from '../../util/object';
+import { clean } from '../../util/object';
 
 import './index.css';
 
@@ -29,8 +27,6 @@ const Experiments = () => (
 
 export default Experiments;
 
-export const mapExperiment = (experiment) =>
-  camelizeObject(flattenObject(experiment));
+export const mapExperiment = (experiment) => clean(experiment);
 
-export const mapExperimentDownload = (experiment) =>
-  humanizeObject(flattenObject(experiment));
+export const mapExperimentDownload = (experiment) => clean(experiment, true);

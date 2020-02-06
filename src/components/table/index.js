@@ -7,6 +7,8 @@ import { useSortBy } from 'react-table';
 import Field from '../../components/field';
 import HorizontalLine from '../../components/horizontal-line';
 import { useBbox } from '../../util/hooks.js';
+import { isNumber } from '../../util/types.js';
+import { isString } from '../../util/types.js';
 
 import { ReactComponent as Arrow } from '../../images/arrow.svg';
 
@@ -25,7 +27,7 @@ const Table = ({
     Header: column.name,
     accessor: column.value,
     Cell: ({ row, cell }) =>
-      column.render ? column.render(row.original) : String(cell.value || '-'),
+      column.render ? column.render(row.original) : String(cell.value),
     width: column.width,
     align: column.align,
     padded: column.padded,
@@ -110,26 +112,36 @@ const Table = ({
               className='tr'
               data-shade={index === highlightedIndex}
             >
-              {row.cells.map((cell) => (
-                <span
-                  {...cell.getCellProps()}
-                  className='td'
-                  data-highlight={
-                    cell.column.id === row.original.highlightedField
-                  }
-                  data-padded={cell.column.padded === false ? false : true}
-                  style={{
-                    width: cell.column.width,
-                    justifyContent: cell.column.align
-                  }}
-                >
-                  {cell.column.field ? (
-                    <Field>{cell.render('Cell')}</Field>
-                  ) : (
-                    cell.render('Cell')
-                  )}
-                </span>
-              ))}
+              {row.cells.map((cell) => {
+                let contents = cell.render('Cell');
+
+                if (
+                  !isNumber(cell.value) &&
+                  !isString(cell.value) &&
+                  !cell.render
+                )
+                  contents = '-';
+
+                if (cell.column.field)
+                  contents = <Field>{contents}</Field>;
+
+                return (
+                  <span
+                    {...cell.getCellProps()}
+                    className='td'
+                    data-highlight={
+                      cell.column.id === row.original.highlightedField
+                    }
+                    data-padded={cell.column.padded === false ? false : true}
+                    style={{
+                      width: cell.column.width,
+                      justifyContent: cell.column.align
+                    }}
+                  >
+                    {contents}
+                  </span>
+                );
+              })}
             </div>
             {index < array.length - 1 && <HorizontalLine />}
           </Fragment>

@@ -39,13 +39,13 @@ let Table = ({ results, highlightedIndex, select }) => {
               to={'/experiment/' + cell.accession}
               newTab
               button={false}
-              text={cell.accession || '-'}
+              text={cell.accession}
             />
           )
         },
         {
           name: 'Samples',
-          value: (row) => row?.samples?.length || '-',
+          value: (row) => row?.samples?.length,
           width: 'calc((100% - 30px) * 0.15)',
           align: 'center',
           field: true

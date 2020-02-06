@@ -1,5 +1,5 @@
 // convert underscore_case and dash-case to Human Case
-export const humanizeString = (string) => {
+export const toHumanCase = (string) => {
   string = string.split(/_|-/);
   string = string.map(
     (word) => word.charAt(0).toUpperCase() + word.substring(1)
@@ -9,7 +9,7 @@ export const humanizeString = (string) => {
 };
 
 // convert underscore_case and dash-case to camelCase
-export const camelizeString = (string) => {
+export const toCamelCase = (string) => {
   string = string.split(/_|-/);
   string = string.map((word, index) =>
     index > 0 ? word.charAt(0).toUpperCase() + word.substring(1) : word
