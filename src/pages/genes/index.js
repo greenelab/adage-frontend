@@ -9,6 +9,10 @@ import Selected from './selected';
 import Enriched from './enriched';
 import Network from './network';
 
+import { camelizeObject } from '../../util/object.js';
+import { humanizeObject } from '../../util/object.js';
+import { flattenObject } from '../../util/object.js';
+
 import './index.css';
 
 const Genes = () => (
@@ -35,21 +39,9 @@ const Genes = () => (
 export default Genes;
 
 export const mapGene = (gene) => ({
-  id: gene.id,
-  standardName: gene.standard_name,
-  systematicName: gene.systematic_name,
+  ...camelizeObject(flattenObject(gene)),
   name: gene.standard_name || gene.systematic_name || gene.entrezid || '???',
-  entrezId: gene.entrezid,
-  description: gene.description,
-  aliases: gene.aliases,
-  organism: gene.organism
+  entrezId: gene.entrezid
 });
 
-export const mapGeneDownload = (gene) => ({
-  'Standard Name': gene.standard_name || '-',
-  'Systematic Name': gene.systematic_name || '-',
-  'Entrez Id': gene.entrezid || '-',
-  'Description': gene.description || '-',
-  'Aliases': gene.aliases || '-',
-  'Organism': gene.organism || '-'
-});
+export const mapGeneDownload = (gene) => humanizeObject(flattenObject(gene));

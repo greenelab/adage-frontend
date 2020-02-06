@@ -1,3 +1,5 @@
+import decode from 'unescape';
+
 export const downloadTsv = (data = [], filename = 'download') => {
   if (!data.length)
     return;
@@ -24,6 +26,7 @@ export const downloadTsv = (data = [], filename = 'download') => {
 };
 
 export const downloadSvg = (data, filename) => {
+  data = decode(data);
   const blob = new Blob([data], { type: 'image/svg+xml' });
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement('a');

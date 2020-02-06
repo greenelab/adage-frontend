@@ -40,7 +40,7 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'SELECT_EXPERIMENTS_FROM_URL':
       if (!payload.accession)
-        draft.selected = [];
+        draft.selected = {};
       else
         draft.selected = { accession: payload.accession };
       break;
@@ -50,7 +50,7 @@ const reducer = produce((draft, type, payload, meta) => {
         break;
       draft.selected = draft.list.find(
         (experiment) => experiment.accession === draft.selected.accession
-      );
+      ) || {};
       break;
 
     default:

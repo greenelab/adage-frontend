@@ -28,7 +28,8 @@ const Table = ({
       column.render ? column.render(row.original) : String(cell.value || '-'),
     width: column.width,
     align: column.align,
-    padded: column.padded
+    padded: column.padded,
+    field: column.field ? true : false
   }));
 
   const {
@@ -122,10 +123,10 @@ const Table = ({
                     justifyContent: cell.column.align
                   }}
                 >
-                  {cell.value === undefined ? (
-                    cell.render('Cell')
-                  ) : (
+                  {cell.column.field ? (
                     <Field>{cell.render('Cell')}</Field>
+                  ) : (
+                    cell.render('Cell')
                   )}
                 </span>
               ))}
