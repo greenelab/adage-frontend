@@ -8,6 +8,8 @@ import { ReactComponent as SignatureIcon } from '../../../images/signature.svg';
 
 import './index.css';
 
+// navigation bar
+
 const Nav = () => (
   <nav className='page_header_column'>
     <Button icon={<GeneIcon />} text='Genes' />

@@ -6,6 +6,8 @@ import './index.css';
 
 import packageJson from '../../../../package.json';
 
+// big header with logo on home page
+
 const Header = () => (
   <header className='home_header' title={packageJson.version}>
     <AdageLogo />

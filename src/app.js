@@ -41,17 +41,20 @@ console.log(process.env);
 console.log({ basename });
 console.groupEnd();
 
+// redux logger
 const logger = createLogger({ collapsed: true });
 
+// redux store
 const store = createStore(
   reducer,
   compose(applyMiddleware(sequenceAction, thunk, logger), querySync)
 );
 
+// entry point to the app
 const App = () => (
   <Provider store={store}>
+    <Controller />
     <Router basename={basename} history={history}>
-      <Controller />
       <Head />
       <Switch>
         <Route path='/genes' component={Genes} />

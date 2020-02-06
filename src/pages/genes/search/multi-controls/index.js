@@ -8,6 +8,8 @@ import Button from '../../../../components/button';
 
 import './index.css';
 
+// controls below multi search results
+
 let MultiControls = ({ selectFirst, deselectFirst }) => (
   <div className='gene_search_results_multi_controls'>
     <Tooltip text='Select the first result for each search term'>

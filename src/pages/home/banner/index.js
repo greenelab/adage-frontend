@@ -7,6 +7,8 @@ import { ReactComponent as ArrowIcon } from '../../../images/arrow.svg';
 
 import './index.css';
 
+// intro section above feature rows
+
 const Banner = ({ text }) => (
   <section>
     <div className='banner'>

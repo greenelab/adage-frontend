@@ -7,6 +7,8 @@ import Tooltip from '../tooltip';
 
 import './index.css';
 
+// generic link component
+
 let Link = ({
   location,
   match,

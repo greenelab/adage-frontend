@@ -4,6 +4,8 @@ import { ReactComponent as GreeneLabLogo } from '../../images/greene-lab-logo.sv
 
 import './index.css';
 
+// footer page component
+
 const Footer = () => (
   <footer>
     <GreeneLabLogo />

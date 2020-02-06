@@ -8,6 +8,8 @@ import './index.css';
 
 const limit = 200;
 
+// main details of selected experiment
+
 let Details = ({ experiment }) => (
   <div className='experiment_selected_details'>
     <div className='medium'>

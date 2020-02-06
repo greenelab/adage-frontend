@@ -4,6 +4,7 @@ import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
 
+// type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
   if (!isString(draft.details) && !isObject(draft.details))
     draft.details = {};
@@ -11,6 +12,7 @@ const typeCheck = (draft) => {
     draft.list = [];
 };
 
+// defines how state (redux store) changes in response to dispatched actions
 const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
@@ -23,7 +25,7 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.list = payload;
       break;
 
-    case 'SET_SELECTED_MODEL':
+    case 'SELECT_MODEL':
       if (payload.id)
         draft.selected = payload.id;
       else if (!draft.selected && isArray(draft.list) && draft.list.length)

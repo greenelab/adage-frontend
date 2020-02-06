@@ -6,6 +6,8 @@ import Link from '../../../../components/link';
 
 import './index.css';
 
+// header navigation bar button
+
 let Button = ({ location = {}, icon = <></>, text = '' }) => (
   <Link
     className='nav_button text_medium'

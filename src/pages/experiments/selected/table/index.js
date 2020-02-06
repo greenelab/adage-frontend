@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import Link from '../../../../components/link';
 import TableComponent from '../../../../components/table';
 
-import { clean } from '../../../../util/object';
+import { normalize } from '../../../../util/object';
 
 import './index.css';
+
+// table of samples for selected experiment
 
 let Table = ({ samples, deselect }) => (
   <TableComponent
@@ -53,7 +55,7 @@ let Table = ({ samples, deselect }) => (
 
 const mapStateToProps = (state) => ({
   samples: (state.experiment.selected.samples || []).map((sample) =>
-    clean(sample)
+    normalize(sample, false, 1)
   )
 });
 

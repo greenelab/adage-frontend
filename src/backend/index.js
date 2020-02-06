@@ -1,3 +1,5 @@
+// base fetch urls and options
+
 // local test server
 // export const server = 'http://127.0.0.1:8000/api/v1/';
 

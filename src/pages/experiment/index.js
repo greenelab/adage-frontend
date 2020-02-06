@@ -14,11 +14,13 @@ import FetchAlert from '../../components/fetch-alert';
 import { getExperimentDetails } from '../../actions/experiments';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { clean } from '../../util/object';
+import { normalize } from '../../util/object';
 
 import { ReactComponent as ExperimentIcon } from '../../images/experiment.svg';
 
 import './index.css';
+
+// experiment details page
 
 let Experiment = ({ match, details, getDetails }) => {
   const accession = match.params.accession;
@@ -54,7 +56,7 @@ const mapStateToProps = (state) => {
   let details = state.experiment.details;
 
   if (isObject(details)) {
-    details = clean(details, true);
+    details = normalize(details, true);
     if (details.Samples) {
       details.Samples = (
         <>

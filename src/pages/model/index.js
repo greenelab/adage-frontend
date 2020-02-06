@@ -12,11 +12,13 @@ import FetchAlert from '../../components/fetch-alert';
 import { getModelDetails } from '../../actions/models';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { clean } from '../../util/object';
+import { normalize } from '../../util/object';
 
 import { ReactComponent as ModelIcon } from '../../images/model.svg';
 
 import './index.css';
+
+// model details page
 
 let Model = ({ match, details, getDetails }) => {
   const id = match.params.id;
@@ -52,7 +54,7 @@ const mapStateToProps = (state) => {
   let details = state.model.details;
 
   if (isObject(details))
-    details = clean(details, true);
+    details = normalize(details, true);
 
   return { details };
 };

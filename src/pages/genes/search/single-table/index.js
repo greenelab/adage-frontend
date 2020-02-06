@@ -13,6 +13,8 @@ import { ReactComponent as UncheckedIcon } from '../../../../images/unchecked.sv
 
 import './index.css';
 
+// single search result table
+
 let Table = ({ results, highlightedIndex, select, deselect }) => {
   return (
     <TableComponent

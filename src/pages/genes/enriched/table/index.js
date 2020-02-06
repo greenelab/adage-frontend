@@ -8,6 +8,8 @@ import { mapGene } from '../../';
 
 import './index.css';
 
+// table of enriched signatures for selected genes
+
 let Table = ({ enrichedSignatures }) => (
   <TableComponent
     data={enrichedSignatures}

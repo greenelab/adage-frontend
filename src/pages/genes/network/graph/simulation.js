@@ -21,6 +21,7 @@ import {
 
 export let simulation;
 
+// create force/physics based simulation to detangle nodes
 export const initSimulation = () => {
   simulation = d3
     .forceSimulation()
@@ -46,6 +47,7 @@ export const initSimulation = () => {
     .on('end', onEnd);
 };
 
+// update simulation with new data and reheat
 export const updateSimulation = (reheat) => {
   if (!simulation)
     return;
@@ -59,6 +61,7 @@ export const updateSimulation = (reheat) => {
     simulation.restart();
 };
 
+// when simulation ticks forward
 const onTick = () => {
   positionLinkLines();
   positionLinkHighlights();
@@ -70,8 +73,10 @@ const onTick = () => {
     fitView();
 };
 
+// when simulation stops (reaches rest)
 const onEnd = () => {};
 
+// unpin all nodes by removing their fixed positions
 export const unpinAll = () => {
   nodeData.forEach((node) => {
     node.fx = null;
@@ -83,6 +88,7 @@ export const unpinAll = () => {
   simulation.alpha(1).restart();
 };
 
+// pin all nodes by fixing their positions
 export const pinAll = () => {
   nodeData.forEach((node) => {
     node.fx = node.x;

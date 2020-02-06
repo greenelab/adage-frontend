@@ -13,6 +13,8 @@ import { ReactComponent as SignatureIcon } from '../../images/signature.svg';
 
 import './index.css';
 
+// home page
+
 const Home = () => (
   <>
     <Header />

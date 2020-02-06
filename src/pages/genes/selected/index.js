@@ -7,6 +7,8 @@ import Controls from './controls';
 
 import './index.css';
 
+// genes selected section
+
 let Selected = ({ anySelected }) => (
   <>
     {anySelected === false && <Alert text='No genes selected' />}

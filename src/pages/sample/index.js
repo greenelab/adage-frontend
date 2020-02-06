@@ -14,11 +14,13 @@ import FetchAlert from '../../components/fetch-alert';
 import { getSampleDetails } from '../../actions/samples';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { clean } from '../../util/object';
+import { normalize } from '../../util/object';
 
 import { ReactComponent as SampleIcon } from '../../images/sample.svg';
 
 import './index.css';
+
+// sample details page
 
 let Sample = ({ match, details, getDetails }) => {
   const id = match.params.id;
@@ -54,7 +56,7 @@ const mapStateToProps = (state) => {
   let details = state.sample.details;
 
   if (isObject(details)) {
-    details = clean(details, true);
+    details = normalize(details, true, 1);
     if (details.Experiments) {
       details.Experiments = (
         <>

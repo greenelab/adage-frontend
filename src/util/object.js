@@ -6,13 +6,15 @@ import { isBlank } from './types';
 import { toHumanCase } from './string';
 import { toCamelCase } from './string';
 
+// flatten object to a certain depth
+// eg { a: 2, b: { c: 3 } } --> { a: 2, c: 3 }
 export const flatten = (object, depth = 0) => {
-  if (!isObject(object))
+  if (depth <= 0 || !isObject(object))
     return object;
 
   let result = {};
   for (const [key, value] of Object.entries(object)) {
-    if (isObject(value) && depth > 0)
+    if (isObject(value))
       result = { ...result, ...flatten(value, depth - 1) };
     else
       result[key] = value;
@@ -20,6 +22,7 @@ export const flatten = (object, depth = 0) => {
   return result;
 };
 
+// go through keys of object and convert to Human Case
 export const humanizeKeys = (object) => {
   object = { ...object };
   for (const key of Object.keys(object)) {
@@ -32,6 +35,7 @@ export const humanizeKeys = (object) => {
   return object;
 };
 
+// go through keys of object and convert to camelCase
 export const camelizeKeys = (object) => {
   object = { ...object };
   for (const key of Object.keys(object)) {
@@ -44,7 +48,8 @@ export const camelizeKeys = (object) => {
   return object;
 };
 
-export const normalizeValue = (value) => {
+// "clean" value. decode html within strings, show falsey values as a dash
+export const cleanValue = (value) => {
   if (isBlank(value))
     return '-';
 
@@ -58,15 +63,17 @@ export const normalizeValue = (value) => {
   return value;
 };
 
-export const normalizeValues = (object) => {
+// go through values of object and "clean" them
+export const cleanValues = (object) => {
   object = { ...object };
   for (const [key, value] of Object.entries(object))
-    object[key] = normalizeValue(value);
+    object[key] = cleanValue(value);
   return object;
 };
 
-export const clean = (object, human) =>
-  [flatten, human ? humanizeKeys : camelizeKeys, normalizeValues].reduce(
-    (object, func) => func(object),
+// flatten, case-ize, and clean object
+export const normalize = (object, human, depth) =>
+  [flatten, human ? humanizeKeys : camelizeKeys, cleanValues].reduce(
+    (object, func) => func(object, depth),
     object
   );

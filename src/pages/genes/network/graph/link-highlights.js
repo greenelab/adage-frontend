@@ -7,6 +7,8 @@ import { linkData } from './';
 
 import { strokeWidth } from './constants';
 
+// link highlight and mouse hitbox
+
 export const drawLinkHighlights = () => {
   const layer = d3.select('#graph_link_highlight_layer');
 

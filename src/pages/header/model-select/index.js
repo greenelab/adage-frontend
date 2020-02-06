@@ -15,6 +15,8 @@ import { ReactComponent as ModelIcon } from '../../../images/model.svg';
 
 import './index.css';
 
+// model select button and dropdown/popup
+
 let ModelSelect = ({ models }) => {
   const [buttonBbox, buttonRef] = useBbox();
   const [isOpen, setIsOpen] = useState(false);

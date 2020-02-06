@@ -4,6 +4,8 @@ import { linkData } from './';
 
 import { strokeWidth } from './constants';
 
+// stroked link lines
+
 export const drawLinkLines = () => {
   const layer = d3.select('#graph_link_line_layer');
 
@@ -17,6 +19,7 @@ export const drawLinkLines = () => {
     .attr('stroke', 'var(--green)')
     .attr(
       'stroke-width',
+      // base thickness on normalized weight (boosted and min-clamped)
       (d) => (0.1 + Math.pow(d.normalizedWeight, 4) * 0.9) * strokeWidth * 1.5
     )
     .style('pointer-events', 'none');

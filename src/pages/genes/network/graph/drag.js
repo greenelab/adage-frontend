@@ -7,6 +7,7 @@ export let dragHandler = () => null;
 
 export let dragging = false;
 
+// create drag handler
 export const initDragHandler = () => {
   dragHandler = d3
     .drag()
@@ -15,18 +16,21 @@ export const initDragHandler = () => {
     .on('end', onDragEnd);
 };
 
+// when drag starts
 export const onDragStart = () => {
   setAutoFit(false);
   simulation.alphaTarget(1).restart();
   dragging = true;
 };
 
+// during dragging
 export const onDrag = (d) => {
   d.fx = d3.event.x;
   d.fy = d3.event.y;
   dragging = true;
 };
 
+// when drag ends
 export const onDragEnd = () => {
   simulation.alphaTarget(0).restart();
   dragging = false;

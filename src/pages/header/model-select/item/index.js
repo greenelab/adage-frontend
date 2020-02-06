@@ -12,6 +12,8 @@ import { ReactComponent as InfoIcon } from '../../../../images/info.svg';
 
 import './index.css';
 
+// entry row in model select list
+
 const Item = ({
   onClick = () => null,
   selected = false,

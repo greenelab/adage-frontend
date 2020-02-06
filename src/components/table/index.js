@@ -7,11 +7,24 @@ import { useSortBy } from 'react-table';
 import Field from '../../components/field';
 import HorizontalLine from '../../components/horizontal-line';
 import { useBbox } from '../../util/hooks';
-import { normalizeValue } from '../../util/object';
+import { cleanValue } from '../../util/object';
 
 import { ReactComponent as ArrowIcon } from '../../images/arrow.svg';
 
 import './index.css';
+
+// table component
+// columns - [{name, value, render, width, align, padded}]
+//   name - name to display in column header
+//   value - value to use for sorting cell
+//   render - component to use for rendering cell
+//   width - css width of column
+//   align - css flex justify-content value
+//   padded - whether or not to pad cell
+// data - []
+// defaultSort - [{ id, desc }]
+// sortable - boolean
+// highlightedIndex - integer
 
 const Table = ({
   columns,
@@ -22,6 +35,7 @@ const Table = ({
 }) => {
   const [tbodyBbox, tbodyRef] = useBbox();
 
+  // map friendly names to rc-table names
   columns = columns.map((column) => ({
     Header: column.name,
     accessor: column.value,
@@ -33,6 +47,7 @@ const Table = ({
     padded: column.padded
   }));
 
+  // init table
   const {
     getTableProps,
     getTableBodyProps,
@@ -49,6 +64,7 @@ const Table = ({
     useSortBy
   );
 
+  // scroll highlighted row into view
   useEffect(() => {
     const element = document.querySelector('*[data-shade="true"]');
     if (element)
@@ -112,14 +128,17 @@ const Table = ({
               data-shade={index === highlightedIndex}
             >
               {row.cells.map((cell) => {
+                // render cell contents
                 let contents = cell.render('Cell');
 
+                // if cell value not component, make dash if blank
                 if (
-                  normalizeValue(cell.value) === '-' &&
+                  cleanValue(cell.value) === '-' &&
                   !cell.column.customRender
                 )
                   contents = '-';
 
+                // if cell value not component, wrap in Field
                 if (!cell.column.customRender)
                   contents = <Field>{contents}</Field>;
 

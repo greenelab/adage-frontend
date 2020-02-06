@@ -5,15 +5,17 @@ import { connect } from 'react-redux';
 
 import Item from '../item';
 import HorizontalLine from '../../../../components/horizontal-line';
-import { setSelectedModel } from '../../../../actions/models';
+import { selectModel } from '../../../../actions/models';
 
 import './index.css';
 
-let List = ({ models, setSelected }) => (
+// model select list
+
+let List = ({ models, select }) => (
   <>
     {models.map((model, index, array) => (
       <Fragment key={index}>
-        <Item onClick={() => setSelected({ id: model.id })} {...model} />
+        <Item onClick={() => select({ id: model.id })} {...model} />
         {index < array.length - 1 && <HorizontalLine />}
       </Fragment>
     ))}
@@ -25,7 +27,7 @@ List.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setSelected: (...args) => dispatch(setSelectedModel(...args))
+  select: (...args) => dispatch(selectModel(...args))
 });
 
 List = connect(null, mapDispatchToProps)(List);

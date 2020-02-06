@@ -7,6 +7,8 @@ import { ReactComponent as ArrowIcon } from '../../../images/arrow.svg';
 
 import './index.css';
 
+// feature row with video and summary text
+
 const Feature = ({ left, icon, header, text, to }) => {
   const video = (
     <div className='pane pane_first'>

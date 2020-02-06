@@ -7,6 +7,8 @@ import { nodeData } from './';
 
 import { fillA, fillB, fontSize } from './constants';
 
+// node text labels
+
 export const drawNodeLabels = () => {
   const layer = d3.select('#graph_node_label_layer');
 

@@ -9,6 +9,8 @@ import { mapGeneResult } from '../';
 
 import './index.css';
 
+// component to show below search box when doing a single search
+
 let Single = ({ results, highlightedIndex }) => (
   <>
     {isArray(results) && (

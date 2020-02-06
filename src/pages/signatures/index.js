@@ -6,6 +6,8 @@ import Footer from '../footer';
 
 import './index.css';
 
+// signatures page
+
 const Signatures = () => (
   <>
     <Header />

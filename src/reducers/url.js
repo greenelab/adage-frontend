@@ -1,11 +1,14 @@
 import reduxQuerySync from 'redux-query-sync';
 import { createBrowserHistory } from 'history';
 
+// basename to apply to all urls (eg "/adage-frontend")
 export const basename =
   process.env.REACT_APP_BASENAME || process.env.PUBLIC_URL || '/';
 
+// history object
 export const history = createBrowserHistory({ basename });
 
+// handle url <--> state (redux store) interface
 export const querySync = reduxQuerySync.enhancer({
   params: {
     model: {

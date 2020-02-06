@@ -12,6 +12,8 @@ import { ReactComponent as UnradioedIcon } from '../../../../images/unradioed.sv
 
 import './index.css';
 
+// single search result table
+
 let Table = ({ results, highlightedIndex, select }) => {
   return (
     <TableComponent

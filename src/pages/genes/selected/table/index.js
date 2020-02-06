@@ -12,6 +12,8 @@ import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
 
 import './index.css';
 
+// table of selected genes
+
 let Table = ({ selected, deselect }) => (
   <TableComponent
     data={selected}

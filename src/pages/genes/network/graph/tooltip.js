@@ -9,11 +9,17 @@ const delay = 100;
 
 export let tooltip;
 
+// create tooltip that triggers on d3 element hover
 export const initTooltip = () => {
   tooltip = tip()
     .attr('class', 'd3-tip')
+    // the html of the tooltip. since d3-tip does not accept react components,
+    // use server-side rendering function to convert component to html string
     .html((d) => renderToString(<Tooltip {...d} />))
+    // set tooltip offset from anchor element
     .offset((d, index, array) => {
+      // if tooltip for a link, put over midpoint of line, accounting for view
+      // zoom. otherwise, no offset.
       if (d.link) {
         return [
           (d3.zoomTransform(svg.node()).k * array[index].getBBox().height) / 2,
@@ -26,16 +32,14 @@ export const initTooltip = () => {
   svg.call(tooltip);
 };
 
+// tooltip component to render as string
+
 const Tooltip = (d) => {
   let fields = {};
   if (d.node)
     fields = { ...fields, ...mapGeneTooltip(d) };
   if (d.link)
     fields = { ...fields, ...mapEdgeTooltip(d) };
-  for (const [key, value] of Object.entries(fields)) {
-    if (value === '-')
-      delete fields[key];
-  }
 
   if (!Object.keys(fields).length)
     return <></>;
@@ -52,6 +56,7 @@ const Tooltip = (d) => {
 
 let timer;
 
+// when tooltip opens
 export const openTooltip = (...args) => {
   const [, index, array] = args;
   const thisArg = array[index];
@@ -60,6 +65,7 @@ export const openTooltip = (...args) => {
   timer = window.setTimeout(() => tooltip.show.apply(thisArg, args), delay);
 };
 
+// when tooltip closes
 export const closeTooltip = () => {
   window.clearTimeout(timer);
   tooltip.hide();

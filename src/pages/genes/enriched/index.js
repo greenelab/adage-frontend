@@ -9,6 +9,8 @@ import { isArray } from '../../../util/types';
 
 import './index.css';
 
+// genes enriched signatures section
+
 let Enriched = ({ enrichedSignatures }) => {
   return (
     <>

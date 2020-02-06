@@ -19,11 +19,16 @@ import { useBbox } from '../../../../util/hooks';
 
 import './index.css';
 
+// "global" var to conveniently access d3 selections of the svg and view
+// group layer
 export let svg;
 export let view;
 
+// "global" vars for node and link data
 export let nodeData = [];
 export let linkData = [];
+
+// graph network display component
 
 const Graph = ({ nodes, links }) => {
   const [mounted, setMounted] = useState(false);
@@ -33,28 +38,34 @@ const Graph = ({ nodes, links }) => {
   svg = d3.select('#graph');
   view = d3.select('#graph_view');
 
+  // reset auto fit
   useEffect(() => {
     setAutoFit(true);
   });
 
+  // set has mounted flag
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // only once, after first render
   useEffect(() => {
     if (!mounted)
       return;
 
+    // initialize graph
     initView();
     initSimulation();
     initDragHandler();
     initTooltip();
   }, [mounted]);
 
+  // fit view when graph container dimensions change
   useEffect(() => {
     fitView();
   }, [width, height]);
 
+  // update data, simulation, and scene elements on incoming data change
   useEffect(() => {
     if (!mounted)
       return;

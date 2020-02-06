@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
 import { downloadTsv } from '../../../../util/download';
-import { clean } from '../../../../util/object';
+import { normalize } from '../../../../util/object';
 
 import { ReactComponent as DownloadIcon } from '../../../../images/download.svg';
 
 import './index.css';
+
+// controls below selected experiment samples table
 
 let Controls = ({ samples }) => (
   <div className='experiment_selected_controls'>
@@ -24,7 +26,7 @@ let Controls = ({ samples }) => (
 
 const mapStateToProps = (state) => ({
   samples: (state.experiment.selected.samples || []).map((sample) =>
-    clean(sample, true)
+    normalize(sample, true)
   )
 });
 

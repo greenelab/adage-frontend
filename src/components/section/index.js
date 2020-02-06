@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import './index.css';
 
+// collapsible section with header button
+
 const Section = ({ header = '', children = <></> }) => {
   const [expanded, setExpanded] = useState(true);
 

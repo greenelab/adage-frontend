@@ -9,6 +9,8 @@ import { ReactComponent as LoadingIcon } from '../../images/loading.svg';
 
 import './index.css';
 
+// takes fetch action statuses and displays appropriate message and icon
+
 const FetchAlert = ({
   status = '',
   subject = '',

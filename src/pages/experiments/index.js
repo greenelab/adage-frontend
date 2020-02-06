@@ -6,9 +6,11 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Search from './search';
 import Selected from './selected';
-import { clean } from '../../util/object';
+import { normalize } from '../../util/object';
 
 import './index.css';
+
+// experiments page
 
 const Experiments = () => (
   <>
@@ -27,6 +29,6 @@ const Experiments = () => (
 
 export default Experiments;
 
-export const mapExperiment = (experiment) => clean(experiment);
+export const mapExperiment = (experiment) => normalize(experiment);
 
-export const mapExperimentDownload = (experiment) => clean(experiment, true);
+export const mapExperimentDownload = (experiment) => normalize(experiment, true);

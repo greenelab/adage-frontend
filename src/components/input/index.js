@@ -16,6 +16,8 @@ import './index.css';
 
 const debounceDelay = 200;
 
+// generic input component, capable of single line and multi-line input
+
 const Input = ({
   className = '',
   onChange = () => null,
@@ -30,33 +32,43 @@ const Input = ({
   multiTooltip = 'Switch to multi search',
   ...props
 }) => {
+  // internal state
   const [focused, setFocused] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [value, setValue] = useState('');
   const [debouncedValue] = useDebounce(value, debounceDelay);
 
-  const changeExpanded = (newExpanded) => {
-    let newValue = value;
-    if (!newExpanded && newValue.includes('\n')) {
-      newValue = newValue.split('\n')[0];
-      changeValue(newValue);
-    }
+  // change value state
+  const changeValue = useCallback(
+    (newValue) => {
+      if (expanded)
+        newValue = newValue.split(/[\t|\r|,||]/).join('\n');
+      else
+        newValue = newValue.split('\n')[0];
 
-    setExpanded(newExpanded);
-    onChangeExpanded(newExpanded);
-  };
+      setValue(newValue);
+    },
+    [expanded]
+  );
 
-  const changeValue = (newValue) => {
-    if (expanded)
-      newValue = newValue.split(/[\t|\r|,||]/).join('\n');
-    else
-      newValue = newValue.split('\n')[0];
+  // change expanded state
+  const changeExpanded = useCallback(
+    (newExpanded) => {
+      let newValue = value;
+      if (!newExpanded && newValue.includes('\n')) {
+        newValue = newValue.split('\n')[0];
+        changeValue(newValue);
+      }
 
-    setValue(newValue);
-  };
+      setExpanded(newExpanded);
+      onChangeExpanded(newExpanded);
+    },
+    [value, changeValue, onChangeExpanded]
+  );
 
   onChange = useCallback(onChange, []);
 
+  // call parent's onChange event after debouncing value
   useEffect(() => {
     onChange(debouncedValue);
   }, [onChange, debouncedValue]);

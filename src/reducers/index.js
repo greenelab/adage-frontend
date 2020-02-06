@@ -4,6 +4,9 @@ import experiments from './experiments';
 import samples from './samples';
 import signatures from './signatures';
 
+// master reducer
+// split into sub-reducers that handle one specific slice of state each
+
 const reducer = (state = {}, action = {}) => {
   const { type = '', payload = {}, meta = {} } = action;
   return {

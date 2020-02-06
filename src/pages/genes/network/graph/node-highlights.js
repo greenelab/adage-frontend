@@ -8,6 +8,8 @@ import { nodeData } from './';
 
 import { nodeRadius, strokeWidth } from './constants';
 
+// node highlight and mouse hitbox
+
 export const drawNodeHighlights = () => {
   const layer = d3.select('#graph_node_highlight_layer');
 

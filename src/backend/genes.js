@@ -1,6 +1,8 @@
 import { server } from '.';
 import { defaultLimit } from '.';
 
+// functions to generate urls to fetch gene-related data from
+
 const prefixA = 'gene/';
 const prefixB = 'participation/';
 const prefixC = 'edge/';

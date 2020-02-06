@@ -4,6 +4,8 @@ import { nodeData } from './';
 
 import { nodeRadius, fillA, fillB, stroke, strokeWidth } from './constants';
 
+// filled node circles
+
 export const drawNodeCircles = () => {
   const layer = d3.select('#graph_node_circle_layer');
 

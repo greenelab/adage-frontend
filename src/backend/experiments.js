@@ -1,6 +1,8 @@
 import { server } from '.';
 import { defaultLimit } from '.';
 
+// functions to generate urls to fetch experiment-related data from
+
 const prefix = 'experiment/';
 
 export const urlExperimentDetails = ({ accession }) => {

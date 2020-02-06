@@ -25,9 +25,12 @@ import './index.css';
 const collapsedResultLimit = 3;
 const expandedResultLimit = 5;
 
+// multi search result row
+
 let MultiRow = ({ search, select, deselect }) => {
   const [expanded, setExpanded] = useState(false);
 
+  // select/deselect gene on click of a result button
   const onClick = (result) =>
     (result.selected ? deselect : select)({ id: result.id });
 
@@ -43,6 +46,7 @@ let MultiRow = ({ search, select, deselect }) => {
   } else if (isArray(search.results)) {
     content = [];
     if (expanded) {
+      // if expanded, show table just like single search results
       content.push(
         <SingleTable
           key={content.length}
@@ -50,6 +54,7 @@ let MultiRow = ({ search, select, deselect }) => {
         />
       );
     } else {
+      // otherwise, show compact/minified results, horizontally
       search.results
         .slice(0, collapsedResultLimit)
         .forEach((result, index, array) => {
@@ -114,6 +119,8 @@ MultiRow.propTypes = {
 };
 
 export default MultiRow;
+
+// multi search result button
 
 const ResultButton = ({
   onClick = () => null,

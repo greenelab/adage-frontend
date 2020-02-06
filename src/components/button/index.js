@@ -4,6 +4,8 @@ import { forwardRef } from 'react';
 
 import './index.css';
 
+// general purpose button
+
 let Button = (props, ref) => {
   const { className = '', text, icon, flip = false, children, ...rest } = props;
 

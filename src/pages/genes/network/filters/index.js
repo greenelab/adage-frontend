@@ -9,6 +9,8 @@ import { ReactComponent as LinkIcon } from '../../../../images/link.svg';
 
 import './index.css';
 
+// filter controls above gene network graph
+
 let Filters = ({
   minEdgeWeightCutoff,
   selectedNodes,

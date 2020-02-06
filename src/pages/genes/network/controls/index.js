@@ -14,6 +14,8 @@ import { ReactComponent as DownloadIcon } from '../../../../images/download.svg'
 
 import './index.css';
 
+// controls below gene network graph
+
 const Controls = ({ nodes }) => (
   <>
     <div className='gene_network_controls'>

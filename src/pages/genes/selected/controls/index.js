@@ -12,6 +12,8 @@ import { ReactComponent as DownloadIcon } from '../../../../images/download.svg'
 
 import './index.css';
 
+// controls below selected genes table
+
 let Controls = ({ selected, deselectAll }) => (
   <div className='gene_selected_controls'>
     <Tooltip text='Deselect all genes'>

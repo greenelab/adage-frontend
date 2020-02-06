@@ -10,6 +10,8 @@ import { mapGeneResult } from '../';
 
 import './index.css';
 
+// component to show below search box when doing a multi search
+
 let Multi = ({ searches }) => (
   <>
     {searches.map((search, index, array) => (
