@@ -68,6 +68,13 @@ object-assign
  * @license  MIT
  */
 
+/*!
+ * is-extendable <https://github.com/jonschlinkert/is-extendable>
+ *
+ * Copyright (c) 2015, Jon Schlinkert.
+ * Licensed under the MIT License.
+ */
+
 /** @license React v16.12.0
  * react-dom-server.browser.production.min.js
  *
@@ -75,13 +82,6 @@ object-assign
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */
-
-/*!
- * is-extendable <https://github.com/jonschlinkert/is-extendable>
- *
- * Copyright (c) 2015, Jon Schlinkert.
- * Licensed under the MIT License.
  */
 
 /*! (c) Andrea Giammarchi - ISC */
