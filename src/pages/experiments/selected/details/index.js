@@ -24,6 +24,7 @@ let Details = ({ experiment }) => (
       newTab
       button={false}
       text={experiment.accession}
+      tooltip={'Open details page for experiment ' + experiment.accession}
     />
   </div>
 );

@@ -1,13 +1,13 @@
 import * as d3 from 'd3';
 
-import { positionLinkLines } from './link-lines.js';
-import { positionLinkHighlights } from './link-highlights.js';
-import { positionNodeCircles } from './node-circles.js';
-import { positionNodeHighlights } from './node-highlights.js';
-import { positionNodeLabels } from './node-labels.js';
-import { autoFit } from './view.js';
-import { setAutoFit } from './view.js';
-import { fitView } from './view.js';
+import { positionLinkLines } from './link-lines';
+import { positionLinkHighlights } from './link-highlights';
+import { positionNodeCircles } from './node-circles';
+import { positionNodeHighlights } from './node-highlights';
+import { positionNodeLabels } from './node-labels';
+import { autoFit } from './view';
+import { setAutoFit } from './view';
+import { fitView } from './view';
 
 import { nodeData } from './';
 import { linkData } from './';
@@ -17,7 +17,7 @@ import {
   nodeDistance,
   nodeRepulsion,
   centerForce
-} from './constants.js';
+} from './constants';
 
 export let simulation;
 

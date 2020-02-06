@@ -1,12 +1,12 @@
 import * as d3 from 'd3';
 
-import { dragHandler } from './drag.js';
-import { openTooltip } from './tooltip.js';
-import { closeTooltip } from './tooltip.js';
+import { dragHandler } from './drag';
+import { openTooltip } from './tooltip';
+import { closeTooltip } from './tooltip';
 
 import { nodeData } from './';
 
-import { nodeRadius, strokeWidth } from './constants.js';
+import { nodeRadius, strokeWidth } from './constants';
 
 export const drawNodeHighlights = () => {
   const layer = d3.select('#graph_node_highlight_layer');

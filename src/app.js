@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import sequenceAction from 'redux-sequence-action';
 import { createLogger } from 'redux-logger';
 
-import Controller from './controller.js';
+import Controller from './controller';
 import Head from './pages/head';
 import Home from './pages/home';
 import Genes from './pages/genes';
@@ -22,13 +22,13 @@ import Gene from './pages/gene';
 import Experiment from './pages/experiment';
 import Sample from './pages/sample';
 import reducer from './reducers';
-import { basename } from './reducers/url.js';
-import { history } from './reducers/url.js';
-import { querySync } from './reducers/url.js';
+import { basename } from './reducers/url';
+import { history } from './reducers/url';
+import { querySync } from './reducers/url';
 
 import packageJson from './../package.json';
 
-import './util/debug.js';
+import './util/debug';
 
 import './app.css';
 

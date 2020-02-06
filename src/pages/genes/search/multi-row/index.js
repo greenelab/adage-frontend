@@ -11,10 +11,10 @@ import FetchAlert from '../../../../components/fetch-alert';
 import Button from '../../../../components/button';
 import HorizontalLine from '../../../../components/horizontal-line';
 import VerticalLine from '../../../../components/vertical-line';
-import { selectGene } from '../../../../actions/genes.js';
-import { deselectGene } from '../../../../actions/genes.js';
-import { isString } from '../../../../util/types.js';
-import { isArray } from '../../../../util/types.js';
+import { selectGene } from '../../../../actions/genes';
+import { deselectGene } from '../../../../actions/genes';
+import { isString } from '../../../../util/types';
+import { isArray } from '../../../../util/types';
 
 import { ReactComponent as Checked } from '../../../../images/checked.svg';
 import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
@@ -138,6 +138,7 @@ const ResultButton = ({
         newTab
         button={false}
         text={standardName}
+        tooltip={'Open details page for gene ' + standardName}
       />
     </span>
     <span className='td' data-padded='true'>

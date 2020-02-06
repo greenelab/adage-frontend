@@ -22,6 +22,7 @@ let Table = ({ enrichedSignatures }) => (
             newTab
             button={false}
             text={cell.name}
+            tooltip={'Open details page for signature ' + cell.name}
           />
         )
       },
@@ -37,6 +38,7 @@ let Table = ({ enrichedSignatures }) => (
                 newTab
                 button={false}
                 text={gene.name}
+                tooltip={'Open details page for gene ' + gene.name}
               />
               &nbsp;
             </Fragment>

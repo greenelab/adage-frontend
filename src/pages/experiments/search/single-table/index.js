@@ -5,7 +5,7 @@ import Tooltip from '../../../../components/tooltip';
 import Link from '../../../../components/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
-import { selectExperiment } from '../../../../actions/experiments.js';
+import { selectExperiment } from '../../../../actions/experiments';
 
 import { ReactComponent as Radioed } from '../../../../images/radioed.svg';
 import { ReactComponent as Unradioed } from '../../../../images/unradioed.svg';
@@ -40,6 +40,7 @@ let Table = ({ results, highlightedIndex, select }) => {
               newTab
               button={false}
               text={cell.accession}
+              tooltip={'Open details page for experiment ' + cell.accession}
             />
           )
         },

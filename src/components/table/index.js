@@ -6,8 +6,8 @@ import { useSortBy } from 'react-table';
 
 import Field from '../../components/field';
 import HorizontalLine from '../../components/horizontal-line';
-import { useBbox } from '../../util/hooks.js';
-import { normalizeValue } from '../../util/object.js';
+import { useBbox } from '../../util/hooks';
+import { normalizeValue } from '../../util/object';
 
 import { ReactComponent as Arrow } from '../../images/arrow.svg';
 

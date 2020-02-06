@@ -2,10 +2,10 @@ import React from 'react';
 
 import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
-import { fitView } from '../graph/view.js';
-import { unpinAll } from '../graph/simulation.js';
-import { pinAll } from '../graph/simulation.js';
-import { download } from './download.js';
+import { fitView } from '../graph/view';
+import { unpinAll } from '../graph/simulation';
+import { pinAll } from '../graph/simulation';
+import { download } from './download';
 
 import { ReactComponent as Fit } from '../../../../images/fit.svg';
 import { ReactComponent as Unpin } from '../../../../images/unpin.svg';

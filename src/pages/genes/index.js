@@ -9,7 +9,7 @@ import Selected from './selected';
 import Enriched from './enriched';
 import Network from './network';
 
-import { clean } from '../../util/object.js';
+import { clean } from '../../util/object';
 
 import './index.css';
 
@@ -17,16 +17,16 @@ const Genes = () => (
   <>
     <Header />
     <Main>
-      <Section text='Gene Search'>
+      <Section header='Gene Search'>
         <Search />
       </Section>
-      <Section text='Selected Genes'>
+      <Section header='Selected Genes'>
         <Selected />
       </Section>
-      <Section text='Enriched Signatures'>
+      <Section header='Enriched Signatures'>
         <Enriched />
       </Section>
-      <Section text='Gene Network'>
+      <Section header='Gene Network'>
         <Network />
       </Section>
     </Main>

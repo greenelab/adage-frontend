@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { deselectAllGenes } from '../../../../actions/genes.js';
+import { deselectAllGenes } from '../../../../actions/genes';
 import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
-import { downloadTsv } from '../../../../util/download.js';
+import { downloadTsv } from '../../../../util/download';
 import { mapGeneDownload } from '../../';
 
 import { ReactComponent as Cross } from '../../../../images/cross.svg';

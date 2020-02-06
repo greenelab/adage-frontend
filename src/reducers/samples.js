@@ -1,7 +1,7 @@
 import produce from 'immer';
 
-import { isString } from '../util/types.js';
-import { isObject } from '../util/types.js';
+import { isString } from '../util/types';
+import { isObject } from '../util/types';
 
 const typeCheck = (draft) => {
   if (!isString(draft.details) && !isObject(draft.details))

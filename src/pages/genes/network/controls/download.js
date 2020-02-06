@@ -1,5 +1,5 @@
 import { svg } from '../graph';
-import { downloadSvg } from '../../../../util/download.js';
+import { downloadSvg } from '../../../../util/download';
 
 export const download = () => {
   const clone = svg.node().cloneNode(true);

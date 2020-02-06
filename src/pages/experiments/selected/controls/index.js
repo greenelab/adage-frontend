@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
-import { downloadTsv } from '../../../../util/download.js';
+import { downloadTsv } from '../../../../util/download';
 import { clean } from '../../../../util/object';
 
 import { ReactComponent as Download } from '../../../../images/download.svg';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { actionStatuses } from '../../actions/fetch.js';
+import { actionStatuses } from '../../actions/fetch';
 import Field from '../../components/field';
 
 import { ReactComponent as Alert } from '../../images/alert.svg';

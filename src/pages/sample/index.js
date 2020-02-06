@@ -11,10 +11,12 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getSampleDetails } from '../../actions/samples.js';
-import { isObject } from '../../util/types.js';
-import { isString } from '../../util/types.js';
-import { clean } from '../../util/object.js';
+import { getSampleDetails } from '../../actions/samples';
+import { isObject } from '../../util/types';
+import { isString } from '../../util/types';
+import { clean } from '../../util/object';
+
+import { ReactComponent as SampleIcon } from '../../images/samples.svg';
 
 import './index.css';
 
@@ -29,7 +31,14 @@ let Sample = ({ match, details, getDetails }) => {
     <>
       <Header justTitle />
       <Main>
-        <Section text='Sample Details'>
+        <Section
+          header={
+            <>
+              <SampleIcon />
+              <span>Sample Details</span>
+            </>
+          }
+        >
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
             <FetchAlert status={details} subject='sample details' />
@@ -56,6 +65,7 @@ const mapStateToProps = (state) => {
                 newTab
                 button={false}
                 text={experiment}
+                tooltip={'Open details page for experiment ' + experiment}
               />
               <br />
             </Fragment>

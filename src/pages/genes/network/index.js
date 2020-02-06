@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 
 import FetchAlert from '../../../components/fetch-alert';
 import { mapGene } from '../';
-import { isArray } from '../../../util/types.js';
-import { isString } from '../../../util/types.js';
-import { xor } from '../../../util/math.js';
-import { clean } from '../../../util/object.js';
+import { isArray } from '../../../util/types';
+import { isString } from '../../../util/types';
+import { xor } from '../../../util/math';
+import { clean } from '../../../util/object';
 import Filters from './filters';
 import Graph from './graph';
 import Controls from './controls';

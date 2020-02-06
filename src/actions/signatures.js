@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
-import { createFetchAction } from './fetch.js';
+import { createFetchAction } from './fetch';
 
-import { urlSignatureDetails } from '../backend/signatures.js';
-import { urlSignatureList } from '../backend/signatures.js';
+import { urlSignatureDetails } from '../backend/signatures';
+import { urlSignatureList } from '../backend/signatures';
 
 export const getSignatureDetails = createFetchAction(
   'GET_SIGNATURE_DETAILS',

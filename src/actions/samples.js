@@ -1,6 +1,6 @@
-import { createFetchAction } from './fetch.js';
+import { createFetchAction } from './fetch';
 
-import { urlSampleDetails } from '../backend/samples.js';
+import { urlSampleDetails } from '../backend/samples';
 
 export const getSampleDetails = createFetchAction(
   'GET_SAMPLE_DETAILS',

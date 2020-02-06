@@ -20,6 +20,9 @@ section[data-expanded='false'] {
 .section_header:hover {
   color: var(--green);
 }
+.section_header > svg {
+  margin-right: 10px;
+}
 .section_header:before,
 .section_header:after {
   content: '';

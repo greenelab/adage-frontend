@@ -19,7 +19,7 @@ config.optimization.runtimeChunk = false;
 config.output.publicPath = process.env.REACT_APP_BASENAME || '/';
 
 // JS
-config.output.filename = 'static/js/main.js';
+config.output.filename = 'static/js/main';
 // CSS. "5" is MiniCssPlugin
 config.plugins[5].options.filename = 'static/css/main.css';
 config.plugins[5].options.moduleFilename = () => 'static/css/main.css';

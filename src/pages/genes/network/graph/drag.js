@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
-import { simulation } from './simulation.js';
-import { setAutoFit } from './view.js';
+import { simulation } from './simulation';
+import { setAutoFit } from './view';
 
 export let dragHandler = () => null;
 

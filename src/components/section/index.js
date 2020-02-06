@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import './index.css';
 
-const Section = ({ text = '', children = <></> }) => {
+const Section = ({ header = '', children = <></> }) => {
   const [expanded, setExpanded] = useState(true);
 
   const onClick = () => setExpanded(!expanded);
@@ -22,7 +22,7 @@ const Section = ({ text = '', children = <></> }) => {
         onClick={onClick}
         tabIndex='0'
       >
-        {text}
+        {header}
       </div>
       <section data-expanded={expanded}>{children}</section>
     </>
@@ -30,7 +30,7 @@ const Section = ({ text = '', children = <></> }) => {
 };
 Section.propTypes = {
   children: PropTypes.node,
-  text: PropTypes.string.isRequired
+  header: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired
 };
 
 export default Section;

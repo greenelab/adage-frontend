@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Link from '../../../../components/link';
 import TableComponent from '../../../../components/table';
 
-import { clean } from '../../../../util/object.js';
+import { clean } from '../../../../util/object';
 
 import './index.css';
 
@@ -28,6 +28,7 @@ let Table = ({ samples, deselect }) => (
             newTab
             button={false}
             text={cell.name}
+            tooltip={'Open details page for sample ' + cell.name}
           />
         )
       },

@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 import { linkData } from './';
 
-import { strokeWidth } from './constants.js';
+import { strokeWidth } from './constants';
 
 export const drawLinkLines = () => {
   const layer = d3.select('#graph_link_line_layer');

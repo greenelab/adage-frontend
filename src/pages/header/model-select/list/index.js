@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Item from '../item';
 import HorizontalLine from '../../../../components/horizontal-line';
-import { setSelectedModel } from '../../../../actions/models.js';
+import { setSelectedModel } from '../../../../actions/models';
 
 import './index.css';
 

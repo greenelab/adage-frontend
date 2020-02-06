@@ -1,9 +1,9 @@
 import { createAction } from 'redux-actions';
-import { createFetchAction } from './fetch.js';
+import { createFetchAction } from './fetch';
 
-import { urlExperimentDetails } from '../backend/experiments.js';
-import { urlExperimentList } from '../backend/experiments.js';
-import { urlExperimentSearch } from '../backend/experiments.js';
+import { urlExperimentDetails } from '../backend/experiments';
+import { urlExperimentList } from '../backend/experiments';
+import { urlExperimentSearch } from '../backend/experiments';
 
 export const getExperimentDetails = createFetchAction(
   'GET_EXPERIMENT_DETAILS',

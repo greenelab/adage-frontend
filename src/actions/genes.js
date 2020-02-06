@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
-import { createFetchAction } from './fetch.js';
+import { createFetchAction } from './fetch';
 
-import { urlGeneDetails } from '../backend/genes.js';
-import { urlGeneList } from '../backend/genes.js';
-import { urlGeneSearch } from '../backend/genes.js';
-import { urlGeneEnrichedSignatures } from '../backend/genes.js';
-import { urlGeneEdges } from '../backend/genes.js';
+import { urlGeneDetails } from '../backend/genes';
+import { urlGeneList } from '../backend/genes';
+import { urlGeneSearch } from '../backend/genes';
+import { urlGeneEnrichedSignatures } from '../backend/genes';
+import { urlGeneEdges } from '../backend/genes';
 
 export const getGeneDetails = createFetchAction(
   'GET_GENE_DETAILS',

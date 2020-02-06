@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 import SearchComponent from '../../../components/search';
 import Single from './single';
-import { getExperimentSearch } from '../../../actions/experiments.js';
-import { selectExperiment } from '../../../actions/experiments.js';
-import { isArray } from '../../../util/types.js';
-import { isSelected } from '../../../reducers/experiments.js';
+import { getExperimentSearch } from '../../../actions/experiments';
+import { selectExperiment } from '../../../actions/experiments';
+import { isArray } from '../../../util/types';
+import { isSelected } from '../../../reducers/experiments';
 import { mapExperiment } from '../';
 
 import './index.css';

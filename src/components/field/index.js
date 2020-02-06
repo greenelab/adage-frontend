@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Tooltip from '../tooltip';
-import { useInnerText } from '../../util/hooks.js';
+import { useInnerText } from '../../util/hooks';
 
 import './index.css';
 

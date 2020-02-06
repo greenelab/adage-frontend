@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 import sizeof from 'object-sizeof';
 
-// import { sleep } from '../util/debug.js';
-import { isEmpty } from '../util/types.js';
+// import { sleep } from '../util/debug';
+import { isEmpty } from '../util/types';
 
 // replacement for redux-thunk-actions
 // provide the "cancelType" prop to any action made by this creator

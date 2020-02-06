@@ -19,6 +19,7 @@ let Link = ({
   icon,
   button = true,
   flip = false,
+  tooltip = '',
   children,
   ...props
 }) => {
@@ -44,7 +45,7 @@ let Link = ({
   }
 
   return (
-    <Tooltip text={'View full details of ' + text}>
+    <Tooltip text={tooltip}>
       <RouterLink
         className={
           'clickable nowrap ' + (!icon ? 'field nowrap' : '') + ' ' + className
@@ -72,6 +73,7 @@ Link.propTypes = {
   icon: PropTypes.element,
   button: PropTypes.bool,
   flip: PropTypes.bool,
+  tooltip: PropTypes.string,
   children: PropTypes.node
 };
 

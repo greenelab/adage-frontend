@@ -7,9 +7,9 @@ import Button from '../../../components/button';
 import Popup from '../../../components/popup';
 import FetchAlert from '../../../components/fetch-alert';
 import List from './list';
-import { useBbox } from '../../../util/hooks.js';
-import { isArray } from '../../../util/types.js';
-import { isString } from '../../../util/types.js';
+import { useBbox } from '../../../util/hooks';
+import { isArray } from '../../../util/types';
+import { isString } from '../../../util/types';
 
 import { ReactComponent as Model } from '../../../images/model.svg';
 

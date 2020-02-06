@@ -11,10 +11,12 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getExperimentDetails } from '../../actions/experiments.js';
-import { isObject } from '../../util/types.js';
-import { isString } from '../../util/types.js';
-import { clean } from '../../util/object.js';
+import { getExperimentDetails } from '../../actions/experiments';
+import { isObject } from '../../util/types';
+import { isString } from '../../util/types';
+import { clean } from '../../util/object';
+
+import { ReactComponent as ExperimentIcon } from '../../images/experiments.svg';
 
 import './index.css';
 
@@ -29,7 +31,14 @@ let Experiment = ({ match, details, getDetails }) => {
     <>
       <Header justTitle />
       <Main>
-        <Section text='Experiment Details'>
+        <Section
+          header={
+            <>
+              <ExperimentIcon />
+              <span>Experiment Details</span>
+            </>
+          }
+        >
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
             <FetchAlert status={details} subject='experiment details' />
@@ -56,6 +65,7 @@ const mapStateToProps = (state) => {
                 newTab
                 button={false}
                 text={sample.name}
+                tooltip={'Open details page for sample ' + sample.name}
               />
               <br />
             </Fragment>

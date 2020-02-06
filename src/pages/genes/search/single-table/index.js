@@ -5,8 +5,8 @@ import Tooltip from '../../../../components/tooltip';
 import Link from '../../../../components/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
-import { selectGene } from '../../../../actions/genes.js';
-import { deselectGene } from '../../../../actions/genes.js';
+import { selectGene } from '../../../../actions/genes';
+import { deselectGene } from '../../../../actions/genes';
 
 import { ReactComponent as Checked } from '../../../../images/checked.svg';
 import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
@@ -47,6 +47,7 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
               newTab
               button={false}
               text={cell.standardName}
+              tooltip={'Open details page for gene ' + cell.standardName}
             />
           )
         },

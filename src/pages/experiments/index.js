@@ -14,10 +14,10 @@ const Experiments = () => (
   <>
     <Header />
     <Main>
-      <Section text='Experiment Search'>
+      <Section header='Experiment Search'>
         <Search />
       </Section>
-      <Section text='Selected Experiment'>
+      <Section header='Selected Experiment'>
         <Selected />
       </Section>
     </Main>

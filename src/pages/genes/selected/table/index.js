@@ -5,7 +5,7 @@ import Tooltip from '../../../../components/tooltip';
 import Link from '../../../../components/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
-import { deselectGene } from '../../../../actions/genes.js';
+import { deselectGene } from '../../../../actions/genes';
 import { mapGene } from '../../';
 
 import { ReactComponent as Cross } from '../../../../images/cross.svg';
@@ -40,6 +40,7 @@ let Table = ({ selected, deselect }) => (
             newTab
             button={false}
             text={cell.standardName}
+            tooltip={'Open details page for gene ' + cell.standardName}
           />
         )
       },

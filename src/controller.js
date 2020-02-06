@@ -2,16 +2,16 @@ import React from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { getModelList } from './actions/models.js';
-import { getGeneList } from './actions/genes.js';
-import { getExperimentList } from './actions/experiments.js';
-import { getSignatureList } from './actions/signatures.js';
-import { getGeneSelectedDetails } from './actions/genes.js';
-import { getExperimentSelectedDetails } from './actions/experiments.js';
-import { setSelectedModel } from './actions/models.js';
-import { getGeneEnrichedSignatures } from './actions/genes.js';
-import { getGeneEdges } from './actions/genes.js';
-import { isArray } from './util/types.js';
+import { getModelList } from './actions/models';
+import { getGeneList } from './actions/genes';
+import { getExperimentList } from './actions/experiments';
+import { getSignatureList } from './actions/signatures';
+import { getGeneSelectedDetails } from './actions/genes';
+import { getExperimentSelectedDetails } from './actions/experiments';
+import { setSelectedModel } from './actions/models';
+import { getGeneEnrichedSignatures } from './actions/genes';
+import { getGeneEdges } from './actions/genes';
+import { isArray } from './util/types';
 
 const MAX_INT = 9999999;
 

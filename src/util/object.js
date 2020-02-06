@@ -1,20 +1,19 @@
 import decode from 'unescape';
 
 import { isString } from './types';
-import { isNumber } from './types';
 import { isObject } from './types';
-import { isFunction } from './types';
+import { isBlank } from './types';
 import { toHumanCase } from './string';
 import { toCamelCase } from './string';
 
-export const flatten = (object) => {
+export const flatten = (object, depth = 0) => {
   if (!isObject(object))
     return object;
 
   let result = {};
   for (const [key, value] of Object.entries(object)) {
-    if (isObject(value))
-      result = { ...result, ...flatten(value) };
+    if (isObject(value) && depth > 0)
+      result = { ...result, ...flatten(value, depth - 1) };
     else
       result[key] = value;
   }
@@ -46,8 +45,9 @@ export const camelizeKeys = (object) => {
 };
 
 export const normalizeValue = (value) => {
-  if (isNumber(value))
-    return value;
+  if (isBlank(value))
+    return '-';
+
   if (isString(value)) {
     if (!value.trim())
       return '-';
@@ -55,7 +55,7 @@ export const normalizeValue = (value) => {
       return decode(value);
   }
 
-  return '-';
+  return value;
 };
 
 export const normalizeValues = (object) => {

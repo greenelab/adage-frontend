@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-import { fitPadding, minZoom, maxZoom } from './constants.js';
+import { fitPadding, minZoom, maxZoom } from './constants';
 import { svg } from './';
 import { view } from './';
 
