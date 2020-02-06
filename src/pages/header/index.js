@@ -6,6 +6,8 @@ import Right from './right';
 
 import './index.css';
 
+// header page component
+
 const Header = ({ justTitle }) => (
   <header className='page_header'>
     <Title />

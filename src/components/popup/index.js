@@ -6,6 +6,8 @@ import './index.css';
 
 const distance = 10;
 
+// popup component
+
 const Popup = ({ isOpen, ...props }) => {
   if (isOpen)
     return createPortal(<Portal {...props} />, document.body);
@@ -21,6 +23,8 @@ Popup.propTypes = {
 };
 
 export default Popup;
+
+// append popup to body, not app root
 
 const Portal = ({
   anchorBbox = {},

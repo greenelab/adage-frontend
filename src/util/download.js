@@ -1,5 +1,7 @@
 import decode from 'unescape';
 
+// download data as .tsv file
+// data - [{key: value, key: value}, {key: value, key: value}]
 export const downloadTsv = (data = [], filename = 'download') => {
   if (!data.length)
     return;
@@ -25,6 +27,8 @@ export const downloadTsv = (data = [], filename = 'download') => {
   link.remove();
 };
 
+// download data as .svg file
+// data - svg/html markdown
 export const downloadSvg = (data, filename) => {
   data = decode(data);
   const blob = new Blob([data], { type: 'image/svg+xml' });

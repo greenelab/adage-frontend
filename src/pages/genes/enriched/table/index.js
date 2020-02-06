@@ -8,6 +8,8 @@ import { mapGene } from '../../';
 
 import './index.css';
 
+// table of enriched signatures for selected genes
+
 let Table = ({ enrichedSignatures }) => (
   <TableComponent
     data={enrichedSignatures}
@@ -22,6 +24,7 @@ let Table = ({ enrichedSignatures }) => (
             newTab
             button={false}
             text={cell.name}
+            tooltip={'Open details page for signature ' + cell.name}
           />
         )
       },
@@ -37,6 +40,7 @@ let Table = ({ enrichedSignatures }) => (
                 newTab
                 button={false}
                 text={gene.name}
+                tooltip={'Open details page for gene ' + gene.name}
               />
               &nbsp;
             </Fragment>
@@ -46,8 +50,7 @@ let Table = ({ enrichedSignatures }) => (
         name: 'p-value',
         value: 'pValue',
         width: '25%',
-        align: 'center',
-        field: true
+        align: 'center'
       }
     ]}
     defaultSort={[{ id: 'pValue', desc: false }]}

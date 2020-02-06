@@ -2,20 +2,35 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useEffect } from 'react';
 
+// headless helper component to set document/tab title
+
 let Head = ({ location }) => {
   useEffect(() => {
-    const path = location.pathname.slice(1);
-    const selected = (
-      new URLSearchParams(location.search).get('selected') || ''
-    )
+    // get page name (eg genes)
+    const page = location.pathname
+      .split('/')
+      .filter((segment) => segment.trim())[0];
+
+    // get selected items from url
+    const genes = (new URLSearchParams(location.search).get('genes') || '')
       .split('-')
       .filter((id) => id).length;
-    let params;
-    if (selected)
-      params = selected + ' selected';
+    const experiments =
+      new URLSearchParams(location.search).get('experiments') || '';
 
-    const title = ['Adage', path, params].filter((entry) => entry).join(' · ');
+    // make params string based on selected items
+    const params = [];
+    if (genes)
+      params.push(genes + ' selected');
+    if (experiments)
+      params.push(experiments);
 
+    // concat page and params into final title
+    const title = ['Adage', page, ...params]
+      .filter((entry) => entry)
+      .join(' · ');
+
+    // set title
     document.title = title;
   }, [location]);
 

@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Tooltip from '../../../../components/tooltip';
-import { selectFirstGenes } from '../../../../actions/genes.js';
-import { deselectFirstGenes } from '../../../../actions/genes.js';
+import { selectFirstGenes } from '../../../../actions/genes';
+import { deselectFirstGenes } from '../../../../actions/genes';
 import Button from '../../../../components/button';
 
 import './index.css';
+
+// controls below multi search results
 
 let MultiControls = ({ selectFirst, deselectFirst }) => (
   <div className='gene_search_results_multi_controls'>

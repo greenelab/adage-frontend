@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 import Link from '../../../components/link';
 
-import { ReactComponent as Arrow } from '../../../images/arrow.svg';
+import { ReactComponent as ArrowIcon } from '../../../images/arrow.svg';
 
 import './index.css';
+
+// feature row with video and summary text
 
 const Feature = ({ left, icon, header, text, to }) => {
   const video = (
@@ -21,7 +23,7 @@ const Feature = ({ left, icon, header, text, to }) => {
         {header}
       </div>
       <p>{text}</p>
-      <Link to={to} text='Go' icon={<Arrow />} />
+      <Link to={to} text='Go' icon={<ArrowIcon />} />
     </div>
   );
 

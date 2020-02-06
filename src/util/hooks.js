@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
+// get updated bounding box of element that ref is attached to
+// updated when window is resized
 export const useBbox = () => {
   const ref = useRef();
   const [bbox, setBbox] = useState(null);
@@ -35,6 +37,7 @@ export const useBbox = () => {
   return [bbox, ref];
 };
 
+// use the previous value of a variable
 export const usePrev = (previousValue) => {
   const ref = useRef();
   useEffect(() => {
@@ -43,6 +46,8 @@ export const usePrev = (previousValue) => {
   return ref.current;
 };
 
+// get the inner text of an element
+// useful for generating labels from components
 export const useInnerText = () => {
   const ref = useRef();
   const text = ref?.current?.innerText ? ref.current.innerText : '';

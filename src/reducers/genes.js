@@ -1,12 +1,13 @@
 import produce from 'immer';
 
-import { actionStatuses } from '../actions/fetch.js';
-import { calculateEnrichedSignatures } from '../util/math.js';
-import { isEmpty } from '../util/types.js';
-import { isString } from '../util/types.js';
-import { isArray } from '../util/types.js';
-import { isObject } from '../util/types.js';
+import { actionStatuses } from '../actions/fetch';
+import { calculateEnrichedSignatures } from '../util/math';
+import { isEmpty } from '../util/types';
+import { isString } from '../util/types';
+import { isArray } from '../util/types';
+import { isObject } from '../util/types';
 
+// type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
   if (!isString(draft.details) && !isObject(draft.details))
     draft.details = {};
@@ -22,6 +23,7 @@ const typeCheck = (draft) => {
     draft.edges = actionStatuses.EMPTY;
 };
 
+// defines how state (redux store) changes in response to dispatched actions
 const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 

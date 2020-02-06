@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
 
-import { fitPadding, minZoom, maxZoom } from './constants.js';
+import { fitPadding, minZoom, maxZoom } from './constants';
 import { svg } from './';
 import { view } from './';
 
 export let viewHandler = () => null;
 
+// create view handler
 export const initView = () => {
   viewHandler = d3
     .zoom()
@@ -17,12 +18,14 @@ export const initView = () => {
   svg.on('dblclick', fitView);
 };
 
+// when view is panned or zoomed
 export const onZoom = () => {
   if (d3.event.sourceEvent)
     setAutoFit(false);
   view.attr('transform', d3.event.transform);
 };
 
+// fit view to contents of graph
 export const fitView = () => {
   const container = svg?.node()?.getBoundingClientRect();
   const contents = view?.node()?.getBBox();
@@ -61,6 +64,8 @@ export const fitView = () => {
   );
 };
 
+// "global" var to say whether view is fit on every simulation tick
 export let autoFit = true;
 
+// set autoFit var from outside this module
 export const setAutoFit = (value) => (autoFit = value);

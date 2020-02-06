@@ -1,8 +1,11 @@
-import models from './models.js';
-import genes from './genes.js';
-import experiments from './experiments.js';
-import samples from './samples.js';
-import signatures from './signatures.js';
+import models from './models';
+import genes from './genes';
+import experiments from './experiments';
+import samples from './samples';
+import signatures from './signatures';
+
+// master reducer
+// split into sub-reducers that handle one specific slice of state each
 
 const reducer = (state = {}, action = {}) => {
   const { type = '', payload = {}, meta = {} } = action;

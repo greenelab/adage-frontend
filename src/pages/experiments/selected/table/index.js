@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import Link from '../../../../components/link';
 import TableComponent from '../../../../components/table';
 
-import { camelizeObject } from '../../../../util/object.js';
-import { flattenObject } from '../../../../util/object.js';
+import { normalize } from '../../../../util/object';
 
 import './index.css';
+
+// table of samples for selected experiment
 
 let Table = ({ samples, deselect }) => (
   <TableComponent
@@ -28,27 +29,25 @@ let Table = ({ samples, deselect }) => (
             to={'/sample/' + cell.id}
             newTab
             button={false}
-            text={cell.name || '-'}
+            text={cell.name}
+            tooltip={'Open details page for sample ' + cell.name}
           />
         )
       },
       {
         name: 'Genotype',
         value: 'genotype',
-        width: 'calc((100% - 60px) * 0.25)',
-        field: true
+        width: 'calc((100% - 60px) * 0.25)'
       },
       {
         name: 'Strain',
         value: 'strain',
-        width: 'calc((100% - 60px) * 0.10)',
-        field: true
+        width: 'calc((100% - 60px) * 0.10)'
       },
       {
         name: 'Description',
         value: 'description',
-        width: 'calc((100% - 60px) * 0.40)',
-        field: true
+        width: 'calc((100% - 60px) * 0.40)'
       }
     ]}
   />
@@ -56,7 +55,7 @@ let Table = ({ samples, deselect }) => (
 
 const mapStateToProps = (state) => ({
   samples: (state.experiment.selected.samples || []).map((sample) =>
-    camelizeObject(flattenObject(sample))
+    normalize(sample, false, 1)
   )
 });
 

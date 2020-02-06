@@ -32,9 +32,8 @@ export const hyperGeometricTest = (k, K, n, N) => {
   return sum;
 };
 
-export const mean = (array) =>
-  array.reduce((sum, value) => sum + value, 0) / (array.length || 1);
-
+// calculate enriched signatures
+// adapted from https://github.com/greenelab/adage-server/blob/master/interface/src/app/gene/enriched_signatures.js
 export const calculateEnrichedSignatures = ({
   selectedGenes,
   participations,
@@ -99,4 +98,5 @@ export const calculateEnrichedSignatures = ({
   return enrichedSignatures;
 };
 
+// basic and/or evaluation
 export const xor = (a, b) => Boolean(a) ^ Boolean(b);

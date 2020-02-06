@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 
 import SingleTable from '../single-table';
 import FetchAlert from '../../../../components/fetch-alert';
-import { isArray } from '../../../../util/types.js';
-import { isString } from '../../../../util/types.js';
+import { isArray } from '../../../../util/types';
+import { isString } from '../../../../util/types';
 import { mapExperimentResult } from '../';
 
 import './index.css';
+
+// component to show below search box when doing a single search
 
 let Single = ({ results, highlightedIndex }) => (
   <>

@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import Table from './table';
 import FetchAlert from '../../../components/fetch-alert';
 
-import { isString } from '../../../util/types.js';
-import { isArray } from '../../../util/types.js';
+import { isString } from '../../../util/types';
+import { isArray } from '../../../util/types';
 
 import './index.css';
+
+// genes enriched signatures section
 
 let Enriched = ({ enrichedSignatures }) => {
   return (

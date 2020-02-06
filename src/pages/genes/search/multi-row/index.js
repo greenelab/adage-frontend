@@ -11,23 +11,26 @@ import FetchAlert from '../../../../components/fetch-alert';
 import Button from '../../../../components/button';
 import HorizontalLine from '../../../../components/horizontal-line';
 import VerticalLine from '../../../../components/vertical-line';
-import { selectGene } from '../../../../actions/genes.js';
-import { deselectGene } from '../../../../actions/genes.js';
-import { isString } from '../../../../util/types.js';
-import { isArray } from '../../../../util/types.js';
+import { selectGene } from '../../../../actions/genes';
+import { deselectGene } from '../../../../actions/genes';
+import { isString } from '../../../../util/types';
+import { isArray } from '../../../../util/types';
 
-import { ReactComponent as Checked } from '../../../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
-import { ReactComponent as Caret } from '../../../../images/caret.svg';
+import { ReactComponent as CheckedIcon } from '../../../../images/checked.svg';
+import { ReactComponent as UncheckedIcon } from '../../../../images/unchecked.svg';
+import { ReactComponent as CaretIcon } from '../../../../images/caret.svg';
 
 import './index.css';
 
 const collapsedResultLimit = 3;
 const expandedResultLimit = 5;
 
+// multi search result row
+
 let MultiRow = ({ search, select, deselect }) => {
   const [expanded, setExpanded] = useState(false);
 
+  // select/deselect gene on click of a result button
   const onClick = (result) =>
     (result.selected ? deselect : select)({ id: result.id });
 
@@ -43,6 +46,7 @@ let MultiRow = ({ search, select, deselect }) => {
   } else if (isArray(search.results)) {
     content = [];
     if (expanded) {
+      // if expanded, show table just like single search results
       content.push(
         <SingleTable
           key={content.length}
@@ -50,6 +54,7 @@ let MultiRow = ({ search, select, deselect }) => {
         />
       );
     } else {
+      // otherwise, show compact/minified results, horizontally
       search.results
         .slice(0, collapsedResultLimit)
         .forEach((result, index, array) => {
@@ -88,7 +93,7 @@ let MultiRow = ({ search, select, deselect }) => {
         )}
         <Button
           className='gene_search_result_multi_expand'
-          icon={<Caret className={expanded ? 'flip_vertical' : ''} />}
+          icon={<CaretIcon className={expanded ? 'flip_vertical' : ''} />}
           onClick={() => setExpanded(!expanded)}
         />
       </div>
@@ -115,6 +120,8 @@ MultiRow.propTypes = {
 
 export default MultiRow;
 
+// multi search result button
+
 const ResultButton = ({
   onClick = () => null,
   selected = false,
@@ -123,13 +130,10 @@ const ResultButton = ({
   systematicName = '-'
 }) => (
   <>
-    <Tooltip
-      text={(selected ? 'Deselect' : 'Select') + ' this gene'}
-      horizontalAlign='left'
-    >
+    <Tooltip text={(selected ? 'Deselect' : 'Select') + ' this gene'}>
       <Button className='gene_search_result_multi_check' onClick={onClick}>
-        {selected && <Checked />}
-        {!selected && <Unchecked />}
+        {selected && <CheckedIcon />}
+        {!selected && <UncheckedIcon />}
       </Button>
     </Tooltip>
     <span className='td' data-padded='true'>
@@ -137,7 +141,8 @@ const ResultButton = ({
         to={'/gene/' + id}
         newTab
         button={false}
-        text={standardName || '-'}
+        text={standardName}
+        tooltip={'Open details page for gene ' + standardName}
       />
     </span>
     <span className='td' data-padded='true'>

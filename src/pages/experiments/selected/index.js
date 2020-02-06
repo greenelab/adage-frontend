@@ -8,6 +8,8 @@ import Controls from './controls';
 
 import './index.css';
 
+// experiments selected section
+
 let Selected = ({ anySelected }) => (
   <>
     {anySelected === false && <Alert text='No experiment selected' />}

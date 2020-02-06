@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCallback } from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
@@ -7,6 +8,8 @@ import { cloneElement } from 'react';
 import Input from '../input';
 
 import './index.css';
+
+// search box component
 
 const Search = ({
   length = 0,
@@ -18,46 +21,56 @@ const Search = ({
   SingleComponent = <></>,
   MultiComponent = <></>
 }) => {
+  // internal state
   const [focused, setFocused] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const clearFunc = useRef(() => null);
 
-  const onFocus = () => setFocused(true);
-  const onBlur = () => setFocused(false);
-  const onChangeExpanded = (expanded) => setExpanded(expanded);
-  const getClearFunc = (func) => (clearFunc.current = func);
+  // change focused state
+  const onFocus = useCallback(() => setFocused(true), []);
+  const onBlur = useCallback(() => setFocused(false), []);
 
-  const onKeyDown = (event) => {
-    if (!focused || expanded || !length)
-      return;
+  // change expanded state
+  const onChangeExpanded = useCallback((expanded) => setExpanded(expanded), []);
 
-    switch (event.key) {
-      case 'ArrowUp':
-        event.preventDefault();
-        if (highlightedIndex > 0)
-          setHighlightedIndex(highlightedIndex - 1);
-        break;
+  const getClearFunc = useCallback((func) => (clearFunc.current = func), []);
 
-      case 'ArrowDown':
-        event.preventDefault();
-        if (highlightedIndex < length - 1)
-          setHighlightedIndex(highlightedIndex + 1);
-        break;
+  // on key press
+  const onKeyDown = useCallback(
+    (event) => {
+      if (!focused || expanded || !length)
+        return;
 
-      case 'Enter':
-        event.preventDefault();
-        if (highlightedIndex < 0 || highlightedIndex > length - 1)
+      switch (event.key) {
+        case 'ArrowUp':
+          event.preventDefault();
+          if (highlightedIndex > 0)
+            setHighlightedIndex(highlightedIndex - 1);
           break;
-        onKeySelect(highlightedIndex);
-        clearFunc.current();
-        break;
 
-      default:
-        break;
-    }
-  };
+        case 'ArrowDown':
+          event.preventDefault();
+          if (highlightedIndex < length - 1)
+            setHighlightedIndex(highlightedIndex + 1);
+          break;
 
+        case 'Enter':
+          event.preventDefault();
+          if (highlightedIndex < 0 || highlightedIndex > length - 1)
+            break;
+          onKeySelect(highlightedIndex);
+          clearFunc.current();
+          break;
+
+        default:
+          break;
+      }
+    },
+    [focused, expanded, highlightedIndex, length, onKeySelect]
+  );
+
+  // update highlighted index
   useEffect(() => {
     if (focused && !expanded && length)
       setHighlightedIndex(0);
@@ -65,15 +78,16 @@ const Search = ({
       setHighlightedIndex(-1);
   }, [expanded, focused, length]);
 
+  // key listener
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  });
+  }, [onKeyDown]);
 
   return (
     <>
       <Input
-        className="search_bar"
+        className='search_bar'
         multi={multi}
         placeholder={placeholder}
         multiPlaceholder={multiPlaceholder}

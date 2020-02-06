@@ -3,27 +3,32 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import * as d3 from 'd3';
 
-import { initView } from './view.js';
-import { initSimulation } from './simulation.js';
-import { initDragHandler } from './drag.js';
-import { initTooltip } from './tooltip.js';
-import { setAutoFit } from './view.js';
-import { fitView } from './view.js';
-import { updateSimulation } from './simulation.js';
-import { drawLinkLines } from './link-lines.js';
-import { drawLinkHighlights } from './link-highlights.js';
-import { drawNodeCircles } from './node-circles.js';
-import { drawNodeHighlights } from './node-highlights.js';
-import { drawNodeLabels } from './node-labels.js';
-import { useBbox } from '../../../../util/hooks.js';
+import { initView } from './view';
+import { initSimulation } from './simulation';
+import { initDragHandler } from './drag';
+import { initTooltip } from './tooltip';
+import { setAutoFit } from './view';
+import { fitView } from './view';
+import { updateSimulation } from './simulation';
+import { drawLinkLines } from './link-lines';
+import { drawLinkHighlights } from './link-highlights';
+import { drawNodeCircles } from './node-circles';
+import { drawNodeHighlights } from './node-highlights';
+import { drawNodeLabels } from './node-labels';
+import { useBbox } from '../../../../util/hooks';
 
 import './index.css';
 
+// "global" var to conveniently access d3 selections of the svg and view
+// group layer
 export let svg;
 export let view;
 
+// "global" vars for node and link data
 export let nodeData = [];
 export let linkData = [];
+
+// graph network display component
 
 const Graph = ({ nodes, links }) => {
   const [mounted, setMounted] = useState(false);
@@ -33,28 +38,34 @@ const Graph = ({ nodes, links }) => {
   svg = d3.select('#graph');
   view = d3.select('#graph_view');
 
+  // reset auto fit
   useEffect(() => {
     setAutoFit(true);
   });
 
+  // set has mounted flag
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // only once, after first render
   useEffect(() => {
     if (!mounted)
       return;
 
+    // initialize graph
     initView();
     initSimulation();
     initDragHandler();
     initTooltip();
   }, [mounted]);
 
+  // fit view when graph container dimensions change
   useEffect(() => {
     fitView();
   }, [width, height]);
 
+  // update data, simulation, and scene elements on incoming data change
   useEffect(() => {
     if (!mounted)
       return;

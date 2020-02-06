@@ -2,16 +2,16 @@ import React from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { getModelList } from './actions/models.js';
-import { getGeneList } from './actions/genes.js';
-import { getExperimentList } from './actions/experiments.js';
-import { getSignatureList } from './actions/signatures.js';
-import { getGeneSelectedDetails } from './actions/genes.js';
-import { getExperimentSelectedDetails } from './actions/experiments.js';
-import { setSelectedModel } from './actions/models.js';
-import { getGeneEnrichedSignatures } from './actions/genes.js';
-import { getGeneEdges } from './actions/genes.js';
-import { isArray } from './util/types.js';
+import { getModelList } from './actions/models';
+import { getGeneList } from './actions/genes';
+import { getExperimentList } from './actions/experiments';
+import { getSignatureList } from './actions/signatures';
+import { getGeneSelectedDetails } from './actions/genes';
+import { getExperimentSelectedDetails } from './actions/experiments';
+import { selectModel } from './actions/models';
+import { getGeneEnrichedSignatures } from './actions/genes';
+import { getGeneEdges } from './actions/genes';
+import { isArray } from './util/types';
 
 const MAX_INT = 9999999;
 
@@ -21,9 +21,9 @@ let Controller = ({
   genes,
   experiments,
   signatures,
-  selectedModel,
+  selectModel,
   selectedOrganism,
-  setSelectedModel,
+  selectedModel,
   selectedGenesLoaded,
   selectedGenes,
   selectedExperimentAccession,
@@ -36,10 +36,14 @@ let Controller = ({
   getEnrichedSignatures,
   getGeneEdges
 }) => {
+  // on first render
+  // get full model list
   useEffect(() => {
     getModelList();
   }, [getModelList]);
 
+  // when selected model (and thus selected organism) changes
+  // get full gene list
   useEffect(() => {
     if (selectedOrganism) {
       getGeneList({
@@ -49,10 +53,14 @@ let Controller = ({
     }
   }, [selectedOrganism, getGeneList]);
 
+  // on first render
+  // get full experiment list
   useEffect(() => {
     getExperimentList({ limit: MAX_INT });
   }, [getExperimentList]);
 
+  // when selected model changes
+  // get full signature list
   useEffect(() => {
     if (selectedModel) {
       getSignatureList({
@@ -62,14 +70,20 @@ let Controller = ({
     }
   }, [selectedModel, getSignatureList]);
 
+  // when full model list loads
+  // select model (first in list if not specified)
   useEffect(() => {
-    setSelectedModel();
-  }, [models, setSelectedModel]);
+    selectModel();
+  }, [models, selectModel]);
 
+  // when full gene list or selected genes change
+  // fill in full details of selected genes
   useEffect(() => {
     getGeneSelectedDetails();
   }, [genes.length, selectedGenes.length, getGeneSelectedDetails]);
 
+  // when full experiment list or selected experiments change
+  // fill in full details of selected experiments
   useEffect(() => {
     getExperimentSelectedDetails();
   }, [
@@ -78,6 +92,8 @@ let Controller = ({
     getExperimentSelectedDetails
   ]);
 
+  // when full gene list, selected genes, or full signature list change
+  // recompute enriched signatures
   useEffect(() => {
     if (
       isArray(genes) &&
@@ -103,6 +119,8 @@ let Controller = ({
     getEnrichedSignatures
   ]);
 
+  // when selected model or selected genes change
+  // get gene network edges
   useEffect(() => {
     if (selectedGenesLoaded) {
       getGeneEdges({
@@ -144,7 +162,7 @@ const mapDispatchToProps = (dispatch) => ({
   getSignatureList: (...args) => dispatch(getSignatureList(...args)),
   getGeneSelectedDetails: () => dispatch(getGeneSelectedDetails()),
   getExperimentSelectedDetails: () => dispatch(getExperimentSelectedDetails()),
-  setSelectedModel: () => dispatch(setSelectedModel()),
+  selectModel: () => dispatch(selectModel()),
   getEnrichedSignatures: (...args) =>
     dispatch(getGeneEnrichedSignatures(...args)),
   getGeneEdges: (...args) => dispatch(getGeneEdges(...args))

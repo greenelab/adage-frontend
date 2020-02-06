@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 
 import SearchComponent from '../../../components/search';
 import Single from './single';
-import { getExperimentSearch } from '../../../actions/experiments.js';
-import { selectExperiment } from '../../../actions/experiments.js';
-import { isArray } from '../../../util/types.js';
-import { isSelected } from '../../../reducers/experiments.js';
+import { getExperimentSearch } from '../../../actions/experiments';
+import { selectExperiment } from '../../../actions/experiments';
+import { isArray } from '../../../util/types';
+import { isSelected } from '../../../reducers/experiments';
+import { toCamelCase } from '../../../util/string';
 import { mapExperiment } from '../';
 
 import './index.css';
+
+// experiment search section
 
 let Search = ({ results, select, search }) => (
   <SearchComponent
@@ -49,20 +52,7 @@ const mapDispatchToProps = (dispatch) => ({
 export const mapExperimentResult = (result, state) => {
   const experiment = mapExperiment(result);
   experiment.selected = isSelected(result, state);
-  switch (result.max_similarity_field) {
-    case 'accession':
-      experiment.highlightedField = 'accession';
-      break;
-    case 'name':
-      experiment.highlightedField = 'name';
-      break;
-    case 'description':
-      experiment.highlightedField = 'description';
-      break;
-    default:
-      experiment.highlightedField = '';
-      break;
-  }
+  experiment.highlightedField = toCamelCase(result.max_similarity_field || '');
   return experiment;
 };
 

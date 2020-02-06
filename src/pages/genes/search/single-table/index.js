@@ -5,13 +5,15 @@ import Tooltip from '../../../../components/tooltip';
 import Link from '../../../../components/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
-import { selectGene } from '../../../../actions/genes.js';
-import { deselectGene } from '../../../../actions/genes.js';
+import { selectGene } from '../../../../actions/genes';
+import { deselectGene } from '../../../../actions/genes';
 
-import { ReactComponent as Checked } from '../../../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
+import { ReactComponent as CheckedIcon } from '../../../../images/checked.svg';
+import { ReactComponent as UncheckedIcon } from '../../../../images/unchecked.svg';
 
 import './index.css';
+
+// single search result table
 
 let Table = ({ results, highlightedIndex, select, deselect }) => {
   return (
@@ -26,10 +28,9 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
           render: (cell) => (
             <Tooltip
               text={(cell.selected ? 'Deselect' : 'Select') + ' this gene'}
-              horizontalAlign='left'
             >
               <Button
-                icon={cell.selected ? <Checked /> : <Unchecked />}
+                icon={cell.selected ? <CheckedIcon /> : <UncheckedIcon />}
                 onClick={() =>
                   (cell.selected ? deselect : select)({ id: cell.id })
                 }
@@ -46,7 +47,8 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
               to={'/gene/' + cell.id}
               newTab
               button={false}
-              text={cell.standardName || '-'}
+              text={cell.standardName}
+              tooltip={'Open details page for gene ' + cell.standardName}
             />
           )
         },

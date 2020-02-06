@@ -9,13 +9,16 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getModelDetails } from '../../actions/models.js';
-import { isObject } from '../../util/types.js';
-import { isString } from '../../util/types.js';
-import { humanizeObject } from '../../util/object';
-import { flattenObject } from '../../util/object';
+import { getModelDetails } from '../../actions/models';
+import { isObject } from '../../util/types';
+import { isString } from '../../util/types';
+import { normalize } from '../../util/object';
+
+import { ReactComponent as ModelIcon } from '../../images/model.svg';
 
 import './index.css';
+
+// model details page
 
 let Model = ({ match, details, getDetails }) => {
   const id = match.params.id;
@@ -28,7 +31,14 @@ let Model = ({ match, details, getDetails }) => {
     <>
       <Header justTitle />
       <Main>
-        <Section text='Model Details'>
+        <Section
+          header={
+            <>
+              <ModelIcon />
+              <span>Model Details</span>
+            </>
+          }
+        >
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
             <FetchAlert status={details} subject='model details' />
@@ -44,7 +54,7 @@ const mapStateToProps = (state) => {
   let details = state.model.details;
 
   if (isObject(details))
-    details = humanizeObject(flattenObject(details));
+    details = normalize(details, true);
 
   return { details };
 };

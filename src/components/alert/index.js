@@ -7,6 +7,8 @@ import { ReactComponent as AlertIcon } from '../../images/alert.svg';
 
 import './index.css';
 
+// general alert message with icon
+
 const Alert = ({ text = '', className = '' }) => (
   <div className={'alert ' + className}>
     <AlertIcon />

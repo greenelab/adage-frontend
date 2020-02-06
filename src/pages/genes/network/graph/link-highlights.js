@@ -1,11 +1,13 @@
 import * as d3 from 'd3';
 
-import { openTooltip } from './tooltip.js';
-import { closeTooltip } from './tooltip.js';
+import { openTooltip } from './tooltip';
+import { closeTooltip } from './tooltip';
 
 import { linkData } from './';
 
-import { strokeWidth } from './constants.js';
+import { strokeWidth } from './constants';
+
+// link highlight and mouse hitbox
 
 export const drawLinkHighlights = () => {
   const layer = d3.select('#graph_link_highlight_layer');

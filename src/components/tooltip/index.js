@@ -1,11 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Children } from 'react';
 import { isValidElement } from 'react';
 import { cloneElement } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
@@ -15,29 +15,34 @@ const delay = 250;
 const duration = 250;
 const padding = 5;
 
-const Tooltip = ({
-  children,
-  text = '',
-  horizontalAlign = 'center',
-  verticalAlign = 'top'
-}) => {
+// generic tooltip component
+
+const Tooltip = ({ children, text = '' }) => {
+  // internal state
   const [hover, setHover] = useState(false);
   const [open, setOpen] = useState(false);
   const [timer, setTimer] = useState(null);
   const [anchor, setAnchor] = useState(null);
   const [style, setStyle] = useState({});
 
-  const onEnter = (event) => {
-    if (text && !window.matchMedia('(hover: none)').matches) {
-      setAnchor(event.target);
-      setHover(true);
-    }
-  };
-  const onLeave = () => {
+  // when user "enters" target (hovers, focuses)
+  const onEnter = useCallback(
+    (event) => {
+      if (text && !window.matchMedia('(hover: none)').matches) {
+        setAnchor(event.target);
+        setHover(true);
+      }
+    },
+    [text]
+  );
+
+  // when user "leaves" target (unhovers, blurs)
+  const onLeave = useCallback(() => {
     setAnchor(null);
     setHover(false);
-  };
+  }, []);
 
+  // handle delayed opening
   useEffect(() => {
     if (hover) {
       setTimer(
@@ -49,31 +54,38 @@ const Tooltip = ({
       setTimer(null);
   }, [hover]);
 
+  // close if not hovered
   useEffect(() => {
     if (open && !hover)
       setOpen(false);
   }, [open, hover]);
 
+  // handle timer
   useEffect(() => {
     if (timer === null)
       window.clearTimeout(timer);
-
     return () => window.clearTimeout(timer);
   }, [timer]);
 
+  // on window resize
   const onResize = useCallback(() => {
     if (anchor)
-      setStyle(computeStyle({ anchor, horizontalAlign, verticalAlign }));
-  }, [anchor, horizontalAlign, verticalAlign]);
+      setStyle(computeStyle({ anchor }));
+  }, [anchor]);
 
+  // handle resize
   useEffect(() => {
     onResize();
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, [onResize]);
 
+  // if no text, skip this to save processing time
   if (text) {
+    // go through chilren elements
     children = Children.map(children, (element) => {
+      // if child is a react component, clone and add onEnter/onLeave props
+      // and aria label that matches text content
       if (isValidElement(element)) {
         return cloneElement(element, {
           'onMouseEnter': (...args) => {
@@ -98,19 +110,10 @@ const Tooltip = ({
           },
           'aria-label': text
         });
-      } else if (typeof element === 'string') {
-        return (
-          <span
-            onMouseEnter={onEnter}
-            onMouseLeave={onLeave}
-            onFocus={onEnter}
-            onBlur={onLeave}
-          >
-            {element}
-          </span>
-        );
-      } else
+      } else {
+        // otherwise, pass element through
         return element;
+      }
     });
   }
 
@@ -124,7 +127,7 @@ const Tooltip = ({
           classNames='tooltip'
           unmountOnExit
         >
-          <Portal text={text} style={style}/>
+          <Portal text={text} style={style} />
         </CSSTransition>
       )}
     </>
@@ -140,19 +143,23 @@ Tooltip.propTypes = {
 
 export default Tooltip;
 
+// append popup to body, not app root
+
 const Portal = ({ text, style }) => {
   return createPortal(
-    <div
-      className='tooltip text_small'
-      style={style}
-    >
+    <div className='tooltip text_small' style={style}>
       {text}
     </div>,
     document.body
   );
 };
 
-const computeStyle = ({ anchor, horizontalAlign, verticalAlign }) => {
+const horizontalMargin = 200;
+const verticalMargin = 100;
+
+// position tooltip relative to anchor/target
+
+const computeStyle = ({ anchor }) => {
   const anchorBbox = anchor.getBoundingClientRect();
   const bodyBbox = document.body.getBoundingClientRect();
   const bbox = {
@@ -165,6 +172,22 @@ const computeStyle = ({ anchor, horizontalAlign, verticalAlign }) => {
   };
   const style = {};
 
+  let horizontalAlign = 'left';
+  let verticalAlign = 'top';
+
+  // if too close to right side of screen, right align
+  if (anchorBbox.left > window.innerWidth - horizontalMargin) {
+    horizontalAlign = 'right';
+    // then, if also too close to left screen, center align
+    if (anchorBbox.left < horizontalMargin)
+      horizontalAlign = 'center';
+  }
+
+  // if too close to top of screen, bottom align
+  if (anchorBbox.top < verticalMargin)
+    verticalAlign = 'bottom';
+
+  // calculate horizontal position
   switch (horizontalAlign) {
     case 'center':
       style.left = bbox.left + bbox.width / 2 + 'px';
@@ -183,6 +206,7 @@ const computeStyle = ({ anchor, horizontalAlign, verticalAlign }) => {
       break;
   }
 
+  // calculate vertical position
   switch (verticalAlign) {
     case 'top':
       style.bottom = bbox.bottom + bbox.height + padding + 'px';

@@ -12,6 +12,8 @@ import { isNumber } from '../../util/types';
 import { isString } from '../../util/types';
 import { isArray } from '../../util/types';
 
+// table showing all key/value pairs of an object/item
+
 const Details = ({ data = {} }) => {
   if (typeof data !== 'object' || data === null || !Object.keys(data).length)
     return <></>;

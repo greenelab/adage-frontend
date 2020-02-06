@@ -7,14 +7,16 @@ import { useDebounce } from 'use-debounce';
 
 import Tooltip from '../../components/tooltip';
 import Button from '../../components/button';
-import { ReactComponent as ListMultiple } from '../../images/list-multiple.svg';
-import { ReactComponent as ListSingle } from '../../images/list-single.svg';
-import { ReactComponent as Search } from '../../images/search.svg';
-import { ReactComponent as Cross } from '../../images/cross.svg';
+import { ReactComponent as ListMultipleIcon } from '../../images/list-multiple.svg';
+import { ReactComponent as ListSingleIcon } from '../../images/list-single.svg';
+import { ReactComponent as SearchIcon } from '../../images/search.svg';
+import { ReactComponent as CrossIcon } from '../../images/cross.svg';
 
 import './index.css';
 
 const debounceDelay = 200;
+
+// generic input component, capable of single line and multi-line input
 
 const Input = ({
   className = '',
@@ -30,33 +32,43 @@ const Input = ({
   multiTooltip = 'Switch to multi search',
   ...props
 }) => {
+  // internal state
   const [focused, setFocused] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [value, setValue] = useState('');
   const [debouncedValue] = useDebounce(value, debounceDelay);
 
-  const changeExpanded = (newExpanded) => {
-    let newValue = value;
-    if (!newExpanded && newValue.includes('\n')) {
-      newValue = newValue.split('\n')[0];
-      changeValue(newValue);
-    }
+  // change value state
+  const changeValue = useCallback(
+    (newValue) => {
+      if (expanded)
+        newValue = newValue.split(/[\t|\r|,||]/).join('\n');
+      else
+        newValue = newValue.split('\n')[0];
 
-    setExpanded(newExpanded);
-    onChangeExpanded(newExpanded);
-  };
+      setValue(newValue);
+    },
+    [expanded]
+  );
 
-  const changeValue = (newValue) => {
-    if (expanded)
-      newValue = newValue.split(/[\t|\r|,||]/).join('\n');
-    else
-      newValue = newValue.split('\n')[0];
+  // change expanded state
+  const changeExpanded = useCallback(
+    (newExpanded) => {
+      let newValue = value;
+      if (!newExpanded && newValue.includes('\n')) {
+        newValue = newValue.split('\n')[0];
+        changeValue(newValue);
+      }
 
-    setValue(newValue);
-  };
+      setExpanded(newExpanded);
+      onChangeExpanded(newExpanded);
+    },
+    [value, changeValue, onChangeExpanded]
+  );
 
   onChange = useCallback(onChange, []);
 
+  // call parent's onChange event after debouncing value
   useEffect(() => {
     onChange(debouncedValue);
   }, [onChange, debouncedValue]);
@@ -102,29 +114,26 @@ const Input = ({
         />
       )}
       {multi && (
-        <Tooltip
-          text={expanded ? tooltip : multiTooltip}
-          horizontalAlign='right'
-        >
+        <Tooltip text={expanded ? tooltip : multiTooltip}>
           <Button
             className='input_button'
-            icon={expanded ? <ListSingle /> : <ListMultiple />}
+            icon={expanded ? <ListSingleIcon /> : <ListMultipleIcon />}
             onClick={() => changeExpanded(!expanded)}
           />
         </Tooltip>
       )}
       {value.length > 0 && (
-        <Tooltip text={'Clear search'} horizontalAlign='right'>
+        <Tooltip text={'Clear search'}>
           <Button
             className='input_button'
-            icon={<Cross />}
+            icon={<CrossIcon />}
             onClick={() => changeValue('')}
           />
         </Tooltip>
       )}
       {value.length === 0 && (
         <div className='input_button'>
-          <Search />
+          <SearchIcon />
         </div>
       )}
     </div>

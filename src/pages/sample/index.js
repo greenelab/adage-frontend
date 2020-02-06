@@ -11,13 +11,16 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getSampleDetails } from '../../actions/samples.js';
-import { isObject } from '../../util/types.js';
-import { isString } from '../../util/types.js';
-import { humanizeObject } from '../../util/object.js';
-import { flattenObject } from '../../util/object.js';
+import { getSampleDetails } from '../../actions/samples';
+import { isObject } from '../../util/types';
+import { isString } from '../../util/types';
+import { normalize } from '../../util/object';
+
+import { ReactComponent as SampleIcon } from '../../images/sample.svg';
 
 import './index.css';
+
+// sample details page
 
 let Sample = ({ match, details, getDetails }) => {
   const id = match.params.id;
@@ -30,7 +33,14 @@ let Sample = ({ match, details, getDetails }) => {
     <>
       <Header justTitle />
       <Main>
-        <Section text='Sample Details'>
+        <Section
+          header={
+            <>
+              <SampleIcon />
+              <span>Sample Details</span>
+            </>
+          }
+        >
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
             <FetchAlert status={details} subject='sample details' />
@@ -46,17 +56,18 @@ const mapStateToProps = (state) => {
   let details = state.sample.details;
 
   if (isObject(details)) {
-    details = flattenObject(details);
-    if (details.experiments) {
-      details.experiments = (
+    details = normalize(details, true, 1);
+    if (details.Experiments) {
+      details.Experiments = (
         <>
-          {details.experiments.map((experiment, index) => (
+          {details.Experiments.map((experiment, index) => (
             <Fragment key={index}>
               <Link
                 to={'/experiment/' + experiment}
                 newTab
                 button={false}
-                text={experiment || '-'}
+                text={experiment}
+                tooltip={'Open details page for experiment ' + experiment}
               />
               <br />
             </Fragment>
@@ -64,7 +75,6 @@ const mapStateToProps = (state) => {
         </>
       );
     }
-    details = humanizeObject(details);
   }
 
   return { details };

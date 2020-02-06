@@ -7,13 +7,15 @@ import Button from '../../../components/button';
 import Popup from '../../../components/popup';
 import FetchAlert from '../../../components/fetch-alert';
 import List from './list';
-import { useBbox } from '../../../util/hooks.js';
-import { isArray } from '../../../util/types.js';
-import { isString } from '../../../util/types.js';
+import { useBbox } from '../../../util/hooks';
+import { isArray } from '../../../util/types';
+import { isString } from '../../../util/types';
 
-import { ReactComponent as Model } from '../../../images/model.svg';
+import { ReactComponent as ModelIcon } from '../../../images/model.svg';
 
 import './index.css';
+
+// model select button and dropdown/popup
 
 let ModelSelect = ({ models }) => {
   const [buttonBbox, buttonRef] = useBbox();
@@ -21,17 +23,13 @@ let ModelSelect = ({ models }) => {
 
   return (
     <>
-      <Tooltip
-        text='Switch between machine learning models'
-        horizontalAlign='right'
-        verticalAlign='bottom'
-      >
+      <Tooltip text='Switch between machine learning models'>
         <Button
           ref={buttonRef}
           className='model_select_button'
           onClick={() => setIsOpen(!isOpen)}
         >
-          <Model />
+          <ModelIcon />
         </Button>
       </Tooltip>
       <Popup
@@ -42,7 +40,11 @@ let ModelSelect = ({ models }) => {
       >
         {isArray(models) && <List models={models} />}
         {isString(models) && (
-          <FetchAlert className='model_alert' status={models} subject='models' />
+          <FetchAlert
+            className='model_alert'
+            status={models}
+            subject='models'
+          />
         )}
       </Popup>
     </>

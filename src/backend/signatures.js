@@ -1,6 +1,8 @@
 import { server } from '.';
 import { defaultLimit } from '.';
 
+// functions to generate urls to fetch signature-related data from
+
 const prefix = 'signature/';
 
 export const urlSignatureDetails = ({ id }) => {

@@ -1,13 +1,13 @@
 import * as d3 from 'd3';
 
-import { positionLinkLines } from './link-lines.js';
-import { positionLinkHighlights } from './link-highlights.js';
-import { positionNodeCircles } from './node-circles.js';
-import { positionNodeHighlights } from './node-highlights.js';
-import { positionNodeLabels } from './node-labels.js';
-import { autoFit } from './view.js';
-import { setAutoFit } from './view.js';
-import { fitView } from './view.js';
+import { positionLinkLines } from './link-lines';
+import { positionLinkHighlights } from './link-highlights';
+import { positionNodeCircles } from './node-circles';
+import { positionNodeHighlights } from './node-highlights';
+import { positionNodeLabels } from './node-labels';
+import { autoFit } from './view';
+import { setAutoFit } from './view';
+import { fitView } from './view';
 
 import { nodeData } from './';
 import { linkData } from './';
@@ -17,10 +17,11 @@ import {
   nodeDistance,
   nodeRepulsion,
   centerForce
-} from './constants.js';
+} from './constants';
 
 export let simulation;
 
+// create force/physics based simulation to detangle nodes
 export const initSimulation = () => {
   simulation = d3
     .forceSimulation()
@@ -46,6 +47,7 @@ export const initSimulation = () => {
     .on('end', onEnd);
 };
 
+// update simulation with new data and reheat
 export const updateSimulation = (reheat) => {
   if (!simulation)
     return;
@@ -59,6 +61,7 @@ export const updateSimulation = (reheat) => {
     simulation.restart();
 };
 
+// when simulation ticks forward
 const onTick = () => {
   positionLinkLines();
   positionLinkHighlights();
@@ -70,8 +73,10 @@ const onTick = () => {
     fitView();
 };
 
+// when simulation stops (reaches rest)
 const onEnd = () => {};
 
+// unpin all nodes by removing their fixed positions
 export const unpinAll = () => {
   nodeData.forEach((node) => {
     node.fx = null;
@@ -83,6 +88,7 @@ export const unpinAll = () => {
   simulation.alpha(1).restart();
 };
 
+// pin all nodes by fixing their positions
 export const pinAll = () => {
   nodeData.forEach((node) => {
     node.fx = node.x;

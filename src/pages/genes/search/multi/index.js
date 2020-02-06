@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import HorizontalLine from '../../../../components/horizontal-line';
 import MultiRow from '../multi-row';
 import MultiControls from '../multi-controls';
-import { isArray } from '../../../../util/types.js';
+import { isArray } from '../../../../util/types';
 import { mapGeneResult } from '../';
 
 import './index.css';
+
+// component to show below search box when doing a multi search
 
 let Multi = ({ searches }) => (
   <>

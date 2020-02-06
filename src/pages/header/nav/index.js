@@ -2,17 +2,19 @@ import React from 'react';
 
 import Button from './button';
 
-import { ReactComponent as Genes } from '../../../images/genes.svg';
-import { ReactComponent as Experiments } from '../../../images/experiments.svg';
-import { ReactComponent as Signatures } from '../../../images/signatures.svg';
+import { ReactComponent as GeneIcon } from '../../../images/gene.svg';
+import { ReactComponent as ExperimentIcon } from '../../../images/experiment.svg';
+import { ReactComponent as SignatureIcon } from '../../../images/signature.svg';
 
 import './index.css';
 
+// navigation bar
+
 const Nav = () => (
   <nav className='page_header_column'>
-    <Button icon={<Genes />} text='Genes' />
-    <Button icon={<Experiments />} text='Experiments' />
-    <Button icon={<Signatures />} text='Signatures' />
+    <Button icon={<GeneIcon />} text='Genes' />
+    <Button icon={<ExperimentIcon />} text='Experiments' />
+    <Button icon={<SignatureIcon />} text='Signatures' />
   </nav>
 );
 

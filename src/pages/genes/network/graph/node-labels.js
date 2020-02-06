@@ -1,11 +1,13 @@
 import * as d3 from 'd3';
 import * as color from 'color';
 
-import { tooltip } from './tooltip.js';
+import { tooltip } from './tooltip';
 
 import { nodeData } from './';
 
-import { fillA, fillB, fontSize } from './constants.js';
+import { fillA, fillB, fontSize } from './constants';
+
+// node text labels
 
 export const drawNodeLabels = () => {
   const layer = d3.select('#graph_node_label_layer');

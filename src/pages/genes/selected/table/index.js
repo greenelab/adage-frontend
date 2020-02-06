@@ -5,12 +5,14 @@ import Tooltip from '../../../../components/tooltip';
 import Link from '../../../../components/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
-import { deselectGene } from '../../../../actions/genes.js';
+import { deselectGene } from '../../../../actions/genes';
 import { mapGene } from '../../';
 
-import { ReactComponent as Cross } from '../../../../images/cross.svg';
+import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
 
 import './index.css';
+
+// table of selected genes
 
 let Table = ({ selected, deselect }) => (
   <TableComponent
@@ -22,9 +24,9 @@ let Table = ({ selected, deselect }) => (
         width: '30px',
         padded: false,
         render: (cell) => (
-          <Tooltip text='Deselect this gene' horizontalAlign='left'>
+          <Tooltip text='Deselect this gene'>
             <Button
-              icon={<Cross />}
+              icon={<CrossIcon />}
               onClick={() => deselect({ id: cell.id })}
             />
           </Tooltip>
@@ -39,7 +41,8 @@ let Table = ({ selected, deselect }) => (
             to={'/gene/' + cell.id}
             newTab
             button={false}
-            text={cell.standardName || '-'}
+            text={cell.standardName}
+            tooltip={'Open details page for gene ' + cell.standardName}
           />
         )
       },
