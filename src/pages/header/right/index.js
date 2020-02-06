@@ -5,7 +5,7 @@ import ModelSelect from '../model-select';
 import Tooltip from '../../../components/tooltip';
 import Link from '../../../components/link';
 
-import { ReactComponent as Help } from '../../../images/help.svg';
+import { ReactComponent as HelpIcon } from '../../../images/help.svg';
 
 import './index.css';
 
@@ -17,7 +17,7 @@ const Right = () => (
       horizontalAlign='right'
       verticalAlign='bottom'
     >
-      <Link to='/help' newTab icon={<Help />} />
+      <Link to='/help' newTab icon={<HelpIcon />} />
     </Tooltip>
   </div>
 );

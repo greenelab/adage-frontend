@@ -8,7 +8,7 @@ import TableComponent from '../../../../components/table';
 import { deselectGene } from '../../../../actions/genes';
 import { mapGene } from '../../';
 
-import { ReactComponent as Cross } from '../../../../images/cross.svg';
+import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
 
 import './index.css';
 
@@ -24,7 +24,7 @@ let Table = ({ selected, deselect }) => (
         render: (cell) => (
           <Tooltip text='Deselect this gene' horizontalAlign='left'>
             <Button
-              icon={<Cross />}
+              icon={<CrossIcon />}
               onClick={() => deselect({ id: cell.id })}
             />
           </Tooltip>

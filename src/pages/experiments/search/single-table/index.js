@@ -7,8 +7,8 @@ import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
 import { selectExperiment } from '../../../../actions/experiments';
 
-import { ReactComponent as Radioed } from '../../../../images/radioed.svg';
-import { ReactComponent as Unradioed } from '../../../../images/unradioed.svg';
+import { ReactComponent as RadioedIcon } from '../../../../images/radioed.svg';
+import { ReactComponent as UnradioedIcon } from '../../../../images/unradioed.svg';
 
 import './index.css';
 
@@ -24,7 +24,7 @@ let Table = ({ results, highlightedIndex, select }) => {
           render: (cell) => (
             <Tooltip text={'Select this experiment'} horizontalAlign='left'>
               <Button
-                icon={cell.selected ? <Radioed /> : <Unradioed />}
+                icon={cell.selected ? <RadioedIcon /> : <UnradioedIcon />}
                 onClick={() => select({ accession: cell.accession })}
               />
             </Tooltip>

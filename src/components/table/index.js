@@ -9,7 +9,7 @@ import HorizontalLine from '../../components/horizontal-line';
 import { useBbox } from '../../util/hooks';
 import { normalizeValue } from '../../util/object';
 
-import { ReactComponent as Arrow } from '../../images/arrow.svg';
+import { ReactComponent as ArrowIcon } from '../../images/arrow.svg';
 
 import './index.css';
 
@@ -88,9 +88,9 @@ const Table = ({
                   <Field>{column.render('Header')}</Field>
                   {column.isSorted ? (
                     column.isSortedDesc ? (
-                      <Arrow className='rotate_ccw' />
+                      <ArrowIcon className='rotate_ccw' />
                     ) : (
-                      <Arrow className='rotate_cw' />
+                      <ArrowIcon className='rotate_cw' />
                     )
                   ) : (
                     ''

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { actionStatuses } from '../../actions/fetch';
 import Field from '../../components/field';
 
-import { ReactComponent as Alert } from '../../images/alert.svg';
-import { ReactComponent as Loading } from '../../images/loading.svg';
+import { ReactComponent as AlertIcon } from '../../images/alert.svg';
+import { ReactComponent as LoadingIcon } from '../../images/loading.svg';
 
 import './index.css';
 
@@ -30,8 +30,8 @@ const FetchAlert = ({
       className={'alert ' + className}
       data-error={status === actionStatuses.ERROR}
     >
-      {status === actionStatuses.LOADING && <Loading />}
-      {status !== actionStatuses.LOADING && <Alert />}
+      {status === actionStatuses.LOADING && <LoadingIcon />}
+      {status !== actionStatuses.LOADING && <AlertIcon />}
       <Field>{text}</Field>
     </div>
   );

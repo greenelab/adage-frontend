@@ -16,9 +16,9 @@ import { deselectGene } from '../../../../actions/genes';
 import { isString } from '../../../../util/types';
 import { isArray } from '../../../../util/types';
 
-import { ReactComponent as Checked } from '../../../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
-import { ReactComponent as Caret } from '../../../../images/caret.svg';
+import { ReactComponent as CheckedIcon } from '../../../../images/checked.svg';
+import { ReactComponent as UncheckedIcon } from '../../../../images/unchecked.svg';
+import { ReactComponent as CaretIcon } from '../../../../images/caret.svg';
 
 import './index.css';
 
@@ -88,7 +88,7 @@ let MultiRow = ({ search, select, deselect }) => {
         )}
         <Button
           className='gene_search_result_multi_expand'
-          icon={<Caret className={expanded ? 'flip_vertical' : ''} />}
+          icon={<CaretIcon className={expanded ? 'flip_vertical' : ''} />}
           onClick={() => setExpanded(!expanded)}
         />
       </div>
@@ -128,8 +128,8 @@ const ResultButton = ({
       horizontalAlign='left'
     >
       <Button className='gene_search_result_multi_check' onClick={onClick}>
-        {selected && <Checked />}
-        {!selected && <Unchecked />}
+        {selected && <CheckedIcon />}
+        {!selected && <UncheckedIcon />}
       </Button>
     </Tooltip>
     <span className='td' data-padded='true'>

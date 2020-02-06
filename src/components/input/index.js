@@ -7,10 +7,10 @@ import { useDebounce } from 'use-debounce';
 
 import Tooltip from '../../components/tooltip';
 import Button from '../../components/button';
-import { ReactComponent as ListMultiple } from '../../images/list-multiple.svg';
-import { ReactComponent as ListSingle } from '../../images/list-single.svg';
-import { ReactComponent as Search } from '../../images/search.svg';
-import { ReactComponent as Cross } from '../../images/cross.svg';
+import { ReactComponent as ListMultipleIcon } from '../../images/list-multiple.svg';
+import { ReactComponent as ListSingleIcon } from '../../images/list-single.svg';
+import { ReactComponent as SearchIcon } from '../../images/search.svg';
+import { ReactComponent as CrossIcon } from '../../images/cross.svg';
 
 import './index.css';
 
@@ -108,7 +108,7 @@ const Input = ({
         >
           <Button
             className='input_button'
-            icon={expanded ? <ListSingle /> : <ListMultiple />}
+            icon={expanded ? <ListSingleIcon /> : <ListMultipleIcon />}
             onClick={() => changeExpanded(!expanded)}
           />
         </Tooltip>
@@ -117,14 +117,14 @@ const Input = ({
         <Tooltip text={'Clear search'} horizontalAlign='right'>
           <Button
             className='input_button'
-            icon={<Cross />}
+            icon={<CrossIcon />}
             onClick={() => changeValue('')}
           />
         </Tooltip>
       )}
       {value.length === 0 && (
         <div className='input_button'>
-          <Search />
+          <SearchIcon />
         </div>
       )}
     </div>

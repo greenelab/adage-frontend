@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Slider from '../../../../components/slider';
 import Tooltip from '../../../../components/tooltip';
 
-import { ReactComponent as Genes } from '../../../../images/genes.svg';
-import { ReactComponent as Link } from '../../../../images/link.svg';
+import { ReactComponent as GeneIcon } from '../../../../images/gene.svg';
+import { ReactComponent as LinkIcon } from '../../../../images/link.svg';
 
 import './index.css';
 
@@ -47,7 +47,7 @@ let Filters = ({
         }
       >
         <span>
-          <Genes />
+          <GeneIcon />
           {filteredNodes} of {fullNodes}
         </span>
       </Tooltip>
@@ -57,7 +57,7 @@ let Filters = ({
         }
       >
         <span>
-          <Link />
+          <LinkIcon />
           {filteredLinks} of {fullLinks}
         </span>
       </Tooltip>

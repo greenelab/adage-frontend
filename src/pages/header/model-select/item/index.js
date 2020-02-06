@@ -6,9 +6,9 @@ import Field from '../../../../components/field';
 import Button from '../../../../components/button';
 import Link from '../../../../components/link';
 
-import { ReactComponent as Radioed } from '../../../../images/radioed.svg';
-import { ReactComponent as Unradioed } from '../../../../images/unradioed.svg';
-import { ReactComponent as Info } from '../../../../images/info.svg';
+import { ReactComponent as RadioedIcon } from '../../../../images/radioed.svg';
+import { ReactComponent as UnradioedIcon } from '../../../../images/unradioed.svg';
+import { ReactComponent as InfoIcon } from '../../../../images/info.svg';
 
 import './index.css';
 
@@ -25,8 +25,8 @@ const Item = ({
     <Button className='model_button' onClick={onClick}>
       <Tooltip text={'Select this model'} horizontalAlign='left'>
         <div className='model_radio'>
-          {selected && <Radioed />}
-          {!selected && <Unradioed />}
+          {selected && <RadioedIcon />}
+          {!selected && <UnradioedIcon />}
         </div>
       </Tooltip>
       <div className='model_summary'>
@@ -40,7 +40,7 @@ const Item = ({
       <Link
         to={'/model/' + id}
         newTab
-        icon={<Info />}
+        icon={<InfoIcon />}
         tooltip={'Open details page for model ' + title}
       />
     </Tooltip>

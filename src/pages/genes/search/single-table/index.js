@@ -8,8 +8,8 @@ import TableComponent from '../../../../components/table';
 import { selectGene } from '../../../../actions/genes';
 import { deselectGene } from '../../../../actions/genes';
 
-import { ReactComponent as Checked } from '../../../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../../../images/unchecked.svg';
+import { ReactComponent as CheckedIcon } from '../../../../images/checked.svg';
+import { ReactComponent as UncheckedIcon } from '../../../../images/unchecked.svg';
 
 import './index.css';
 
@@ -29,7 +29,7 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
               horizontalAlign='left'
             >
               <Button
-                icon={cell.selected ? <Checked /> : <Unchecked />}
+                icon={cell.selected ? <CheckedIcon /> : <UncheckedIcon />}
                 onClick={() =>
                   (cell.selected ? deselect : select)({ id: cell.id })
                 }

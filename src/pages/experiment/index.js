@@ -16,7 +16,7 @@ import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
 import { clean } from '../../util/object';
 
-import { ReactComponent as ExperimentIcon } from '../../images/experiments.svg';
+import { ReactComponent as ExperimentIcon } from '../../images/experiment.svg';
 
 import './index.css';
 

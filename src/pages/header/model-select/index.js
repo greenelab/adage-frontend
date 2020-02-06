@@ -11,7 +11,7 @@ import { useBbox } from '../../../util/hooks';
 import { isArray } from '../../../util/types';
 import { isString } from '../../../util/types';
 
-import { ReactComponent as Model } from '../../../images/model.svg';
+import { ReactComponent as ModelIcon } from '../../../images/model.svg';
 
 import './index.css';
 
@@ -31,7 +31,7 @@ let ModelSelect = ({ models }) => {
           className='model_select_button'
           onClick={() => setIsOpen(!isOpen)}
         >
-          <Model />
+          <ModelIcon />
         </Button>
       </Tooltip>
       <Popup

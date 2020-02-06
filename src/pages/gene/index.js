@@ -14,7 +14,7 @@ import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
 import { clean } from '../../util/object';
 
-import { ReactComponent as GeneIcon } from '../../images/genes.svg';
+import { ReactComponent as GeneIcon } from '../../images/gene.svg';
 
 import './index.css';
 

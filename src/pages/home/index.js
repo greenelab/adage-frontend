@@ -7,9 +7,9 @@ import Feature from './feature';
 import Footer from '../footer';
 import HorizontalLine from '../../components/horizontal-line';
 
-import { ReactComponent as Genes } from '../../images/genes.svg';
-import { ReactComponent as Experiments } from '../../images/experiments.svg';
-import { ReactComponent as Signatures } from '../../images/signatures.svg';
+import { ReactComponent as GeneIcon } from '../../images/gene.svg';
+import { ReactComponent as ExperimentIcon } from '../../images/experiment.svg';
+import { ReactComponent as SignatureIcon } from '../../images/signature.svg';
 
 import './index.css';
 
@@ -24,14 +24,14 @@ const Home = () => (
       <HorizontalLine />
       <Feature
         left
-        icon={<Genes />}
+        icon={<GeneIcon />}
         header='explore genes...'
         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
         to='/genes'
       />
       <HorizontalLine />
       <Feature
-        icon={<Experiments />}
+        icon={<ExperimentIcon />}
         header='explore experiments...'
         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
         to='/experiments'
@@ -39,7 +39,7 @@ const Home = () => (
       <HorizontalLine />
       <Feature
         left
-        icon={<Signatures />}
+        icon={<SignatureIcon />}
         header='explore signatures...'
         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'
         to='/signatures'
