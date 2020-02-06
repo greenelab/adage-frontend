@@ -4,17 +4,25 @@ import { useEffect } from 'react';
 
 let Head = ({ location }) => {
   useEffect(() => {
-    const path = location.pathname.slice(1);
-    const selected = (
-      new URLSearchParams(location.search).get('selected') || ''
-    )
+    const path = location.pathname
+      .split('/')
+      .filter((segment) => segment.trim())[0];
+
+    const genes = (new URLSearchParams(location.search).get('genes') || '')
       .split('-')
       .filter((id) => id).length;
-    let params;
-    if (selected)
-      params = selected + ' selected';
+    const experiments =
+      new URLSearchParams(location.search).get('experiments') || '';
 
-    const title = ['Adage', path, params].filter((entry) => entry).join(' · ');
+    const params = [];
+    if (genes)
+      params.push(genes + ' selected');
+    if (experiments)
+      params.push(experiments);
+
+    const title = ['Adage', path, ...params]
+      .filter((entry) => entry)
+      .join(' · ');
 
     document.title = title;
   }, [location]);
