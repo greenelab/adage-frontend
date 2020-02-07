@@ -1,12 +1,15 @@
 import produce from 'immer';
 
 import { isString } from '../util/types';
+import { isArray } from '../util/types';
 import { isObject } from '../util/types';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
   if (!isString(draft.details) && !isObject(draft.details))
     draft.details = {};
+  if (!isArray(draft.groups))
+    draft.groups = [];
 };
 
 // defines how state (redux store) changes in response to dispatched actions
@@ -18,6 +21,21 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.details = payload;
       break;
 
+    case 'UNGROUP_SAMPLE':
+      draft.groups = filterGrouped(draft.groups, payload.id);
+      break;
+
+    case 'GROUP_SAMPLE':
+      draft.groups = filterGrouped(draft.groups, payload.id);
+      if (!isArray(draft.groups[payload.index]))
+        draft.groups[payload.index] = [];
+      draft.groups[payload.index].push(payload.id);
+      break;
+
+    case 'UNGROUP_ALL_SAMPLES':
+      draft.groups = [];
+      break;
+
     default:
       break;
   }
@@ -26,3 +44,17 @@ const reducer = produce((draft, type, payload, meta) => {
 }, {});
 
 export default reducer;
+
+export const isGrouped = (groups, id) => {
+  for (const [index, group] of Object.entries(groups)) {
+    if (group.includes(id))
+      return Number(index);
+  }
+
+  return -1;
+};
+
+export const filterGrouped = (groups, id) =>
+  groups.map((group) =>
+    isArray(group) ? group.filter((sample) => sample !== id) : []
+  );
