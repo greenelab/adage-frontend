@@ -49,7 +49,7 @@ let Table = ({ samples, group, ungroup }) => (
       {
         name: 'Name',
         value: 'name',
-        width: 'calc((100% - 60px) * 0.25)',
+        width: 'calc((100% - 60px) * 0.2)',
         render: (cell) => (
           <Link
             to={'/sample/' + cell.id}
@@ -61,19 +61,19 @@ let Table = ({ samples, group, ungroup }) => (
         )
       },
       {
+        name: 'Description',
+        value: 'description',
+        width: 'calc((100% - 60px) * 0.55)'
+      },
+      {
         name: 'Genotype',
         value: 'genotype',
-        width: 'calc((100% - 60px) * 0.25)'
+        width: 'calc((100% - 60px) * 0.15)'
       },
       {
         name: 'Strain',
         value: 'strain',
         width: 'calc((100% - 60px) * 0.10)'
-      },
-      {
-        name: 'Description',
-        value: 'description',
-        width: 'calc((100% - 60px) * 0.40)'
       }
     ]}
   />

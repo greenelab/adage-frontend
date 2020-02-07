@@ -93,8 +93,7 @@ const constructGraph = ({ list, selected, edges }) => {
   // look up node ids in master gene list and replace with full gene props
   nodes = nodes
     .map((node) => list.find((gene) => gene.id === node))
-    .filter((node) => node)
-    .map(mapGene);
+    .filter((node) => node);
 
   // mark each node as selected or not
   nodes.forEach((node) => {
@@ -176,13 +175,13 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
 
 const mapStateToProps = (state) => ({
   list: isArray(state.gene.list) ?
-    state.gene.list.map((gene) => normalize(gene)) :
+    state.gene.list.map(mapGene).map((gene) => normalize(gene)) :
     state.gene.list,
   selected: isArray(state.gene.selected) ?
-    state.gene.selected.map((gene) => normalize(gene)) :
+    state.gene.selected.map(mapGene).map((selected) => normalize(selected)) :
     state.gene.selected,
   edges: isArray(state.gene.edges) ?
-    state.gene.edges.map((gene) => normalize(gene)) :
+    state.gene.edges.map((edge) => normalize(edge)) :
     state.gene.edges
 });
 

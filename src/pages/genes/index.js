@@ -40,7 +40,7 @@ export default Genes;
 
 export const mapGene = (gene) => ({
   ...normalize(gene),
-  name: gene.standard_name || gene.systematic_name || gene.entrezid || '???',
+  name: gene.standard_name || gene.systematic_name || gene.entrezid || '-',
   entrezId: gene.entrezid
 });
 

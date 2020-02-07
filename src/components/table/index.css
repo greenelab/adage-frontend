@@ -5,8 +5,8 @@
 }
 .thead,
 .tbody {
-  overflow-x: auto;
-  min-width: 350px;
+  overflow-x: visible;
+  min-width: 600px;
 }
 .tr {
   display: flex;
@@ -15,7 +15,6 @@
 }
 .tbody {
   max-height: calc((6 * 30px) + ((6 - 1) * 1px));
-  overflow-y: auto;
 }
 .th {
   height: 28px;
@@ -40,4 +39,17 @@
 .th > svg {
   flex-shrink: 0;
   margin-left: 3px;
+}
+.thead {
+  position: sticky;
+  top: 0;
+  background: var(--white);
+  z-index: 2;
+}
+.th:first-child,
+.td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--white);
+  z-index: 1;
 }
