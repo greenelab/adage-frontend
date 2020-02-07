@@ -2,19 +2,16 @@
   width: 100%;
   overflow-x: auto;
   overflow-y: visible;
+  max-height: calc((8 * 30px) + ((8 - 1) * 1px));
 }
 .thead,
 .tbody {
-  overflow-x: visible;
   min-width: 600px;
 }
 .tr {
   display: flex;
   align-items: center;
   height: 30px;
-}
-.tbody {
-  max-height: calc((6 * 30px) + ((6 - 1) * 1px));
 }
 .th {
   height: 28px;
@@ -40,14 +37,14 @@
   flex-shrink: 0;
   margin-left: 3px;
 }
-.thead {
+.table[data-freeze="true"] .thead {
   position: sticky;
   top: 0;
   background: var(--white);
   z-index: 2;
 }
-.th:first-child,
-.td:first-child {
+.table[data-freeze="true"] .th:first-child,
+.table[data-freeze="true"] .td:first-child {
   position: sticky;
   left: 0;
   background: var(--white);

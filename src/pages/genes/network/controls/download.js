@@ -6,5 +6,5 @@ export const download = () => {
   const highlights = clone.querySelectorAll('g[id*="highlight"]');
   for (const highlight of highlights)
     highlight.remove();
-  downloadSvg(clone.outerhtml, 'gene-network');
+  downloadSvg(clone.outerHTML, 'gene-network');
 };

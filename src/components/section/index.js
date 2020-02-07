@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 import './index.css';
 
@@ -30,6 +30,7 @@ const Section = ({ header = '', children = <></> }) => {
     </>
   );
 };
+
 Section.propTypes = {
   children: PropTypes.node,
   header: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired

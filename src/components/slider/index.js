@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDebounce } from 'use-debounce';
@@ -70,6 +71,17 @@ const Slider = ({
       />
     </div>
   );
+};
+
+Slider.propTypes = {
+  title: PropTypes.string,
+  value: PropTypes.number,
+  onChange: PropTypes.func,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  precision: PropTypes.number,
+  reverse: PropTypes.bool
 };
 
 export default Slider;

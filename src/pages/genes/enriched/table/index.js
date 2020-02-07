@@ -54,6 +54,7 @@ let Table = ({ enrichedSignatures }) => (
       }
     ]}
     defaultSort={[{ id: 'pValue', desc: false }]}
+    freeze={false}
   />
 );
 

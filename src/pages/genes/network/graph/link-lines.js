@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 import { linkData } from './';
 
-import { strokeWidth } from './constants';
+import { strokeWidth, fillA } from './constants';
 
 // stroked link lines
 
@@ -16,7 +16,7 @@ export const drawLinkLines = () => {
     .append('line')
     .merge(linkLines)
     .attr('class', 'graph_link_line')
-    .attr('stroke', 'var(--green)')
+    .attr('stroke', fillA)
     .attr(
       'stroke-width',
       // base thickness on normalized weight (boosted and min-clamped)
