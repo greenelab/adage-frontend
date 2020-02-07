@@ -4,11 +4,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontendindex.html"
   },
   {
-    "revision": "dce0101c5157c224b8c8",
+    "revision": "23d43c2ee618777279f2",
     "url": "/adage-frontendstatic/css/main.css"
   },
   {
-    "revision": "dce0101c5157c224b8c8",
+    "revision": "23d43c2ee618777279f2",
     "url": "/adage-frontendstatic/js/main.js"
   },
   {
@@ -34,6 +34,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "67bfd66082ec42a2b563292be3c1fa37",
     "url": "/adage-frontendstatic/media/cross.67bfd660.svg"
+  },
+  {
+    "revision": "48b719f2d8fda9341e0f114342a27a7d",
+    "url": "/adage-frontendstatic/media/diamond.48b719f2.svg"
   },
   {
     "revision": "387e07578d32e7356e06b9ffe8df9cba",
@@ -110,6 +114,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "6e2929f7adbb1cd4a4a13ca7e84f909c",
     "url": "/adage-frontendstatic/media/signature.6e2929f7.svg"
+  },
+  {
+    "revision": "dbf5f8b8424b42f512b1b2ed87c78f81",
+    "url": "/adage-frontendstatic/media/spade.dbf5f8b8.svg"
   },
   {
     "revision": "bfb9e3109a2dfac827d099af76557b38",

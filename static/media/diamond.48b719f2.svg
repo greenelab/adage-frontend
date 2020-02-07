@@ -1,0 +1,17 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="0 0 100 100"
+>
+  <path
+    transform="translate(50,50) scale(0.90) translate(-50,-50)"
+    fill="currentColor"
+    d="
+      M 50 0
+      L 85 50
+      L 50 100
+      L 15 50
+    "
+  />
+</svg>
