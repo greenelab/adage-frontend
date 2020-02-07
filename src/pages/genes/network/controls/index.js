@@ -37,7 +37,7 @@ const Controls = ({ nodes }) => (
         />
       </Tooltip>
       <Tooltip text='Download gene network as .svg'>
-        <Button text='Download' icon={<DownloadIcon />} onClick={download} />
+        <Button text='Download .svg' icon={<DownloadIcon />} onClick={download} />
       </Tooltip>
     </div>
   </>
