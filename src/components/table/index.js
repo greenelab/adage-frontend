@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useTable } from 'react-table';
@@ -6,7 +7,6 @@ import { useSortBy } from 'react-table';
 
 import Field from '../../components/field';
 import HorizontalLine from '../../components/horizontal-line';
-import { useBbox } from '../../util/hooks';
 import { cleanValue } from '../../util/object';
 
 import { ReactComponent as ArrowIcon } from '../../images/arrow.svg';
@@ -31,10 +31,9 @@ const Table = ({
   data,
   defaultSort = [],
   sortable = true,
+  freeze = true,
   highlightedIndex
 }) => {
-  const [tbodyBbox, tbodyRef] = useBbox();
-
   // map friendly names to rc-table names
   columns = columns.map((column) => ({
     Header: column.name,
@@ -72,13 +71,13 @@ const Table = ({
   });
 
   return (
-    <div {...getTableProps()} className='table' data-sortable={sortable}>
-      <div
-        className='thead medium'
-        style={{
-          width: tbodyBbox ? tbodyBbox.clientWidth - 1 + 'px' : undefined
-        }}
-      >
+    <div
+      {...getTableProps()}
+      className='table'
+      data-sortable={sortable}
+      data-freeze={freeze}
+    >
+      <div className='thead medium'>
         {headerGroups.map((headerGroup, index) => (
           <Fragment key={index}>
             <div {...headerGroup.getHeaderGroupProps()} className='tr'>
@@ -118,7 +117,7 @@ const Table = ({
           </Fragment>
         ))}
       </div>
-      <div {...getTableBodyProps()} className='tbody' ref={tbodyRef}>
+      <div {...getTableBodyProps()} className='tbody'>
         {rows.forEach(prepareRow)}
         {rows.map((row, index, array) => (
           <Fragment key={index}>
@@ -132,10 +131,7 @@ const Table = ({
                 let contents = cell.render('Cell');
 
                 // if cell value not component, make dash if blank
-                if (
-                  cleanValue(cell.value) === '-' &&
-                  !cell.column.customRender
-                )
+                if (cleanValue(cell.value) === '-' && !cell.column.customRender)
                   contents = '-';
 
                 // if cell value not component, wrap in Field
@@ -166,6 +162,14 @@ const Table = ({
       </div>
     </div>
   );
+};
+
+Table.propTypes = {
+  columns: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+  sortable: PropTypes.bool,
+  freeze: PropTypes.bool,
+  highlightedIndex: PropTypes.number
 };
 
 export default Table;

@@ -18,6 +18,11 @@
   max-height: 100%;
   background: var(--dark-gray);
 }
+.feature_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .feature_header > svg {
   margin-right: 10px;
 }

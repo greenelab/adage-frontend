@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 import { useState } from 'react';
 import { useRef } from 'react';
@@ -101,6 +102,17 @@ const Search = ({
       {expanded && MultiComponent}
     </>
   );
+};
+
+Search.propTypes = {
+  length: PropTypes.number,
+  multi: PropTypes.bool,
+  placeholder: PropTypes.string,
+  multiPlaceholder: PropTypes.string,
+  onSearch: PropTypes.func,
+  onKeySelect: PropTypes.func,
+  SingleComponent: PropTypes.node,
+  MultiComponent: PropTypes.node
 };
 
 export default Search;
