@@ -102,10 +102,11 @@ let GroupButton = ({ sample, index, name, color, Icon, group, ungroup }) => {
       }
     >
       <Button
-        icon={<Icon style={{ color: grouped ? color : defaultColor }} />}
+        icon={<Icon />}
         onClick={() =>
           (grouped ? ungroup : group)({ index: index, id: sample.id })
         }
+        style={{ color: grouped ? color : defaultColor }}
       />
     </Tooltip>
   );

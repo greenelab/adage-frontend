@@ -8,7 +8,6 @@ import { isObject } from '../util/types';
 const typeCheck = (draft) => {
   if (!isString(draft.details) && !isObject(draft.details))
     draft.details = {};
-
   if (!isArray(draft.groups))
     draft.groups = [];
 };

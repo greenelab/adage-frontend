@@ -1,7 +1,10 @@
 .gene_network_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   margin-top: 20px;
   margin-bottom: 10px;
-  text-align: center;
 }
 .gene_network_info > span {
   display: inline-flex;
