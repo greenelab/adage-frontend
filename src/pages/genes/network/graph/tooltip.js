@@ -68,7 +68,7 @@ export const openTooltip = (...args) => {
 // when tooltip closes
 export const closeTooltip = () => {
   window.clearTimeout(timer);
-  tooltip.hide();
+  tooltip.destroy();
 };
 
 const mapGeneTooltip = (gene) => ({
