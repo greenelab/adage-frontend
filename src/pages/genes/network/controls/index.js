@@ -5,7 +5,8 @@ import Button from '../../../../components/button';
 import { fitView } from '../graph/view';
 import { unpinAll } from '../graph/simulation';
 import { pinAll } from '../graph/simulation';
-import { downloadImage, downloadTable } from './download';
+import { downloadTable } from './download';
+import { downloadImage } from './download';
 
 import { ReactComponent as FitIcon } from '../../../../images/fit.svg';
 import { ReactComponent as UnpinIcon } from '../../../../images/unpin.svg';
