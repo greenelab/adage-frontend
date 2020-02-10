@@ -155,18 +155,24 @@ const mapStateToProps = (state) => ({
   selectedExperimentAccession: state.experiment.selected.accession
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getModelList: () => dispatch(getModelList()),
-  getGeneList: (...args) => dispatch(getGeneList(...args)),
-  getExperimentList: (...args) => dispatch(getExperimentList(...args)),
-  getSignatureList: (...args) => dispatch(getSignatureList(...args)),
-  getGeneSelectedDetails: () => dispatch(getGeneSelectedDetails()),
-  getExperimentSelectedDetails: () => dispatch(getExperimentSelectedDetails()),
-  selectModel: () => dispatch(selectModel()),
-  getEnrichedSignatures: (...args) =>
-    dispatch(getGeneEnrichedSignatures(...args)),
-  getGeneEdges: (...args) => dispatch(getGeneEdges(...args))
-});
+const mapDispatchToProps = (dispatch) => {
+  const delayedDispatch = (...args) =>
+    window.setTimeout(() => dispatch(...args), 100);
+
+  return {
+    getModelList: () => delayedDispatch(getModelList()),
+    getGeneList: (...args) => delayedDispatch(getGeneList(...args)),
+    getExperimentList: (...args) => delayedDispatch(getExperimentList(...args)),
+    getSignatureList: (...args) => delayedDispatch(getSignatureList(...args)),
+    getGeneSelectedDetails: () => delayedDispatch(getGeneSelectedDetails()),
+    getExperimentSelectedDetails: () =>
+      delayedDispatch(getExperimentSelectedDetails()),
+    selectModel: () => delayedDispatch(selectModel()),
+    getEnrichedSignatures: (...args) =>
+      delayedDispatch(getGeneEnrichedSignatures(...args)),
+    getGeneEdges: (...args) => delayedDispatch(getGeneEdges(...args))
+  };
+};
 
 Controller = connect(mapStateToProps, mapDispatchToProps)(Controller);
 

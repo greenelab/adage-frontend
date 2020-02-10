@@ -25,9 +25,9 @@ cache.size = 0;
 cache.limit = 50 * 1000000; // in bytes
 
 // action creator for fetch-style (asynchronous) actions
-export const createFetchAction = (type, urlFunction) => ({
-  ...props
-}) => async (dispatch) => {
+export const createFetchAction = (type, urlFunction) => (props = {}) => async (
+  dispatch
+) => {
   // get cancel type from action props if specified
   const { cancelType } = props;
 
