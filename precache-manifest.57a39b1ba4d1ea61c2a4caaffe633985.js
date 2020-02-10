@@ -4,16 +4,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontendindex.html"
   },
   {
-    "revision": "aa9a05b9166d6a7ed39f",
+    "revision": "34ed891a144549dea93b",
     "url": "/adage-frontendstatic/css/main.css"
   },
   {
-    "revision": "aa9a05b9166d6a7ed39f",
+    "revision": "34ed891a144549dea93b",
     "url": "/adage-frontendstatic/js/main.js"
   },
   {
-    "revision": "88facc4f5ce327ec4062c7052ca0f101",
-    "url": "/adage-frontendstatic/js/main.js.LICENSE"
+    "revision": "6573c17519664ac80e5e091ebd98f283",
+    "url": "/adage-frontendstatic/js/main.js.LICENSE.txt"
   },
   {
     "revision": "996fd198f18d282d247bb3ce45c9f806",
