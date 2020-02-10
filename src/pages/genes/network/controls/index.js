@@ -5,7 +5,8 @@ import Button from '../../../../components/button';
 import { fitView } from '../graph/view';
 import { unpinAll } from '../graph/simulation';
 import { pinAll } from '../graph/simulation';
-import { download } from './download';
+import { downloadTable } from './download';
+import { downloadImage } from './download';
 
 import { ReactComponent as FitIcon } from '../../../../images/fit.svg';
 import { ReactComponent as UnpinIcon } from '../../../../images/unpin.svg';
@@ -16,7 +17,7 @@ import './index.css';
 
 // controls below gene network graph
 
-const Controls = ({ nodes }) => (
+const Controls = ({ nodes, links }) => (
   <>
     <div className='gene_network_controls'>
       <Tooltip text='Fit view to contents of graph'>
@@ -36,8 +37,19 @@ const Controls = ({ nodes }) => (
           onClick={() => pinAll({ nodes })}
         />
       </Tooltip>
+      <Tooltip text='Download gene network as .tsv for import into Cytoscape or other'>
+        <Button
+          text='Download Table'
+          icon={<DownloadIcon />}
+          onClick={() => downloadTable({ links })}
+        />
+      </Tooltip>
       <Tooltip text='Download gene network as .svg'>
-        <Button text='Download SVG' icon={<DownloadIcon />} onClick={download} />
+        <Button
+          text='Download SVG'
+          icon={<DownloadIcon />}
+          onClick={downloadImage}
+        />
       </Tooltip>
     </div>
   </>
