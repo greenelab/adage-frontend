@@ -10,7 +10,7 @@ export const downloadImage = () => {
   downloadSvg(clone.outerHTML, 'gene-network');
 };
 
-export const downloadTable = ({ nodes, links }) => {
+export const downloadTable = ({ links }) => {
   const data = links.map((link) => ({
     gene1_standard_name: link.source.standardName,
     gene1_systematic_name: link.source.systematicName,

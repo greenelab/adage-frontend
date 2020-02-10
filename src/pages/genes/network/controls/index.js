@@ -41,7 +41,7 @@ const Controls = ({ nodes, links }) => (
         <Button
           text='Download Table'
           icon={<DownloadIcon />}
-          onClick={() => downloadTable({ nodes, links })}
+          onClick={() => downloadTable({ links })}
         />
       </Tooltip>
       <Tooltip text='Download gene network as .svg'>
