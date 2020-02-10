@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import SingleTable from '../single-table';
 import Tooltip from '../../../../components/tooltip';
-import GeneLink from '../../link';
+import GeneLink from '../../../gene/link';
 import Field from '../../../../components/field';
 import FetchAlert from '../../../../components/fetch-alert';
 import Button from '../../../../components/button';

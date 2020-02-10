@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
 import Link from '../../../../components/link';
-import GeneLink from '../../link';
+import GeneLink from '../../../gene/link';
 import { mapGene } from '../../';
 
 import './index.css';

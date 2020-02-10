@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Tooltip from '../../../../components/tooltip';
-import GeneLink from '../../link';
+import GeneLink from '../../../gene/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
 import { deselectGene } from '../../../../actions/genes';

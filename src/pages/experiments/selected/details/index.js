@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Tooltip from '../../../../components/tooltip';
-import Link from '../../../../components/link';
+import ExperimentLink from '../../../experiment/link';
 import { mapExperiment } from '../../';
 
 import './index.css';
@@ -29,14 +29,7 @@ let Details = ({ experiment }) => (
     <div className='sample_table_info medium'>
       <span>
         <ExperimentIcon />
-        <Link
-          className='medium'
-          to={'/experiment/' + experiment.accession}
-          newTab
-          button={false}
-          text={experiment.accession}
-          tooltip={'Open details page for experiment ' + experiment.accession}
-        />
+        <ExperimentLink experiment={experiment} />
       </span>
       <Tooltip
         text={'Showing ' + (experiment.samples?.length || 0) + ' samples'}

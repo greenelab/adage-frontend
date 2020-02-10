@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import Link from '../../components/link';
+import ExperimentLink from '../experiment/link';
 import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
@@ -62,13 +62,8 @@ const mapStateToProps = (state) => {
         <>
           {details.Experiments.map((experiment, index) => (
             <Fragment key={index}>
-              <Link
-                to={'/experiment/' + experiment}
-                newTab
-                button={false}
-                text={experiment}
-                tooltip={'Open details page for experiment ' + experiment}
-              />
+              {console.log(experiment)}
+              <ExperimentLink experiment={experiment} />
               <br />
             </Fragment>
           ))}

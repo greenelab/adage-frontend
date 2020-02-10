@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
-import Link from '../../../../components/link';
+import SampleLink from '../../../sample/link';
 import TableComponent from '../../../../components/table';
 import { groupSample } from '../../../../actions/samples';
 import { ungroupSample } from '../../../../actions/samples';
@@ -50,15 +50,7 @@ let Table = ({ samples, group, ungroup }) => (
         name: 'Name',
         value: 'name',
         width: 'calc((100% - 60px) * 0.2)',
-        render: (cell) => (
-          <Link
-            to={'/sample/' + cell.id}
-            newTab
-            button={false}
-            text={cell.name}
-            tooltip={'Open details page for sample ' + cell.name}
-          />
-        )
+        render: (cell) => <SampleLink sample={cell} />
       },
       {
         name: 'Description',

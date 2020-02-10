@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Link from '../../../components/link';
+import Link from '../../components/link';
 
-import './index.css';
+// link to gene details page
 
 const GeneLink = ({ gene = {} }) => (
   <Link
