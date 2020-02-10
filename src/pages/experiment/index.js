@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import Link from '../../components/link';
+import SampleLink from '../sample/link';
 import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
@@ -56,19 +56,13 @@ const mapStateToProps = (state) => {
   let details = state.experiment.details;
 
   if (isObject(details)) {
-    details = normalize(details, true);
+    details = normalize(details, true, null, ['Max Similarity Field']);
     if (details.Samples) {
       details.Samples = (
         <>
           {details.Samples.map((sample, index) => (
             <Fragment key={index}>
-              <Link
-                to={'/sample/' + sample.id}
-                newTab
-                button={false}
-                text={sample.name}
-                tooltip={'Open details page for sample ' + sample.name}
-              />
+              <SampleLink sample={sample} />
               <br />
             </Fragment>
           ))}

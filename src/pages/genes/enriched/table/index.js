@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
 import Link from '../../../../components/link';
+import GeneLink from '../../../gene/link';
 import { mapGene } from '../../';
 
 import './index.css';
@@ -35,13 +36,7 @@ let Table = ({ enrichedSignatures }) => (
         render: (cell) =>
           cell.genes.map((gene, index) => (
             <Fragment key={index}>
-              <Link
-                to={'/gene/' + gene.id}
-                newTab
-                button={false}
-                text={gene.name}
-                tooltip={'Open details page for gene ' + gene.name}
-              />
+              <GeneLink gene={gene} />
               &nbsp;
             </Fragment>
           ))

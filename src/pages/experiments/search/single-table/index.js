@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Tooltip from '../../../../components/tooltip';
-import Link from '../../../../components/link';
+import ExperimentLink from '../../../experiment/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
 import { selectExperiment } from '../../../../actions/experiments';
@@ -36,15 +36,7 @@ let Table = ({ results, highlightedIndex, select }) => {
           name: 'Accession',
           value: 'accession',
           width: 'calc((100% - 30px) * 0.25)',
-          render: (cell) => (
-            <Link
-              to={'/experiment/' + cell.accession}
-              newTab
-              button={false}
-              text={cell.accession}
-              tooltip={'Open details page for experiment ' + cell.accession}
-            />
-          )
+          render: (cell) => <ExperimentLink experiment={cell} />
         },
         {
           name: 'Samples',

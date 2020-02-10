@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Tooltip from '../../../../components/tooltip';
-import Link from '../../../../components/link';
+import GeneLink from '../../../gene/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
 import { selectGene } from '../../../../actions/genes';
@@ -42,15 +42,7 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
           name: 'Standard Name',
           value: 'standardName',
           width: 'calc((100% - 30px) * 0.2)',
-          render: (cell) => (
-            <Link
-              to={'/gene/' + cell.id}
-              newTab
-              button={false}
-              text={cell.standardName}
-              tooltip={'Open details page for gene ' + cell.standardName}
-            />
-          )
+          render: (cell) => <GeneLink gene={cell} />
         },
         {
           name: 'Systematic Name',

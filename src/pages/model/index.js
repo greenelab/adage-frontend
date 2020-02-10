@@ -53,8 +53,14 @@ let Model = ({ match, details, getDetails }) => {
 const mapStateToProps = (state) => {
   let details = state.model.details;
 
-  if (isObject(details))
-    details = normalize(details, true);
+  if (isObject(details)) {
+    details = normalize(details, true, null, [
+      'Id',
+      'Directed G2g Edge',
+      'G2g Edge Cutoff',
+      'Organism'
+    ]);
+  }
 
   return { details };
 };
