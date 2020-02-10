@@ -53,6 +53,18 @@ export const camelizeKeys = (object) => {
   return object;
 };
 
+// go through keys of object and delete unwanted
+export const filterKeys = (object, filter = []) => {
+  object = { ...object };
+
+  for (const key of Object.keys(object)) {
+    if (filter.includes(key))
+      delete object[key];
+  }
+
+  return object;
+};
+
 // "clean" value. decode html within strings, show falsey values as a dash
 export const cleanValue = (value) => {
   if (isBlank(value))
@@ -66,18 +78,6 @@ export const cleanValue = (value) => {
   }
 
   return value;
-};
-
-// go through keys of object and delete unwanted
-export const filterKeys = (object, filter = []) => {
-  object = { ...object };
-
-  for (const key of Object.keys(object)) {
-    if (filter.includes(key))
-      delete object[key];
-  }
-
-  return object;
 };
 
 // go through values of object and "clean" them
@@ -97,7 +97,8 @@ export const normalize = (object, human, depth, filter) => {
     object = humanizeKeys(object);
   else
     object = camelizeKeys(object);
-  object = filterKeys(object, filter);
+  if (filter)
+    object = filterKeys(object, filter);
   object = cleanValues(object);
 
   return object;
