@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
   let details = state.sample.details;
 
   if (isObject(details)) {
-    details = normalize(details, true, 1);
+    details = normalize(details, true, 1, ['Id']);
     if (details.Experiments) {
       details.Experiments = (
         <>

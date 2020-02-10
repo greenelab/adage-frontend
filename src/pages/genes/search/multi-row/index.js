@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import SingleTable from '../single-table';
 import Tooltip from '../../../../components/tooltip';
-import Link from '../../../../components/link';
+import GeneLink from '../../link';
 import Field from '../../../../components/field';
 import FetchAlert from '../../../../components/fetch-alert';
 import Button from '../../../../components/button';
@@ -62,10 +62,7 @@ let MultiRow = ({ search, select, deselect }) => {
             <ResultButton
               key={content.length}
               onClick={() => onClick(result)}
-              id={result.id}
-              selected={result.selected}
-              standardName={result.standardName}
-              systematicName={result.systematicName}
+              gene={result}
             />
           );
           if (index < array.length - 1)
@@ -122,31 +119,19 @@ export default MultiRow;
 
 // multi search result button
 
-const ResultButton = ({
-  onClick = () => null,
-  selected = false,
-  id = -1,
-  standardName = '-',
-  systematicName = '-'
-}) => (
+const ResultButton = ({ onClick = () => null, gene = {} }) => (
   <>
-    <Tooltip text={(selected ? 'Deselect' : 'Select') + ' this gene'}>
+    <Tooltip text={(gene.selected ? 'Deselect' : 'Select') + ' this gene'}>
       <Button className='gene_search_result_multi_check' onClick={onClick}>
-        {selected && <CheckedIcon />}
-        {!selected && <UncheckedIcon />}
+        {gene.selected && <CheckedIcon />}
+        {!gene.selected && <UncheckedIcon />}
       </Button>
     </Tooltip>
     <span className='td' data-padded='true'>
-      <Link
-        to={'/gene/' + id}
-        newTab
-        button={false}
-        text={standardName}
-        tooltip={'Open details page for gene ' + standardName}
-      />
+      <GeneLink gene={gene} />
     </span>
     <span className='td' data-padded='true'>
-      <Field>{systematicName}</Field>
+      <Field>{gene.systematicName}</Field>
     </span>
   </>
 );

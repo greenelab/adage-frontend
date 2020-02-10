@@ -17,3 +17,13 @@ export const toCamelCase = (string) => {
   string = string.join('');
   return string;
 };
+
+// test if string is link to external resource (on a different domain/host)
+export const isExternalLink = (string) => {
+  try {
+    new URL(string);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

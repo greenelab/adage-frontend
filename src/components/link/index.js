@@ -4,6 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import Tooltip from '../tooltip';
+import { isExternalLink } from '../../util/string';
 
 import './index.css';
 
@@ -53,7 +54,7 @@ let Link = ({
           'clickable nowrap ' + (!icon ? 'field nowrap' : '') + ' ' + className
         }
         target={newTab ? '_blank' : undefined}
-        to={{ pathname: to, search: location.search }}
+        to={{ pathname: to, search: isExternalLink(to) ? '' : location.search }}
         data-button={button}
         data-text={text !== undefined}
         data-icon={icon !== undefined}

@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
   let details = state.experiment.details;
 
   if (isObject(details)) {
-    details = normalize(details, true);
+    details = normalize(details, true, null, ['Max Similarity Field']);
     if (details.Samples) {
       details.Samples = (
         <>

@@ -19,12 +19,14 @@ export const flatten = (object, depth = 0) => {
     else
       result[key] = value;
   }
+
   return result;
 };
 
 // go through keys of object and convert to Human Case
 export const humanizeKeys = (object) => {
   object = { ...object };
+
   for (const key of Object.keys(object)) {
     const newKey = toHumanCase(key);
     if (key !== newKey) {
@@ -32,12 +34,14 @@ export const humanizeKeys = (object) => {
       delete object[key];
     }
   }
+
   return object;
 };
 
 // go through keys of object and convert to camelCase
 export const camelizeKeys = (object) => {
   object = { ...object };
+
   for (const key of Object.keys(object)) {
     const newKey = toCamelCase(key);
     if (key !== newKey) {
@@ -45,6 +49,7 @@ export const camelizeKeys = (object) => {
       delete object[key];
     }
   }
+
   return object;
 };
 
@@ -63,17 +68,37 @@ export const cleanValue = (value) => {
   return value;
 };
 
-// go through values of object and "clean" them
-export const cleanValues = (object) => {
+// go through keys of object and delete unwanted
+export const filterKeys = (object, filter = []) => {
   object = { ...object };
-  for (const [key, value] of Object.entries(object))
-    object[key] = cleanValue(value);
+
+  for (const key of Object.keys(object)) {
+    if (filter.includes(key))
+      delete object[key];
+  }
+
   return object;
 };
 
-// flatten, case-ize, and clean object
-export const normalize = (object, human, depth) =>
-  [flatten, human ? humanizeKeys : camelizeKeys, cleanValues].reduce(
-    (object, func) => func(object, depth),
-    object
-  );
+// go through values of object and "clean" them
+export const cleanValues = (object) => {
+  object = { ...object };
+
+  for (const [key, value] of Object.entries(object))
+    object[key] = cleanValue(value);
+
+  return object;
+};
+
+// flatten, case-ize, filter, and clean object
+export const normalize = (object, human, depth, filter) => {
+  object = flatten(object, depth);
+  if (human)
+    object = humanizeKeys(object);
+  else
+    object = camelizeKeys(object);
+  object = filterKeys(object, filter);
+  object = cleanValues(object);
+
+  return object;
+};
