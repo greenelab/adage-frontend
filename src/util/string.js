@@ -21,9 +21,8 @@ export const toCamelCase = (string) => {
 // test if string is link to external resource (on a different domain/host)
 export const isExternalLink = (string) => {
   try {
-    new URL(string);
-    return true;
+    return new URL(string).hostname !== window.location.hostname;
   } catch (error) {
     return false;
   }
-}
+};

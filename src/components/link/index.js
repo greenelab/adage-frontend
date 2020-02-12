@@ -47,19 +47,38 @@ let Link = ({
     }
   }
 
-  return (
-    <RouterLink
-      className={'clickable nowrap ' + className}
-      target={newTab ? '_blank' : undefined}
-      to={{ pathname: to, search: isExternalLink(to) ? '' : location.search }}
-      data-button={button}
-      data-text={text !== undefined}
-      data-icon={icon !== undefined}
-      {...props}
-    >
-      {content}
-    </RouterLink>
-  );
+  if (isExternalLink(to)) {
+    return (
+      <a
+        className={'clickable nowrap ' + className}
+        target={newTab ? '_blank' : undefined}
+        href={to}
+        data-button={button}
+        data-text={text !== undefined}
+        data-icon={icon !== undefined}
+        {...props}
+      >
+        {content}
+        <span style={{ position: 'fixed', left: '-100000px' }}>
+          {props['aria-label'] || 'button'}
+        </span>
+      </a>
+    );
+  } else {
+    return (
+      <RouterLink
+        className={'clickable nowrap ' + className}
+        target={newTab ? '_blank' : undefined}
+        to={{ pathname: to, search: location.search }}
+        data-button={button}
+        data-text={text !== undefined}
+        data-icon={icon !== undefined}
+        {...props}
+      >
+        {content}
+      </RouterLink>
+    );
+  }
 };
 
 Link = withRouter(Link);
