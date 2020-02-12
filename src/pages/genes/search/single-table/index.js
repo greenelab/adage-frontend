@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Tooltip from '../../../../components/tooltip';
 import GeneLink from '../../../gene/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
@@ -26,16 +25,15 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
           width: '30px',
           padded: false,
           render: (cell) => (
-            <Tooltip
-              text={(cell.selected ? 'Deselect' : 'Select') + ' this gene'}
-            >
-              <Button
-                icon={cell.selected ? <CheckedIcon /> : <UncheckedIcon />}
-                onClick={() =>
-                  (cell.selected ? deselect : select)({ id: cell.id })
-                }
-              />
-            </Tooltip>
+            <Button
+              icon={cell.selected ? <CheckedIcon /> : <UncheckedIcon />}
+              onClick={() =>
+                (cell.selected ? deselect : select)({ id: cell.id })
+              }
+              aria-label={
+                (cell.selected ? 'Deselect' : 'Select') + ' this gene'
+              }
+            />
           )
         },
         {
@@ -55,7 +53,7 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
           width: 'calc((100% - 30px) * 0.2)'
         },
         {
-          name: 'Description',
+          name: 'Entrez Description',
           value: 'description',
           width: 'calc((100% - 30px) * 0.4)'
         }

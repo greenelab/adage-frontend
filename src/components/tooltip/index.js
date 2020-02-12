@@ -2,10 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { Children } from 'react';
-import { isValidElement } from 'react';
-import { cloneElement } from 'react';
+import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
@@ -15,144 +12,83 @@ const delay = 250;
 const duration = 250;
 const padding = 5;
 
-// generic tooltip component
+// tooltip singular component
 
-const Tooltip = ({ children, text = '' }) => {
+const Tooltip = () => {
   // internal state
-  const [hover, setHover] = useState(false);
   const [open, setOpen] = useState(false);
-  const [timer, setTimer] = useState(null);
   const [anchor, setAnchor] = useState(null);
-  const [style, setStyle] = useState({});
+  const openTimer = useRef();
+  const closeTimer = useRef();
 
-  // when user "enters" target (hovers, focuses)
-  const onEnter = useCallback(
-    (event) => {
-      if (text && !window.matchMedia('(hover: none)').matches) {
-        setAnchor(event.target);
-        setHover(true);
-      }
-    },
-    [text]
-  );
-
-  // when user "leaves" target (unhovers, blurs)
-  const onLeave = useCallback(() => {
-    setAnchor(null);
-    setHover(false);
+  // set tooltip to open
+  const openTooltip = useCallback((event) => {
+    window.clearTimeout(closeTimer.current);
+    openTimer.current = window.setTimeout(() => {
+      setOpen(true);
+      setAnchor(event.target);
+    }, delay);
   }, []);
 
-  // handle delayed opening
+  // set tooltip to close
+  const closeTooltip = useCallback(() => {
+    window.clearTimeout(openTimer.current);
+    setOpen(false);
+    closeTimer.current = window.setTimeout(() => setAnchor(null), duration);
+  }, []);
+
+  // when any dom node changes
+  const onMutation = useCallback(() => {
+    // get all nodes with an aria-label that haven't been processed yet
+    // MutationRecord's "addedNodes" doesn't seem to play nice with react
+    const nodes = document.querySelectorAll(
+      '[aria-label]:not([data-tooltipped])'
+    );
+
+    // attach tooltip triggers to each node, and mark as processed
+    for (const node of nodes) {
+      node.addEventListener('mouseenter', openTooltip);
+      node.addEventListener('mouseleave', closeTooltip);
+      node.setAttribute('data-tooltipped', 'true');
+    }
+  }, [openTooltip, closeTooltip]);
+
+  // set up mutation observer to watch for dom node additions/changes
   useEffect(() => {
-    if (hover) {
-      setTimer(
-        window.setTimeout(() => {
-          setOpen(true);
-        }, delay)
-      );
-    } else
-      setTimer(null);
-  }, [hover]);
-
-  // close if not hovered
-  useEffect(() => {
-    if (open && !hover)
-      setOpen(false);
-  }, [open, hover]);
-
-  // handle timer
-  useEffect(() => {
-    if (timer === null)
-      window.clearTimeout(timer);
-    return () => window.clearTimeout(timer);
-  }, [timer]);
-
-  // on window resize
-  const onResize = useCallback(() => {
-    if (anchor)
-      setStyle(computeStyle({ anchor }));
-  }, [anchor]);
-
-  // handle resize
-  useEffect(() => {
-    onResize();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [onResize]);
-
-  // if no text, skip this to save processing time
-  if (text) {
-    // go through chilren elements
-    children = Children.map(children, (element) => {
-      // if child is a react component, clone and add onEnter/onLeave props
-      // and aria label that matches text content
-      if (isValidElement(element)) {
-        return cloneElement(element, {
-          'onMouseEnter': (...args) => {
-            if (element.onMouseEnter)
-              element.onMouseEnter(...args);
-            onEnter(...args);
-          },
-          'onMouseLeave': (...args) => {
-            if (element.onMouseLeave)
-              element.onMouseLeave(...args);
-            onLeave(...args);
-          },
-          'onFocus': (...args) => {
-            if (element.onFocus)
-              element.onFocus(...args);
-            onEnter(...args);
-          },
-          'onBlur': (...args) => {
-            if (element.onBlur)
-              element.onBlur(...args);
-            onLeave(...args);
-          },
-          'aria-label': text
-        });
-      } else {
-        // otherwise, pass element through
-        return element;
-      }
+    const observer = new MutationObserver(onMutation);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
     });
-  }
+    return () => {
+      observer.disconnect();
+    };
+  }, [onMutation]);
 
   return (
     <>
-      {children}
-      {text && (
-        <CSSTransition
-          in={open}
-          timeout={duration}
-          classNames='tooltip'
-          unmountOnExit
-        >
-          <Portal text={text} style={style} />
-        </CSSTransition>
-      )}
+      <CSSTransition
+        in={open ? true : false}
+        timeout={duration}
+        classNames='tooltip'
+        unmountOnExit
+      >
+        <Portal anchor={anchor} />
+      </CSSTransition>
     </>
   );
 };
-
-Tooltip.propTypes = {
-  children: PropTypes.node,
-  text: PropTypes.string.isRequired,
-  horizontalAlign: PropTypes.string,
-  verticalAlign: PropTypes.string
-};
-
 export default Tooltip;
 
 // append popup to body, not app root
 
-const Portal = ({ text, style }) => {
-  return createPortal(
-    <div className='tooltip text_small' style={style}>
-      {text}
+const Portal = ({ anchor }) =>
+  createPortal(
+    <div className='tooltip text_small' style={computeStyle({ anchor })}>
+      {anchor?.getAttribute('aria-label') || anchor?.innerText || ''}
     </div>,
     document.body
   );
-};
 
 const horizontalMargin = 200;
 const verticalMargin = 100;
@@ -160,7 +96,11 @@ const verticalMargin = 100;
 // position tooltip relative to anchor/target
 
 const computeStyle = ({ anchor }) => {
-  const anchorBbox = anchor.getBoundingClientRect();
+  const anchorBbox = anchor?.getBoundingClientRect();
+
+  if (!anchorBbox?.width || !anchorBbox?.height)
+    return { left: '-100000px', top: '-100000px' };
+
   const bodyBbox = document.body.getBoundingClientRect();
   const bbox = {
     left: anchorBbox.left - bodyBbox.left,

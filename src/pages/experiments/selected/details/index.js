@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Tooltip from '../../../../components/tooltip';
 import ExperimentLink from '../../../experiment/link';
 import { mapExperiment } from '../../';
 
@@ -31,14 +30,12 @@ let Details = ({ experiment }) => (
         <ExperimentIcon />
         <ExperimentLink experiment={experiment} />
       </span>
-      <Tooltip
-        text={'Showing ' + (experiment.samples?.length || 0) + ' samples'}
+      <span
+        aria-label={'Showing ' + (experiment.samples?.length || 0) + ' samples'}
       >
-        <span>
-          <SampleIcon />
-          {experiment.samples?.length || 0}
-        </span>
-      </Tooltip>
+        <SampleIcon />
+        {experiment.samples?.length || 0}
+      </span>
     </div>
   </>
 );

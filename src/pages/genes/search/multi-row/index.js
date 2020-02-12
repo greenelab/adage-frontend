@@ -4,9 +4,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import SingleTable from '../single-table';
-import Tooltip from '../../../../components/tooltip';
 import GeneLink from '../../../gene/link';
-import Field from '../../../../components/field';
 import FetchAlert from '../../../../components/fetch-alert';
 import Button from '../../../../components/button';
 import HorizontalLine from '../../../../components/horizontal-line';
@@ -79,7 +77,7 @@ let MultiRow = ({ search, select, deselect }) => {
           data-expanded={expanded}
           data-padded='true'
         >
-          <Field>"{search.query}"</Field>
+          <span className="nowrap">"{search.query}"</span>
         </div>
         {!expanded && (
           <>
@@ -121,17 +119,19 @@ export default MultiRow;
 
 const ResultButton = ({ onClick = () => null, gene = {} }) => (
   <>
-    <Tooltip text={(gene.selected ? 'Deselect' : 'Select') + ' this gene'}>
-      <Button className='gene_search_result_multi_check' onClick={onClick}>
-        {gene.selected && <CheckedIcon />}
-        {!gene.selected && <UncheckedIcon />}
-      </Button>
-    </Tooltip>
+    <Button
+      className='gene_search_result_multi_check'
+      onClick={onClick}
+      aria-label={(gene.selected ? 'Deselect' : 'Select') + ' this gene'}
+    >
+      {gene.selected && <CheckedIcon />}
+      {!gene.selected && <UncheckedIcon />}
+    </Button>
     <span className='td' data-padded='true'>
       <GeneLink gene={gene} />
     </span>
-    <span className='td' data-padded='true'>
-      <Field>{gene.systematicName}</Field>
+    <span className='td nowrap' data-padded='true'>
+     {gene.systematicName}
     </span>
   </>
 );

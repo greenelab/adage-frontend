@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from '../../../../components/tooltip';
-import Field from '../../../../components/field';
 import Button from '../../../../components/button';
 import Link from '../../../../components/link';
 
@@ -25,27 +23,23 @@ const Item = ({
 }) => (
   <div className='model_item'>
     <Button className='model_button' onClick={onClick}>
-      <Tooltip text={'Select this model'}>
-        <div className='model_radio'>
-          {selected && <RadioedIcon />}
-          {!selected && <UnradioedIcon />}
-        </div>
-      </Tooltip>
+      <div className='model_radio' aria-label='Select this model'>
+        {selected && <RadioedIcon />}
+        {!selected && <UnradioedIcon />}
+      </div>
       <div className='model_summary'>
-        <Field className='medium'>{title}</Field>
-        <Field className='text_small'>
+        <span className='nowrap medium'>{title}</span>
+        <span className='nowrap text_small'>
           {authors[0]}, et al · {journal} · {year}
-        </Field>
+        </span>
       </div>
     </Button>
-    <Tooltip text='View full model details'>
-      <Link
-        to={'/model/' + id}
-        newTab
-        icon={<InfoIcon />}
-        tooltip={'Open details page for model ' + title}
-      />
-    </Tooltip>
+    <Link
+      to={'/model/' + id}
+      newTab
+      icon={<InfoIcon />}
+      aria-label={'Open details page for model ' + title}
+    />
   </div>
 );
 

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { actionStatuses } from '../../actions/fetch';
-import Field from '../../components/field';
 
 import { ReactComponent as AlertIcon } from '../../images/alert.svg';
 import { ReactComponent as LoadingIcon } from '../../images/loading.svg';
@@ -34,7 +33,7 @@ const FetchAlert = ({
     >
       {status === actionStatuses.LOADING && <LoadingIcon />}
       {status !== actionStatuses.LOADING && <AlertIcon />}
-      <Field>{text}</Field>
+      <span>{text}</span>
     </div>
   );
 };

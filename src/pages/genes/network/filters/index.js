@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Slider from '../../../../components/slider';
-import Tooltip from '../../../../components/tooltip';
 
 import { ReactComponent as GeneIcon } from '../../../../images/gene.svg';
 import { ReactComponent as LinkIcon } from '../../../../images/link.svg';
@@ -43,26 +42,22 @@ let Filters = ({
       precision={2}
     />
     <div className='gene_network_info medium'>
-      <Tooltip
-        text={
+      <span
+        aria-label={
           'Showing ' + filteredNodes + ' of ' + fullNodes + ' nodes (genes)'
         }
       >
-        <span>
-          <GeneIcon />
-          {filteredNodes} of {fullNodes}
-        </span>
-      </Tooltip>
-      <Tooltip
-        text={
+        <GeneIcon />
+        {filteredNodes} of {fullNodes}
+      </span>
+      <span
+        aria-label={
           'Showing ' + filteredLinks + ' of ' + fullLinks + ' edges (links)'
         }
       >
-        <span>
-          <LinkIcon />
-          {filteredLinks} of {fullLinks}
-        </span>
-      </Tooltip>
+        <LinkIcon />
+        {filteredLinks} of {fullLinks}
+      </span>
     </div>
   </>
 );

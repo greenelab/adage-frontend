@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
-import Tooltip from '../tooltip';
 import { isExternalLink } from '../../util/string';
 
 import './index.css';
@@ -22,7 +21,6 @@ let Link = ({
   icon,
   button = true,
   flip = false,
-  tooltip = '',
   children,
   ...props
 }) => {
@@ -30,31 +28,50 @@ let Link = ({
   if (children)
     content = children;
   else {
+    if (text && icon)
+      text = <span>{text}</span>;
     if (flip) {
       content = (
         <>
           {icon}
-          {text && <span>{text}</span>}
+          {text}
         </>
       );
     } else {
       content = (
         <>
-          {text && <span>{text}</span>}
+          {text}
           {icon}
         </>
       );
     }
   }
 
-  return (
-    <Tooltip text={tooltip}>
-      <RouterLink
-        className={
-          'clickable nowrap ' + (!icon ? 'field nowrap' : '') + ' ' + className
-        }
+  if (isExternalLink(to)) {
+    return (
+      <a
+        className={'clickable nowrap ' + className}
         target={newTab ? '_blank' : undefined}
-        to={{ pathname: to, search: isExternalLink(to) ? '' : location.search }}
+        href={to}
+        data-button={button}
+        data-text={text !== undefined}
+        data-icon={icon !== undefined}
+        {...props}
+      >
+        {content}
+        <span
+          style={{ position: 'fixed', left: '-100000px', top: '-100000px' }}
+        >
+          {props['aria-label'] || 'button'}
+        </span>
+      </a>
+    );
+  } else {
+    return (
+      <RouterLink
+        className={'clickable nowrap ' + className}
+        target={newTab ? '_blank' : undefined}
+        to={{ pathname: to, search: location.search }}
         data-button={button}
         data-text={text !== undefined}
         data-icon={icon !== undefined}
@@ -62,8 +79,8 @@ let Link = ({
       >
         {content}
       </RouterLink>
-    </Tooltip>
-  );
+    );
+  }
 };
 
 Link = withRouter(Link);
@@ -76,7 +93,6 @@ Link.propTypes = {
   icon: PropTypes.element,
   button: PropTypes.bool,
   flip: PropTypes.bool,
-  tooltip: PropTypes.string,
   children: PropTypes.node
 };
 

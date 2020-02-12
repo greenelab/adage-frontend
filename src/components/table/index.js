@@ -5,7 +5,6 @@ import { Fragment } from 'react';
 import { useTable } from 'react-table';
 import { useSortBy } from 'react-table';
 
-import Field from '../../components/field';
 import HorizontalLine from '../../components/horizontal-line';
 import { cleanValue } from '../../util/object';
 
@@ -100,7 +99,9 @@ const Table = ({
                       column.toggleSortBy();
                   }}
                 >
-                  <Field>{column.render('Header')}</Field>
+                  <span className='nowrap' aria-label=''>
+                    {column.render('Header')}
+                  </span>
                   {column.isSorted ? (
                     column.isSortedDesc ? (
                       <ArrowIcon className='rotate_ccw' />
@@ -135,8 +136,13 @@ const Table = ({
                   contents = '-';
 
                 // if cell value not component, wrap in Field
-                if (!cell.column.customRender)
-                  contents = <Field>{contents}</Field>;
+                if (!cell.column.customRender) {
+                  contents = (
+                    <span className='nowrap' aria-label=''>
+                      {contents}
+                    </span>
+                  );
+                }
 
                 return (
                   <span

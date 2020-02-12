@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
 
-import Tooltip from '../../components/tooltip';
 import Button from '../../components/button';
 import { ReactComponent as ListMultipleIcon } from '../../images/list-multiple.svg';
 import { ReactComponent as ListSingleIcon } from '../../images/list-single.svg';
@@ -114,22 +113,20 @@ const Input = ({
         />
       )}
       {multi && (
-        <Tooltip text={expanded ? tooltip : multiTooltip}>
-          <Button
-            className='input_button'
-            icon={expanded ? <ListSingleIcon /> : <ListMultipleIcon />}
-            onClick={() => changeExpanded(!expanded)}
-          />
-        </Tooltip>
+        <Button
+          className='input_button'
+          icon={expanded ? <ListSingleIcon /> : <ListMultipleIcon />}
+          onClick={() => changeExpanded(!expanded)}
+          aria-label={expanded ? tooltip : multiTooltip}
+        />
       )}
       {value.length > 0 && (
-        <Tooltip text={'Clear search'}>
-          <Button
-            className='input_button'
-            icon={<CrossIcon />}
-            onClick={() => changeValue('')}
-          />
-        </Tooltip>
+        <Button
+          className='input_button'
+          icon={<CrossIcon />}
+          onClick={() => changeValue('')}
+          aria-label='Clear searchj'
+        />
       )}
       {value.length === 0 && (
         <div className='input_button'>
