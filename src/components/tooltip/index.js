@@ -16,18 +16,25 @@ const padding = 5;
 
 const Tooltip = () => {
   // internal state
+  const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState(null);
-  const timer = useRef();
+  const openTimer = useRef();
+  const closeTimer = useRef();
 
-  // open tooltip by setting anchor element
+  // set tooltip to open
   const openTooltip = useCallback((event) => {
-    timer.current = window.setTimeout(() => setAnchor(event.target), delay);
+    window.clearTimeout(closeTimer.current);
+    openTimer.current = window.setTimeout(() => {
+      setOpen(true);
+      setAnchor(event.target);
+    }, delay);
   }, []);
 
-  // close tooltip by removing anchor
+  // set tooltip to close
   const closeTooltip = useCallback(() => {
-    window.clearTimeout(timer.current);
-    setAnchor(null);
+    window.clearTimeout(openTimer.current);
+    setOpen(false);
+    closeTimer.current = window.setTimeout(() => setAnchor(null), duration);
   }, []);
 
   // when any dom node changes
@@ -61,7 +68,7 @@ const Tooltip = () => {
   return (
     <>
       <CSSTransition
-        in={anchor ? true : false}
+        in={open ? true : false}
         timeout={duration}
         classNames='tooltip'
         unmountOnExit
@@ -76,15 +83,11 @@ export default Tooltip;
 // append popup to body, not app root
 
 const Portal = ({ anchor }) =>
-  anchor ? (
-    createPortal(
-      <div className='tooltip text_small' style={computeStyle({ anchor })}>
-        {anchor.getAttribute('aria-label') || anchor.innerText}
-      </div>,
-      document.body
-    )
-  ) : (
-    <></>
+  createPortal(
+    <div className='tooltip text_small' style={computeStyle({ anchor })}>
+      {anchor?.getAttribute('aria-label') || anchor?.innerText || ''}
+    </div>,
+    document.body
   );
 
 const horizontalMargin = 200;
@@ -93,10 +96,11 @@ const verticalMargin = 100;
 // position tooltip relative to anchor/target
 
 const computeStyle = ({ anchor }) => {
-  if (!anchor)
-    return {};
+  const anchorBbox = anchor?.getBoundingClientRect();
 
-  const anchorBbox = anchor.getBoundingClientRect();
+  if (!anchorBbox?.width || !anchorBbox?.height)
+    return { left: '-100000px' };
+
   const bodyBbox = document.body.getBoundingClientRect();
   const bbox = {
     left: anchorBbox.left - bodyBbox.left,
