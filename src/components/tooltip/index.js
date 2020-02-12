@@ -99,7 +99,7 @@ const computeStyle = ({ anchor }) => {
   const anchorBbox = anchor?.getBoundingClientRect();
 
   if (!anchorBbox?.width || !anchorBbox?.height)
-    return { left: '-100000px' };
+    return { left: '-100000px', top: '-100000px' };
 
   const bodyBbox = document.body.getBoundingClientRect();
   const bbox = {

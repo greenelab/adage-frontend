@@ -59,7 +59,9 @@ let Link = ({
         {...props}
       >
         {content}
-        <span style={{ position: 'fixed', left: '-100000px' }}>
+        <span
+          style={{ position: 'fixed', left: '-100000px', top: '-100000px' }}
+        >
           {props['aria-label'] || 'button'}
         </span>
       </a>
