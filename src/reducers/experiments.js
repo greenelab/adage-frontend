@@ -3,6 +3,8 @@ import produce from 'immer';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
+import { normalize } from '../util/object';
+import { mapFetchPayload } from '.';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
@@ -22,18 +24,18 @@ const reducer = produce((draft, type, payload, meta) => {
 
   switch (type) {
     case 'GET_EXPERIMENT_DETAILS':
-      draft.details = payload;
+      draft.details = mapFetchPayload(payload, normalize);
       break;
 
     case 'GET_EXPERIMENT_LIST':
-      draft.list = payload;
+      draft.list = mapFetchPayload(payload, normalize);
       break;
 
     case 'GET_EXPERIMENT_SEARCH':
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
       draft.searches[meta.index].query = meta.query;
-      draft.searches[meta.index].results = payload;
+      draft.searches[meta.index].results = mapFetchPayload(payload, normalize);
       break;
 
     case 'SELECT_EXPERIMENT':
@@ -50,9 +52,10 @@ const reducer = produce((draft, type, payload, meta) => {
     case 'GET_EXPERIMENT_SELECTED_DETAILS':
       if (!isArray(draft.list) || !draft.list.length)
         break;
-      draft.selected = draft.list.find(
-        (experiment) => experiment.accession === draft.selected.accession
-      ) || {};
+      draft.selected =
+        draft.list.find(
+          (experiment) => experiment.accession === draft.selected.accession
+        ) || {};
       break;
 
     default:
@@ -64,7 +67,5 @@ const reducer = produce((draft, type, payload, meta) => {
 
 export default reducer;
 
-export const isSelected = (result, state) =>
-  result?.accession &&
-  state?.experiment?.selected?.accession &&
-  result.accession === state.experiment.selected.accession;
+export const isSelected = (selected, accession) =>
+  selected.accession === accession;

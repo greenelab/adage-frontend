@@ -3,6 +3,8 @@ import produce from 'immer';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
+import { normalize } from '../util/object';
+import { mapFetchPayload } from '.';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
@@ -18,11 +20,11 @@ const reducer = produce((draft, type, payload, meta) => {
 
   switch (type) {
     case 'GET_SIGNATURE_DETAILS':
-      draft.details = payload;
+      draft.details = mapFetchPayload(payload, normalize);
       break;
 
     case 'GET_SIGNATURE_LIST':
-      draft.list = payload;
+      draft.list = mapFetchPayload(payload, normalize);
       break;
 
     default:

@@ -3,7 +3,9 @@ import { renderToString } from 'react-dom/server';
 import * as d3 from 'd3';
 import tip from 'd3-tip';
 
-import { svg } from './';
+import { svg } from '.';
+import { humanizeKeys } from '../../../../util/object';
+import { filterKeys } from '../../../../util/object';
 
 const delay = 100;
 
@@ -35,11 +37,13 @@ export const initTooltip = () => {
 // tooltip component to render as string
 
 const Tooltip = (d) => {
-  let fields = {};
-  if (d.node)
-    fields = { ...fields, ...mapGeneTooltip(d) };
-  if (d.link)
-    fields = { ...fields, ...mapEdgeTooltip(d) };
+  const fields = humanizeKeys(
+    filterKeys(
+      d,
+      ['standardName', 'systematicName', 'entrezId', 'description', 'weight'],
+      true
+    )
+  );
 
   if (!Object.keys(fields).length)
     return <></>;
@@ -70,16 +74,3 @@ export const closeTooltip = () => {
   window.clearTimeout(timer);
   tooltip.destroy();
 };
-
-const mapGeneTooltip = (gene) => ({
-  'Standard Name': gene.standardName,
-  'Systematic Name': gene.systematicName,
-  'Entrez Id': gene.entrezId,
-  'Description': gene.description,
-  'Aliases': gene.aliases,
-  'Organism': gene.organism
-});
-
-const mapEdgeTooltip = (link) => ({
-  Weight: link.weight.toFixed(4) || '-'
-});

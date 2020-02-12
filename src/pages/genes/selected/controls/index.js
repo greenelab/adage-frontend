@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { deselectAllGenes } from '../../../../actions/genes';
 import Button from '../../../../components/button';
 import { downloadTsv } from '../../../../util/download';
-import { mapGeneDownload } from '../../';
+import { humanizeKeys } from '../../../../util/object';
 
 import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
 import { ReactComponent as DownloadIcon } from '../../../../images/download.svg';
@@ -31,7 +31,7 @@ let Controls = ({ selected, deselectAll }) => (
 );
 
 const mapStateToProps = (state) => ({
-  selected: state.gene.selected.map(mapGeneDownload)
+  selected: state.gene.selected.map(humanizeKeys)
 });
 
 const mapDispatchToProps = (dispatch) => ({

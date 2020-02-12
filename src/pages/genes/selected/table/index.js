@@ -5,7 +5,6 @@ import GeneLink from '../../../gene/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
 import { deselectGene } from '../../../../actions/genes';
-import { mapGene } from '../../';
 
 import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
 
@@ -56,7 +55,7 @@ let Table = ({ selected, deselect }) => (
 );
 
 const mapStateToProps = (state) => ({
-  selected: state.gene.selected.map((selected) => mapGene(selected))
+  selected: state.gene.selected
 });
 
 const mapDispatchToProps = (dispatch) => ({

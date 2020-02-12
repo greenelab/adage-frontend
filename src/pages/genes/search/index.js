@@ -10,9 +10,9 @@ import { cancelAction } from '../../../actions/fetch';
 import { selectGene } from '../../../actions/genes';
 import { deselectGene } from '../../../actions/genes';
 import { isArray } from '../../../util/types';
-import { isSelected } from '../../../reducers/genes';
+import { isObject } from '../../../util/types';
 import { toCamelCase } from '../../../util/string';
-import { mapGene } from '../';
+import { isSelected } from '../../../reducers/genes';
 
 import './index.css';
 
@@ -20,7 +20,7 @@ import './index.css';
 
 let Search = ({ results, select, deselect, dispatch }) => (
   <SearchComponent
-    length={results?.length || null}
+    length={results.length}
     multi
     placeholder='search for a gene'
     multiPlaceholder='search for a list of genes'
@@ -59,10 +59,8 @@ const mapStateToProps = (state) => ({
     state.gene.searches.length === 1 &&
     isArray(state.gene.searches[0].results) &&
     state.gene.searches[0].results.length ?
-      state.gene.searches[0].results.map((result) =>
-        mapGeneResult(result, state)
-      ) :
-      null
+      mapGeneSearchPayload(state.gene.searches[0], state) :
+      []
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -71,18 +69,28 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch
 });
 
-export const mapGeneResult = (result, state) => {
-  const gene = mapGene(result);
-
-  gene.selected = isSelected(state.gene.selected, result.id);
-
-  gene.highlightedField = toCamelCase(result.max_similarity_field || '');
-  if (gene.highlightedField === 'entrezid')
-    gene.highlightedField = 'entrezId';
-
-  return gene;
-};
-
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);
 
 export default Search;
+
+export const mapGeneSearchPayload = (payload, state) => {
+  if (isObject(payload))
+    return mapGeneSearch(payload, state);
+  else if (isArray(payload))
+    return payload.map((search) => mapGeneSearch(search, state));
+  else
+    return payload;
+};
+
+export const mapGeneSearch = (search, state) => ({
+  query: search.query,
+  results: isArray(search.results) ?
+    search.results.map((result) => mapGeneResult(result, state)) :
+    search.results
+});
+
+export const mapGeneResult = (result, state) => ({
+  ...result,
+  selected: isSelected(state.gene.selected, result.id),
+  highlightedField: toCamelCase(result.maxSimilarityField || '')
+});

@@ -4,7 +4,7 @@ import { dragHandler } from './drag';
 import { openTooltip } from './tooltip';
 import { closeTooltip } from './tooltip';
 
-import { nodeData } from './';
+import { nodeData } from '.';
 
 import { nodeRadius, strokeWidth } from './constants';
 

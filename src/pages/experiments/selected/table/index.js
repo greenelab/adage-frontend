@@ -6,7 +6,6 @@ import SampleLink from '../../../sample/link';
 import TableComponent from '../../../../components/table';
 import { groupSample } from '../../../../actions/samples';
 import { ungroupSample } from '../../../../actions/samples';
-import { normalize } from '../../../../util/object';
 import { isGrouped } from '../../../../reducers/samples';
 
 import { ReactComponent as DiamondIcon } from '../../../../images/diamond.svg';
@@ -72,7 +71,6 @@ let Table = ({ samples }) => (
 
 const mapStateToProps = (state) => ({
   samples: (state.experiment.selected.samples || [])
-    .map((sample) => normalize(sample, false, 1))
     .map((sample) => ({
       ...sample,
       group: isGrouped(state.sample.groups, sample.id)

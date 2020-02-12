@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import Button from '../../../../components/button';
 import { downloadTsv } from '../../../../util/download';
-import { normalize } from '../../../../util/object';
 import { ungroupAllSamples } from '../../../../actions/samples';
 
 import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
@@ -31,9 +30,7 @@ let Controls = ({ samples, ungroupAll }) => (
 );
 
 const mapStateToProps = (state) => ({
-  samples: (state.experiment.selected.samples || []).map((sample) =>
-    normalize(sample, true)
-  )
+  samples: state.experiment.selected.samples
 });
 
 const mapDispatchToProps = (dispatch) => ({

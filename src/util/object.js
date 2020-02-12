@@ -9,6 +9,8 @@ import { toCamelCase } from './string';
 // flatten object to a certain depth
 // eg { a: 2, b: { c: 3 } } --> { a: 2, c: 3 }
 export const flatten = (object, depth = 0) => {
+  object = { ...object };
+
   if (depth <= 0 || !isObject(object))
     return object;
 
@@ -54,11 +56,11 @@ export const camelizeKeys = (object) => {
 };
 
 // go through keys of object and delete unwanted
-export const filterKeys = (object, filter = []) => {
+export const filterKeys = (object, filter = [], whiteList = false) => {
   object = { ...object };
 
   for (const key of Object.keys(object)) {
-    if (filter.includes(key))
+    if (filter.includes(key) !== whiteList)
       delete object[key];
   }
 
@@ -91,15 +93,18 @@ export const cleanValues = (object) => {
 };
 
 // flatten, case-ize, filter, and clean object
-export const normalize = (object, human, depth, filter) => {
-  object = flatten(object, depth);
-  if (human)
-    object = humanizeKeys(object);
-  else
-    object = camelizeKeys(object);
-  if (filter)
-    object = filterKeys(object, filter);
+export const normalize = (object) => {
+  object = flatten(object);
+  object = camelizeKeys(object);
   object = cleanValues(object);
+
+  // TEMPORARY
+  if (object.samples) {
+    object.samples = object.samples.map((sample) => ({
+      id: sample.id,
+      name: sample.name
+    }));
+  }
 
   return object;
 };

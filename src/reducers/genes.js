@@ -6,6 +6,8 @@ import { isEmpty } from '../util/types';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
+import { normalize } from '../util/object';
+import { mapFetchPayload } from '.';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
@@ -29,18 +31,18 @@ const reducer = produce((draft, type, payload, meta) => {
 
   switch (type) {
     case 'GET_GENE_DETAILS':
-      draft.details = payload;
+      draft.details = mapFetchPayload(payload, mapGene);
       break;
 
     case 'GET_GENE_LIST':
-      draft.list = payload;
+      draft.list = mapFetchPayload(payload, mapGene);
       break;
 
     case 'GET_GENE_SEARCH':
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
       draft.searches[meta.index].query = meta.query;
-      draft.searches[meta.index].results = payload;
+      draft.searches[meta.index].results = mapFetchPayload(payload, mapGene);
       break;
 
     case 'CLEAR_GENE_SEARCH':
@@ -69,9 +71,9 @@ const reducer = produce((draft, type, payload, meta) => {
             search.results[0] :
             null;
         if (!firstResult)
-          break;
+          continue;
         if (isSelected(draft.selected, firstResult.id))
-          break;
+          continue;
         draft.selected.push({ id: firstResult.id });
       }
       break;
@@ -83,8 +85,7 @@ const reducer = produce((draft, type, payload, meta) => {
             search.results[0] :
             null;
         if (!firstResult)
-          break;
-
+          continue;
         draft.selected = filterSelected(draft.selected, firstResult.id);
       }
       break;
@@ -144,3 +145,9 @@ export const isSelected = (selected, id) =>
 
 export const filterSelected = (selected, id) =>
   selected.filter((selected) => !(selected.id === id));
+
+export const mapGene = (gene) => ({
+  ...normalize(gene),
+  name: gene.standard_name || gene.systematic_name || gene.entrezid || '-',
+  entrezId: gene.entrezid
+});

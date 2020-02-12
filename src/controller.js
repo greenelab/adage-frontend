@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getModelList } from './actions/models';
 import { getGeneList } from './actions/genes';
 import { getExperimentList } from './actions/experiments';
+import { getSampleList } from './actions/samples';
 import { getSignatureList } from './actions/signatures';
 import { getGeneSelectedDetails } from './actions/genes';
 import { getExperimentSelectedDetails } from './actions/experiments';
@@ -30,6 +31,7 @@ let Controller = ({
   getModelList,
   getGeneList,
   getExperimentList,
+  getSampleList,
   getSignatureList,
   getGeneSelectedDetails,
   getExperimentSelectedDetails,
@@ -42,6 +44,18 @@ let Controller = ({
     getModelList();
   }, [getModelList]);
 
+  // on first render
+  // get full experiment list
+  useEffect(() => {
+    getExperimentList({ limit: MAX_INT });
+  }, [getExperimentList]);
+
+  // on first render
+  // get full sample list
+  useEffect(() => {
+    getSampleList({ limit: MAX_INT });
+  }, [getSampleList]);
+
   // when selected model (and thus selected organism) changes
   // get full gene list
   useEffect(() => {
@@ -52,12 +66,6 @@ let Controller = ({
       });
     }
   }, [selectedOrganism, getGeneList]);
-
-  // on first render
-  // get full experiment list
-  useEffect(() => {
-    getExperimentList({ limit: MAX_INT });
-  }, [getExperimentList]);
 
   // when selected model changes
   // get full signature list
@@ -149,7 +157,7 @@ const mapStateToProps = (state) => ({
     ).organism || null :
     null,
   selectedGenesLoaded: state.gene.selected.every(
-    (selected) => selected.standard_name
+    (selected) => selected.name
   ),
   selectedGenes: state.gene.selected,
   selectedExperimentAccession: state.experiment.selected.accession
@@ -163,6 +171,7 @@ const mapDispatchToProps = (dispatch) => {
     getModelList: () => delayedDispatch(getModelList()),
     getGeneList: (...args) => delayedDispatch(getGeneList(...args)),
     getExperimentList: (...args) => delayedDispatch(getExperimentList(...args)),
+    getSampleList: (...args) => delayedDispatch(getSampleList(...args)),
     getSignatureList: (...args) => delayedDispatch(getSignatureList(...args)),
     getGeneSelectedDetails: () => delayedDispatch(getGeneSelectedDetails()),
     getExperimentSelectedDetails: () =>

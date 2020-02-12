@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import HorizontalLine from '../../../../components/horizontal-line';
 import MultiRow from '../multi-row';
 import MultiControls from '../multi-controls';
-import { isArray } from '../../../../util/types';
-import { mapGeneResult } from '../';
+import { mapGeneSearchPayload } from '../';
 
 import './index.css';
 
@@ -25,12 +24,7 @@ let Multi = ({ searches }) => (
 );
 
 const mapStateToProps = (state) => ({
-  searches: state.gene.searches.map((search) => ({
-    query: search.query,
-    results: isArray(search.results) ?
-      search.results.map((result) => mapGeneResult(result, state)) :
-      search.results
-  }))
+  searches: mapGeneSearchPayload(state.gene.searches, state)
 });
 
 Multi = connect(mapStateToProps)(Multi);

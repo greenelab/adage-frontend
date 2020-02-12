@@ -14,7 +14,8 @@ import FetchAlert from '../../components/fetch-alert';
 import { getSampleDetails } from '../../actions/samples';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { normalize } from '../../util/object';
+import { filterKeys, flatten } from '../../util/object';
+import { humanizeKeys } from '../../util/object';
 
 import { ReactComponent as SampleIcon } from '../../images/sample.svg';
 
@@ -56,11 +57,12 @@ const mapStateToProps = (state) => {
   let details = state.sample.details;
 
   if (isObject(details)) {
-    details = normalize(details, true, 1, ['Id']);
-    if (details.Experiments) {
-      details.Experiments = (
+    details = flatten(details, 1);
+    details = filterKeys(details, ['id']);
+    if (details.experiments) {
+      details.experiments = (
         <>
-          {details.Experiments.map((experiment, index) => (
+          {details.experiments.map((experiment, index) => (
             <Fragment key={index}>
               {console.log(experiment)}
               <ExperimentLink experiment={experiment} />
@@ -70,6 +72,7 @@ const mapStateToProps = (state) => {
         </>
       );
     }
+    details = humanizeKeys(details);
   }
 
   return { details };

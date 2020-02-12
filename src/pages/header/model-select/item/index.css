@@ -6,7 +6,7 @@
   height: 40px;
 }
 .model_button {
-  display: inline-flex;
+  display: inline-flex !important;
   justify-content: flex-start;
   align-items: stretch;
   width: calc(100% - 30px);
