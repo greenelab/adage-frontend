@@ -10,7 +10,7 @@ const ExperimentLink = ({ experiment = {} }) => (
     newTab
     button={false}
     text={experiment.accession || experiment}
-    tooltip={
+    aria-label={
       'Open details page for experiment ' + (experiment.accession || experiment)
     }
   />

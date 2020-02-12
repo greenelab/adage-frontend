@@ -10,7 +10,7 @@ const SampleLink = ({ sample = {} }) => (
     newTab
     button={false}
     text={sample.name}
-    tooltip={'Open details page for sample ' + sample.name}
+    aria-label={'Open details page for sample ' + sample.name}
   />
 );
 

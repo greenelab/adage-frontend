@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Tooltip from '../../../../components/tooltip';
 import { selectFirstGenes } from '../../../../actions/genes';
 import { deselectFirstGenes } from '../../../../actions/genes';
 import Button from '../../../../components/button';
@@ -12,13 +11,16 @@ import './index.css';
 
 let MultiControls = ({ selectFirst, deselectFirst }) => (
   <div className='gene_search_results_multi_controls'>
-    <Tooltip text='Select the first result for each search term'>
-      <Button text='select' onClick={selectFirst} />
-    </Tooltip>
-    /
-    <Tooltip text='Deselect the first result for each search term'>
-      <Button text='deselect' onClick={deselectFirst} />
-    </Tooltip>
+    <Button
+      text='select'
+      onClick={selectFirst}
+      aria-label='Select the first result for each search term'
+    />
+    <Button
+      text='deselect'
+      onClick={deselectFirst}
+      aria-label='Deselect the first result for each search term'
+    />
     <span>first results</span>
   </div>
 );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Tooltip from '../../../../components/tooltip';
 import ExperimentLink from '../../../experiment/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
@@ -24,12 +23,11 @@ let Table = ({ results, highlightedIndex, select }) => {
           width: '30px',
           padded: false,
           render: (cell) => (
-            <Tooltip text={'Select this experiment'}>
-              <Button
-                icon={cell.selected ? <RadioedIcon /> : <UnradioedIcon />}
-                onClick={() => select({ accession: cell.accession })}
-              />
-            </Tooltip>
+            <Button
+              icon={cell.selected ? <RadioedIcon /> : <UnradioedIcon />}
+              onClick={() => select({ accession: cell.accession })}
+              aria-label='Select this experiment'
+            />
           )
         },
         {

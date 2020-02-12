@@ -37,14 +37,14 @@
   flex-shrink: 0;
   margin-left: 3px;
 }
-.table[data-freeze="true"] .thead {
+.table[data-freeze='true'] .thead {
   position: sticky;
   top: 0;
   background: var(--white);
   z-index: 2;
 }
-.table[data-freeze="true"] .th:first-child,
-.table[data-freeze="true"] .td:first-child {
+.table[data-freeze='true'] .th:first-child,
+.table[data-freeze='true'] .td:first-child {
   position: sticky;
   left: 0;
   background: var(--white);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
 import { downloadTsv } from '../../../../util/download';
 import { normalize } from '../../../../util/object';
@@ -16,20 +15,18 @@ import './index.css';
 
 let Controls = ({ samples, ungroupAll }) => (
   <div className='experiment_selected_controls'>
-    <Tooltip text='Ungroup all samples'>
-      <Button
-        text='Ungroup all'
-        icon={<CrossIcon />}
-        onClick={ungroupAll}
-      />
-    </Tooltip>
-    <Tooltip text='Download this table as a .tsv file'>
-      <Button
-        text='Download'
-        icon={<DownloadIcon />}
-        onClick={() => downloadTsv(samples, 'samples')}
-      />
-    </Tooltip>
+    <Button
+      text='Ungroup all'
+      icon={<CrossIcon />}
+      onClick={ungroupAll}
+      aria-label='Ungroup all samples'
+    />
+    <Button
+      text='Download'
+      icon={<DownloadIcon />}
+      onClick={() => downloadTsv(samples, 'samples')}
+      aria-label='Download this table as a .tsv file'
+    />
   </div>
 );
 

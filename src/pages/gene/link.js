@@ -13,7 +13,7 @@ const GeneLink = ({ gene = {} }) => (
     newTab
     button={false}
     text={gene.standardName}
-    tooltip={'Open details page for gene ' + gene.standardName}
+    aria-label={'Open details page for gene ' + gene.standardName}
   />
 );
 

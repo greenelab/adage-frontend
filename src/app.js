@@ -11,6 +11,7 @@ import sequenceAction from 'redux-sequence-action';
 import { createLogger } from 'redux-logger';
 
 import Controller from './controller';
+import Tooltip from './components/tooltip';
 import Head from './pages/head';
 import Home from './pages/home';
 import Genes from './pages/genes';
@@ -66,6 +67,7 @@ const App = () => (
         <Route path='/' component={Home} />
       </Switch>
     </Router>
+    <Tooltip/>
   </Provider>
 );
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
 import SampleLink from '../../../sample/link';
 import TableComponent from '../../../../components/table';
@@ -17,7 +16,7 @@ import './index.css';
 
 // table of samples for selected experiment
 
-let Table = ({ samples, group, ungroup }) => (
+let Table = ({ samples }) => (
   <TableComponent
     data={samples}
     columns={[
@@ -88,19 +87,16 @@ let GroupButton = ({ sample, index, name, color, Icon, group, ungroup }) => {
   const grouped = sample.group === index;
   const defaultColor = 'var(--light-gray)';
   return (
-    <Tooltip
-      text={
+    <Button
+      icon={<Icon />}
+      onClick={() =>
+        (grouped ? ungroup : group)({ index: index, id: sample.id })
+      }
+      style={{ color: grouped ? color : defaultColor }}
+      aria-label={
         grouped ? 'Ungroup this sample' : 'Put this sample in group ' + name
       }
-    >
-      <Button
-        icon={<Icon />}
-        onClick={() =>
-          (grouped ? ungroup : group)({ index: index, id: sample.id })
-        }
-        style={{ color: grouped ? color : defaultColor }}
-      />
-    </Tooltip>
+    />
   );
 };
 

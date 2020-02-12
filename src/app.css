@@ -78,6 +78,11 @@ a {
 .rotate_ccw {
   transform: rotate(-90deg);
 }
+.nowrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 *[data-shade='true'] {
   background: var(--off-white);
 }

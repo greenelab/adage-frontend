@@ -25,7 +25,7 @@ let Table = ({ enrichedSignatures }) => (
             newTab
             button={false}
             text={cell.name}
-            tooltip={'Open details page for signature ' + cell.name}
+            aria-label={'Open details page for signature ' + cell.name}
           />
         )
       },

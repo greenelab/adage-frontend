@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Tooltip from '../../../../components/tooltip';
 import GeneLink from '../../../gene/link';
 import Button from '../../../../components/button';
 import TableComponent from '../../../../components/table';
@@ -24,12 +23,11 @@ let Table = ({ selected, deselect }) => (
         width: '30px',
         padded: false,
         render: (cell) => (
-          <Tooltip text='Deselect this gene'>
-            <Button
-              icon={<CrossIcon />}
-              onClick={() => deselect({ id: cell.id })}
-            />
-          </Tooltip>
+          <Button
+            icon={<CrossIcon />}
+            onClick={() => deselect({ id: cell.id })}
+            aria-label='Deselect this gene'
+          />
         )
       },
       {

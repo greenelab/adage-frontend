@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { deselectAllGenes } from '../../../../actions/genes';
-import Tooltip from '../../../../components/tooltip';
 import Button from '../../../../components/button';
 import { downloadTsv } from '../../../../util/download';
 import { mapGeneDownload } from '../../';
@@ -16,16 +15,18 @@ import './index.css';
 
 let Controls = ({ selected, deselectAll }) => (
   <div className='gene_selected_controls'>
-    <Tooltip text='Deselect all genes'>
-      <Button text='Deselect All' icon={<CrossIcon />} onClick={deselectAll} />
-    </Tooltip>
-    <Tooltip text='Download this table as a .tsv file'>
-      <Button
-        text='Download'
-        icon={<DownloadIcon />}
-        onClick={() => downloadTsv(selected, 'genes')}
-      />
-    </Tooltip>
+    <Button
+      text='Deselect All'
+      icon={<CrossIcon />}
+      onClick={deselectAll}
+      aria-label='Deselect all genes'
+    />
+    <Button
+      text='Download'
+      icon={<DownloadIcon />}
+      onClick={() => downloadTsv(selected, 'genes')}
+      aria-label='Download this table as a .tsv file'
+    />
   </div>
 );
 
