@@ -37,22 +37,22 @@ export const hyperGeometricTest = (k, K, n, N) => {
 export const calculateEnrichedSignatures = ({
   selectedGenes,
   participations,
-  genes,
-  signatures
+  geneList,
+  signatureList
 }) => {
   if (
     !isArray(selectedGenes) ||
     !selectedGenes.length ||
     !isArray(participations) ||
     !participations.length ||
-    !isArray(genes) ||
-    !genes.length ||
-    !isArray(signatures) ||
-    !signatures.length
+    !isArray(geneList) ||
+    !geneList.length ||
+    !isArray(signatureList) ||
+    !signatureList.length
   )
     return [];
 
-  let enrichedSignatures = signatures
+  let enrichedSignatures = signatureList
     // for each signature
     .map((signature) => {
       const participatingGenes = participations
@@ -73,10 +73,10 @@ export const calculateEnrichedSignatures = ({
       return { ...signature, participatingGenes, matchedGenes };
     })
     // remove signatures with no participating genes
-    .filter((signatures) => signatures.participatingGenes.length)
+    .filter((signature) => signature.participatingGenes.length)
     // compute p value of enriched signature
     .map((signature) => {
-      const N = genes.length;
+      const N = geneList.length;
       const K = selectedGenes.length;
       const n = signature.participatingGenes.length;
       const k = signature.matchedGenes.length;

@@ -106,12 +106,12 @@ const reducer = produce((draft, type, payload, meta) => {
     case 'GET_ENRICHED_SIGNATURES':
       const participations = payload;
       if (isArray(participations)) {
-        const { selectedGenes, genes, signatures } = meta;
+        const { selectedGenes, geneList, signatureList } = meta;
         const result = calculateEnrichedSignatures({
           selectedGenes,
           participations,
-          genes,
-          signatures
+          geneList,
+          signatureList
         });
         if (isEmpty(result))
           draft.enrichedSignatures = actionStatuses.EMPTY;
