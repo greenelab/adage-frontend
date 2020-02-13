@@ -106,7 +106,12 @@ let Controller = ({
   useEffect(() => {
     if (!selectedGenesLoaded)
       getGeneSelectedDetails();
-  }, [geneList.length, selectedGenesLoaded, getGeneSelectedDetails]);
+  }, [
+    geneList.length,
+    selectedGenes.length,
+    selectedGenesLoaded,
+    getGeneSelectedDetails
+  ]);
 
   // when full list loads or when new experiment selected
   // fill in full details of selected experiments
@@ -115,6 +120,7 @@ let Controller = ({
       getExperimentSelectedDetails();
   }, [
     experimentList.length,
+    selectedExperiment.accession,
     selectedExperimentLoaded,
     getExperimentSelectedDetails
   ]);
