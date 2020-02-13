@@ -3,8 +3,6 @@ import genes from './genes';
 import experiments from './experiments';
 import samples from './samples';
 import signatures from './signatures';
-import { isArray } from '../util/types';
-import { isObject } from '../util/types';
 
 // master reducer
 // split into sub-reducers that handle one specific slice of state each
@@ -21,12 +19,3 @@ const reducer = (state = {}, action = {}) => {
 };
 
 export default reducer;
-
-export const mapFetchPayload = (payload, func) => {
-  if (isObject(payload))
-    return func(payload);
-  else if (isArray(payload))
-    return payload.map(func);
-  else
-    return payload;
-};

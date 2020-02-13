@@ -66,7 +66,7 @@ const Table = ({
   useEffect(() => {
     const element = document.querySelector('*[data-shade="true"]');
     if (element)
-      element.scrollIntoView({ block: 'nearest' });
+      element.scrollIntoView({ block: 'center' });
   });
 
   return (

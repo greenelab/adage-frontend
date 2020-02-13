@@ -5,7 +5,6 @@ import SearchComponent from '../../../components/search';
 import Single from './single';
 import { getExperimentSearch } from '../../../actions/experiments';
 import { selectExperiment } from '../../../actions/experiments';
-import { isObject } from '../../../util/types';
 import { isArray } from '../../../util/types';
 import { isSelected } from '../../../reducers/experiments';
 import { toCamelCase } from '../../../util/string';
@@ -34,12 +33,7 @@ let Search = ({ results, select, search }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results:
-    state.experiment.searches.length === 1 &&
-    isArray(state.experiment.searches[0].results) &&
-    state.experiment.searches[0].results.length ?
-      mapExperimentSearchPayload(state.experiment.searches[0], state) :
-      []
+  results: mapExperimentSearch(state.experiment.searches[0] || {}, state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -50,15 +44,6 @@ const mapDispatchToProps = (dispatch) => ({
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);
 
 export default Search;
-
-export const mapExperimentSearchPayload = (payload, state) => {
-  if (isObject(payload))
-    return mapExperimentSearch(payload, state);
-  else if (isArray(payload))
-    return payload.map((search) => mapExperimentSearch(search, state));
-  else
-    return payload;
-};
 
 export const mapExperimentSearch = (search, state) => ({
   query: search.query,

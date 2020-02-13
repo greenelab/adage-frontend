@@ -14,7 +14,8 @@ import FetchAlert from '../../components/fetch-alert';
 import { getSampleDetails } from '../../actions/samples';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { filterKeys, flatten } from '../../util/object';
+import { filterKeys } from '../../util/object';
+import { flatten } from '../../util/object';
 import { humanizeKeys } from '../../util/object';
 
 import { ReactComponent as SampleIcon } from '../../images/sample.svg';

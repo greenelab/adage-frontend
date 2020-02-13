@@ -10,7 +10,6 @@ import { cancelAction } from '../../../actions/fetch';
 import { selectGene } from '../../../actions/genes';
 import { deselectGene } from '../../../actions/genes';
 import { isArray } from '../../../util/types';
-import { isObject } from '../../../util/types';
 import { toCamelCase } from '../../../util/string';
 import { isSelected } from '../../../reducers/genes';
 
@@ -20,7 +19,7 @@ import './index.css';
 
 let Search = ({ results, select, deselect, dispatch }) => (
   <SearchComponent
-    length={results.length}
+    length={results?.length || 0}
     multi
     placeholder='search for a gene'
     multiPlaceholder='search for a list of genes'
@@ -55,12 +54,7 @@ let Search = ({ results, select, deselect, dispatch }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results:
-    state.gene.searches.length === 1 &&
-    isArray(state.gene.searches[0].results) &&
-    state.gene.searches[0].results.length ?
-      mapGeneSearchPayload(state.gene.searches[0], state) :
-      []
+  results: mapGeneSearch(state.gene.searches[0] || {}, state)?.results
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -72,15 +66,6 @@ const mapDispatchToProps = (dispatch) => ({
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);
 
 export default Search;
-
-export const mapGeneSearchPayload = (payload, state) => {
-  if (isObject(payload))
-    return mapGeneSearch(payload, state);
-  else if (isArray(payload))
-    return payload.map((search) => mapGeneSearch(search, state));
-  else
-    return payload;
-};
 
 export const mapGeneSearch = (search, state) => ({
   query: search.query,
