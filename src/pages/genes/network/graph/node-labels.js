@@ -3,7 +3,7 @@ import * as color from 'color';
 
 import { tooltip } from './tooltip';
 
-import { nodeData } from './';
+import { nodeData } from '.';
 
 import { fillA, fillB, fontSize } from './constants';
 

@@ -50,9 +50,10 @@ const reducer = produce((draft, type, payload, meta) => {
     case 'GET_EXPERIMENT_SELECTED_DETAILS':
       if (!isArray(draft.list) || !draft.list.length)
         break;
-      draft.selected = draft.list.find(
-        (experiment) => experiment.accession === draft.selected.accession
-      ) || {};
+      draft.selected =
+        draft.list.find(
+          (experiment) => experiment.accession === draft.selected.accession
+        ) || {};
       break;
 
     default:
@@ -64,7 +65,5 @@ const reducer = produce((draft, type, payload, meta) => {
 
 export default reducer;
 
-export const isSelected = (result, state) =>
-  result?.accession &&
-  state?.experiment?.selected?.accession &&
-  result.accession === state.experiment.selected.accession;
+export const isSelected = (selected, accession) =>
+  selected.accession === accession;

@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { openTooltip } from './tooltip';
 import { closeTooltip } from './tooltip';
 
-import { linkData } from './';
+import { linkData } from '.';
 
 import { strokeWidth } from './constants';
 

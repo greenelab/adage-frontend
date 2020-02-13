@@ -8,7 +8,6 @@ import { selectExperiment } from '../../../actions/experiments';
 import { isArray } from '../../../util/types';
 import { isSelected } from '../../../reducers/experiments';
 import { toCamelCase } from '../../../util/string';
-import { mapExperiment } from '../';
 
 import './index.css';
 
@@ -34,14 +33,7 @@ let Search = ({ results, select, search }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results:
-    state.experiment.searches.length === 1 &&
-    isArray(state.experiment.searches[0].results) &&
-    state.experiment.searches[0].results.length ?
-      state.experiment.searches[0].results.map((result) =>
-        mapExperimentResult(result, state)
-      ) :
-      null
+  results: mapExperimentSearch(state.experiment.searches[0] || {}, state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -49,13 +41,19 @@ const mapDispatchToProps = (dispatch) => ({
   select: (...args) => dispatch(selectExperiment(...args))
 });
 
-export const mapExperimentResult = (result, state) => {
-  const experiment = mapExperiment(result);
-  experiment.selected = isSelected(result, state);
-  experiment.highlightedField = toCamelCase(result.max_similarity_field || '');
-  return experiment;
-};
-
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);
 
 export default Search;
+
+export const mapExperimentSearch = (search, state) => ({
+  query: search.query,
+  results: isArray(search.results) ?
+    search.results.map((result) => mapExperimentResult(result, state)) :
+    search.results
+});
+
+export const mapExperimentResult = (result, state) => ({
+  ...result,
+  selected: isSelected(state.experiment.selected, result.accession),
+  highlightedField: toCamelCase(result.maxSimilarityField || '')
+});

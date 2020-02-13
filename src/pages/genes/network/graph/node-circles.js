@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-import { nodeData } from './';
+import { nodeData } from '.';
 
 import { nodeRadius, fillA, fillB, stroke, strokeWidth } from './constants';
 

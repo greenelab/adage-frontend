@@ -29,18 +29,18 @@ const reducer = produce((draft, type, payload, meta) => {
 
   switch (type) {
     case 'GET_GENE_DETAILS':
-      draft.details = payload;
+      draft.details = mapGene(payload);
       break;
 
     case 'GET_GENE_LIST':
-      draft.list = payload;
+      draft.list = mapGene(payload);
       break;
 
     case 'GET_GENE_SEARCH':
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
       draft.searches[meta.index].query = meta.query;
-      draft.searches[meta.index].results = payload;
+      draft.searches[meta.index].results = mapGene(payload);
       break;
 
     case 'CLEAR_GENE_SEARCH':
@@ -69,9 +69,9 @@ const reducer = produce((draft, type, payload, meta) => {
             search.results[0] :
             null;
         if (!firstResult)
-          break;
+          continue;
         if (isSelected(draft.selected, firstResult.id))
-          break;
+          continue;
         draft.selected.push({ id: firstResult.id });
       }
       break;
@@ -83,8 +83,7 @@ const reducer = produce((draft, type, payload, meta) => {
             search.results[0] :
             null;
         if (!firstResult)
-          break;
-
+          continue;
         draft.selected = filterSelected(draft.selected, firstResult.id);
       }
       break;
@@ -104,15 +103,15 @@ const reducer = produce((draft, type, payload, meta) => {
       );
       break;
 
-    case 'GET_GENE_ENRICHED_SIGNATURES':
+    case 'GET_ENRICHED_SIGNATURES':
       const participations = payload;
       if (isArray(participations)) {
-        const { selectedGenes, genes, signatures } = meta;
+        const { selectedGenes, geneList, signatureList } = meta;
         const result = calculateEnrichedSignatures({
           selectedGenes,
           participations,
-          genes,
-          signatures
+          geneList,
+          signatureList
         });
         if (isEmpty(result))
           draft.enrichedSignatures = actionStatuses.EMPTY;
@@ -144,3 +143,13 @@ export const isSelected = (selected, id) =>
 
 export const filterSelected = (selected, id) =>
   selected.filter((selected) => !(selected.id === id));
+
+export const mapGene = (gene) =>
+  isArray(gene) ?
+    gene.map((gene) => ({
+      ...gene,
+      name:
+          gene.standard_name || gene.systematic_name || gene.entrezid || '-',
+      entrezId: gene.entrezid
+    })) :
+    gene;

@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-import { linkData } from './';
+import { linkData } from '.';
 
 import { strokeWidth, fillA } from './constants';
 

@@ -14,7 +14,8 @@ import FetchAlert from '../../components/fetch-alert';
 import { getExperimentDetails } from '../../actions/experiments';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { normalize } from '../../util/object';
+import { filterKeys } from '../../util/object';
+import { humanizeKeys } from '../../util/object';
 
 import { ReactComponent as ExperimentIcon } from '../../images/experiment.svg';
 
@@ -56,11 +57,11 @@ const mapStateToProps = (state) => {
   let details = state.experiment.details;
 
   if (isObject(details)) {
-    details = normalize(details, true, null, ['Max Similarity Field']);
-    if (details.Samples) {
-      details.Samples = (
+    details = filterKeys(details, ['maxSimilarityField']);
+    if (details.samples) {
+      details.samples = (
         <>
-          {details.Samples.map((sample, index) => (
+          {details.samples.map((sample, index) => (
             <Fragment key={index}>
               <SampleLink sample={sample} />
               <br />
@@ -69,6 +70,7 @@ const mapStateToProps = (state) => {
         </>
       );
     }
+    details = humanizeKeys(details);
   }
 
   return { details };

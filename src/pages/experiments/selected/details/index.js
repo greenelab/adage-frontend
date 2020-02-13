@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ExperimentLink from '../../../experiment/link';
-import { mapExperiment } from '../../';
+import { mapExperimentResult } from '../../search';
 
 import './index.css';
 
@@ -41,7 +41,7 @@ let Details = ({ experiment }) => (
 );
 
 const mapStateToProps = (state) => ({
-  experiment: mapExperiment(state.experiment.selected)
+  experiment: mapExperimentResult(state.experiment.selected, state)
 });
 
 Details = connect(mapStateToProps)(Details);

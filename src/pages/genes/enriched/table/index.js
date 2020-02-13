@@ -3,9 +3,8 @@ import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
-import Link from '../../../../components/link';
+import SignatureLink from '../../../signature/link';
 import GeneLink from '../../../gene/link';
-import { mapGene } from '../../';
 
 import './index.css';
 
@@ -19,15 +18,7 @@ let Table = ({ enrichedSignatures }) => (
         name: 'Name',
         value: 'name',
         width: '25%',
-        render: (cell) => (
-          <Link
-            to={'/signature/' + cell.id}
-            newTab
-            button={false}
-            text={cell.name}
-            aria-label={'Open details page for signature ' + cell.name}
-          />
-        )
+        render: (cell) => <SignatureLink signature={cell} />
       },
       {
         name: 'Overlapping Genes',
@@ -57,7 +48,7 @@ const mapStateToProps = (state) => ({
   enrichedSignatures: state.gene.enrichedSignatures.map((signature) => ({
     id: signature.id,
     name: signature.name,
-    genes: signature.matchedGenes.map(mapGene),
+    genes: signature.matchedGenes,
     pValue: signature.pValue
   }))
 });

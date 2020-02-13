@@ -8,6 +8,10 @@ import { isObject } from '../util/types';
 const typeCheck = (draft) => {
   if (!isString(draft.details) && !isObject(draft.details))
     draft.details = {};
+  if (!isString(draft.list) && !isArray(draft.list))
+    draft.list = [];
+  if (!isArray(draft.selected))
+    draft.selected = [];
   if (!isArray(draft.groups))
     draft.groups = [];
 };
@@ -19,6 +23,22 @@ const reducer = produce((draft, type, payload, meta) => {
   switch (type) {
     case 'GET_SAMPLE_DETAILS':
       draft.details = payload;
+      break;
+
+    case 'GET_SAMPLE_LIST':
+      draft.list = payload;
+      break;
+
+    case 'SELECT_SAMPLES':
+      draft.selected = payload.ids.map((id) => ({ id }));
+      break;
+
+    case 'GET_SAMPLE_SELECTED_DETAILS':
+      if (!isArray(draft.list) || !draft.list.length)
+        break;
+      draft.selected = draft.selected.map((selected) =>
+        draft.list.find((sample) => sample.id === selected.id)
+      );
       break;
 
     case 'UNGROUP_SAMPLE':

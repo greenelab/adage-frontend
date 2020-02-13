@@ -4,11 +4,9 @@ import { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import FetchAlert from '../../../components/fetch-alert';
-import { mapGene } from '../';
 import { isArray } from '../../../util/types';
 import { isString } from '../../../util/types';
 import { xor } from '../../../util/math';
-import { normalize } from '../../../util/object';
 import Filters from './filters';
 import Graph from './graph';
 import Controls from './controls';
@@ -65,12 +63,19 @@ const constructGraph = ({ list, selected, edges }) => {
   // if we dont have all we need, exit
   if (
     !isArray(list) ||
+    !list.length ||
     !isArray(edges) ||
     !edges.length ||
     !isArray(selected) ||
     !selected.length
   )
     return;
+
+  // copy objects to make them extensible
+  // (objects coming from immer state are frozen by default)
+  list = list.map((gene) => ({ ...gene }));
+  selected = selected.map((gene) => ({ ...gene }));
+  edges = edges.map((edge) => ({ ...edge }));
 
   // init nodes and links
   let nodes = new Set();
@@ -174,15 +179,9 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
 };
 
 const mapStateToProps = (state) => ({
-  list: isArray(state.gene.list) ?
-    state.gene.list.map(mapGene).map((gene) => normalize(gene)) :
-    state.gene.list,
-  selected: isArray(state.gene.selected) ?
-    state.gene.selected.map(mapGene).map((selected) => normalize(selected)) :
-    state.gene.selected,
-  edges: isArray(state.gene.edges) ?
-    state.gene.edges.map((edge) => normalize(edge)) :
-    state.gene.edges
+  list: state.gene.list,
+  selected: state.gene.selected,
+  edges: state.gene.edges
 });
 
 Network = connect(mapStateToProps)(Network);

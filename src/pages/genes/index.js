@@ -9,8 +9,6 @@ import Selected from './selected';
 import Enriched from './enriched';
 import Network from './network';
 
-import { normalize } from '../../util/object';
-
 import './index.css';
 
 // genes page
@@ -37,11 +35,3 @@ const Genes = () => (
 );
 
 export default Genes;
-
-export const mapGene = (gene) => ({
-  ...normalize(gene),
-  name: gene.standard_name || gene.systematic_name || gene.entrezid || '-',
-  entrezId: gene.entrezid
-});
-
-export const mapGeneDownload = (gene) => normalize(gene, true);

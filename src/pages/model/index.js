@@ -12,7 +12,8 @@ import FetchAlert from '../../components/fetch-alert';
 import { getModelDetails } from '../../actions/models';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { normalize } from '../../util/object';
+import { filterKeys } from '../../util/object';
+import { humanizeKeys } from '../../util/object';
 
 import { ReactComponent as ModelIcon } from '../../images/model.svg';
 
@@ -54,12 +55,13 @@ const mapStateToProps = (state) => {
   let details = state.model.details;
 
   if (isObject(details)) {
-    details = normalize(details, true, null, [
-      'Id',
-      'Directed G2g Edge',
-      'G2g Edge Cutoff',
-      'Organism'
+    details = filterKeys(details, [
+      'id',
+      'directedG2gEdge',
+      'g2gEdgeCutoff',
+      'organism'
     ]);
+    details = humanizeKeys(details);
   }
 
   return { details };

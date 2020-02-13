@@ -5,7 +5,7 @@ import SingleTable from '../single-table';
 import FetchAlert from '../../../../components/fetch-alert';
 import { isArray } from '../../../../util/types';
 import { isString } from '../../../../util/types';
-import { mapGeneResult } from '../';
+import { mapGeneSearch } from '../';
 
 import './index.css';
 
@@ -27,13 +27,7 @@ let Single = ({ results, highlightedIndex }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: state.gene.searches[0] ?
-    isArray(state.gene.searches[0].results) ?
-      state.gene.searches[0].results.map((result) =>
-        mapGeneResult(result, state)
-      ) :
-      state.gene.searches[0].results :
-    ''
+  results: mapGeneSearch(state.gene.searches[0] || {}, state)?.results
 });
 
 Single = connect(mapStateToProps)(Single);
