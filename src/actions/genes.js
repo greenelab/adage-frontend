@@ -4,7 +4,7 @@ import { createFetchAction } from './fetch';
 import { urlGeneDetails } from '../backend/genes';
 import { urlGeneList } from '../backend/genes';
 import { urlGeneSearch } from '../backend/genes';
-import { urlGeneEnrichedSignatures } from '../backend/genes';
+import { urlEnrichedSignatures } from '../backend/genes';
 import { urlGeneEdges } from '../backend/genes';
 
 // actions related to "gene" sub-object of state
@@ -46,9 +46,9 @@ export const deselectFirstGenes = createAction('DESELECT_FIRST_GENES');
 export const getGeneSelectedDetails = createAction('GET_GENE_SELECTED_DETAILS');
 
 // get gene participations and calculate enriched signatures
-export const getGeneEnrichedSignatures = createFetchAction(
-  'GET_GENE_ENRICHED_SIGNATURES',
-  urlGeneEnrichedSignatures
+export const getEnrichedSignatures = createFetchAction(
+  'GET_ENRICHED_SIGNATURES',
+  urlEnrichedSignatures
 );
 
 // get edges to create network

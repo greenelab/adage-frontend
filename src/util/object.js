@@ -94,16 +94,9 @@ export const cleanValues = (object) => {
 
 // flatten, case-ize, filter, and clean object
 export const normalize = (object) => {
+  object = flatten(object, 1);
   object = camelizeKeys(object);
   object = cleanValues(object);
-
-  // TEMPORARY
-  if (object.samples) {
-    object.samples = object.samples.map((sample) => ({
-      id: sample.id,
-      name: sample.name
-    }));
-  }
 
   return object;
 };

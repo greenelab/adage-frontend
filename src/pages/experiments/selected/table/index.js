@@ -70,11 +70,10 @@ let Table = ({ samples }) => (
 );
 
 const mapStateToProps = (state) => ({
-  samples: (state.experiment.selected.samples || [])
-    .map((sample) => ({
-      ...sample,
-      group: isGrouped(state.sample.groups, sample.id)
-    }))
+  samples: state.sample.selected.map((sample) => ({
+    ...sample,
+    group: isGrouped(state.sample.groups, sample.id)
+  }))
 });
 
 Table = connect(mapStateToProps)(Table);

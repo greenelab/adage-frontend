@@ -103,7 +103,7 @@ const reducer = produce((draft, type, payload, meta) => {
       );
       break;
 
-    case 'GET_GENE_ENRICHED_SIGNATURES':
+    case 'GET_ENRICHED_SIGNATURES':
       const participations = payload;
       if (isArray(participations)) {
         const { selectedGenes, genes, signatures } = meta;

@@ -26,3 +26,11 @@ export const ungroupSample = createAction('UNGROUP_SAMPLE');
 
 // remove all samples from groups
 export const ungroupAllSamples = createAction('UNGROUP_ALL_SAMPLES');
+
+// select samples based on experiment id
+export const selectSamples = createAction('SELECT_SAMPLES');
+
+// fill in remaining details of selected samples
+export const getSampleSelectedDetails = createAction(
+  'GET_SAMPLE_SELECTED_DETAILS'
+);
