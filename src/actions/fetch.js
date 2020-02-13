@@ -3,6 +3,9 @@ import sizeof from 'object-sizeof';
 
 // import { sleep } from '../util/debug';
 import { isEmpty } from '../util/types';
+import { isObject } from '../util/types';
+import { isArray } from '../util/types';
+import { normalize } from '../util/object';
 
 // replacement for redux-thunk-actions
 // provide the "cancelType" prop to any action made by this creator
@@ -108,7 +111,13 @@ const fetchJson = async (url) => {
   const json = await fetchResponse.json();
 
   // get results key within json, if it exists
-  const results = json?.results || json;
+  let results = json?.results || json;
+
+  // normalize results
+  if (isObject(results))
+    results = normalize(results);
+  else if (isArray(results))
+    results = results.map(normalize);
 
   // add response to cache, if not over size limit
   const size = sizeof(results);

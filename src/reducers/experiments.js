@@ -3,8 +3,6 @@ import produce from 'immer';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
-import { normalize } from '../util/object';
-import { mapFetchPayload } from '.';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
@@ -24,18 +22,18 @@ const reducer = produce((draft, type, payload, meta) => {
 
   switch (type) {
     case 'GET_EXPERIMENT_DETAILS':
-      draft.details = mapFetchPayload(payload, normalize);
+      draft.details = payload;
       break;
 
     case 'GET_EXPERIMENT_LIST':
-      draft.list = mapFetchPayload(payload, normalize);
+      draft.list = payload;
       break;
 
     case 'GET_EXPERIMENT_SEARCH':
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
       draft.searches[meta.index].query = meta.query;
-      draft.searches[meta.index].results = mapFetchPayload(payload, normalize);
+      draft.searches[meta.index].results = payload;
       break;
 
     case 'SELECT_EXPERIMENT':

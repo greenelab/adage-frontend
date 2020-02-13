@@ -6,8 +6,6 @@ import { isEmpty } from '../util/types';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
-import { normalize } from '../util/object';
-import { mapFetchPayload } from '.';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
@@ -31,18 +29,18 @@ const reducer = produce((draft, type, payload, meta) => {
 
   switch (type) {
     case 'GET_GENE_DETAILS':
-      draft.details = mapFetchPayload(payload, mapGene);
+      draft.details = mapGene(payload);
       break;
 
     case 'GET_GENE_LIST':
-      draft.list = mapFetchPayload(payload, mapGene);
+      draft.list = mapGene(payload);
       break;
 
     case 'GET_GENE_SEARCH':
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
       draft.searches[meta.index].query = meta.query;
-      draft.searches[meta.index].results = mapFetchPayload(payload, mapGene);
+      draft.searches[meta.index].results = mapGene(payload);
       break;
 
     case 'CLEAR_GENE_SEARCH':
@@ -146,8 +144,12 @@ export const isSelected = (selected, id) =>
 export const filterSelected = (selected, id) =>
   selected.filter((selected) => !(selected.id === id));
 
-export const mapGene = (gene) => ({
-  ...normalize(gene),
-  name: gene.standard_name || gene.systematic_name || gene.entrezid || '-',
-  entrezId: gene.entrezid
-});
+export const mapGene = (gene) =>
+  isArray(gene) ?
+    gene.map((gene) => ({
+      ...gene,
+      name:
+          gene.standard_name || gene.systematic_name || gene.entrezid || '-',
+      entrezId: gene.entrezid
+    })) :
+    gene;
