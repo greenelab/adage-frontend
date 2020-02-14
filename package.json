@@ -4,7 +4,6 @@
   "dependencies": {
     "color": "^3.1.2",
     "d3": "^5.15.0",
-    "d3-tip": "^0.9.1",
     "history": "^4.10.1",
     "immer": "^5.3.5",
     "multtest": "^0.1.7",
