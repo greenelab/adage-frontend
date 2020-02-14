@@ -31,7 +31,7 @@ let Details = ({ experiment }) => (
         <ExperimentLink experiment={experiment} />
       </span>
       <span
-        aria-label={(experiment.samples?.length || 0) + ' samples'}
+        aria-label={(experiment.samples?.length || 0) + ' sample(s)'}
       >
         <SampleIcon />
         {experiment.samples?.length || 0}

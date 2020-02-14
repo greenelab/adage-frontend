@@ -11,7 +11,7 @@ import { parseObject } from '../../util/object';
 
 import './index.css';
 
-const defaultDelay = 250;
+const defaultSpeed = 250;
 const padding = 5;
 
 // tooltip singular component
@@ -20,28 +20,28 @@ const Tooltip = () => {
   // internal state
   const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState(null);
-  const [delay, setDelay] = useState(defaultDelay);
+  const [speed, setSpeed] = useState(defaultSpeed);
   const openTimer = useRef();
   const closeTimer = useRef();
 
   // set tooltip to open
   const openTooltip = useCallback((event) => {
-    const newDelay = Number(event.target?.dataset.tooltipDelay) || defaultDelay;
-    setDelay(newDelay);
+    const newSpeed = Number(event.target?.dataset.tooltipSpeed) || defaultSpeed;
+    setSpeed(newSpeed);
 
     window.clearTimeout(closeTimer.current);
     openTimer.current = window.setTimeout(() => {
       setOpen(true);
       setAnchor(event.target);
-    }, newDelay);
+    }, newSpeed);
   }, []);
 
   // set tooltip to close
   const closeTooltip = useCallback(() => {
     window.clearTimeout(openTimer.current);
     setOpen(false);
-    closeTimer.current = window.setTimeout(() => setAnchor(null), delay);
-  }, [delay]);
+    closeTimer.current = window.setTimeout(() => setAnchor(null), speed);
+  }, [speed]);
 
   // when any dom node changes
   const onMutation = useCallback(() => {
@@ -75,11 +75,11 @@ const Tooltip = () => {
     <>
       <CSSTransition
         in={open ? true : false}
-        timeout={250}
+        timeout={speed}
         classNames='tooltip'
         unmountOnExit
       >
-        <Portal anchor={anchor} />
+        <Portal anchor={anchor} speed={speed} />
       </CSSTransition>
     </>
   );
@@ -88,7 +88,7 @@ export default Tooltip;
 
 // append popup to body, not app root
 
-const Portal = ({ anchor }) => {
+const Portal = ({ anchor, speed }) => {
   let content = <></>;
   const stringLabel = anchor?.getAttribute('aria-label');
   const objectLabel = parseObject(stringLabel);
@@ -106,7 +106,13 @@ const Portal = ({ anchor }) => {
     content = stringLabel || innerText;
 
   return createPortal(
-    <div className='tooltip text_small' style={computeStyle({ anchor })}>
+    <div
+      className='tooltip text_small'
+      style={{
+        ...computeStyle({ anchor }),
+        transition: 'opacity ease ' + speed + 'ms'
+      }}
+    >
       {content}
     </div>,
     document.body

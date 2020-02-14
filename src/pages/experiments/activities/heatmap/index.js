@@ -75,9 +75,13 @@ let Heatmap = ({ activities }) => {
       .attr('height', cellHeight - verticalSpacing * 2 + 0.5)
       .attr('fill', (d) => colorScale(d.value))
       .attr('aria-label', (d) =>
-        stringifyObject({ signature: d.signatureName, activity: d.value })
+        stringifyObject({
+          sample: d.sampleName,
+          signature: d.signatureName,
+          activity: d.value
+        })
       )
-      .attr('data-tooltip-delay', 10);
+      .attr('data-tooltip-speed', 10);
     cells.exit().remove();
   }, [mounted, activities, samples, signatures, width, height]);
 
@@ -118,15 +122,16 @@ export const mapActivities = (activities, state) =>
 
 export const mapActivity = (activity, state) => ({
   ...activity,
-  sampleName: isArray(state.sample.list) ?
-    (state.sample.list.find((sample) => sample.id === activity.sample) || {})
-      .name :
-    '',
-  signatureName: isArray(state.signature.list) ?
+  sampleName:
     (
-      state.signature.list.find(
+      (isArray(state.sample.list) ? state.sample.list : []).find(
+        (sample) => sample.id === activity.sample
+      ) || {}
+    ).name || activity.sample,
+  signatureName:
+    (
+      (isArray(state.signature.list) ? state.signature.list : []).find(
         (signature) => signature.id === activity.signature
       ) || {}
-    ).name :
-    ''
+    ).name || activity.signature
 });

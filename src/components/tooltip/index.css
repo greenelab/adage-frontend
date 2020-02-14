@@ -12,14 +12,12 @@
 }
 .tooltip-enter-active {
   opacity: 1;
-  transition: opacity var(--fast);
 }
 .tooltip-exit {
   opacity: 1;
 }
 .tooltip-exit-active {
   opacity: 0;
-  transition: opacity var(--fast);
 }
 .tooltip_row {
   max-width: 200px;
