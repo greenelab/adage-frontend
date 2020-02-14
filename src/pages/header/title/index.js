@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import Link from '../../../components/link';
 
 import { ReactComponent as AdageLogo } from '../../../images/logo-small.svg';
 
@@ -10,10 +11,15 @@ import packageJson from '../../../../package.json';
 // logo and link to home page
 
 const Title = () => (
-  <Link to='/' className='page_header_column' title={packageJson.version}>
-    <AdageLogo className='logo_small' />
-    <span className='text_large'>adage</span>
-  </Link>
+  <Link
+    to='/'
+    className='page_header_column'
+    icon={<AdageLogo className='logo_small' />}
+    text={<span className='title_text text_large'>adage</span>}
+    title={packageJson.version}
+    flip
+    button={false}
+  />
 );
 
 export default Title;

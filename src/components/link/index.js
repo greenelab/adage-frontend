@@ -89,8 +89,8 @@ Link.propTypes = {
   to: PropTypes.string.isRequired,
   newTab: PropTypes.bool,
   className: PropTypes.string,
-  text: PropTypes.string,
-  icon: PropTypes.element,
+  text: PropTypes.node,
+  icon: PropTypes.node,
   button: PropTypes.bool,
   flip: PropTypes.bool,
   children: PropTypes.node

@@ -1,4 +1,11 @@
+.page_header_column,
+.page_header_column * {
+  text-decoration: none !important;
+}
 .logo_small {
   color: var(--green);
-  margin-right: 10px;
+  margin-right: 10px !important;
+}
+.title_text {
+  color: var(--green);
 }
