@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
+import { isString } from '../../util/types';
 import { isExternalLink } from '../../util/string';
 
 import './index.css';
@@ -28,7 +29,7 @@ let Link = ({
   if (children)
     content = children;
   else {
-    if (text && icon)
+    if (text && icon && isString(text))
       text = <span>{text}</span>;
     if (flip) {
       content = (
