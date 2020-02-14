@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import Button from '../../../components/button';
+import Clickable from '../../../components/clickable';
 import Popup from '../../../components/popup';
 import FetchAlert from '../../../components/fetch-alert';
 import List from './list';
@@ -22,14 +22,14 @@ let ModelSelect = ({ models }) => {
 
   return (
     <>
-      <Button
+      <Clickable
         ref={buttonRef}
         className='model_select_button'
+        icon={<ModelIcon />}
+        button
         onClick={() => setIsOpen(!isOpen)}
         aria-label='Switch between machine learning models'
-      >
-        <ModelIcon />
-      </Button>
+      />
       <Popup
         isOpen={isOpen}
         anchorBbox={buttonBbox}

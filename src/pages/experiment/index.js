@@ -2,7 +2,7 @@ import React from 'react';
 import { Fragment } from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { useRouteMatch } from 'react-router';
 
 import SampleLink from '../sample/link';
 import Header from '../header';
@@ -23,7 +23,8 @@ import './index.css';
 
 // experiment details page
 
-let Experiment = ({ match, details, getDetails }) => {
+let Experiment = ({ details, getDetails }) => {
+  const match = useRouteMatch();
   const accession = match.params.accession;
 
   useEffect(() => {
@@ -80,7 +81,6 @@ const mapDispatchToProps = (dispatch) => ({
   getDetails: (...args) => dispatch(getExperimentDetails(...args))
 });
 
-Experiment = withRouter(Experiment);
 Experiment = connect(mapStateToProps, mapDispatchToProps)(Experiment);
 
 export default Experiment;

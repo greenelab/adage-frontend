@@ -1,7 +1,3 @@
-.page_header_column,
-.page_header_column * {
-  text-decoration: none !important;
-}
 .logo_small {
   color: var(--green);
   margin-right: 10px !important;

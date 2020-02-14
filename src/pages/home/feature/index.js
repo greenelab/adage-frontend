@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from '../../../components/link';
+import Clickable from '../../../components/clickable';
 
 import { ReactComponent as ArrowIcon } from '../../../images/arrow.svg';
 
@@ -23,7 +23,7 @@ const Feature = ({ left, icon, header, text, to }) => {
         {header}
       </div>
       <p>{text}</p>
-      <Link to={to} text='Go' icon={<ArrowIcon />} />
+      <Clickable to={to} text='Go' icon={<ArrowIcon />} button />
     </div>
   );
 

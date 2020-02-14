@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { deselectAllGenes } from '../../../../actions/genes';
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 import { downloadTsv } from '../../../../util/download';
 import { humanizeKeys } from '../../../../util/object';
 
@@ -15,15 +15,17 @@ import './index.css';
 
 let Controls = ({ selected, deselectAll }) => (
   <div className='controls'>
-    <Button
+    <Clickable
       text='Deselect All'
       icon={<CrossIcon />}
+      button
       onClick={deselectAll}
       aria-label='Deselect all genes'
     />
-    <Button
+    <Clickable
       text='Download'
       icon={<DownloadIcon />}
+      button
       onClick={() => downloadTsv(selected, 'genes')}
       aria-label='Download this table as a .tsv file'
     />

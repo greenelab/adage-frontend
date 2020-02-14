@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../../../components/button';
-import Link from '../../../../components/link';
+import Clickable from '../../../../components/clickable';
 
 import { ReactComponent as RadioedIcon } from '../../../../images/radioed.svg';
 import { ReactComponent as UnradioedIcon } from '../../../../images/unradioed.svg';
@@ -22,22 +21,23 @@ const Item = ({
   year = '-'
 }) => (
   <div className='model_item'>
-    <Button className='model_button' onClick={onClick}>
-      <div className='model_radio' aria-label='Select this model'>
-        {selected && <RadioedIcon />}
-        {!selected && <UnradioedIcon />}
-      </div>
-      <div className='model_summary'>
-        <span className='nowrap medium'>{title}</span>
-        <span className='nowrap text_small'>
-          {authors[0]}, et al · {journal} · {year}
-        </span>
-      </div>
-    </Button>
-    <Link
+    <Clickable
+      icon={selected ? <RadioedIcon /> : <UnradioedIcon />}
+      button
+      aria-label='Select this model'
+      onClick={onClick}
+    />
+    <div className='model_summary'>
+      <span className='nowrap medium'>{title}</span>
+      <span className='nowrap text_small'>
+        {authors[0]}, et al · {journal} · {year}
+      </span>
+    </div>
+    <Clickable
       to={'/model/' + id}
       newTab
       icon={<InfoIcon />}
+      button
       aria-label={'Open details page for model ' + title}
     />
   </div>

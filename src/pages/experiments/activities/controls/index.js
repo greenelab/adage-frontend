@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 import { mapActivities } from '../';
 import { downloadTable } from './download';
 
@@ -13,9 +13,10 @@ import './index.css';
 
 let Controls = ({ activities }) => (
   <div className='controls'>
-    <Button
+    <Clickable
       text='Download'
       icon={<DownloadIcon />}
+      button
       onClick={() => downloadTable({ activities })}
       aria-label='Download this heatmap as a .tsv file'
     />

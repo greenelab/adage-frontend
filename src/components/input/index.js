@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
 
-import Button from '../../components/button';
+import Clickable from '../../components/clickable';
 import { ReactComponent as ListMultipleIcon } from '../../images/list-multiple.svg';
 import { ReactComponent as ListSingleIcon } from '../../images/list-single.svg';
 import { ReactComponent as SearchIcon } from '../../images/search.svg';
@@ -113,19 +113,21 @@ const Input = ({
         />
       )}
       {multi && (
-        <Button
+        <Clickable
           className='input_button'
           icon={expanded ? <ListSingleIcon /> : <ListMultipleIcon />}
+          button
           onClick={() => changeExpanded(!expanded)}
           aria-label={expanded ? tooltip : multiTooltip}
         />
       )}
       {value.length > 0 && (
-        <Button
+        <Clickable
           className='input_button'
           icon={<CrossIcon />}
+          button
           onClick={() => changeValue('')}
-          aria-label='Clear searchj'
+          aria-label='Clear search'
         />
       )}
       {value.length === 0 && (

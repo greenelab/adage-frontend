@@ -1,18 +1,18 @@
 import React from 'react';
 
-import Link from '../../components/link';
+import Clickable from '../../components/clickable';
 
 // link to gene details page
 
 const GeneLink = ({ gene = {} }) => (
-  <Link
+  <Clickable
     to={
       'http://www.pseudomonas.com/feature/show/?locus_tag=' +
       gene.systematicName
     }
     newTab
-    button={false}
     text={gene.standardName}
+    link
     aria-label={'Open details page for gene ' + gene.standardName}
   />
 );

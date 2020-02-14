@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Link from '../../components/link';
+import Clickable from '../../components/clickable';
 
 // link to experiment details page
 
 const ExperimentLink = ({ experiment = {} }) => (
-  <Link
+  <Clickable
     to={'/experiment/' + (experiment.accession || experiment)}
     newTab
-    button={false}
     text={experiment.accession || experiment}
+    link
     aria-label={
       'Open details page for experiment ' + (experiment.accession || experiment)
     }

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Link from '../../components/link';
+import Clickable from '../../components/clickable';
 
 // link to signature details page
 
 const SignatureLink = ({ signature = {} }) => (
-  <Link
+  <Clickable
     to={'/signature/' + signature.id}
     newTab
-    button={false}
     text={signature.name}
+    link
     aria-label={'Open details page for signature ' + signature.name}
   />
 );

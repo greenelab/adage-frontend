@@ -2,7 +2,7 @@ import React from 'react';
 import { Fragment } from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { useRouteMatch } from 'react-router';
 
 import ExperimentLink from '../experiment/link';
 import Header from '../header';
@@ -23,7 +23,8 @@ import './index.css';
 
 // sample details page
 
-let Sample = ({ match, details, getDetails }) => {
+let Sample = ({ details, getDetails }) => {
+  const match = useRouteMatch();
   const id = match.params.id;
 
   useEffect(() => {
@@ -81,7 +82,6 @@ const mapDispatchToProps = (dispatch) => ({
   getDetails: (...args) => dispatch(getSampleDetails(...args))
 });
 
-Sample = withRouter(Sample);
 Sample = connect(mapStateToProps, mapDispatchToProps)(Sample);
 
 export default Sample;

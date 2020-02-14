@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import SingleTable from '../single-table';
 import GeneLink from '../../../gene/link';
 import FetchAlert from '../../../../components/fetch-alert';
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 import HorizontalLine from '../../../../components/horizontal-line';
 import VerticalLine from '../../../../components/vertical-line';
 import { selectGene } from '../../../../actions/genes';
@@ -77,7 +77,7 @@ let MultiRow = ({ search, select, deselect }) => {
           data-expanded={expanded}
           data-padded='true'
         >
-          <span className="nowrap">"{search.query}"</span>
+          <span className='nowrap'>"{search.query}"</span>
         </div>
         {!expanded && (
           <>
@@ -86,8 +86,9 @@ let MultiRow = ({ search, select, deselect }) => {
             <VerticalLine />
           </>
         )}
-        <Button
+        <Clickable
           className='gene_search_result_multi_expand'
+          button
           icon={<CaretIcon className={expanded ? 'flip_vertical' : ''} />}
           onClick={() => setExpanded(!expanded)}
         />
@@ -119,19 +120,18 @@ export default MultiRow;
 
 const ResultButton = ({ onClick = () => null, gene = {} }) => (
   <>
-    <Button
+    <Clickable
       className='gene_search_result_multi_check'
+      icon={gene.selected ? <CheckedIcon /> : <UncheckedIcon />}
+      button
       onClick={onClick}
       aria-label={(gene.selected ? 'Deselect' : 'Select') + ' this gene'}
-    >
-      {gene.selected && <CheckedIcon />}
-      {!gene.selected && <UncheckedIcon />}
-    </Button>
+    />
     <span className='td' data-padded='true'>
       <GeneLink gene={gene} />
     </span>
     <span className='td nowrap' data-padded='true'>
-     {gene.systematicName}
+      {gene.systematicName}
     </span>
   </>
 );

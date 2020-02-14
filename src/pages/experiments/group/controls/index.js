@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 import { downloadTsv } from '../../../../util/download';
 import { ungroupAllSamples } from '../../../../actions/samples';
 
@@ -14,15 +14,17 @@ import './index.css';
 
 let Controls = ({ samples, ungroupAll }) => (
   <div className='controls'>
-    <Button
+    <Clickable
       text='Ungroup all'
       icon={<CrossIcon />}
+      button
       onClick={ungroupAll}
       aria-label='Ungroup all samples'
     />
-    <Button
+    <Clickable
       text='Download'
       icon={<DownloadIcon />}
+      button
       onClick={() => downloadTsv(samples, 'samples')}
       aria-label='Download this table as a .tsv file'
     />

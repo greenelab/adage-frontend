@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import GeneLink from '../../../gene/link';
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 import TableComponent from '../../../../components/table';
 import { deselectGene } from '../../../../actions/genes';
 
@@ -22,8 +22,9 @@ let Table = ({ selected, deselect }) => (
         width: '30px',
         padded: false,
         render: (cell) => (
-          <Button
+          <Clickable
             icon={<CrossIcon />}
+            button
             onClick={() => deselect({ id: cell.id })}
             aria-label='Deselect this gene'
           />

@@ -1,4 +1,3 @@
-button,
 .clickable {
   box-sizing: border-box;
   display: inline-flex;
@@ -16,11 +15,10 @@ button,
   transition: color var(--fast), background var(--fast), opacity var(--fast),
     border var(--fast), border-color var(--fast);
 }
+
 .clickable:hover,
-.clickable:focus,
-.clickable[data-button][data-text]:hover,
-.clickable[data-button][data-text]:focus {
-  color: var(--green);
+.clickable:focus {
+  color: var(--green) !important;
 }
 .clickable > svg:not(:first-child) {
   margin-left: 5px;
@@ -47,10 +45,7 @@ button,
 .clickable[data-button='true'][data-text='false'] {
   color: var(--black);
 }
-.clickable[data-button="false"] {
+.clickable[data-link='true'] {
   color: var(--black);
   text-decoration: underline;
-}
-.clickable[data-icon="false"] {
-  display: inline-block;
 }
