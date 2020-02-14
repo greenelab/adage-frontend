@@ -1,10 +1,12 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
 // headless helper component to set document/tab title
 
-let Head = ({ location }) => {
+const Head = () => {
+  const location = useLocation();
+
   useEffect(() => {
     // get page name (eg genes)
     const page = location.pathname
@@ -36,7 +38,5 @@ let Head = ({ location }) => {
 
   return <></>;
 };
-
-Head = withRouter(Head);
 
 export default Head;

@@ -12,10 +12,7 @@ export const history = createBrowserHistory({ basename });
 export const querySync = reduxQuerySync.enhancer({
   params: {
     model: {
-      selector: (...args) =>
-        window.location.pathname.replace(basename, '').length !== 0 ?
-          args[0].model.selected :
-          undefined,
+      selector: (state) => state.model.selected,
       action: (value) => ({
         type: 'SELECT_MODEL_FROM_URL',
         payload: {

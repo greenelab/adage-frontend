@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { useRouteMatch } from 'react-router';
 
 import Header from '../header';
 import Main from '../main';
@@ -21,7 +21,8 @@ import './index.css';
 
 // model details page
 
-let Model = ({ match, details, getDetails }) => {
+let Model = ({ details, getDetails }) => {
+  const match = useRouteMatch();
   const id = match.params.id;
 
   useEffect(() => {
@@ -71,7 +72,6 @@ const mapDispatchToProps = (dispatch) => ({
   getDetails: (...args) => dispatch(getModelDetails(...args))
 });
 
-Model = withRouter(Model);
 Model = connect(mapStateToProps, mapDispatchToProps)(Model);
 
 export default Model;

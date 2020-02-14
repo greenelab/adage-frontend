@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { selectFirstGenes } from '../../../../actions/genes';
 import { deselectFirstGenes } from '../../../../actions/genes';
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 
 import './index.css';
 
@@ -11,13 +11,15 @@ import './index.css';
 
 let MultiControls = ({ selectFirst, deselectFirst }) => (
   <div className='controls'>
-    <Button
+    <Clickable
       text='select'
+      button
       onClick={selectFirst}
       aria-label='Select the first result for each search term'
     />
-    <Button
+    <Clickable
       text='deselect'
+      button
       onClick={deselectFirst}
       aria-label='Deselect the first result for each search term'
     />

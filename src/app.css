@@ -42,8 +42,8 @@ body {
   padding: 0;
 }
 a {
-  position: relative;
-  color: var(--green);
+  color: unset;
+  text-decoration: none;
 }
 *:focus {
   outline: none;

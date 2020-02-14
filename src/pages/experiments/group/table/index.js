@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 import SampleLink from '../../../sample/link';
 import TableComponent from '../../../../components/table';
 import { groupSample } from '../../../../actions/samples';
@@ -84,8 +84,9 @@ let GroupButton = ({ sample, index, name, color, Icon, group, ungroup }) => {
   const grouped = sample.group === index;
   const defaultColor = 'var(--light-gray)';
   return (
-    <Button
+    <Clickable
       icon={<Icon />}
+      button
       onClick={() =>
         (grouped ? ungroup : group)({ index: index, id: sample.id })
       }

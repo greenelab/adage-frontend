@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from '../../../components/link';
+import Clickable from '../../../components/clickable';
 
 import { ReactComponent as ArrowIcon } from '../../../images/arrow.svg';
 
@@ -13,7 +13,7 @@ const Banner = ({ text }) => (
   <section>
     <div className='banner'>
       <div className='text_medium medium'>{text}</div>
-      <Link to='/genes' text='Explore' icon={<ArrowIcon />} />
+      <Clickable to='/genes' text='Explore' icon={<ArrowIcon />} button />
     </div>
   </section>
 );

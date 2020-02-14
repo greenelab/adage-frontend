@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Link from '../../components/link';
+import Clickable from '../../components/clickable';
 
 // link to sample details page
 
 const SampleLink = ({ sample = {} }) => (
-  <Link
+  <Clickable
     to={'/sample/' + sample.id}
     newTab
-    button={false}
     text={sample.name}
+    link
     aria-label={'Open details page for sample ' + sample.name}
   />
 );

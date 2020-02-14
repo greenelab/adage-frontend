@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ExperimentLink from '../../../experiment/link';
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 import TableComponent from '../../../../components/table';
 import { selectExperiment } from '../../../../actions/experiments';
 
@@ -23,8 +23,9 @@ let Table = ({ results, highlightedIndex, select }) => {
           width: '30px',
           padded: false,
           render: (cell) => (
-            <Button
+            <Clickable
               icon={cell.selected ? <RadioedIcon /> : <UnradioedIcon />}
+              button
               onClick={() => select({ accession: cell.accession })}
               aria-label='Select this experiment'
             />

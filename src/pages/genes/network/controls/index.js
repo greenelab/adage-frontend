@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '../../../../components/button';
+import Clickable from '../../../../components/clickable';
 import { fitView } from '../graph/view';
 import { unpinAll } from '../graph/simulation';
 import { pinAll } from '../graph/simulation';
@@ -19,33 +19,38 @@ import './index.css';
 const Controls = ({ nodes, links }) => (
   <>
     <div className='controls'>
-      <Button
+      <Clickable
         text='Fit View'
         icon={<FitIcon />}
+        button
         onClick={fitView}
         aria-label='Fit view to contents of graph'
       />
-      <Button
+      <Clickable
         text='Unpin all'
         icon={<UnpinIcon />}
+        button
         onClick={() => unpinAll({ nodes })}
         aria-label='Unpin all nodes'
       />
-      <Button
+      <Clickable
         text='Pin all'
         icon={<PinIcon />}
+        button
         onClick={() => pinAll({ nodes })}
         aria-label='Pin all nodes'
       />
-      <Button
+      <Clickable
         text='Download Table'
         icon={<DownloadIcon />}
+        button
         onClick={() => downloadTable({ links })}
         aria-label='Download gene network as .tsv for import into Cytoscape or other'
       />
-      <Button
+      <Clickable
         text='Download SVG'
         icon={<DownloadIcon />}
+        button
         onClick={downloadImage}
         aria-label='Download gene network as .svg'
       />
