@@ -6,7 +6,6 @@ import * as d3 from 'd3';
 import { initView } from './view';
 import { initSimulation } from './simulation';
 import { initDragHandler } from './drag';
-import { initTooltip } from './tooltip';
 import { setAutoFit } from './view';
 import { fitView } from './view';
 import { updateSimulation } from './simulation';
@@ -31,6 +30,7 @@ export let linkData = [];
 // graph network display component
 
 const Graph = ({ nodes, links }) => {
+  // internal state
   const [mounted, setMounted] = useState(false);
   const [bbox, ref] = useBbox();
   const { width, height } = bbox || {};
@@ -57,7 +57,6 @@ const Graph = ({ nodes, links }) => {
     initView();
     initSimulation();
     initDragHandler();
-    initTooltip();
   }, [mounted]);
 
   // fit view when graph container dimensions change

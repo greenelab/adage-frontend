@@ -21,3 +21,17 @@
   opacity: 0;
   transition: opacity var(--fast);
 }
+.tooltip_row {
+  max-width: 200px;
+}
+.tooltip_row > span {
+  box-sizing: border-box;
+  display: inline-block;
+}
+.tooltip_row > span:nth-child(1) {
+  width: 40%;
+}
+.tooltip_row > span:nth-child(2) {
+  padding-left: 10px;
+  width: 60%;
+}

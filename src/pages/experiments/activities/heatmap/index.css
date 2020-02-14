@@ -1,0 +1,25 @@
+#heatmap {
+  display: flex;
+  width: 100%;
+}
+#heatmap_list {
+  width: 15%;
+}
+#heatmap_grid {
+  width: 85%;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+.heatmap_list_row {
+  display: flex;
+  align-items: center;
+}
+.cell {
+  cursor: pointer;
+}
+#heatmap_grid > svg:hover .cell {
+  opacity: 0.1;
+}
+.cell:hover {
+  opacity: 1 !important;
+}

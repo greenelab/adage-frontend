@@ -6,10 +6,12 @@ import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
+import { humanizeKeys } from '../../util/object';
+import { parseObject } from '../../util/object';
+
 import './index.css';
 
 const delay = 250;
-const duration = 250;
 const padding = 5;
 
 // tooltip singular component
@@ -18,24 +20,31 @@ const Tooltip = () => {
   // internal state
   const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState(null);
+  const [tooltipSpeed, setTooltipSpeed] = useState(delay);
   const openTimer = useRef();
   const closeTimer = useRef();
 
   // set tooltip to open
   const openTooltip = useCallback((event) => {
+    const newTooltipSpeed = Number(event.target?.dataset.tooltipSpeed);
+    setTooltipSpeed(newTooltipSpeed);
+
     window.clearTimeout(closeTimer.current);
     openTimer.current = window.setTimeout(() => {
       setOpen(true);
       setAnchor(event.target);
-    }, delay);
+    }, newTooltipSpeed || delay);
   }, []);
 
   // set tooltip to close
   const closeTooltip = useCallback(() => {
     window.clearTimeout(openTimer.current);
     setOpen(false);
-    closeTimer.current = window.setTimeout(() => setAnchor(null), duration);
-  }, []);
+    closeTimer.current = window.setTimeout(
+      () => setAnchor(null),
+      tooltipSpeed || delay
+    );
+  }, [tooltipSpeed]);
 
   // when any dom node changes
   const onMutation = useCallback(() => {
@@ -69,7 +78,7 @@ const Tooltip = () => {
     <>
       <CSSTransition
         in={open ? true : false}
-        timeout={duration}
+        timeout={tooltipSpeed || delay}
         classNames='tooltip'
         unmountOnExit
       >
@@ -82,13 +91,30 @@ export default Tooltip;
 
 // append popup to body, not app root
 
-const Portal = ({ anchor }) =>
-  createPortal(
+const Portal = ({ anchor }) => {
+  let content = <></>;
+  const stringLabel = anchor?.getAttribute('aria-label');
+  const objectLabel = parseObject(stringLabel);
+  const innerText = anchor?.innerText;
+
+  if (objectLabel) {
+    const fields = humanizeKeys(objectLabel);
+    content = Object.entries(fields).map(([key, value], index) => (
+      <div key={index} className='tooltip_row'>
+        <span className='nowrap'>{key}</span>
+        <span className='nowrap'>{value}</span>
+      </div>
+    ));
+  } else
+    content = stringLabel || innerText;
+
+  return createPortal(
     <div className='tooltip text_small' style={computeStyle({ anchor })}>
-      {anchor?.getAttribute('aria-label') || anchor?.innerText || ''}
+      {content}
     </div>,
     document.body
   );
+};
 
 const horizontalMargin = 200;
 const verticalMargin = 100;

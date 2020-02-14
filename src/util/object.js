@@ -100,3 +100,15 @@ export const normalize = (object) => {
 
   return object;
 };
+
+// stringify an object
+export const stringifyObject = (object) => JSON.stringify(object);
+
+// attempt to parse a stringified object
+export const parseObject = (value) => {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return null;
+  }
+};

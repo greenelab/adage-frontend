@@ -18,21 +18,3 @@
 .graph_node_highlight:hover {
   opacity: 0.5;
 }
-.graph_tooltip {
-  max-width: unset !important;
-  transform: translate(-50%, calc(-100% - 10px));
-}
-.graph_tooltip_row {
-  width: 200px;
-}
-.graph_tooltip_row > span {
-  box-sizing: border-box;
-  display: inline-block;
-}
-.graph_tooltip_row > span:nth-child(1) {
-  width: 40%;
-}
-.graph_tooltip_row > span:nth-child(2) {
-  padding-left: 10px;
-  width: 60%;
-}

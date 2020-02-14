@@ -8,7 +8,6 @@ import { positionNodeLabels } from './node-labels';
 import { autoFit } from './view';
 import { setAutoFit } from './view';
 import { fitView } from './view';
-
 import { nodeData } from '.';
 import { linkData } from '.';
 

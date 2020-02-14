@@ -3,6 +3,7 @@ import produce from 'immer';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
+import { actionStatuses } from '../actions/fetch';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
@@ -14,6 +15,8 @@ const typeCheck = (draft) => {
     draft.selected = [];
   if (!isArray(draft.groups))
     draft.groups = [];
+  if (!isString(draft.activities) && !isArray(draft.activities))
+    draft.activities = actionStatuses.EMPTY;
 };
 
 // defines how state (redux store) changes in response to dispatched actions
@@ -54,6 +57,10 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'UNGROUP_ALL_SAMPLES':
       draft.groups = [];
+      break;
+
+    case 'GET_ACTIVITIES':
+      draft.activities = payload;
       break;
 
     default:
