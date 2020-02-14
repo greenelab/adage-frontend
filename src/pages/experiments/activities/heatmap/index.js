@@ -37,7 +37,7 @@ let Heatmap = ({ activities }) => {
     if (!mounted)
       return;
 
-    const svg = d3.select('#heatmap_grid > svg');
+    const svg = d3.select('#heatmap svg');
 
     // find min and max values
     const extent = d3.extent(activities.map((d) => d.value));
@@ -62,12 +62,12 @@ let Heatmap = ({ activities }) => {
 
     // draw cells
     const cells = svg
-      .selectAll('.cell')
+      .selectAll('.heatmap_cell')
       .data(activities, (d) => d.signature + ':' + d.sample);
     cells
       .enter()
       .append('rect')
-      .attr('class', 'cell')
+      .attr('class', 'heatmap_cell')
       .merge(cells)
       .attr('x', (d) => x(d.signature) + horizontalSpacing - 0.25)
       .attr('y', (d) => y(d.sample) + verticalSpacing - 0.25)
@@ -87,11 +87,17 @@ let Heatmap = ({ activities }) => {
 
   return (
     <div id='heatmap'>
-      <div id='heatmap_list'>
+      <div className='heatmap_left_col medium' style={{ height: cellHeight }}>
+        Samples
+      </div>
+      <div className='heatmap_right_col medium' style={{ height: cellHeight }}>
+        Signatures
+      </div>
+      <div className='heatmap_left_col'>
         {sampleNames.map((name, index) => (
           <div
             key={index}
-            className='heatmap_list_row'
+            className='heatmap_row'
             style={{ height: cellHeight }}
           >
             <span className='nowrap' aria-label=''>
@@ -100,7 +106,7 @@ let Heatmap = ({ activities }) => {
           </div>
         ))}
       </div>
-      <div id='heatmap_grid'>
+      <div className='heatmap_right_col'>
         <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} />
       </div>
     </div>
