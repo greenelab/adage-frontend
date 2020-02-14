@@ -33,17 +33,18 @@ const Portal = ({
   children,
   ...props
 }) => (
-  <div className='popup_overlay' onClick={close}>
+  <>
+    <div className='popup_overlay' onClick={close}></div>
     <div
       className={'popup_content ' + className}
       {...props}
       onClick={(event) => event.stopPropagation()}
       style={{
-        right: window.innerWidth - anchorBbox.right,
-        top: anchorBbox.bottom + distance
+        right: window.innerWidth - anchorBbox.rightAbsolute,
+        top: anchorBbox.bottomAbsolute + distance
       }}
     >
       {children}
     </div>
-  </div>
+  </>
 );

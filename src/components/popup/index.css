@@ -11,4 +11,5 @@
   background: var(--white);
   position: absolute;
   box-shadow: var(--shadow);
+  z-index: 100;
 }

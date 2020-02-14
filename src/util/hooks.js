@@ -19,8 +19,10 @@ export const useBbox = () => {
           bottom: bbox.bottom,
           width: bbox.width,
           height: bbox.height,
-          clientWidth: ref.current.clientWidth,
-          clientHeight: ref.current.clientHeight
+          leftAbsolute: bbox.left + window.scrollX,
+          topAbsolute: bbox.top + window.scrollY,
+          rightAbsolute: bbox.right + window.scrollX,
+          bottomAbsolute: bbox.bottom + window.scrollY
         } :
         null
     );
