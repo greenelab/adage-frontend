@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 
-import { filterKeys } from '../../../../util/object';
 import { stringifyObject } from '../../../../util/object';
 import { linkData } from '.';
 import { strokeWidth } from './constants';
@@ -22,9 +21,7 @@ export const drawLinkHighlights = () => {
     .attr('stroke', 'var(--blue)')
     .attr('stroke-width', strokeWidth * 4)
     .style('cursor', 'pointer')
-    .attr('aria-label', (d) =>
-      stringifyObject(filterKeys(d, ['weight'], true))
-    );
+    .attr('aria-label', (d) => stringifyObject({ weight: d.weight }));
 
   linkHighlights.exit().remove();
 };

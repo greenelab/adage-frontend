@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 
-import { filterKeys } from '../../../../util/object';
 import { stringifyObject } from '../../../../util/object';
 import { dragHandler } from './drag';
 import { nodeData } from '.';
@@ -25,13 +24,12 @@ export const drawNodeHighlights = () => {
     .attr('fill', 'var(--blue)')
     .style('cursor', 'pointer')
     .attr('aria-label', (d) =>
-      stringifyObject(
-        filterKeys(
-          d,
-          ['standardName', 'systematicName', 'entrezId', 'description'],
-          true
-        )
-      )
+      stringifyObject({
+        standardName: d.standardName,
+        systematicName: d.systematicName,
+        entrezId: d.entrezId,
+        description: d.description
+      })
     );
 
   nodeHighlights.exit().remove();
