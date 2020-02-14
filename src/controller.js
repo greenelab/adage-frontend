@@ -12,6 +12,7 @@ import { getExperimentSelectedDetails } from './actions/experiments';
 import { getSampleSelectedDetails } from './actions/samples';
 import { getEnrichedSignatures } from './actions/genes';
 import { getGeneEdges } from './actions/genes';
+import { getActivities } from './actions/samples';
 import { selectModel } from './actions/models';
 import { selectSamples } from './actions/samples';
 import { isArray } from './util/types';
@@ -42,6 +43,7 @@ let Controller = ({
   getSampleSelectedDetails,
   getEnrichedSignatures,
   getGeneEdges,
+  getActivities,
   selectModel,
   selectSamples
 }) => {
@@ -173,6 +175,18 @@ let Controller = ({
     }
   }, [selectedModel, selectedGenes, selectedGenesLoaded, getGeneEdges]);
 
+  // when selected model or experiment changes
+  // get sample activities
+  useEffect(() => {
+    if (selectedModel && selectedExperiment.samples) {
+      getActivities({
+        model: selectedModel,
+        samples: selectedExperiment.samples.map((sample) => sample.id),
+        limit: MAX_INT
+      });
+    }
+  }, [selectedModel, selectedExperiment, getActivities]);
+
   return <></>;
 };
 
@@ -200,18 +214,19 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   const actions = {
-    getModelList: getModelList,
-    getGeneList: getGeneList,
-    getExperimentList: getExperimentList,
-    getSampleList: getSampleList,
-    getSignatureList: getSignatureList,
-    getGeneSelectedDetails: getGeneSelectedDetails,
-    getExperimentSelectedDetails: getExperimentSelectedDetails,
-    getSampleSelectedDetails: getSampleSelectedDetails,
-    getEnrichedSignatures: getEnrichedSignatures,
-    getGeneEdges: getGeneEdges,
-    selectModel: selectModel,
-    selectSamples: selectSamples
+    getModelList,
+    getGeneList,
+    getExperimentList,
+    getSampleList,
+    getSignatureList,
+    getGeneSelectedDetails,
+    getExperimentSelectedDetails,
+    getSampleSelectedDetails,
+    getEnrichedSignatures,
+    getGeneEdges,
+    getActivities,
+    selectModel,
+    selectSamples
   };
   for (const [funcName, func] of Object.entries(actions)) {
     actions[funcName] = (...args) =>

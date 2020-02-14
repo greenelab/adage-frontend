@@ -1,10 +1,7 @@
 import * as d3 from 'd3';
 import * as color from 'color';
 
-import { tooltip } from './tooltip';
-
 import { nodeData } from '.';
-
 import { fillA, fillB, fontSize } from './constants';
 
 // node text labels
@@ -26,9 +23,7 @@ export const drawNodeLabels = () => {
     .attr('dominant-baseline', 'middle')
     .style('font-size', fontSize)
     .style('pointer-events', 'none')
-    .text((d) => d.name)
-    .on('mouseover', tooltip.show)
-    .on('mouseout', tooltip.hide);
+    .text((d) => d.name);
 
   nodeLabels.exit().remove();
 };

@@ -5,7 +5,9 @@ import Main from '../main';
 import Footer from '../footer';
 import Section from '../../components/section';
 import Search from './search';
+import Activities from './activities';
 import Selected from './selected';
+import Group from './group';
 
 import './index.css';
 
@@ -20,6 +22,12 @@ const Experiments = () => (
       </Section>
       <Section header='Selected Experiment'>
         <Selected />
+      </Section>
+      <Section header='Activity Heatmap'>
+        <Activities />
+      </Section>
+      <Section header='Sample Groups'>
+        <Group />
       </Section>
     </Main>
     <Footer />

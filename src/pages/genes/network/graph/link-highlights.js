@@ -1,10 +1,7 @@
 import * as d3 from 'd3';
 
-import { openTooltip } from './tooltip';
-import { closeTooltip } from './tooltip';
-
+import { stringifyObject } from '../../../../util/object';
 import { linkData } from '.';
-
 import { strokeWidth } from './constants';
 
 // link highlight and mouse hitbox
@@ -24,8 +21,7 @@ export const drawLinkHighlights = () => {
     .attr('stroke', 'var(--blue)')
     .attr('stroke-width', strokeWidth * 4)
     .style('cursor', 'pointer')
-    .on('mouseover', openTooltip)
-    .on('mouseout', closeTooltip);
+    .attr('aria-label', (d) => stringifyObject({ weight: d.weight }));
 
   linkHighlights.exit().remove();
 };

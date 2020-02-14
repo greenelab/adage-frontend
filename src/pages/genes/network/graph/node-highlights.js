@@ -1,11 +1,8 @@
 import * as d3 from 'd3';
 
+import { stringifyObject } from '../../../../util/object';
 import { dragHandler } from './drag';
-import { openTooltip } from './tooltip';
-import { closeTooltip } from './tooltip';
-
 import { nodeData } from '.';
-
 import { nodeRadius, strokeWidth } from './constants';
 
 // node highlight and mouse hitbox
@@ -26,8 +23,14 @@ export const drawNodeHighlights = () => {
     .attr('r', nodeRadius + strokeWidth * 2)
     .attr('fill', 'var(--blue)')
     .style('cursor', 'pointer')
-    .on('mouseover', openTooltip)
-    .on('mouseout', closeTooltip);
+    .attr('aria-label', (d) =>
+      stringifyObject({
+        standardName: d.standardName,
+        systematicName: d.systematicName,
+        entrezId: d.entrezId,
+        description: d.description
+      })
+    );
 
   nodeHighlights.exit().remove();
 };
