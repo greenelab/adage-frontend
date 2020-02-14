@@ -18,7 +18,7 @@ import './index.css';
 
 const Controls = ({ nodes, links }) => (
   <>
-    <div className='gene_network_controls'>
+    <div className='controls'>
       <Button
         text='Fit View'
         icon={<FitIcon />}

@@ -26,7 +26,7 @@
 .heatmap_cell {
   cursor: pointer;
 }
-#heatmap_grid > svg:hover .heatmap_cell {
+#heatmap svg:hover .heatmap_cell {
   opacity: 0.35;
 }
 .heatmap_cell:hover {

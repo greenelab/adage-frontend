@@ -13,7 +13,7 @@ import './index.css';
 // controls below selected experiment samples table
 
 let Controls = ({ samples, ungroupAll }) => (
-  <div className='experiment_selected_controls'>
+  <div className='controls'>
     <Button
       text='Ungroup all'
       icon={<CrossIcon />}

@@ -12,13 +12,13 @@ export const downloadImage = () => {
 
 export const downloadTable = ({ links }) => {
   const data = links.map((link) => ({
-    gene1_standard_name: link.source.standardName,
-    gene1_systematic_name: link.source.systematicName,
-    gene1_entrez_id: link.source.entrezId,
-    gene2_standard_name: link.target.standardName,
-    gene2_systematic_name: link.target.systematicName,
-    gene2_entrez_id: link.target.entrezId,
-    edge_weight: link.weight
+    'Gene1 Standard Name': link.source.standardName,
+    'Gene1 Systematic Name': link.source.systematicName,
+    'Gene1 Entrez Id': link.source.entrezId,
+    'Gene2 Standard Name': link.target.standardName,
+    'Gene2 Systematic Name': link.target.systematicName,
+    'Gene2 Entrez Id': link.target.entrezId,
+    'Edge Weight': link.weight
   }));
   downloadTsv(data, 'gene-network');
 };

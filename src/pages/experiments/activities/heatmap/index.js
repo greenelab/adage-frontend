@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
-import { isArray } from '../../../../util/types';
+import { mapActivities } from '../';
 import { stringifyObject } from '../../../../util/object';
 
 import './index.css';
@@ -120,24 +120,3 @@ const mapStateToProps = (state) => ({
 Heatmap = connect(mapStateToProps)(Heatmap);
 
 export default Heatmap;
-
-export const mapActivities = (activities, state) =>
-  isArray(activities) ?
-    activities.map((activity) => mapActivity(activity, state)) :
-    activities;
-
-export const mapActivity = (activity, state) => ({
-  ...activity,
-  sampleName:
-    (
-      (isArray(state.sample.list) ? state.sample.list : []).find(
-        (sample) => sample.id === activity.sample
-      ) || {}
-    ).name || activity.sample,
-  signatureName:
-    (
-      (isArray(state.signature.list) ? state.signature.list : []).find(
-        (signature) => signature.id === activity.signature
-      ) || {}
-    ).name || activity.signature
-});

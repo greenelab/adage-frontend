@@ -10,7 +10,7 @@ import './index.css';
 // controls below multi search results
 
 let MultiControls = ({ selectFirst, deselectFirst }) => (
-  <div className='gene_search_results_multi_controls'>
+  <div className='controls'>
     <Button
       text='select'
       onClick={selectFirst}

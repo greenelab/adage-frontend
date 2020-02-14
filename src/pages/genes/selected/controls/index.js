@@ -14,7 +14,7 @@ import './index.css';
 // controls below selected genes table
 
 let Controls = ({ selected, deselectAll }) => (
-  <div className='gene_selected_controls'>
+  <div className='controls'>
     <Button
       text='Deselect All'
       icon={<CrossIcon />}
