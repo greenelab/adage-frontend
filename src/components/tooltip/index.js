@@ -11,7 +11,7 @@ import { parseObject } from '../../util/object';
 
 import './index.css';
 
-const delay = 250;
+const defaultDelay = 250;
 const padding = 5;
 
 // tooltip singular component
@@ -20,31 +20,28 @@ const Tooltip = () => {
   // internal state
   const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState(null);
-  const [tooltipSpeed, setTooltipSpeed] = useState(delay);
+  const [delay, setDelay] = useState(defaultDelay);
   const openTimer = useRef();
   const closeTimer = useRef();
 
   // set tooltip to open
   const openTooltip = useCallback((event) => {
-    const newTooltipSpeed = Number(event.target?.dataset.tooltipSpeed);
-    setTooltipSpeed(newTooltipSpeed);
+    const newDelay = Number(event.target?.dataset.tooltipDelay) || defaultDelay;
+    setDelay(newDelay);
 
     window.clearTimeout(closeTimer.current);
     openTimer.current = window.setTimeout(() => {
       setOpen(true);
       setAnchor(event.target);
-    }, newTooltipSpeed || delay);
+    }, newDelay);
   }, []);
 
   // set tooltip to close
   const closeTooltip = useCallback(() => {
     window.clearTimeout(openTimer.current);
     setOpen(false);
-    closeTimer.current = window.setTimeout(
-      () => setAnchor(null),
-      tooltipSpeed || delay
-    );
-  }, [tooltipSpeed]);
+    closeTimer.current = window.setTimeout(() => setAnchor(null), delay);
+  }, [delay]);
 
   // when any dom node changes
   const onMutation = useCallback(() => {
@@ -78,7 +75,7 @@ const Tooltip = () => {
     <>
       <CSSTransition
         in={open ? true : false}
-        timeout={tooltipSpeed || delay}
+        timeout={250}
         classNames='tooltip'
         unmountOnExit
       >

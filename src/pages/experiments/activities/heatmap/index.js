@@ -77,7 +77,7 @@ let Heatmap = ({ activities }) => {
       .attr('aria-label', (d) =>
         stringifyObject({ signature: d.signatureName, activity: d.value })
       )
-      .attr('data-tooltip-speed', 50);
+      .attr('data-tooltip-delay', 10);
     cells.exit().remove();
   }, [mounted, activities, samples, signatures, width, height]);
 
