@@ -90,3 +90,10 @@ a {
 *[data-highlight='true'] {
   font-weight: 600;
 }
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
