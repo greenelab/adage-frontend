@@ -46,6 +46,7 @@
   color: var(--black);
 }
 .clickable[data-link='true'] {
+  display: inline-block;
   color: var(--black);
   text-decoration: underline;
 }

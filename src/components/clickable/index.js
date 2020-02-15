@@ -62,7 +62,7 @@ let Clickable = (props, ref) => {
     <Component
       {...rest}
       ref={ref}
-      className={'clickable ' + className}
+      className={'clickable ' + (link ? 'nowrap ' : '') + className}
       target={newTab ? '_blank' : undefined}
       to={to}
       href={to}
