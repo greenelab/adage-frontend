@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/adage-frontendprecache-manifest.be797086ac85389cfa1536ba596326b7.js"
+  "/adage-frontendprecache-manifest.d7a131c8a3c29a522e0066323717a9ee.js"
 );
 
 self.addEventListener('message', (event) => {
