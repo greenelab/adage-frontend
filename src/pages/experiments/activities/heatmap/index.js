@@ -1,11 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
-import { mapActivities } from '../';
 import { stringifyObject } from '../../../../util/object';
+import { uniqueMap } from '../../../../util/object';
 
 import './index.css';
 
@@ -16,14 +15,11 @@ const verticalSpacing = 2;
 
 // sample activity heatmap
 
-let Heatmap = ({ activities }) => {
+const Heatmap = ({ activities, samples, signatures }) => {
   // internal state
   const [mounted, setMounted] = useState(false);
 
-  // get relevant properties
-  const samples = d3.map(activities, (d) => d.sample).keys();
-  const sampleNames = d3.map(activities, (d) => d.sampleName).keys();
-  const signatures = d3.map(activities, (d) => d.signature).keys();
+  const sampleNames = uniqueMap(activities, (activity) => activity.sampleName);
   const width = signatures.length * cellWidth;
   const height = samples.length * cellHeight;
 
@@ -112,11 +108,5 @@ let Heatmap = ({ activities }) => {
     </div>
   );
 };
-
-const mapStateToProps = (state) => ({
-  activities: mapActivities(state.sample.activities, state)
-});
-
-Heatmap = connect(mapStateToProps)(Heatmap);
 
 export default Heatmap;

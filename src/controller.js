@@ -178,10 +178,14 @@ let Controller = ({
   // when selected model or experiment changes
   // get sample activities
   useEffect(() => {
-    if (selectedModel && selectedExperiment.samples) {
+    if (
+      selectedModel &&
+      selectedExperiment.samples &&
+      selectedExperiment.samples.length
+    ) {
       getActivities({
-        model: selectedModel,
-        samples: selectedExperiment.samples.map((sample) => sample.id),
+        modelId: selectedModel,
+        sampleIds: selectedExperiment.samples.map((sample) => sample.id),
         limit: MAX_INT
       });
     }

@@ -112,3 +112,6 @@ export const parseObject = (value) => {
     return null;
   }
 };
+
+// run map function on array and return unique values
+export const uniqueMap = (array, func) => [...new Set([...array.map(func)])];
