@@ -1,11 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { connect } from 'react-redux';
 
 import FetchAlert from '../../../components/fetch-alert';
 import Heatmap from './heatmap';
 import Controls from './controls';
+import { actionStatuses } from '../../../actions/fetch';
 import { isString } from '../../../util/types';
 import { isArray } from '../../../util/types';
 import { uniqueMap } from '../../../util/object';
@@ -30,13 +32,20 @@ let Activities = ({ activities }) => {
     signatures = uniqueMap(activities, (activity) => activity.signature);
   }
 
+  useEffect(() => {
+    setClusteredSamples(null);
+    setClusteredSignatures(null);
+  }, [activities]);
+
   const clusterSamples = useCallback(async () => {
+    setClusteredSamples(actionStatuses.LOADING);
     setClusteredSamples(
       await workerInstance.clusterData(activities, 'sample', 'value')
     );
   }, [activities]);
 
   const clusterSignatures = useCallback(async () => {
+    setClusteredSignatures(actionStatuses.LOADING);
     setClusteredSignatures(
       await workerInstance.clusterData(activities, 'signature', 'value')
     );
@@ -51,11 +60,15 @@ let Activities = ({ activities }) => {
         <>
           <Heatmap
             activities={activities}
-            samples={clusteredSamples || samples}
-            signatures={clusteredSignatures || signatures}
+            samples={isArray(clusteredSamples) ? clusteredSamples : samples}
+            signatures={
+              isArray(clusteredSignatures) ? clusteredSignatures : signatures
+            }
           />
           <Controls
             activities={activities}
+            clusteredSamples={clusteredSamples}
+            clusteredSignatures={clusteredSignatures}
             clusterSamples={clusterSamples}
             clusterSignatures={clusterSignatures}
           />
