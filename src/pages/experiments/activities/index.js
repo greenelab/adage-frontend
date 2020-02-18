@@ -13,7 +13,7 @@ import { isArray } from '../../../util/types';
 import { uniqueMap } from '../../../util/object';
 
 /* eslint import/no-webpack-loader-syntax: off */
-import worker from 'workerize-loader!./cluster';
+import worker from 'workerize-loader?inline!./cluster';
 
 import './index.css';
 

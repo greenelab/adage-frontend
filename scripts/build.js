@@ -16,7 +16,7 @@ config.optimization.splitChunks = {
 config.optimization.runtimeChunk = false;
 
 // add preceding "/basename" to build/index.html static resource urls
-config.output.publicPath = (process.env.REACT_APP_BASENAME || '') + '/';
+config.output.publicPath = process.env.REACT_APP_BASENAME || '/';
 
 // JS
 config.output.filename = 'static/js/main.js';
