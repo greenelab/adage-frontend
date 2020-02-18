@@ -20,14 +20,17 @@ import './index.css';
 // sample activities section
 
 let Activities = ({ activities }) => {
-  const [samples, setClusteredSamples] = useState(null);
-  const [signatures, setClusteredSignatures] = useState(null);
+  const [clusteredSamples, setClusteredSamples] = useState(null);
+  const [clusteredSignatures, setClusteredSignatures] = useState(null);
 
-  let samples;
-  let signatures;
+  let unclusteredSamples;
+  let unclusteredSignatures;
   if (isArray(activities)) {
-    samples = uniqueMap(activities, (activity) => activity.sample);
-    signatures = uniqueMap(activities, (activity) => activity.signature);
+    unclusteredSamples = uniqueMap(activities, (activity) => activity.sample);
+    unclusteredSignatures = uniqueMap(
+      activities,
+      (activity) => activity.signature
+    );
   }
 
   useEffect(() => {
@@ -58,15 +61,19 @@ let Activities = ({ activities }) => {
         <>
           <Heatmap
             activities={activities}
-            samples={isArray(samples) ? samples : samples}
+            samples={
+              isArray(clusteredSamples) ? clusteredSamples : unclusteredSamples
+            }
             signatures={
-              isArray(signatures) ? signatures : signatures
+              isArray(clusteredSignatures) ?
+                clusteredSignatures :
+                unclusteredSignatures
             }
           />
           <Controls
             activities={activities}
-            samples={samples}
-            signatures={signatures}
+            clusteredSamples={clusteredSamples}
+            clusteredSignatures={clusteredSignatures}
             clusterSamples={clusterSamples}
             clusterSignatures={clusterSignatures}
           />
