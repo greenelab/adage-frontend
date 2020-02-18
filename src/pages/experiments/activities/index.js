@@ -19,8 +19,6 @@ import './index.css';
 
 // sample activities section
 
-const workerInstance = worker();
-
 let Activities = ({ activities }) => {
   const [clusteredSamples, setClusteredSamples] = useState(null);
   const [clusteredSignatures, setClusteredSignatures] = useState(null);
@@ -40,14 +38,14 @@ let Activities = ({ activities }) => {
   const clusterSamples = useCallback(async () => {
     setClusteredSamples(actionStatuses.LOADING);
     setClusteredSamples(
-      await workerInstance.clusterData(activities, 'sample', 'value')
+      await worker().clusterData(activities, 'sample', 'value')
     );
   }, [activities]);
 
   const clusterSignatures = useCallback(async () => {
     setClusteredSignatures(actionStatuses.LOADING);
     setClusteredSignatures(
-      await workerInstance.clusterData(activities, 'signature', 'value')
+      await worker().clusterData(activities, 'signature', 'value')
     );
   }, [activities]);
 

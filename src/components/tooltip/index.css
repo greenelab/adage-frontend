@@ -2,8 +2,8 @@
   box-sizing: border-box;
   position: absolute;
   padding: 5px 10px;
-  background: var(--black);
   color: var(--white);
+  background: var(--black);
   z-index: 999;
   pointer-events: none;
 }
@@ -19,17 +19,9 @@
 .tooltip-exit-active {
   opacity: 0;
 }
-.tooltip_row {
-  max-width: 200px;
+.tooltip_table {
+  color: var(--white);
 }
-.tooltip_row > span {
-  box-sizing: border-box;
-  display: inline-block;
-}
-.tooltip_row > span:nth-child(1) {
-  width: 40%;
-}
-.tooltip_row > span:nth-child(2) {
-  padding-left: 10px;
-  width: 60%;
+.tooltip_table td:first-child {
+  padding-right: 10px;
 }

@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import * as d3 from 'd3';
 
 import { stringifyObject } from '../../../../util/object';
-import { uniqueMap } from '../../../../util/object';
 
 import './index.css';
 
@@ -19,7 +18,9 @@ const Heatmap = ({ activities, samples, signatures }) => {
   // internal state
   const [mounted, setMounted] = useState(false);
 
-  const sampleNames = uniqueMap(activities, (activity) => activity.sampleName);
+  const sampleNames = samples.map(
+    (id) => activities.find((activity) => activity.sample === id).sampleName
+  ).reverse();
   const width = signatures.length * cellWidth;
   const height = samples.length * cellHeight;
 
@@ -45,13 +46,13 @@ const Heatmap = ({ activities, samples, signatures }) => {
       .domain(extent);
 
     // x axis scale
-    const x = d3
+    const xScale = d3
       .scaleBand()
       .range([0, width])
       .domain(signatures);
 
     // y axis scale
-    const y = d3
+    const yScale = d3
       .scaleBand()
       .range([height, 0])
       .domain(samples);
@@ -65,8 +66,8 @@ const Heatmap = ({ activities, samples, signatures }) => {
       .append('rect')
       .attr('class', 'heatmap_cell')
       .merge(cells)
-      .attr('x', (d) => x(d.signature) + horizontalSpacing - 0.25)
-      .attr('y', (d) => y(d.sample) + verticalSpacing - 0.25)
+      .attr('x', (d) => xScale(d.signature) + horizontalSpacing - 0.25)
+      .attr('y', (d) => yScale(d.sample) + verticalSpacing - 0.25)
       .attr('width', cellWidth - horizontalSpacing * 2 + 0.5)
       .attr('height', cellHeight - verticalSpacing * 2 + 0.5)
       .attr('fill', (d) => colorScale(d.value))
