@@ -20,34 +20,34 @@ import './index.css';
 // sample activities section
 
 let Activities = ({ activities }) => {
-  const [clusteredSamples, setClusteredSamples] = useState(null);
-  const [clusteredSignatures, setClusteredSignatures] = useState(null);
+  const [sortedSamples, setSortedSamples] = useState(null);
+  const [sortedSignatures, setSortedSignatures] = useState(null);
 
-  let unclusteredSamples;
-  let unclusteredSignatures;
+  let unsortedSamples;
+  let unsortedSignatures;
   if (isArray(activities)) {
-    unclusteredSamples = uniqueMap(activities, (activity) => activity.sample);
-    unclusteredSignatures = uniqueMap(
+    unsortedSamples = uniqueMap(activities, (activity) => activity.sample);
+    unsortedSignatures = uniqueMap(
       activities,
       (activity) => activity.signature
     );
   }
 
   useEffect(() => {
-    setClusteredSamples(null);
-    setClusteredSignatures(null);
+    setSortedSamples(null);
+    setSortedSignatures(null);
   }, [activities]);
 
-  const clusterSamples = useCallback(async () => {
-    setClusteredSamples(actionStatuses.LOADING);
-    setClusteredSamples(
+  const sortSamples = useCallback(async () => {
+    setSortedSamples(actionStatuses.LOADING);
+    setSortedSamples(
       await worker().clusterData(activities, 'sample', 'value')
     );
   }, [activities]);
 
-  const clusterSignatures = useCallback(async () => {
-    setClusteredSignatures(actionStatuses.LOADING);
-    setClusteredSignatures(
+  const sortSignatures = useCallback(async () => {
+    setSortedSignatures(actionStatuses.LOADING);
+    setSortedSignatures(
       await worker().clusterData(activities, 'signature', 'value')
     );
   }, [activities]);
@@ -62,20 +62,20 @@ let Activities = ({ activities }) => {
           <Heatmap
             activities={activities}
             samples={
-              isArray(clusteredSamples) ? clusteredSamples : unclusteredSamples
+              isArray(sortedSamples) ? sortedSamples : unsortedSamples
             }
             signatures={
-              isArray(clusteredSignatures) ?
-                clusteredSignatures :
-                unclusteredSignatures
+              isArray(sortedSignatures) ?
+                sortedSignatures :
+                unsortedSignatures
             }
           />
           <Controls
             activities={activities}
-            clusteredSamples={clusteredSamples}
-            clusteredSignatures={clusteredSignatures}
-            clusterSamples={clusterSamples}
-            clusterSignatures={clusterSignatures}
+            sortedSamples={sortedSamples}
+            sortedSignatures={sortedSignatures}
+            sortSamples={sortSamples}
+            sortSignatures={sortSignatures}
           />
         </>
       )}

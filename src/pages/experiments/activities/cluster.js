@@ -15,13 +15,13 @@ export const clusterData = (data, idKey, valueKey) => {
   }
   newData = [...Object.values(newData)];
 
-  // cluster sample using hcluster library
+  // cluster data using hcluster library
   newData = hcluster()
     .distance('euclidean')
     .linkage('avg')
     .posKey(valueKey)
     .data(newData);
 
-  // give back sorted (clustered) list of ids
+  // give back clustered (sorted) list of ids
   return newData.orderedNodes().map((d) => d[idKey]);
 };

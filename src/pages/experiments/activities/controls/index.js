@@ -14,36 +14,36 @@ import './index.css';
 
 const Controls = ({
   activities,
-  clusteredSamples,
-  clusteredSignatures,
-  clusterSamples,
-  clusterSignatures
+  sortedSamples,
+  sortedSignatures,
+  sortSamples,
+  sortSignatures
 }) => (
   <div className='controls'>
     <Clickable
       text='Cluster Samples'
       icon={
-        clusteredSamples === actionStatuses.LOADING ? (
+        sortedSamples === actionStatuses.LOADING ? (
           <LoadingIcon />
         ) : (
           <BiArrowIcon className='rotate_cw' />
         )
       }
       button
-      onClick={clusterSamples}
+      onClick={sortSamples}
       aria-label='Cluster heatmap by sample (re-order rows)'
     />
     <Clickable
       text='Cluster Signatures'
       icon={
-        clusteredSignatures === actionStatuses.LOADING ? (
+        sortedSignatures === actionStatuses.LOADING ? (
           <LoadingIcon />
         ) : (
           <BiArrowIcon />
         )
       }
       button
-      onClick={clusterSignatures}
+      onClick={sortSignatures}
       aria-label='Cluster heatmap by signature (re-order columns)'
     />
     <Clickable
