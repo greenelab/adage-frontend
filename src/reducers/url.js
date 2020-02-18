@@ -2,8 +2,7 @@ import reduxQuerySync from 'redux-query-sync';
 import { createBrowserHistory } from 'history';
 
 // basename to apply to all urls (eg "/adage-frontend")
-export const basename =
-  process.env.REACT_APP_BASENAME || process.env.PUBLIC_URL || '/';
+export const basename = process.env.REACT_APP_BASENAME || '/';
 
 // history object
 export const history = createBrowserHistory({ basename });
