@@ -14,8 +14,8 @@ import './index.css';
 
 const Controls = ({
   activities,
-  clusteredSamples,
-  clusteredSignatures,
+  samples,
+  signatures,
   clusterSamples,
   clusterSignatures
 }) => (
@@ -23,7 +23,7 @@ const Controls = ({
     <Clickable
       text='Cluster Samples'
       icon={
-        clusteredSamples === actionStatuses.LOADING ? (
+        samples === actionStatuses.LOADING ? (
           <LoadingIcon />
         ) : (
           <BiArrowIcon className='rotate_cw' />
@@ -36,7 +36,7 @@ const Controls = ({
     <Clickable
       text='Cluster Signatures'
       icon={
-        clusteredSignatures === actionStatuses.LOADING ? (
+        signatures === actionStatuses.LOADING ? (
           <LoadingIcon />
         ) : (
           <BiArrowIcon />

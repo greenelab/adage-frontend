@@ -20,8 +20,8 @@ import './index.css';
 // sample activities section
 
 let Activities = ({ activities }) => {
-  const [clusteredSamples, setClusteredSamples] = useState(null);
-  const [clusteredSignatures, setClusteredSignatures] = useState(null);
+  const [samples, setClusteredSamples] = useState(null);
+  const [signatures, setClusteredSignatures] = useState(null);
 
   let samples;
   let signatures;
@@ -58,15 +58,15 @@ let Activities = ({ activities }) => {
         <>
           <Heatmap
             activities={activities}
-            samples={isArray(clusteredSamples) ? clusteredSamples : samples}
+            samples={isArray(samples) ? samples : samples}
             signatures={
-              isArray(clusteredSignatures) ? clusteredSignatures : signatures
+              isArray(signatures) ? signatures : signatures
             }
           />
           <Controls
             activities={activities}
-            clusteredSamples={clusteredSamples}
-            clusteredSignatures={clusteredSignatures}
+            samples={samples}
+            signatures={signatures}
             clusterSamples={clusterSamples}
             clusterSignatures={clusterSignatures}
           />

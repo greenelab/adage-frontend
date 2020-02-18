@@ -29,18 +29,18 @@ const reducer = produce((draft, type, payload, meta) => {
 
   switch (type) {
     case 'GET_GENE_DETAILS':
-      draft.details = mapGenes(payload);
+      draft.details = mapGeneResults(payload);
       break;
 
     case 'GET_GENE_LIST':
-      draft.list = mapGenes(payload);
+      draft.list = mapGeneResults(payload);
       break;
 
     case 'GET_GENE_SEARCH':
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
       draft.searches[meta.index].query = meta.query;
-      draft.searches[meta.index].results = mapGenes(payload);
+      draft.searches[meta.index].results = mapGeneResults(payload);
       break;
 
     case 'CLEAR_GENE_SEARCH':
@@ -144,7 +144,7 @@ export const isSelected = (selected, id) =>
 export const filterSelected = (selected, id) =>
   selected.filter((selected) => !(selected.id === id));
 
-export const mapGenes = (genes) =>
+export const mapGeneResults = (genes) =>
   isArray(genes) ? genes.map(mapGene) : genes;
 
 export const mapGene = (gene) => ({
