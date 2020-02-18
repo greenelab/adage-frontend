@@ -1,14 +1,18 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "44a0bcd1f31ecdcac13d8d6d112359e4",
+    "url": "/adage-frontend1296557fd93a4256e9c6.worker.js"
+  },
+  {
     "revision": "2412c445b94576e91a0492e405e57243",
     "url": "/adage-frontendindex.html"
   },
   {
-    "revision": "3b922ea5a963b33618ab",
+    "revision": "611897d488e067ed0a8a",
     "url": "/adage-frontendstatic/css/main.css"
   },
   {
-    "revision": "3b922ea5a963b33618ab",
+    "revision": "611897d488e067ed0a8a",
     "url": "/adage-frontendstatic/js/main.js"
   },
   {
@@ -22,6 +26,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "4c0d2bcf6bf0e5f48701904efbe510b1",
     "url": "/adage-frontendstatic/media/arrow.4c0d2bcf.svg"
+  },
+  {
+    "revision": "27251fbf55934dccd71b9e5559856ab7",
+    "url": "/adage-frontendstatic/media/bi-arrow.27251fbf.svg"
   },
   {
     "revision": "e58289e2ca2b62a8a379f1e5cdfc7a2d",
