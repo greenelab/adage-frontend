@@ -19,13 +19,13 @@ export const urlSampleList = ({ limit = defaultLimit }) => {
   return url;
 };
 
-export const urlActivities = ({ model, samples, limit = defaultLimit }) => {
+export const urlActivities = ({ modelId, sampleIds, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (model)
-    params.set('mlmodel', model);
-  if (samples)
-    params.set('samples', samples.join(','));
+  if (modelId)
+    params.set('mlmodel', modelId);
+  if (sampleIds)
+    params.set('samples', sampleIds.join(','));
 
   const url = server + prefixB + '?' + params.toString();
   return url;

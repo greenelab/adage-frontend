@@ -97,3 +97,9 @@ a {
   flex-wrap: wrap;
   margin-top: 20px;
 }
+table {
+  border-collapse: collapse;
+}
+td {
+  padding: 0;
+}

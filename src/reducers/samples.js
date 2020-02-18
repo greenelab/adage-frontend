@@ -17,6 +17,10 @@ const typeCheck = (draft) => {
     draft.groups = [];
   if (!isString(draft.activities) && !isArray(draft.activities))
     draft.activities = actionStatuses.EMPTY;
+  if (!isArray(draft.sampleActivities))
+    draft.sampleActivities = [];
+  if (!isArray(draft.signatureActivities))
+    draft.signatureActivities = [];
 };
 
 // defines how state (redux store) changes in response to dispatched actions

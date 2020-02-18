@@ -1,10 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
-import { mapActivities } from '../';
 import { stringifyObject } from '../../../../util/object';
 
 import './index.css';
@@ -16,14 +14,13 @@ const verticalSpacing = 2;
 
 // sample activity heatmap
 
-let Heatmap = ({ activities }) => {
+const Heatmap = ({ activities, samples, signatures }) => {
   // internal state
   const [mounted, setMounted] = useState(false);
 
-  // get relevant properties
-  const samples = d3.map(activities, (d) => d.sample).keys();
-  const sampleNames = d3.map(activities, (d) => d.sampleName).keys();
-  const signatures = d3.map(activities, (d) => d.signature).keys();
+  const sampleNames = samples.map(
+    (id) => activities.find((activity) => activity.sample === id).sampleName
+  ).reverse();
   const width = signatures.length * cellWidth;
   const height = samples.length * cellHeight;
 
@@ -49,13 +46,13 @@ let Heatmap = ({ activities }) => {
       .domain(extent);
 
     // x axis scale
-    const x = d3
+    const xScale = d3
       .scaleBand()
       .range([0, width])
       .domain(signatures);
 
     // y axis scale
-    const y = d3
+    const yScale = d3
       .scaleBand()
       .range([height, 0])
       .domain(samples);
@@ -69,8 +66,8 @@ let Heatmap = ({ activities }) => {
       .append('rect')
       .attr('class', 'heatmap_cell')
       .merge(cells)
-      .attr('x', (d) => x(d.signature) + horizontalSpacing - 0.25)
-      .attr('y', (d) => y(d.sample) + verticalSpacing - 0.25)
+      .attr('x', (d) => xScale(d.signature) + horizontalSpacing - 0.25)
+      .attr('y', (d) => yScale(d.sample) + verticalSpacing - 0.25)
       .attr('width', cellWidth - horizontalSpacing * 2 + 0.5)
       .attr('height', cellHeight - verticalSpacing * 2 + 0.5)
       .attr('fill', (d) => colorScale(d.value))
@@ -112,11 +109,5 @@ let Heatmap = ({ activities }) => {
     </div>
   );
 };
-
-const mapStateToProps = (state) => ({
-  activities: mapActivities(state.sample.activities, state)
-});
-
-Heatmap = connect(mapStateToProps)(Heatmap);
 
 export default Heatmap;

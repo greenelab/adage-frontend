@@ -1,11 +1,12 @@
 {
   "name": "adage-frontend",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "dependencies": {
     "color": "^3.1.2",
     "d3": "^5.15.0",
+    "hclusterjs": "^1.3.1",
     "history": "^4.10.1",
-    "immer": "^5.3.5",
+    "immer": "^5.3.6",
     "multtest": "^0.1.7",
     "npm-check-updates": "^4.0.1",
     "object-sizeof": "^1.5.2",
@@ -16,7 +17,7 @@
     "react-linkify": "^1.0.0-alpha",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.3.1",
+    "react-scripts": "^3.4.0",
     "react-table": "^7.0.0-rc.15",
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
@@ -26,7 +27,8 @@
     "redux-sequence-action": "^0.2.1",
     "redux-thunk": "^2.3.0",
     "unescape": "^1.0.1",
-    "use-debounce": "^3.3.0"
+    "use-debounce": "^3.3.0",
+    "workerize-loader": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,11 +52,11 @@
     ]
   },
   "devDependencies": {
+    "@welldone-software/why-did-you-render": "^4.0.4",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-react": "^7.18.3",
     "node-fetch": "^2.6.0",
-    "rewire": "^4.0.1",
-    "@welldone-software/why-did-you-render": "^4.0.3"
+    "rewire": "^4.0.1"
   }
 }

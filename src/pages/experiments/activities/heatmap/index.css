@@ -6,14 +6,14 @@
 .heatmap_left_col {
   box-sizing: border-box;
   display: inline-block;
-  width: 15%;
+  width: 25%;
   padding-right: 10px;
   text-align: center;
 }
 .heatmap_right_col {
   box-sizing: border-box;
   display: inline-block;
-  width: 85%;
+  width: 75%;
   overflow-x: auto;
   overflow-y: auto;
   text-align: center;
