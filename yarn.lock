@@ -2626,6 +2626,11 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
+cephes@^1.1.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/cephes/-/cephes-1.2.0.tgz#4d246b622bc488ab8c982a1f702f0c9f49705d96"
+  integrity sha512-twuUuJRrIrsELHz6foJtZlqrz6FC36zoHZJvvThsrM1UWPKxyoilw1Rka6Hk0AmPFKHKUoGwGfAtvNZNtNZu0g==
+
 chalk@2.4.2, chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.1, chalk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
@@ -3916,6 +3921,13 @@ distancejs@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/distancejs/-/distancejs-1.1.0.tgz#986d97bcd370adcb51489a23f575b28e2f1b555e"
   integrity sha1-mG2XvNNwrctRSJoj9XWyji8bVV4=
+
+distributions@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/distributions/-/distributions-2.1.0.tgz#7005f01898937fbe6404abda20fa7f4aaaa058e0"
+  integrity sha512-4eov7WXRip5Tu0K7Y51W1oVt+DcvkoE0EzsvbLzgedC/n4PUpYXHqk6vo/OH1HteBHp5Vm6cmfnInf9NAXM4qQ==
+  dependencies:
+    cephes "^1.1.2"
 
 dns-equal@^1.0.0:
   version "1.0.0"
@@ -11123,6 +11135,11 @@ stylehacks@^4.0.0:
     postcss "^7.0.0"
     postcss-selector-parser "^3.0.0"
 
+summary@0.3.x:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/summary/-/summary-0.3.2.tgz#3d7439b30dab3449dfd66840a822838d4a4a8561"
+  integrity sha1-PXQ5sw2rNEnf1mhAqCKDjUpKhWE=
+
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
@@ -11447,6 +11464,14 @@ tsutils@^3.17.1:
   integrity sha512-kzeQ5B8H3w60nFY2g8cJIuH7JDpsALXySGtwGJ0p2LSjLgay3NdIpqq5SoOBe46bKDW2iq25irHCr8wjomUS2g==
   dependencies:
     tslib "^1.8.1"
+
+ttest@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ttest/-/ttest-2.1.1.tgz#ee0c9118fff6580a5c8d6cfe69845219e075277f"
+  integrity sha512-YlRYswipptMVPLil4bsblnp2HXmcAR0McnfnuCM26EYrBZTCdUc/BVPuqZoaMb9h06smAPhe+s+wFMtYOULVGQ==
+  dependencies:
+    distributions "^2.1.0"
+    summary "0.3.x"
 
 tty-browserify@0.0.0:
   version "0.0.0"

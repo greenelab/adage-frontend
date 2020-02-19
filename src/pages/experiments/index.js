@@ -8,6 +8,7 @@ import Search from './search';
 import Activities from './activities';
 import Selected from './selected';
 import Group from './group';
+import Volcano from './volcano';
 
 import './index.css';
 
@@ -28,6 +29,9 @@ const Experiments = () => (
       </Section>
       <Section header='Sample Groups'>
         <Group />
+      </Section>
+      <Section header='Volcano Plot'>
+        <Volcano />
       </Section>
     </Main>
     <Footer />

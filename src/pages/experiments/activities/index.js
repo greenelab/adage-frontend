@@ -13,7 +13,7 @@ import { isArray } from '../../../util/types';
 import { uniqueMap } from '../../../util/object';
 
 /* eslint import/no-webpack-loader-syntax: off */
-import worker from 'workerize-loader!./cluster';
+import worker from 'workerize-loader!../../../util/math';
 
 import './index.css';
 
@@ -40,9 +40,7 @@ let Activities = ({ activities }) => {
 
   const sortSamples = useCallback(async () => {
     setSortedSamples(actionStatuses.LOADING);
-    setSortedSamples(
-      await worker().clusterData(activities, 'sample', 'value')
-    );
+    setSortedSamples(await worker().clusterData(activities, 'sample', 'value'));
   }, [activities]);
 
   const sortSignatures = useCallback(async () => {
@@ -61,13 +59,9 @@ let Activities = ({ activities }) => {
         <>
           <Heatmap
             activities={activities}
-            samples={
-              isArray(sortedSamples) ? sortedSamples : unsortedSamples
-            }
+            samples={isArray(sortedSamples) ? sortedSamples : unsortedSamples}
             signatures={
-              isArray(sortedSignatures) ?
-                sortedSignatures :
-                unsortedSignatures
+              isArray(sortedSignatures) ? sortedSignatures : unsortedSignatures
             }
           />
           <Controls

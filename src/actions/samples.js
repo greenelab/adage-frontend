@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import { createAction } from './';
 import { createFetchAction } from './fetch';
 
 import { urlSampleDetails } from '../backend/samples';
@@ -38,3 +38,6 @@ export const getSampleSelectedDetails = createAction(
 
 // get signatures for specified samples
 export const getActivities = createFetchAction('GET_ACTIVITIES', urlActivities);
+
+// calculate volcano plot data based on sample groups and set it in state
+export const setVolcano = createAction('SET_VOLCANO');

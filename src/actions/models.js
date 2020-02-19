@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import { createAction } from './';
 import { createFetchAction } from './fetch';
 
 import { urlModelDetails } from '../backend/models';

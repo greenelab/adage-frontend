@@ -1,10 +1,10 @@
-import { createAction } from 'redux-actions';
+import { createAction } from './';
 import { createFetchAction } from './fetch';
 
 import { urlGeneDetails } from '../backend/genes';
 import { urlGeneList } from '../backend/genes';
 import { urlGeneSearch } from '../backend/genes';
-import { urlEnrichedSignatures } from '../backend/genes';
+import { urlParticipations } from '../backend/genes';
 import { urlGeneEdges } from '../backend/genes';
 
 // actions related to "gene" sub-object of state
@@ -45,11 +45,14 @@ export const deselectFirstGenes = createAction('DESELECT_FIRST_GENES');
 // fill in remaining details of selected experiments
 export const getGeneSelectedDetails = createAction('GET_GENE_SELECTED_DETAILS');
 
-// get gene participations and calculate enriched signatures
-export const getEnrichedSignatures = createFetchAction(
-  'GET_ENRICHED_SIGNATURES',
-  urlEnrichedSignatures
+// get gene participations
+export const getParticipations = createFetchAction(
+  'GET_PARTICIPATIONS',
+  urlParticipations
 );
+
+// calculate enriched signatures and set them
+export const setEnrichedSignatures = createAction('SET_ENRICHED_SIGNATURES');
 
 // get edges to create network
 export const getGeneEdges = createFetchAction('GET_GENE_EDGES', urlGeneEdges);
