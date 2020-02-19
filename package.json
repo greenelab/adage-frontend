@@ -7,6 +7,7 @@
     "hclusterjs": "^1.3.1",
     "history": "^4.10.1",
     "immer": "^5.3.6",
+    "jstat": "^1.9.2",
     "multtest": "^0.1.7",
     "npm-check-updates": "^4.0.1",
     "object-sizeof": "^1.5.2",
@@ -26,7 +27,6 @@
     "redux-query-sync": "^0.1.9",
     "redux-sequence-action": "^0.2.1",
     "redux-thunk": "^2.3.0",
-    "ttest": "^2.1.1",
     "unescape": "^1.0.1",
     "use-debounce": "^3.3.0",
     "workerize-loader": "^1.1.0"

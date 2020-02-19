@@ -11,7 +11,7 @@ import './index.css';
 let Volcano = ({ anyData }) => (
   <>
     {anyData === false && (
-      <Alert text='Not enough samples grouped to produce a plot' />
+      <Alert text='Not enough samples grouped' />
     )}
     {anyData === true && <>hi</>}
   </>

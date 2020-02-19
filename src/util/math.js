@@ -1,4 +1,4 @@
-import ttest from 'ttest';
+import jStat from 'jstat';
 import hcluster from 'hclusterjs';
 import { fdr } from 'multtest';
 import { isArray } from './types';
@@ -196,7 +196,7 @@ export const calculateVolcanoSignatures = ({
     // compute difference between diamond and spade activity means
     const meanDiff = mean(diamondActivities) - mean(spadeActivities);
     // compute p value of signature based using t test from ttest library
-    const pValue = ttest(diamondActivities, spadeActivities).pValue();
+    const pValue = ttest(diamondActivities, spadeActivities);
 
     return {
       ...signature,
@@ -219,4 +219,31 @@ export const calculateVolcanoSignatures = ({
   }));
 
   return volcanoSignatures;
+};
+
+// perform two-sample, unpaired, welch's (student's) t-test and return p value
+// from https://github.com/jstat/jstat/issues/189#issuecomment-469255296
+// note: cannot use the 'ttest' library because downstream dependency is
+// written in web assembly and cannot be compiled by 'workerize-loader' yet
+const ttest = (array1, array2) => {
+  const n1 = array1.length; // array 1 length
+  const n2 = array2.length; // array 2 length
+  const n12 = Math.pow(n1, 2); // raised array 1 length
+  const n22 = Math.pow(n2, 2); // raised array 2 length
+  const meanA = jStat.mean(array1); // mean of array 1
+  const meanB = jStat.mean(array2); // mean of array 2
+  // raised stdev of array 1
+  const stdevA2 = Math.pow(jStat.stdev(array1, true), 2);
+  // raised stdev of array 2
+  const stdevB2 = Math.pow(jStat.stdev(array2, true), 2);
+  // raised by 4 stdev of array 1
+  const stdevA4 = Math.pow(jStat.stdev(array1, true), 4);
+  // raised by 4 stdev of array 2
+  const stdevB4 = Math.pow(jStat.stdev(array2, true), 4);
+  const t = (meanA - meanB) / Math.sqrt(stdevA2 / n1 + stdevB2 / n2);
+  const dfUpper = Math.pow(stdevA2 / n1 + stdevB2 / n2, 2);
+  const dfLower = stdevA4 / (n12 * (n1 - 1)) + stdevB4 / (n22 * (n2 - 1));
+  const df = Math.round(dfUpper / dfLower);
+  const pValue = jStat.studentt.cdf(-Math.abs(t), df) * 2;
+  return pValue;
 };
