@@ -158,9 +158,9 @@ export const calculateVolcanoSignatures = ({
   // if we dont have all we need, exit
   if (
     !isArray(signatureList) ||
-    signatureList.length < 2 ||
+    !signatureList.length ||
     !isArray(activities) ||
-    activities.length < 2 ||
+    !activities.length ||
     !isArray(diamondGroup) ||
     diamondGroup.length < 2 ||
     !isArray(spadeGroup) ||
@@ -194,7 +194,8 @@ export const calculateVolcanoSignatures = ({
       .filter((activity) => activity);
 
     // compute difference between diamond and spade activity means
-    const meanDiff = mean(diamondActivities) - mean(spadeActivities);
+    let meanDiff = mean(diamondActivities) - mean(spadeActivities);
+    meanDiff = meanDiff.toFixed(5);
     // compute p value of signature based using t test from ttest library
     const pValue = ttest(diamondActivities, spadeActivities);
 

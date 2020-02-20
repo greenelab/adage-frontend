@@ -26,3 +26,30 @@ export const isExternalLink = (string) => {
     return false;
   }
 };
+
+const transformOperations = [
+  'translate',
+  'rotate',
+  'scale',
+  'translateX',
+  'translateY',
+  'scaleX',
+  'scaleY'
+];
+
+// turn list of transform operations and parameters into transform string
+export const transformString = (...args) => {
+  const operations = [];
+  for (const arg of args) {
+    if (transformOperations.includes(arg))
+      operations.push({ name: arg, parameters: [] });
+    else
+      operations[operations.length - 1].parameters.push(arg);
+  }
+
+  return operations
+    .map(
+      (operation) => operation.name + '(' + operation.parameters.join(',') + ')'
+    )
+    .join(' ');
+};

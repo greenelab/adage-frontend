@@ -18,6 +18,7 @@ import { setVolcano } from './actions/samples';
 import { selectModel } from './actions/models';
 import { selectSamples } from './actions/samples';
 import { isArray } from './util/types';
+import { actionStatuses } from './actions/fetch';
 
 /* eslint import/no-webpack-loader-syntax: off */
 import worker from 'workerize-loader!./util/math';
@@ -244,29 +245,24 @@ let Controller = ({
     // if we dont have all we need, dont even dispatch action
     if (
       !isArray(signatureList) ||
-      signatureList.length < 2 ||
+      !signatureList.length ||
       !isArray(activities) ||
-      activities.length < 2 ||
-      !isArray(diamondGroup) ||
-      diamondGroup.length < 2 ||
-      !isArray(spadeGroup) ||
-      spadeGroup.length < 2
+      !activities.length
     )
       return;
 
-
+    setVolcano(actionStatuses.LOADING);
     const calculateVolcanoSignatures = async () => {
       setVolcano(
         await worker().calculateVolcanoSignatures({
           signatureList,
-      activities,
-      diamondGroup,
-      spadeGroup
+          activities,
+          diamondGroup,
+          spadeGroup
         })
       );
     };
     calculateVolcanoSignatures();
-
   }, [signatureList, activities, diamondGroup, spadeGroup, setVolcano]);
 
   return <></>;

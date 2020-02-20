@@ -56,3 +56,12 @@ export const useInnerText = () => {
 
   return [text, ref];
 };
+
+// hook to return whether it is first render
+export const useMounted = () => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return mounted;
+};

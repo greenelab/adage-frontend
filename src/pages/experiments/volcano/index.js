@@ -1,24 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Alert from '../../../components/alert';
+import FetchAlert from '../../../components/fetch-alert';
+import Plot from './plot';
 import { isArray } from '../../../util/types';
+import { isString } from '../../../util/types';
 
 import './index.css';
 
 // volcano plot section
 
-let Volcano = ({ anyData }) => (
+let Volcano = ({ volcano }) => (
   <>
-    {anyData === false && (
-      <Alert text='Not enough samples grouped' />
+    {isString(volcano) && (
+      <FetchAlert status={volcano} subject='volcano data' />
     )}
-    {anyData === true && <>hi</>}
+    {isArray(volcano) && (
+      <>
+        <Plot />
+      </>
+    )}
   </>
 );
 
 const mapStateToProps = (state) => ({
-  anyData: isArray(state.sample.volcano) ? true : false
+  volcano: state.sample.volcano
 });
 
 Volcano = connect(mapStateToProps)(Volcano);

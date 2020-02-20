@@ -1,8 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
 import { useEffect } from 'react';
 import * as d3 from 'd3';
 
+import { useMounted } from '../../../../util/hooks';
 import { stringifyObject } from '../../../../util/object';
 
 import './index.css';
@@ -16,18 +16,15 @@ const verticalSpacing = 2;
 
 const Heatmap = ({ activities, samples, signatures }) => {
   // internal state
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
 
-  const sampleNames = samples.map(
-    (id) => activities.find((activity) => activity.sample === id).sampleName
-  ).reverse();
+  const sampleNames = samples
+    .map(
+      (id) => activities.find((activity) => activity.sample === id).sampleName
+    )
+    .reverse();
   const width = signatures.length * cellWidth;
   const height = samples.length * cellHeight;
-
-  // set has mounted flag
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // redraw heatmap
   useEffect(() => {
