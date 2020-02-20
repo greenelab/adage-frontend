@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import * as color from 'color';
 
+import { transformString } from '../../../../util/string';
 import { nodeData } from '.';
 import { fillA, fillB, fontSize } from './constants';
 
@@ -31,6 +32,6 @@ export const drawNodeLabels = () => {
 export const positionNodeLabels = () => {
   d3.selectAll('.graph_node_label').attr(
     'transform',
-    (d) => 'translate(' + d.x + ',' + d.y + ')'
+    (d) => transformString('translate', d.x, d.y)
   );
 };

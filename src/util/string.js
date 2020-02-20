@@ -27,21 +27,21 @@ export const isExternalLink = (string) => {
   }
 };
 
-const transformOperations = [
-  'translate',
-  'rotate',
-  'scale',
-  'translateX',
-  'translateY',
-  'scaleX',
-  'scaleY'
-];
-
 // turn list of transform operations and parameters into transform string
 export const transformString = (...args) => {
+  const validOperations = [
+    'translate',
+    'rotate',
+    'scale',
+    'translateX',
+    'translateY',
+    'scaleX',
+    'scaleY'
+  ];
+
   const operations = [];
   for (const arg of args) {
-    if (transformOperations.includes(arg))
+    if (validOperations.includes(arg))
       operations.push({ name: arg, parameters: [] });
     else
       operations[operations.length - 1].parameters.push(arg);

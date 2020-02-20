@@ -117,7 +117,7 @@ let Plot = ({ volcano }) => {
             -90
           )}
         >
-          -log10 p value
+          - log10 p value
         </text>
         <text
           id='x_axis_label'
