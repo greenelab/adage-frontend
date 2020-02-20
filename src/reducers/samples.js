@@ -58,6 +58,18 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.groups[payload.index].push(payload.id);
       break;
 
+    case 'GROUP_SAMPLES_FROM_URL':
+      if (
+        !payload.index ||
+        !payload.ids ||
+        !isArray(payload.ids) ||
+        !payload.ids.length
+      )
+        draft.groups[payload.index] = [];
+      else
+        draft.groups[payload.index] = payload.ids;
+      break;
+
     case 'UNGROUP_ALL_SAMPLES':
       draft.groups = {};
       break;
