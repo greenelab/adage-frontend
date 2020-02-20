@@ -1,7 +1,6 @@
 import produce from 'immer';
 
 import { actionStatuses } from '../actions/fetch';
-import { calculateEnrichedSignatures } from '../util/math';
 import { isEmpty } from '../util/types';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
@@ -17,6 +16,8 @@ const typeCheck = (draft) => {
     draft.searches = [];
   if (!isArray(draft.selected))
     draft.selected = [];
+  if (!isString(draft.participations) && !isArray(draft.participations))
+    draft.participations = actionStatuses.EMPTY;
   if (!isString(draft.enrichedSignatures) && !isArray(draft.enrichedSignatures))
     draft.enrichedSignatures = actionStatuses.EMPTY;
   if (!isString(draft.edges) && !isArray(draft.edges))
@@ -103,22 +104,18 @@ const reducer = produce((draft, type, payload, meta) => {
       );
       break;
 
-    case 'GET_ENRICHED_SIGNATURES':
-      const participations = payload;
-      if (isArray(participations)) {
-        const { selectedGenes, geneList, signatureList } = meta;
-        const result = calculateEnrichedSignatures({
-          selectedGenes,
-          participations,
-          geneList,
-          signatureList
-        });
-        if (isEmpty(result))
+    case 'GET_PARTICIPATIONS':
+      draft.participations = payload;
+      break;
+
+    case 'SET_ENRICHED_SIGNATURES':
+      if (isArray(payload)) {
+        if (isEmpty(payload))
           draft.enrichedSignatures = actionStatuses.EMPTY;
         else
-          draft.enrichedSignatures = result;
+          draft.enrichedSignatures = payload;
       } else
-        draft.enrichedSignatures = participations;
+        draft.enrichedSignatures = draft.participations;
       break;
 
     case 'GET_GENE_EDGES':

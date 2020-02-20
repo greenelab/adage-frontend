@@ -13,13 +13,13 @@ import { isArray } from '../../../util/types';
 import { uniqueMap } from '../../../util/object';
 
 /* eslint import/no-webpack-loader-syntax: off */
-import worker from 'workerize-loader!./cluster';
+import worker from 'workerize-loader!../../../util/math';
 
 import './index.css';
 
 // sample activities section
 
-let Activities = ({ activities }) => {
+let Activities = ({ selectedExperiment, activities }) => {
   const [sortedSamples, setSortedSamples] = useState(null);
   const [sortedSignatures, setSortedSignatures] = useState(null);
 
@@ -33,16 +33,16 @@ let Activities = ({ activities }) => {
     );
   }
 
+  // when selected experiment changes
+  // reset sorts
   useEffect(() => {
     setSortedSamples(null);
     setSortedSignatures(null);
-  }, [activities]);
+  }, [selectedExperiment]);
 
   const sortSamples = useCallback(async () => {
     setSortedSamples(actionStatuses.LOADING);
-    setSortedSamples(
-      await worker().clusterData(activities, 'sample', 'value')
-    );
+    setSortedSamples(await worker().clusterData(activities, 'sample', 'value'));
   }, [activities]);
 
   const sortSignatures = useCallback(async () => {
@@ -61,13 +61,9 @@ let Activities = ({ activities }) => {
         <>
           <Heatmap
             activities={activities}
-            samples={
-              isArray(sortedSamples) ? sortedSamples : unsortedSamples
-            }
+            samples={isArray(sortedSamples) ? sortedSamples : unsortedSamples}
             signatures={
-              isArray(sortedSignatures) ?
-                sortedSignatures :
-                unsortedSignatures
+              isArray(sortedSignatures) ? sortedSignatures : unsortedSignatures
             }
           />
           <Controls
@@ -84,6 +80,7 @@ let Activities = ({ activities }) => {
 };
 
 const mapStateToProps = (state) => ({
+  selectedExperiment: state.experiment.selected,
   activities: mapActivities(state.sample.activities, state)
 });
 

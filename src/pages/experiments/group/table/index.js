@@ -29,15 +29,13 @@ let Table = ({ samples }) => (
           <>
             <GroupButton
               sample={cell}
-              index={1}
-              name='Diamond'
+              index='diamond'
               color='var(--blue)'
               Icon={DiamondIcon}
             />
             <GroupButton
               sample={cell}
-              index={2}
-              name='Spade'
+              index='spade'
               color='var(--red)'
               Icon={SpadeIcon}
             />
@@ -72,7 +70,7 @@ let Table = ({ samples }) => (
 const mapStateToProps = (state) => ({
   samples: state.sample.selected.map((sample) => ({
     ...sample,
-    group: isGrouped(state.sample.groups, sample.id)
+    groupIndex: isGrouped(state.sample.groups, sample.id)
   }))
 });
 
@@ -80,19 +78,19 @@ Table = connect(mapStateToProps)(Table);
 
 export default Table;
 
-let GroupButton = ({ sample, index, name, color, Icon, group, ungroup }) => {
-  const grouped = sample.group === index;
+let GroupButton = ({ sample, index, color, Icon, group, ungroup }) => {
+  const isGrouped = sample.groupIndex === index;
   const defaultColor = 'var(--light-gray)';
   return (
     <Clickable
       icon={<Icon />}
       button
       onClick={() =>
-        (grouped ? ungroup : group)({ index: index, id: sample.id })
+        (isGrouped ? ungroup : group)({ index: index, id: sample.id })
       }
-      style={{ color: grouped ? color : defaultColor }}
+      style={{ color: isGrouped ? color : defaultColor }}
       aria-label={
-        grouped ? 'Ungroup this sample' : 'Put this sample in group ' + name
+        isGrouped ? 'Ungroup this sample' : 'Put this sample in group ' + index
       }
     />
   );

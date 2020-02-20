@@ -1,6 +1,5 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useState } from 'react';
 import * as d3 from 'd3';
 
 import { initView } from './view';
@@ -15,6 +14,7 @@ import { drawNodeCircles } from './node-circles';
 import { drawNodeHighlights } from './node-highlights';
 import { drawNodeLabels } from './node-labels';
 import { useBbox } from '../../../../util/hooks';
+import { useMounted } from '../../../../util/hooks';
 
 import './index.css';
 
@@ -31,7 +31,7 @@ export let linkData = [];
 
 const Graph = ({ nodes, links }) => {
   // internal state
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [bbox, ref] = useBbox();
   const { width, height } = bbox || {};
 
@@ -42,11 +42,6 @@ const Graph = ({ nodes, links }) => {
   useEffect(() => {
     setAutoFit(true);
   });
-
-  // set has mounted flag
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // only once, after first render
   useEffect(() => {

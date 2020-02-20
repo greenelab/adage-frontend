@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 
+import { transformString } from '../../../../util/string';
 import { stringifyObject } from '../../../../util/object';
 import { dragHandler } from './drag';
 import { nodeData } from '.';
@@ -38,6 +39,6 @@ export const drawNodeHighlights = () => {
 export const positionNodeHighlights = () => {
   d3.selectAll('.graph_node_highlight').attr(
     'transform',
-    (d) => 'translate(' + d.x + ',' + d.y + ')'
+    (d) => transformString('translate', d.x, d.y)
   );
 };

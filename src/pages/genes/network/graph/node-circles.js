@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 
+import { transformString } from '../../../../util/string';
 import { nodeData } from '.';
 import { nodeRadius, fillA, fillB, stroke, strokeWidth } from './constants';
 
@@ -25,8 +26,7 @@ export const drawNodeCircles = () => {
 };
 
 export const positionNodeCircles = () => {
-  d3.selectAll('.graph_node_circle').attr(
-    'transform',
-    (d) => 'translate(' + d.x + ',' + d.y + ')'
+  d3.selectAll('.graph_node_circle').attr('transform', (d) =>
+    transformString('translate', d.x, d.y)
   );
 };

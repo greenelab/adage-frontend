@@ -3,6 +3,7 @@ import produce from 'immer';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
+import { isEmpty } from '../util/types';
 import { actionStatuses } from '../actions/fetch';
 
 // type check for key variables, run before and after reducer
@@ -13,14 +14,12 @@ const typeCheck = (draft) => {
     draft.list = [];
   if (!isArray(draft.selected))
     draft.selected = [];
-  if (!isArray(draft.groups))
-    draft.groups = [];
+  if (!isObject(draft.groups))
+    draft.groups = {};
   if (!isString(draft.activities) && !isArray(draft.activities))
     draft.activities = actionStatuses.EMPTY;
-  if (!isArray(draft.sampleActivities))
-    draft.sampleActivities = [];
-  if (!isArray(draft.signatureActivities))
-    draft.signatureActivities = [];
+  if (!isString(draft.volcano) && !isArray(draft.volcano))
+    draft.volcano = actionStatuses.EMPTY;
 };
 
 // defines how state (redux store) changes in response to dispatched actions
@@ -59,12 +58,31 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.groups[payload.index].push(payload.id);
       break;
 
+    case 'GROUP_SAMPLES_FROM_URL':
+      if (
+        !payload.index ||
+        !payload.ids ||
+        !isArray(payload.ids) ||
+        !payload.ids.length
+      )
+        draft.groups[payload.index] = [];
+      else
+        draft.groups[payload.index] = payload.ids;
+      break;
+
     case 'UNGROUP_ALL_SAMPLES':
-      draft.groups = [];
+      draft.groups = {};
       break;
 
     case 'GET_ACTIVITIES':
       draft.activities = payload;
+      break;
+
+    case 'SET_VOLCANO':
+      if (isEmpty(payload))
+        draft.volcano = actionStatuses.EMPTY;
+      else
+        draft.volcano = payload;
       break;
 
     default:
@@ -77,15 +95,20 @@ const reducer = produce((draft, type, payload, meta) => {
 export default reducer;
 
 export const isGrouped = (groups, id) => {
-  for (const [index, group] of Object.entries(groups)) {
-    if (group.includes(id))
-      return Number(index);
+  for (const [key, value] of Object.entries(groups)) {
+    if (isArray(value) && value.includes(id))
+      return key;
   }
 
   return -1;
 };
 
-export const filterGrouped = (groups, id) =>
-  groups.map((group) =>
-    isArray(group) ? group.filter((sample) => sample !== id) : []
-  );
+export const filterGrouped = (groups, id) => {
+  for (const [key, value] of Object.entries(groups)) {
+    if (isArray(value))
+      groups[key] = value.filter((sample) => sample !== id);
+    else
+      groups[key] = [];
+  }
+  return groups;
+};

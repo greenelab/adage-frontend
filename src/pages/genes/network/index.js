@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import FetchAlert from '../../../components/fetch-alert';
 import { isArray } from '../../../util/types';
 import { isString } from '../../../util/types';
-import { xor } from '../../../util/math';
+import { xor } from '../../../util/logic';
 import Filters from './filters';
 import Graph from './graph';
 import Controls from './controls';

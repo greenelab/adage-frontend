@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions';
+import { createAction } from './';
 import { createFetchAction } from './fetch';
 
 import { urlSignatureDetails } from '../backend/signatures';
