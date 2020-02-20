@@ -115,7 +115,7 @@ export const calculateEnrichedSignatures = ({
   enrichedSignatures = enrichedSignatures.map((enrichedSignature, index) => ({
     ...enrichedSignature,
     // round decimal point
-    pValue: correctedPValues[index].toFixed(5)
+    pValue: correctedPValues[index]
   }));
 
   return enrichedSignatures;
@@ -194,8 +194,7 @@ export const calculateVolcanoSignatures = ({
       .filter((activity) => activity);
 
     // compute difference between diamond and spade activity means
-    let meanDiff = mean(diamondActivities) - mean(spadeActivities);
-    meanDiff = meanDiff.toFixed(5);
+    const meanDiff = mean(diamondActivities) - mean(spadeActivities);
     // compute p value of signature based using t test from ttest library
     const pValue = ttest(diamondActivities, spadeActivities);
 
@@ -216,7 +215,7 @@ export const calculateVolcanoSignatures = ({
   volcanoSignatures = volcanoSignatures.map((volcanoSignature, index) => ({
     ...volcanoSignature,
     // negative log 10 transform and round decimal point
-    pValue: -Math.log10(correctedPValues[index]).toFixed(5)
+    pValue: -Math.log10(correctedPValues[index])
   }));
 
   return volcanoSignatures;

@@ -19,7 +19,7 @@ import './index.css';
 
 // sample activities section
 
-let Activities = ({ activities }) => {
+let Activities = ({ selectedExperiment, activities }) => {
   const [sortedSamples, setSortedSamples] = useState(null);
   const [sortedSignatures, setSortedSignatures] = useState(null);
 
@@ -33,10 +33,12 @@ let Activities = ({ activities }) => {
     );
   }
 
+  // when selected experiment changes
+  // reset sorts
   useEffect(() => {
     setSortedSamples(null);
     setSortedSignatures(null);
-  }, [activities]);
+  }, [selectedExperiment]);
 
   const sortSamples = useCallback(async () => {
     setSortedSamples(actionStatuses.LOADING);
@@ -78,6 +80,7 @@ let Activities = ({ activities }) => {
 };
 
 const mapStateToProps = (state) => ({
+  selectedExperiment: state.experiment.selected,
   activities: mapActivities(state.sample.activities, state)
 });
 
