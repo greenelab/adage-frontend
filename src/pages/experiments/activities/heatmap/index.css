@@ -21,6 +21,7 @@
 .heatmap_row {
   display: flex;
   width: 100%;
+  justify-content: center;
   align-items: center;
 }
 .heatmap_cell {

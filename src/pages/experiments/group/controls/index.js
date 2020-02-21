@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Clickable from '../../../../components/clickable';
-import { downloadTsv } from '../../../../util/download';
+import { downloadTable } from './download';
 import { ungroupAllSamples } from '../../../../actions/samples';
 
 import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
@@ -12,7 +12,7 @@ import './index.css';
 
 // controls below selected experiment samples table
 
-let Controls = ({ samples, ungroupAll }) => (
+let Controls = ({ selected, ungroupAll }) => (
   <div className='controls'>
     <Clickable
       text='Ungroup all'
@@ -25,14 +25,14 @@ let Controls = ({ samples, ungroupAll }) => (
       text='Download'
       icon={<DownloadIcon />}
       button
-      onClick={() => downloadTsv(samples, 'samples')}
+      onClick={() => downloadTable({ selected })}
       aria-label='Download this table as a .tsv file'
     />
   </div>
 );
 
 const mapStateToProps = (state) => ({
-  samples: state.experiment.selected.samples
+  selected: state.sample.selected
 });
 
 const mapDispatchToProps = (dispatch) => ({

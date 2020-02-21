@@ -1,5 +1,3 @@
-import decode from 'unescape';
-
 // download data as .tsv file
 // data - [{key: value, key: value}, {key: value, key: value}]
 export const downloadTsv = (data = [], filename = 'download') => {
@@ -29,8 +27,11 @@ export const downloadTsv = (data = [], filename = 'download') => {
 
 // download data as .svg file
 // data - svg/html markdown
-export const downloadSvg = (data, filename) => {
-  data = decode(data);
+export const downloadSvg = (element, filename, removeQuery) => {
+  const clone = element.cloneNode(true);
+  if (removeQuery)
+    clone.querySelectorAll(removeQuery).forEach((el) => el.remove());
+  const data = clone.outerHTML;
   const blob = new Blob([data], { type: 'image/svg+xml' });
   const url = window.URL.createObjectURL(blob);
   const link = document.createElement('a');

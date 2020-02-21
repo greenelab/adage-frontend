@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "dependencies": {
     "color": "^3.1.2",
     "d3": "^5.15.0",
@@ -9,14 +9,13 @@
     "immer": "^5.3.6",
     "jstat": "^1.9.2",
     "multtest": "^0.1.7",
-    "npm-check-updates": "^4.0.1",
-    "object-sizeof": "^1.5.2",
+    "object-sizeof": "^1.5.3",
     "prop-types": "^15.7.2",
     "rc-slider": "^9.2.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-linkify": "^1.0.0-alpha",
-    "react-redux": "^7.1.3",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.0",
     "react-table": "^7.0.0-rc.15",
@@ -29,7 +28,8 @@
     "redux-thunk": "^2.3.0",
     "unescape": "^1.0.1",
     "use-debounce": "^3.3.0",
-    "workerize-loader": "^1.1.0"
+    "workerize-loader": "^1.1.0",
+    "yaml": "^1.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

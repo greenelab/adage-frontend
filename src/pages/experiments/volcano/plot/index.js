@@ -13,20 +13,24 @@ import './index.css';
 const radius = 5;
 const axisLabelOffset = 40;
 
+export let svg;
+
+// volcano plot
+
 let Plot = ({ volcano }) => {
   // internal state
   const mounted = useMounted();
   const [bbox, ref] = useBbox();
 
-  const width = bbox?.width || 0;
-  const height = bbox?.height || 0;
+  const width = Math.round(bbox?.width || 0);
+  const height = Math.round(bbox?.height || 0);
 
   // redraw volcano
   useEffect(() => {
     if (!mounted)
       return;
 
-    const svg = d3.select('#volcano');
+    svg = d3.select('#volcano');
 
     // find x and y domains (min/max values)
     const xValues = volcano.map((d) => d.meanDiff);
@@ -68,15 +72,15 @@ let Plot = ({ volcano }) => {
       .append('circle')
       .attr('class', 'volcano_dot')
       .merge(dot)
-      .attr('cx', (d) => xScale(d.meanDiff))
-      .attr('cy', (d) => yScale(d.pValue))
+      .attr('cx', (d) => xScale(d.meanDiff).toFixed(2))
+      .attr('cy', (d) => yScale(d.pValue).toFixed(2))
       .attr('r', radius)
       .attr('fill', '#26a36c')
       .attr('aria-label', (d) =>
         stringifyObject({
           signature: d.name,
-          meanDiff: d.meanDiff,
-          pValue: d.pValue
+          meanDiff: d.meanDiff.toFixed(5),
+          pValue: d.pValue.toFixed(5)
         })
       )
       .attr('data-tooltip-speed', 10);
@@ -87,21 +91,19 @@ let Plot = ({ volcano }) => {
     <svg ref={ref} id='volcano' xmlns='http://www.w3.org/2000/svg'>
       <g
         id='volcano_view'
-        style={{
-          transform: transformString(
-            'translate',
-            '50%',
-            '50%',
-            'scale',
-            Math.min(
-              width / (width + axisLabelOffset * 2 * 2),
-              height / (height + axisLabelOffset * 2)
-            ),
-            'translate',
-            '-50%',
-            '-50%'
-          )
-        }}
+        transform={transformString(
+          'translate',
+          width / 2,
+          height / 2,
+          'scale',
+          Math.min(
+            width / (width + axisLabelOffset * 2 * 2),
+            height / (height + axisLabelOffset * 2)
+          ).toFixed(2),
+          'translate',
+          -width / 2,
+          -height / 2
+        )}
       >
         <text
           id='y_axis_label'
