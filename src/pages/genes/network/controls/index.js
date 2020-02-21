@@ -41,18 +41,18 @@ const Controls = ({ nodes, links }) => (
         aria-label='Pin all nodes'
       />
       <Clickable
+        text='Download Image'
+        icon={<DownloadIcon />}
+        button
+        onClick={downloadImage}
+        aria-label='Download gene network as .svg'
+      />
+      <Clickable
         text='Download Table'
         icon={<DownloadIcon />}
         button
         onClick={() => downloadTable({ links })}
         aria-label='Download gene network as .tsv for import into Cytoscape or other'
-      />
-      <Clickable
-        text='Download SVG'
-        icon={<DownloadIcon />}
-        button
-        onClick={downloadImage}
-        aria-label='Download gene network as .svg'
       />
     </div>
   </>

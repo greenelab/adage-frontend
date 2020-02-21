@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Table from './table';
+import Controls from './controls';
 import FetchAlert from '../../../components/fetch-alert';
 
 import { isString } from '../../../util/types';
@@ -18,7 +19,10 @@ let Enriched = ({ enrichedSignatures }) => {
         <FetchAlert status={enrichedSignatures} subject='enriched signatures' />
       )}
       {isArray(enrichedSignatures) && (
-        <Table enrichedSignatures={enrichedSignatures} />
+        <>
+          <Table />
+          <Controls />
+        </>
       )}
     </>
   );

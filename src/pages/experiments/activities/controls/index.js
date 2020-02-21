@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Clickable from '../../../../components/clickable';
+import { downloadImage } from './download';
 import { downloadTable } from './download';
 import { actionStatuses } from '../../../../actions/fetch';
 
@@ -47,7 +48,14 @@ const Controls = ({
       aria-label='Cluster heatmap by signature (re-order columns)'
     />
     <Clickable
-      text='Download'
+      text='Download Image'
+      icon={<DownloadIcon />}
+      button
+      onClick={downloadImage}
+      aria-label='Download this heatmap as an .svg file'
+    />
+    <Clickable
+      text='Download Table'
       icon={<DownloadIcon />}
       button
       onClick={() => downloadTable({ activities })}

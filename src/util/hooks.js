@@ -40,12 +40,34 @@ export const useBbox = () => {
 };
 
 // use the previous value of a variable
-export const usePrev = (previousValue) => {
+export const usePrev = (value) => {
   const ref = useRef();
   useEffect(() => {
-    ref.current = previousValue;
+    ref.current = value;
   });
   return ref.current;
+};
+
+// return whether it is first render
+export const useMounted = () => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return mounted;
+};
+
+// return whether value has changed since last render
+export const useDiff = (value) => {
+  const prevValue = useRef();
+  useEffect(() => {
+    prevValue.current = value;
+  });
+  return (
+    value !== prevValue.current &&
+    value !== undefined &&
+    prevValue.current !== undefined
+  );
 };
 
 // get the inner text of an element
@@ -55,13 +77,4 @@ export const useInnerText = () => {
   const text = ref?.current?.innerText ? ref.current.innerText : '';
 
   return [text, ref];
-};
-
-// hook to return whether it is first render
-export const useMounted = () => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  return mounted;
 };

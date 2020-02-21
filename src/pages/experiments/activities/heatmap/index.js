@@ -12,6 +12,8 @@ const cellHeight = 30;
 const horizontalSpacing = 0;
 const verticalSpacing = 2;
 
+export let svg;
+
 // sample activity heatmap
 
 const Heatmap = ({ activities, samples, signatures }) => {
@@ -31,7 +33,7 @@ const Heatmap = ({ activities, samples, signatures }) => {
     if (!mounted)
       return;
 
-    const svg = d3.select('#heatmap svg');
+    svg = d3.select('#heatmap svg');
 
     // find min and max values
     const extent = d3.extent(activities.map((d) => d.value));
@@ -72,7 +74,7 @@ const Heatmap = ({ activities, samples, signatures }) => {
         stringifyObject({
           sample: d.sampleName,
           signature: d.signatureName,
-          activity: d.value
+          activity: d.value.toFixed(5)
         })
       )
       .attr('data-tooltip-speed', 10);

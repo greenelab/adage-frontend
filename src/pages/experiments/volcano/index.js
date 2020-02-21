@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import FetchAlert from '../../../components/fetch-alert';
 import Plot from './plot';
+import Controls from './controls';
 import { isArray } from '../../../util/types';
 import { isString } from '../../../util/types';
 
@@ -18,6 +19,7 @@ let Volcano = ({ volcano }) => (
     {isArray(volcano) && (
       <>
         <Plot />
+        <Controls />
       </>
     )}
   </>

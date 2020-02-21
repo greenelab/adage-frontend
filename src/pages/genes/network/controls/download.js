@@ -3,11 +3,7 @@ import { downloadSvg } from '../../../../util/download';
 import { downloadTsv } from '../../../../util/download';
 
 export const downloadImage = () => {
-  const clone = svg.node().cloneNode(true);
-  const highlights = clone.querySelectorAll('g[id*="highlight"]');
-  for (const highlight of highlights)
-    highlight.remove();
-  downloadSvg(clone.outerHTML, 'gene-network');
+  downloadSvg(svg.node(), 'gene-network', 'g[id*="highlight"]');
 };
 
 export const downloadTable = ({ links }) => {
