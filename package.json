@@ -26,7 +26,6 @@
     "redux-query-sync": "^0.1.9",
     "redux-sequence-action": "^0.2.1",
     "redux-thunk": "^2.3.0",
-    "ttest": "^2.1.1",
     "unescape": "^1.0.1",
     "use-debounce": "^3.3.0",
     "workerize-loader": "^1.1.0",

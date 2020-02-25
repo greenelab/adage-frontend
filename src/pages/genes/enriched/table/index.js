@@ -34,7 +34,7 @@ let Table = ({ enrichedSignatures }) => (
       },
       {
         name: 'p-value',
-        value: 'pValue',
+        value: (cell) => cell.pValue.toFixed(8),
         width: '25%',
         align: 'center'
       }

@@ -1,0 +1,28 @@
+[
+  {
+    "id": 3177,
+    "entrezid": 880766,
+    "description": "transporter",
+    "aliases": "-",
+    "obsolete": false,
+    "weight": 0,
+    "organism": 1,
+    "systematicName": "PA1773",
+    "standardName": "cmaX",
+    "name": 880766,
+    "entrezId": 880766
+  },
+  {
+    "id": 5067,
+    "entrezid": 882669,
+    "description": "chloroperoxidase",
+    "aliases": "-",
+    "obsolete": false,
+    "weight": 0,
+    "organism": 1,
+    "systematicName": "PA2717",
+    "standardName": "cpo",
+    "name": 882669,
+    "entrezId": 882669
+  }
+]

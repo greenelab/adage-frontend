@@ -44,7 +44,7 @@ const compareVersions = (previous, next) => {
 };
 
 // run version comparison on head (this branch/PR) vs upstream (master)
-test('Version number updated', async () => {
+test('version number updated', async () => {
   const result = await (await fetch(upstream)).json();
   const updated = compareVersions(result.version, head.version);
   console.log('Previous (upstream) version:', result.version);
