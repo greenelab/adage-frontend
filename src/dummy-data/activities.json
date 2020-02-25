@@ -1,0 +1,352 @@
+[
+  {
+    "value": 0.0792111420889911,
+    "sample": 11,
+    "signature": 1,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig001pos"
+  },
+  {
+    "value": 0.0330238989554542,
+    "sample": 11,
+    "signature": 2,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig002pos"
+  },
+  {
+    "value": 0.0270810485350026,
+    "sample": 11,
+    "signature": 3,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig003pos"
+  },
+  {
+    "value": 0.02647069934522,
+    "sample": 11,
+    "signature": 4,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig004pos"
+  },
+  {
+    "value": 0.029176866133939,
+    "sample": 11,
+    "signature": 5,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig005pos"
+  },
+  {
+    "value": 0.0303718514764025,
+    "sample": 11,
+    "signature": 6,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig006pos"
+  },
+  {
+    "value": 0.018627981378036,
+    "sample": 11,
+    "signature": 7,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig007pos"
+  },
+  {
+    "value": 0.0237905396396376,
+    "sample": 11,
+    "signature": 8,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig008pos"
+  },
+  {
+    "value": 0.0333027632833197,
+    "sample": 11,
+    "signature": 9,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig009pos"
+  },
+  {
+    "value": 0.0140413396643665,
+    "sample": 11,
+    "signature": 10,
+    "sampleName": "GSM177216 1",
+    "signatureName": "Sig010pos"
+  },
+  {
+    "value": 0.073952633169668,
+    "sample": 12,
+    "signature": 1,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig001pos"
+  },
+  {
+    "value": 0.0323496465314031,
+    "sample": 12,
+    "signature": 2,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig002pos"
+  },
+  {
+    "value": 0.0278053047516682,
+    "sample": 12,
+    "signature": 3,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig003pos"
+  },
+  {
+    "value": 0.0276267238112295,
+    "sample": 12,
+    "signature": 4,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig004pos"
+  },
+  {
+    "value": 0.0172408306193992,
+    "sample": 12,
+    "signature": 5,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig005pos"
+  },
+  {
+    "value": 0.0301809914047828,
+    "sample": 12,
+    "signature": 6,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig006pos"
+  },
+  {
+    "value": 0.0213914401303927,
+    "sample": 12,
+    "signature": 7,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig007pos"
+  },
+  {
+    "value": 0.0314414577842221,
+    "sample": 12,
+    "signature": 8,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig008pos"
+  },
+  {
+    "value": 0.0360225093023219,
+    "sample": 12,
+    "signature": 9,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig009pos"
+  },
+  {
+    "value": 0.0148574283008709,
+    "sample": 12,
+    "signature": 10,
+    "sampleName": "GSM177218 1",
+    "signatureName": "Sig010pos"
+  },
+  {
+    "value": 0.0784646071159741,
+    "sample": 13,
+    "signature": 1,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig001pos"
+  },
+  {
+    "value": 0.0324280835316371,
+    "sample": 13,
+    "signature": 2,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig002pos"
+  },
+  {
+    "value": 0.0194125007623608,
+    "sample": 13,
+    "signature": 3,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig003pos"
+  },
+  {
+    "value": 0.0260235823390933,
+    "sample": 13,
+    "signature": 4,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig004pos"
+  },
+  {
+    "value": 0.0464273451727909,
+    "sample": 13,
+    "signature": 5,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig005pos"
+  },
+  {
+    "value": 0.0334824890476777,
+    "sample": 13,
+    "signature": 6,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig006pos"
+  },
+  {
+    "value": 0.0176323686932224,
+    "sample": 13,
+    "signature": 7,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig007pos"
+  },
+  {
+    "value": 0.0232260835001667,
+    "sample": 13,
+    "signature": 8,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig008pos"
+  },
+  {
+    "value": 0.0329955570246134,
+    "sample": 13,
+    "signature": 9,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig009pos"
+  },
+  {
+    "value": 0.0131933155456153,
+    "sample": 13,
+    "signature": 10,
+    "sampleName": "GSM254432 1",
+    "signatureName": "Sig010pos"
+  },
+  {
+    "value": 0.0760632256950369,
+    "sample": 14,
+    "signature": 1,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig001pos"
+  },
+  {
+    "value": 0.0340262081730979,
+    "sample": 14,
+    "signature": 2,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig002pos"
+  },
+  {
+    "value": 0.0172198428795607,
+    "sample": 14,
+    "signature": 3,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig003pos"
+  },
+  {
+    "value": 0.0296074305288054,
+    "sample": 14,
+    "signature": 4,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig004pos"
+  },
+  {
+    "value": 0.0610510899828192,
+    "sample": 14,
+    "signature": 5,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig005pos"
+  },
+  {
+    "value": 0.0347494492051666,
+    "sample": 14,
+    "signature": 6,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig006pos"
+  },
+  {
+    "value": 0.019431888295741,
+    "sample": 14,
+    "signature": 7,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig007pos"
+  },
+  {
+    "value": 0.0358028302635564,
+    "sample": 14,
+    "signature": 8,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig008pos"
+  },
+  {
+    "value": 0.0372110997939868,
+    "sample": 14,
+    "signature": 9,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig009pos"
+  },
+  {
+    "value": 0.015785886752273,
+    "sample": 14,
+    "signature": 10,
+    "sampleName": "GSM307134 1",
+    "signatureName": "Sig010pos"
+  },
+  {
+    "value": 0.074770588764554,
+    "sample": 15,
+    "signature": 1,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig001pos"
+  },
+  {
+    "value": 0.0330824285759018,
+    "sample": 15,
+    "signature": 2,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig002pos"
+  },
+  {
+    "value": 0.0188554156764197,
+    "sample": 15,
+    "signature": 3,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig003pos"
+  },
+  {
+    "value": 0.0290008335299724,
+    "sample": 15,
+    "signature": 4,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig004pos"
+  },
+  {
+    "value": 0.0492122231566008,
+    "sample": 15,
+    "signature": 5,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig005pos"
+  },
+  {
+    "value": 0.0336510849956794,
+    "sample": 15,
+    "signature": 6,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig006pos"
+  },
+  {
+    "value": 0.0207670842510981,
+    "sample": 15,
+    "signature": 7,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig007pos"
+  },
+  {
+    "value": 0.0264096299377484,
+    "sample": 15,
+    "signature": 8,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig008pos"
+  },
+  {
+    "value": 0.0387433634727408,
+    "sample": 15,
+    "signature": 9,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig009pos"
+  },
+  {
+    "value": 0.0168968980660252,
+    "sample": 15,
+    "signature": 10,
+    "sampleName": "GSM307135 1",
+    "signatureName": "Sig010pos"
+  }
+]

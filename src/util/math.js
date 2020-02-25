@@ -124,7 +124,7 @@ export const clusterData = (data, idKey, valueKey) => {
     .data(newData);
 
   // give back clustered (sorted) list of ids
-  return newData.orderedNodes().map((d) => d[idKey]);
+  return newData.orderedNodes().map((d) => d[idKey]).reverse();
 };
 
 // calculate data for volcano plot

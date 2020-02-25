@@ -2,6 +2,7 @@ import { mean } from './math';
 import { hyperGeometricTest } from './math';
 import { ttest } from './math';
 import { calculateEnrichedSignatures } from './math';
+import { clusterData } from './math';
 import { fdr } from 'multtest';
 
 import selectedGenes from '../dummy-data/selected-genes.json';
@@ -9,6 +10,7 @@ import participations from '../dummy-data/participations.json';
 import geneList from '../dummy-data/gene-list.json';
 import signatureList from '../dummy-data/signature-list.json';
 import enrichedSignatures from '../dummy-data/enriched-signatures.json';
+import cluster from '../dummy-data/cluster.json';
 
 test('mean', () => {
   expect(mean([1, 2, 3])).toBe(2);
