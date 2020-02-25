@@ -9,7 +9,7 @@ import signatures from './signatures';
 
 const reducer = (state = {}, action = {}) => {
   const { type = '', payload = {}, meta = {} } = action;
-  window.state = state;
+
   return {
     model: models(state.model, type, payload, meta),
     gene: genes(state.gene, type, payload, meta),
