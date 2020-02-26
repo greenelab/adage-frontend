@@ -21,14 +21,13 @@ test('mean', () => {
 });
 
 test('hypergeometric test', () => {
-  // compare to >= results from:
-  // https://stattrek.com/online-calculator/hypergeometric.aspx
   // compare to results from equivalent R commands:
   // k <- 1; K <- 5; n <- 10; N <- 50; sum <- 0; for(i in k:K) { sum <- sum + dhyper(i, K, N-K, n); }; print(sum, digits = 20);
   let k = 1;
   const K = 5;
   const n = 10;
   const N = 50;
+  console.log(hyperGeometricTest(k, K, n, N))
   expect(1 - hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.689437218, 10);
   k = 2;
   expect(1 - hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.2581000208, 10);

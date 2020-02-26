@@ -23,15 +23,16 @@ export const mean = (array) => itermean(array2iterator(array));
 
 // reference
 // https://en.wikipedia.org/wiki/Hypergeometric_distribution
-
 // k - number of successes in sample
 // K - number of successes in population
 // n - number of items in sample
 // N - number of items in population
-// NOTE: k-1 must be provided to this cdf function, because under-the-hood,
-// it is equivalent to R's fisher test with alternative="less", which also
-// requires k-1:
-// k <- 1; K <- 5; n <- 10; N <- 50; k <- k-1; mat <- matrix(c(k, K-k, n-k, N-K-n+k), nrow=2, ncol=2); print(fisher.test(mat, alternative="less")$p.value, digits = 20);
+// see https://stattrek.com/online-calculator/hypergeometric.aspx
+// by default, the stdlib cdf function gets P(X <= 1)
+// the equivalent R fisher test with alternative="less" also gets P(X <= 1)
+// k <- 1; K <- 5; n <- 10; N <- 50; mat <- matrix(c(k, K-k, n-k, N-K-n+k), nrow=2, ncol=2); print(fisher.test(mat, alternative="less")$p.value, digits = 20);
+// but what we really want is P(X < 1)
+// therefore, provide k-1 as X instead of just k
 export const hyperGeometricTest = (k, K, n, N) => cdf(k - 1, N, K, n);
 
 // perform two-sample, unpaired, welch's (student's) t-test and return p value
