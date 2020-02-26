@@ -27,7 +27,7 @@ test('hypergeometric test', () => {
   const K = 5;
   const n = 10;
   const N = 50;
-  console.log(hyperGeometricTest(k, K, n, N))
+
   expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.689437218, 10);
   k = 2;
   expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.2581000208, 10);
