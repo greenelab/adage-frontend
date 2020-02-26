@@ -120,7 +120,7 @@
       456,
       599
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 5067,
         "entrezid": 882669,
@@ -219,7 +219,7 @@
       3017,
       599
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 5067,
         "entrezid": 882669,
@@ -270,7 +270,7 @@
       487,
       456
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 3177,
         "entrezid": 880766,
@@ -390,7 +390,7 @@
       3596,
       3017
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 5067,
         "entrezid": 882669,
@@ -537,7 +537,7 @@
       1715,
       599
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 5067,
         "entrezid": 882669,
@@ -617,7 +617,7 @@
       4059,
       3016
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 5067,
         "entrezid": 882669,
@@ -700,7 +700,7 @@
       3017,
       159
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 5067,
         "entrezid": 882669,
@@ -785,7 +785,7 @@
       955,
       125
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 3177,
         "entrezid": 880766,
@@ -888,7 +888,7 @@
       3301,
       3114
     ],
-    "matchedGenes": [
+    "selectedParticipatingGenes": [
       {
         "id": 5067,
         "entrezid": 882669,

@@ -28,6 +28,10 @@ export const mean = (array) => itermean(array2iterator(array));
 // K - number of successes in population
 // n - number of items in sample
 // N - number of items in population
+// NOTE: k-1 must be provided to this cdf function, because under-the-hood,
+// it is equivalent to R's fisher test with alternative="less", which also
+// requires k-1:
+// k <- 1; K <- 5; n <- 10; N <- 50; k <- k-1; mat <- matrix(c(k, K-k, n-k, N-K-n+k), nrow=2, ncol=2); print(fisher.test(mat, alternative="less")$p.value, digits = 20);
 export const hyperGeometricTest = (k, K, n, N) => cdf(k - 1, N, K, n);
 
 // perform two-sample, unpaired, welch's (student's) t-test and return p value
@@ -64,7 +68,7 @@ export const calculateEnrichedSignatures = ({
         .map((participation) => participation.gene);
 
       // of participating genes, get selected ones
-      const matchedGenes = participatingGenes
+      const selectedParticipatingGenes = participatingGenes
         .filter((gene) =>
           selectedGenes.find((selected) => selected.id === gene)
         )
@@ -72,16 +76,20 @@ export const calculateEnrichedSignatures = ({
         .map((gene) => selectedGenes.find((selected) => selected.id === gene));
 
       // add participating and matched genes to signature
-      return { ...signature, participatingGenes, matchedGenes };
+      return { ...signature, participatingGenes, selectedParticipatingGenes };
     })
     // remove signatures with no participating genes
     .filter((signature) => signature.participatingGenes.length)
     // compute p value of enriched signature
     .map((signature) => {
+      // # of all genes in the model
       const N = geneList.length;
+      // # of genes the user has selected
       const K = selectedGenes.length;
+      // # of genes participating in the signature
       const n = signature.participatingGenes.length;
-      const k = signature.matchedGenes.length;
+      // # of selected genes participating in the signature
+      const k = signature.selectedParticipatingGenes.length;
       const pValue = 1 - hyperGeometricTest(k, K, n, N);
 
       return { ...signature, pValue };
