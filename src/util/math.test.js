@@ -23,11 +23,12 @@ test('mean', () => {
 test('hypergeometric test', () => {
   // compare to results from equivalent R commands:
   // k <- 1; K <- 5; n <- 10; N <- 50; sum <- 0; for(i in k:K) { sum <- sum + dhyper(i, K, N-K, n); }; print(sum, digits = 20);
-  let k = 1;
   const K = 5;
   const n = 10;
   const N = 50;
-
+  let k = 0;
+  expect(hyperGeometricTest(k, K, n, N)).toBe(1);
+  k = 1;
   expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.689437218, 10);
   k = 2;
   expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.2581000208, 10);
@@ -37,6 +38,8 @@ test('hypergeometric test', () => {
   expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.0040835205, 10);
   k = 5;
   expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.0001189375, 10);
+  k = 6;
+  expect(hyperGeometricTest(k, K, n, N)).toBe(0);
 });
 
 test('ttest', () => {
