@@ -1,16 +1,17 @@
 import { mean } from './math';
 import { hyperGeometricTest } from './math';
 import { ttest } from './math';
-import { calculateEnrichedSignatures } from './math';
-import { clusterData } from './math';
 import { fdr } from 'multtest';
+import { calculateEnrichedSignatures } from './math';
+import { calculateVolcanoSignatures } from './math';
 
 import selectedGenes from '../dummy-data/selected-genes.json';
 import participations from '../dummy-data/participations.json';
 import geneList from '../dummy-data/gene-list.json';
 import signatureList from '../dummy-data/signature-list.json';
+import activities from '../dummy-data/activities.json';
 import enrichedSignatures from '../dummy-data/enriched-signatures.json';
-import cluster from '../dummy-data/cluster.json';
+import volcanoSignatures from '../dummy-data/volcano-signatures.json';
 
 test('mean', () => {
   expect(mean([1, 2, 3])).toBe(2);
@@ -263,4 +264,40 @@ test('false discovery rate', () => {
     0.8478538839,
     0.5039586
   ]);
+});
+
+test('calculate volcano signatures', () => {
+  expect(
+    calculateVolcanoSignatures({
+      signatureList: 'LOADING',
+      activities: 'LOADING'
+    })
+  ).toStrictEqual([]);
+
+  expect(
+    calculateVolcanoSignatures({
+      signatureList: 'LOADING',
+      activities: [],
+      diamondGroup: [],
+      spadeGroup: []
+    })
+  ).toStrictEqual([]);
+
+  expect(
+    calculateVolcanoSignatures({
+      signatureList: [1, 2, 3, 4, 5],
+      activities: [],
+      diamondGroup: [],
+      spadeGroup: []
+    })
+  ).toStrictEqual([]);
+
+  expect(
+    calculateVolcanoSignatures({
+      signatureList,
+      activities,
+      diamondGroup: [11, 12, 15],
+      spadeGroup: [13, 14]
+    })
+  ).toStrictEqual(volcanoSignatures);
 });
