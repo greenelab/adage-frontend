@@ -28,11 +28,11 @@ export const mean = (array) => itermean(array2iterator(array));
 // n - number of items in sample
 // N - number of items in population
 // see https://stattrek.com/online-calculator/hypergeometric.aspx
-// by default, the stdlib cdf function gets P(X <= 1)
-// the equivalent R fisher test with alternative="less" also gets P(X <= 1)
+// the stdlib cdf function calculates P(X <= 1), with no option to change that
+// the equivalent R fisher test with alternative="less" also calculates P(X <= 1):
 // k <- 1; K <- 5; n <- 10; N <- 50; mat <- matrix(c(k, K-k, n-k, N-K-n+k), nrow=2, ncol=2); print(fisher.test(mat, alternative="less")$p.value, digits = 20);
 // but what we really want is P(X < 1)
-// therefore, provide k-1 as X instead of just k
+// therefore, provide k-1 as X instead of k
 export const hyperGeometricTest = (k, K, n, N) => cdf(k - 1, N, K, n);
 
 // perform two-sample, unpaired, welch's (student's) t-test and return p value
