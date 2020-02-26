@@ -27,13 +27,15 @@ export const mean = (array) => itermean(array2iterator(array));
 // K - number of successes in population
 // n - number of items in sample
 // N - number of items in population
+
 // see https://stattrek.com/online-calculator/hypergeometric.aspx
-// the stdlib cdf function calculates P(X <= 1), with no option to change that
-// the equivalent R fisher test with alternative="less" also calculates P(X <= 1):
-// k <- 1; K <- 5; n <- 10; N <- 50; mat <- matrix(c(k, K-k, n-k, N-K-n+k), nrow=2, ncol=2); print(fisher.test(mat, alternative="less")$p.value, digits = 20);
-// but what we really want is P(X < 1)
+// the stdlib cdf function calculates P(X <= k), but what we really want is 
+// P(X >= k). therefore, provide k-1 as X instead of k to get P(X < k), then
+// subtract the result from 1 to get P(X >= k)
 // therefore, provide k-1 as X instead of k
-export const hyperGeometricTest = (k, K, n, N) => cdf(k - 1, N, K, n);
+export const hyperGeometricTest = (k, K, n, N) => 1 - cdf(k - 1, N, K, n);
+// compare to the equivalent test in R, the fisher test:
+// k <- 1; K <- 5; n <- 10; N <- 50; mat <- matrix(c(k, K-k, n-k, N-K-n+k), nrow=2, ncol=2); print(fisher.test(mat, alternative="greater")$p.value, digits = 20);
 
 // perform two-sample, unpaired, welch's (student's) t-test and return p value
 export const ttest = (array1, array2) => ttest2(array1, array2).pValue;
@@ -91,7 +93,7 @@ export const calculateEnrichedSignatures = ({
       const n = signature.participatingGenes.length;
       // # of selected genes participating in the signature
       const k = signature.selectedParticipatingGenes.length;
-      const pValue = 1 - hyperGeometricTest(k, K, n, N);
+      const pValue = hyperGeometricTest(k, K, n, N);
 
       return { ...signature, pValue };
     });

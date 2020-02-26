@@ -28,15 +28,15 @@ test('hypergeometric test', () => {
   const n = 10;
   const N = 50;
   console.log(hyperGeometricTest(k, K, n, N))
-  expect(1 - hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.689437218, 10);
+  expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.689437218, 10);
   k = 2;
-  expect(1 - hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.2581000208, 10);
+  expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.2581000208, 10);
   k = 3;
-  expect(1 - hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.0482603032, 10);
+  expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.0482603032, 10);
   k = 4;
-  expect(1 - hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.0040835205, 10);
+  expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.0040835205, 10);
   k = 5;
-  expect(1 - hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.0001189375, 10);
+  expect(hyperGeometricTest(k, K, n, N)).toBeCloseTo(0.0001189375, 10);
 });
 
 test('ttest', () => {
