@@ -1,57 +1,45 @@
-import jStat from 'jstat';
+// https://stdlib.io/docs/api/v0.0.90/@stdlib/stats/iter/mean
+import array2iterator from '@stdlib/array/to-iterator';
+
+// https://stdlib.io/docs/api/v0.0.90/@stdlib/stats/iter/mean
+import itermean from '@stdlib/stats/iter/mean';
+
+// https://stdlib.io/docs/api/v0.0.90/@stdlib/stats/base/dists/hypergeometric/cdf
+import cdf from '@stdlib/stats/base/dists/hypergeometric/cdf';
+
+// https://stdlib.io/docs/api/v0.0.90/@stdlib/stats/ttest2
+import ttest2 from '@stdlib/stats/ttest2';
+
+// https://github.com/cmpolis/hcluster.js
 import hcluster from 'hclusterjs';
+
+// https://github.com/Planeshifter/multtest
 import { fdr } from 'multtest';
+
 import { isArray } from './types';
-import { isNumber } from './types';
 
 // get mean/average of array
-const mean = (array) => {
-  let count = 0;
-  let total = 0;
-
-  for (const element of array) {
-    if (isNumber(element)) {
-      count++;
-      total += element;
-    }
-  }
-
-  if (count > 0)
-    return total / count;
-  else
-    return 0;
-};
-
-// reference
-// https://bitbucket.org/cgreene/integrator/src/1194f7ae1b11057a4649114e1f55570542acbcde/integrator/static/js/imp.js?
-
-// k - number of successes in sample
-// n - number of items in sample
-const binomialLog = (n, k) => {
-  let coefficient = 0;
-  for (let i = n - k + 1; i <= n; i++)
-    coefficient += Math.log(i);
-  for (let i = 1; i <= k; i++)
-    coefficient -= Math.log(i);
-  return coefficient;
-};
+export const mean = (array) => itermean(array2iterator(array));
 
 // reference
 // https://en.wikipedia.org/wiki/Hypergeometric_distribution
+
+// see https://stattrek.com/online-calculator/hypergeometric.aspx
+// the stdlib cdf function calculates P(X <= k), but what we really want is 
+// P(X >= k). therefore, provide k-1 as X instead of k to get P(X < k), then
 
 // k - number of successes in sample
 // K - number of successes in population
 // n - number of items in sample
 // N - number of items in population
-const hyperGeometricTest = (k, K, n, N) => {
-  let sum = 0;
-  for (let i = 0; i < k; i++) {
-    sum += Math.exp(
-      binomialLog(K, i) + binomialLog(N - K, n - i) - binomialLog(N, n)
-    );
-  }
-  return sum;
-};
+// subtract the result from 1 to get P(X >= k)
+export const hyperGeometricTest = (k, K, n, N) => 1 - cdf(k - 1, N, K, n);
+
+// compare to the equivalent test in R, the fisher test:
+// k <- 1; K <- 5; n <- 10; N <- 50; mat <- matrix(c(k, K-k, n-k, N-K-n+k), nrow=2, ncol=2); print(fisher.test(mat, alternative="greater")$p.value, digits = 20);
+
+// perform two-sample, unpaired, welch's (student's) t-test and return p value
+export const ttest = (array1, array2) => ttest2(array1, array2).pValue;
 
 // calculate enriched signatures
 // adapted from https://github.com/greenelab/adage-server/blob/master/interface/src/app/gene/enriched_signatures.js
@@ -84,7 +72,7 @@ export const calculateEnrichedSignatures = ({
         .map((participation) => participation.gene);
 
       // of participating genes, get selected ones
-      const matchedGenes = participatingGenes
+      const selectedParticipatingGenes = participatingGenes
         .filter((gene) =>
           selectedGenes.find((selected) => selected.id === gene)
         )
@@ -92,17 +80,21 @@ export const calculateEnrichedSignatures = ({
         .map((gene) => selectedGenes.find((selected) => selected.id === gene));
 
       // add participating and matched genes to signature
-      return { ...signature, participatingGenes, matchedGenes };
+      return { ...signature, participatingGenes, selectedParticipatingGenes };
     })
     // remove signatures with no participating genes
     .filter((signature) => signature.participatingGenes.length)
     // compute p value of enriched signature
     .map((signature) => {
+      // # of all genes in the model
       const N = geneList.length;
+      // # of genes the user has selected
       const K = selectedGenes.length;
+      // # of genes participating in the signature
       const n = signature.participatingGenes.length;
-      const k = signature.matchedGenes.length;
-      const pValue = 1 - hyperGeometricTest(k, K, n, N);
+      // # of selected genes participating in the signature
+      const k = signature.selectedParticipatingGenes.length;
+      const pValue = hyperGeometricTest(k, K, n, N);
 
       return { ...signature, pValue };
     });
@@ -219,31 +211,4 @@ export const calculateVolcanoSignatures = ({
   }));
 
   return volcanoSignatures;
-};
-
-// perform two-sample, unpaired, welch's (student's) t-test and return p value
-// from https://github.com/jstat/jstat/issues/189#issuecomment-469255296
-// note: cannot use the 'ttest' library because downstream dependency is
-// written in web assembly and cannot be compiled by 'workerize-loader' yet
-const ttest = (array1, array2) => {
-  const n1 = array1.length; // array 1 length
-  const n2 = array2.length; // array 2 length
-  const n12 = Math.pow(n1, 2); // raised array 1 length
-  const n22 = Math.pow(n2, 2); // raised array 2 length
-  const meanA = jStat.mean(array1); // mean of array 1
-  const meanB = jStat.mean(array2); // mean of array 2
-  // raised stdev of array 1
-  const stdevA2 = Math.pow(jStat.stdev(array1, true), 2);
-  // raised stdev of array 2
-  const stdevB2 = Math.pow(jStat.stdev(array2, true), 2);
-  // raised by 4 stdev of array 1
-  const stdevA4 = Math.pow(jStat.stdev(array1, true), 4);
-  // raised by 4 stdev of array 2
-  const stdevB4 = Math.pow(jStat.stdev(array2, true), 4);
-  const t = (meanA - meanB) / Math.sqrt(stdevA2 / n1 + stdevB2 / n2);
-  const dfUpper = Math.pow(stdevA2 / n1 + stdevB2 / n2, 2);
-  const dfLower = stdevA4 / (n12 * (n1 - 1)) + stdevB4 / (n22 * (n2 - 1));
-  const df = Math.round(dfUpper / dfLower);
-  const pValue = jStat.studentt.cdf(-Math.abs(t), df) * 2;
-  return pValue;
 };

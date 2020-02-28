@@ -5,7 +5,7 @@ export const downloadTable = ({ enrichedSignatures }) => {
   const data = enrichedSignatures
     .map((enrichedSignature) => ({
       name: enrichedSignature.name,
-      overlappingGenes: enrichedSignature.matchedGenes
+      overlappingGenes: enrichedSignature.selectedParticipatingGenes
         .map((gene) => gene.systematicName)
         .join(' '),
       pValue: enrichedSignature.pValue

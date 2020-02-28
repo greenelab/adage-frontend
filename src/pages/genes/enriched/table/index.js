@@ -34,7 +34,7 @@ let Table = ({ enrichedSignatures }) => (
       },
       {
         name: 'p-value',
-        value: 'pValue',
+        value: (cell) => cell.pValue.toFixed(8),
         width: '25%',
         align: 'center'
       }
@@ -48,7 +48,7 @@ const mapStateToProps = (state) => ({
   enrichedSignatures: state.gene.enrichedSignatures.map((signature) => ({
     id: signature.id,
     name: signature.name,
-    genes: signature.matchedGenes,
+    genes: signature.selectedParticipatingGenes,
     pValue: signature.pValue
   }))
 });
