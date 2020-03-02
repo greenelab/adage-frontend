@@ -129,7 +129,7 @@ export const clusterData = ({ data, idKey, valueKey }) => {
   newData = [...Object.values(newData)];
 
   // cluster data using hclust library and give back ordered list of ids
-  return hclust({ data: newData, key: valueKey, onProgress: null }).order.map(
+  return hclust({ data: newData, key: valueKey }).order.map(
     (index) => newData[index][idKey]
   );
 };
