@@ -40,15 +40,27 @@ let Activities = ({ selectedExperiment, activities }) => {
     setSortedSignatures(null);
   }, [selectedExperiment]);
 
+  // sort samples
   const sortSamples = useCallback(async () => {
     setSortedSamples(actionStatuses.LOADING);
-    setSortedSamples(await worker().clusterData(activities, 'sample', 'value'));
+    setSortedSamples(
+      await worker().clusterData({
+        data: activities,
+        idKey: 'sample',
+        valueKey: 'value',
+      })
+    );
   }, [activities]);
 
+  // sort signatures
   const sortSignatures = useCallback(async () => {
     setSortedSignatures(actionStatuses.LOADING);
     setSortedSignatures(
-      await worker().clusterData(activities, 'signature', 'value')
+      await worker().clusterData({
+        data: activities,
+        idKey: 'signature',
+        valueKey: 'value',
+      })
     );
   }, [activities]);
 
