@@ -8,13 +8,15 @@ import HorizontalLine from '../../components/horizontal-line';
 
 import './index.css';
 import { isNumber } from '../../util/types';
+import { isObject } from '../../util/types';
+import { isEmpty } from '../../util/types';
 import { isString } from '../../util/types';
 import { isArray } from '../../util/types';
 
 // table showing all key/value pairs of an object/item
 
 const Details = ({ data = {} }) => {
-  if (typeof data !== 'object' || data === null || !Object.keys(data).length)
+  if (!isObject(data) || isEmpty(data))
     return <></>;
 
   return (

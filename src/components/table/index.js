@@ -15,7 +15,7 @@ import './index.css';
 // table component
 // columns - [{name, value, render, width, align, padded}]
 //   name - name to display in column header
-//   value - value to use for sorting cell
+//   value - key/accessor to use for sorting cell
 //   render - component to use for rendering cell
 //   width - css width of column
 //   align - css flex justify-content value
