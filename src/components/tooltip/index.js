@@ -97,7 +97,7 @@ const Portal = ({ anchor, speed }) => {
   if (objectLabel) {
     const fields = humanizeKeys(objectLabel);
     content = (
-      <table className='text_small tooltip_table'>
+      <table className='tooltip_table text_small'>
         <tbody>
           {Object.entries(fields).map(([key, value], index) => (
             <tr key={index}>

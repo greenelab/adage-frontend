@@ -10,21 +10,14 @@ import './index.css';
 
 // takes fetch action statuses and displays appropriate message and icon
 
-const FetchAlert = ({
-  status = '',
-  subject = '',
-  loadingText = '',
-  emptyText = '',
-  errorText = '',
-  className = ''
-}) => {
+const FetchAlert = ({ status = '', subject = '', className = '' }) => {
   let text = status;
   if (status === actionStatuses.LOADING)
-    text = loadingText || 'Loading ' + subject;
+    text = 'Loading ' + subject;
   else if (status === actionStatuses.EMPTY)
-    text = emptyText || 'No ' + subject + ' found';
+    text = 'No ' + subject + ' found';
   else if (status === actionStatuses.ERROR)
-    text = errorText || 'Error loading ' + subject;
+    text = 'Error loading ' + subject;
 
   return (
     <div
