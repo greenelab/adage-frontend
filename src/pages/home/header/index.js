@@ -41,20 +41,19 @@ const visualization = (canvas) => {
   const fps = 50; // frames per second
   const background = '#000000'; // background color
   const color = '#26a36c'; // dot color
-  const blur = 50; // canvas blur
-  const spacing = 15; // space between waves/rows
+  const blur = 100; // canvas blur
+  const spawn = 0.1; // spawn probability each step
+  const spacing = 10; // space between waves/rows
   const size = 1; // dot radius
   const minSpeed = 1; // dot min horizontal speed
   const maxSpeed = 1; // dot max horizontal speed
-  const ampMax = 10; // range of amplitude of wave
-  const ampFall = 200; // how fast amp falls off away from center
-  const freqMin = 1; // min frequency of wave
-  const freqMax = 3; // range of frequency of wave
-  const freqFall = 500; // how fast freq falls off away from center
+  const ampMax = 10; // max amplitude of wave
+  const ampFall = 400; // how fast amp falls off away from center
+  const freqMax = 6; // max frequency of wave
+  const freqFall = 400; // how fast freq falls off away from center
 
   // globals
   const ctx = canvas.getContext('2d');
-  ctx.globalCompositeOperation = 'copy';
   let width;
   let height;
   let dots = [];
@@ -98,7 +97,7 @@ const visualization = (canvas) => {
 
       this.x += this.vx;
       const x = Math.abs(this.x - width / 2);
-      const freq = freqMin + Math.pow(1 + 1 / freqFall, -x) * freqMax;
+      const freq = Math.pow(1 + 1 / freqFall, -x) * freqMax;
       const amp = Math.pow(1 + 1 / ampFall, -x) * ampMax;
       this.y = this.yStart - cos(x * freq) * amp;
 
@@ -128,7 +127,7 @@ const visualization = (canvas) => {
   // one frame step
   const step = () => {
     // create new dots to left of screen at random
-    if (Math.random() < 0.1)
+    if (Math.random() < spawn)
       dots.push(new Dot());
 
     // step all dots
