@@ -56,6 +56,7 @@ const visualization = (canvas) => {
   const ctx = canvas.getContext('2d');
   let width;
   let height;
+
   let dots = [];
 
   // on window resize
