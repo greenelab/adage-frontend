@@ -32,6 +32,7 @@ const Header = () => {
 
 export default Header;
 
+// math helpers
 const cos = (degrees) => Math.cos((2 * Math.PI * degrees) / 360);
 
 const visualization = (canvas) => {
@@ -82,7 +83,7 @@ const visualization = (canvas) => {
     constructor() {
       this.x = -size;
       this.y = undefined;
-      this.y0 = Math.round((height / spacing) * Math.random()) * spacing;
+      this.yStart = Math.round((height / spacing) * Math.random()) * spacing;
       this.vx = minSpeed + Math.random() * maxSpeed;
 
       this.xPrev = undefined;
@@ -99,7 +100,7 @@ const visualization = (canvas) => {
       const x = Math.abs(this.x - width / 2);
       const freq = freqMin + Math.pow(1 + 1 / freqFall, -x) * freqMax;
       const amp = Math.pow(1 + 1 / ampFall, -x) * ampMax;
-      this.y = this.y0 - cos(x * freq) * amp;
+      this.y = this.yStart - cos(x * freq) * amp;
 
       this.speed = Math.sqrt(
         Math.pow(this.x - this.xPrev, 2) + Math.pow(this.y - this.yPrev, 2)
