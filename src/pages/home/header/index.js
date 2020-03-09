@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 import { ReactComponent as AdageLogo } from '../../../images/logo.svg';
 
@@ -8,11 +10,155 @@ import packageJson from '../../../../package.json';
 
 // big header with logo on home page
 
-const Header = () => (
-  <header className='home_header' title={packageJson.version}>
-    <AdageLogo />
-    <span className='text_huge'>adage</span>
-  </header>
-);
+const Header = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const canvas = document.querySelector('#canvas');
+    if (canvas && !mounted) {
+      visualization(canvas);
+      setMounted(true);
+    }
+  }, [mounted]);
+
+  return (
+    <header className='home_header' title={packageJson.version}>
+      <canvas id='canvas' />
+      <AdageLogo />
+      <span className='text_huge'>adage</span>
+    </header>
+  );
+};
 
 export default Header;
+
+// math helpers
+const cos = (degrees) => Math.cos((2 * Math.PI * degrees) / 360);
+
+const visualization = (canvas) => {
+  // settings
+  const resolution = 2; // set to 2x for high dpi screens
+  const fps = 50; // frames per second
+  const background = '#000000'; // background color
+  const color = '#26a36c'; // dot color
+  const blur = 100; // canvas blur
+  const spawn = 0.1; // spawn probability each step
+  const spacing = 10; // space between waves/rows
+  const size = 1; // dot radius
+  const minSpeed = 1; // dot min horizontal speed
+  const maxSpeed = 1; // dot max horizontal speed
+  const ampMax = 10; // max amplitude of wave
+  const ampFall = 400; // how fast amp falls off away from center
+  const freqMax = 6; // max frequency of wave
+  const freqFall = 400; // how fast freq falls off away from center
+
+  // globals
+  const ctx = canvas.getContext('2d');
+  let width;
+  let height;
+
+  let dots = [];
+
+  // on window resize
+  const resize = () => {
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    canvas.width = width * resolution;
+    canvas.height = height * resolution;
+    ctx.scale(resolution, resolution);
+    dots = [];
+  };
+  window.addEventListener('resize', resize);
+
+  // clear canvas
+  const clear = () => {
+    ctx.globalAlpha = 1 / blur;
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, width, height);
+    ctx.globalAlpha = 1;
+  };
+
+  // dot object
+  class Dot {
+    constructor() {
+      this.x = -size;
+      this.y = undefined;
+      this.yStart = Math.round((height / spacing) * Math.random()) * spacing;
+      this.vx = minSpeed + Math.random() * maxSpeed;
+
+      this.xPrev = undefined;
+      this.yPrev = undefined;
+      this.speed = undefined;
+    }
+
+    // calculate position and other props
+    step() {
+      this.xPrev = this.x;
+      this.yPrev = this.y;
+
+      this.x += this.vx;
+      const x = Math.abs(this.x - width / 2);
+      const freq = Math.pow(1 + 1 / freqFall, -x) * freqMax;
+      const amp = Math.pow(1 + 1 / ampFall, -x) * ampMax;
+      this.y = this.yStart - cos(x * freq) * amp;
+
+      this.speed = Math.sqrt(
+        Math.pow(this.x - this.xPrev, 2) + Math.pow(this.y - this.yPrev, 2)
+      );
+    }
+
+    // draw, with interpolated positions based on speed
+    draw() {
+      ctx.fillStyle = color;
+      const steps = this.speed / size;
+      for (let step = 0; step < steps; step++) {
+        ctx.beginPath();
+        ctx.arc(
+          this.xPrev + (this.x - this.xPrev) * (step / steps),
+          this.yPrev + (this.y - this.yPrev) * (step / steps),
+          size,
+          0,
+          2 * Math.PI
+        );
+        ctx.fill();
+      }
+    }
+  }
+
+  // one frame step
+  const step = () => {
+    // create new dots to left of screen at random
+    if (Math.random() < spawn)
+      dots.push(new Dot());
+
+    // step all dots
+    for (const dot of dots)
+      dot.step();
+
+    // remove dots past right side of screen
+    for (let index = 0; index < dots.length; index++) {
+      if (dots[index].x > width) {
+        dots.splice(index, 1);
+        index--;
+      }
+    }
+  };
+
+  // one frame draw
+  const draw = () => {
+    // draw all dots
+    for (const dot of dots)
+      dot.draw();
+  };
+
+  // one frame
+  const frame = () => {
+    clear();
+    step();
+    draw();
+  };
+
+  // start visualization
+  resize();
+  window.setInterval(frame, 1000 / fps);
+};

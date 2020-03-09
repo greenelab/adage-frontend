@@ -1,4 +1,5 @@
 .home_header {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,4 +12,15 @@
 }
 .home_header > svg {
   margin-bottom: 5px;
+}
+.home_header > svg,
+.home_header > span {
+  z-index: 1;
+}
+#canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  filter: contrast(125%);
 }
