@@ -42,8 +42,8 @@ const visualization = (canvas) => {
   const background = '#000000'; // background color
   const color = '#26a36c'; // dot color
   const blur = 50; // canvas blur
-  const spacing = 10; // space between waves/rows
-  const size = 0.5; // dot radius
+  const spacing = 15; // space between waves/rows
+  const size = 1; // dot radius
   const minSpeed = 1; // dot min horizontal speed
   const maxSpeed = 1; // dot max horizontal speed
   const ampMax = 10; // range of amplitude of wave
