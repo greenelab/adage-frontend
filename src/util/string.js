@@ -1,6 +1,9 @@
-// convert underscore_case and dash-case to Human Case
+// convert camelCase, underscore_case, and dash-case to Human Case
 export const toHumanCase = (string) => {
-  string = string.replace(/([a-z0-9])([A-Z0-9])/g, '$1 $2').split(/_|-|\s+/);
+  string = string
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/([a-zA-Z])([0-9])/g, '$1 $2')
+    .split(/_|-|\s+/);
   string = string.map(
     (word) => word.charAt(0).toUpperCase() + word.substring(1)
   );
@@ -8,9 +11,12 @@ export const toHumanCase = (string) => {
   return string;
 };
 
-// convert underscore_case and dash-case to camelCase
+// convert camelCase, underscore_case, and dash-case to camelCase
 export const toCamelCase = (string) => {
-  string = string.replace(/([a-z0-9])([A-Z0-9])/g, '$1 $2').split(/_|-|\s+/);
+  string = string
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/([a-zA-Z])([0-9])/g, '$1 $2')
+    .split(/_|-|\s+/);
   string = string.map((word, index) =>
     index > 0 ? word.charAt(0).toUpperCase() + word.substring(1) : word
   );
@@ -49,7 +55,8 @@ export const transformString = (...args) => {
 
   return operations
     .map(
-      (operation) => operation.name + '(' + operation.parameters.join(',') + ')'
+      (operation) =>
+        operation.name + '(' + operation.parameters.join(', ') + ')'
     )
     .join(' ');
 };

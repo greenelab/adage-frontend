@@ -67,19 +67,14 @@ export const filterKeys = (object, filter = [], whiteList = false) => {
   return object;
 };
 
-// "clean" value. decode html within strings, show falsey values as a dash
+// "clean" value. decode html within strings, show blank values as a dash
 export const cleanValue = (value) => {
   if (isBlank(value))
     return '-';
-
-  if (isString(value)) {
-    if (!value.trim())
-      return '-';
-    else
-      return decode(value);
-  }
-
-  return value;
+  else if (isString(value))
+    return decode(value);
+  else
+    return value;
 };
 
 // go through values of object and "clean" them
