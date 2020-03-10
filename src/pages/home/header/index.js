@@ -14,7 +14,7 @@ const Header = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const canvas = document.querySelector('#canvas');
+    const canvas = document.querySelector('.home_canvas');
     if (canvas && !mounted) {
       visualization(canvas);
       setMounted(true);
@@ -23,9 +23,10 @@ const Header = () => {
 
   return (
     <header className='home_header' title={packageJson.version}>
-      <canvas id='canvas' />
-      <AdageLogo />
-      <span className='text_huge'>adage</span>
+      <canvas className='home_canvas' />
+      <div className='home_shadow' />
+      <AdageLogo className='home_logo' />
+      <span className='home_title text_huge'>adage</span>
     </header>
   );
 };
@@ -42,15 +43,15 @@ const visualization = (canvas) => {
   const background = '#000000'; // background color
   const color = '#26a36c'; // dot color
   const blur = 100; // canvas blur
-  const spawn = 0.1; // spawn probability each step
+  const spawn = 0.25; // spawn probability each step
   const spacing = 10; // space between waves/rows
-  const size = 1; // dot radius
+  const size = 0.5; // dot radius
   const minSpeed = 1; // dot min horizontal speed
-  const maxSpeed = 1; // dot max horizontal speed
-  const ampMax = 10; // max amplitude of wave
-  const ampFall = 400; // how fast amp falls off away from center
-  const freqMax = 6; // max frequency of wave
-  const freqFall = 400; // how fast freq falls off away from center
+  const maxSpeed = 3; // range of dot horizontal speed
+  const ampMax = 10; // range of amplitude of wave
+  const ampFall = 250; // how fast amp falls off away from center
+  const freqMax = 10; // range of frequency of wave
+  const freqFall = 250; // how fast freq falls off away from center
 
   // globals
   const ctx = canvas.getContext('2d');

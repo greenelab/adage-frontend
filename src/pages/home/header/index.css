@@ -10,17 +10,24 @@
   background: var(--black);
   color: var(--white);
 }
-.home_header > svg {
-  margin-bottom: 5px;
-}
-.home_header > svg,
-.home_header > span {
-  z-index: 1;
-}
-#canvas {
+.home_canvas {
   position: absolute;
   width: 100%;
   height: 100%;
-  opacity: 0.5;
+  opacity: 0.75;
   filter: contrast(125%);
+}
+.home_shadow {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, #000000c0 50px, #00000000 150px);
+  z-index: 1;
+}
+.home_logo {
+  margin-bottom: 5px;
+}
+.home_logo,
+.home_title {
+  z-index: 2;
 }
