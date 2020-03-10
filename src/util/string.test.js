@@ -4,6 +4,10 @@ import { transformString } from './string';
 
 test('to human case', () => {
   expect(toHumanCase('Test String')).toBe('Test String');
+  expect(toHumanCase('Test String A')).toBe('Test String A');
+  expect(toHumanCase('Test StringA')).toBe('Test String A');
+  expect(toHumanCase('Test String 1')).toBe('Test String 1');
+  expect(toHumanCase('Test String1')).toBe('Test String 1');
   expect(toHumanCase('test string')).toBe('Test String');
   expect(toHumanCase('tEst string')).toBe('T Est String');
   expect(toHumanCase('tEst stRing')).toBe('T Est St Ring');
@@ -20,6 +24,10 @@ test('to human case', () => {
 
 test('to camel case', () => {
   expect(toCamelCase('Test String')).toBe('testString');
+  expect(toCamelCase('Test String A')).toBe('testStringA');
+  expect(toCamelCase('Test StringA')).toBe('testStringA');
+  expect(toCamelCase('Test String 1')).toBe('testString1');
+  expect(toCamelCase('Test String1')).toBe('testString1');
   expect(toCamelCase('test string')).toBe('testString');
   expect(toCamelCase('tEst string')).toBe('tEstString');
   expect(toCamelCase('tEst stRing')).toBe('tEstStRing');
