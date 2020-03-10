@@ -3,6 +3,7 @@ import { toCamelCase } from './string';
 import { transformString } from './string';
 
 test('to human case', () => {
+  expect(toHumanCase('Test String')).toBe('Test String');
   expect(toHumanCase('test string')).toBe('Test String');
   expect(toHumanCase('tEst string')).toBe('T Est String');
   expect(toHumanCase('tEst stRing')).toBe('T Est St Ring');
@@ -18,6 +19,7 @@ test('to human case', () => {
 });
 
 test('to camel case', () => {
+  expect(toCamelCase('Test String')).toBe('testString');
   expect(toCamelCase('test string')).toBe('testString');
   expect(toCamelCase('tEst string')).toBe('tEstString');
   expect(toCamelCase('tEst stRing')).toBe('tEstStRing');

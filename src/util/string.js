@@ -3,6 +3,7 @@ export const toHumanCase = (string) => {
   string = string
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/([a-zA-Z])([0-9])/g, '$1 $2')
+    .toLowerCase()
     .split(/_|-|\s+/);
   string = string.map(
     (word) => word.charAt(0).toUpperCase() + word.substring(1)
@@ -16,6 +17,7 @@ export const toCamelCase = (string) => {
   string = string
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/([a-zA-Z])([0-9])/g, '$1 $2')
+    .toLowerCase()
     .split(/_|-|\s+/);
   string = string.map((word, index) =>
     index > 0 ? word.charAt(0).toUpperCase() + word.substring(1) : word
