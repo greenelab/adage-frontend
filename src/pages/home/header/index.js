@@ -36,6 +36,16 @@ export default Header;
 // math helpers
 const cos = (degrees) => Math.cos((2 * Math.PI * degrees) / 360);
 
+// general shape of curve we want
+// y = a^-|x|
+// where eg a = 1 is linear, a = 10 is steeply exponential
+// do some math and wolfram alpha magic to get this eq
+// y = (h - h * a^(1 - |x| / w)) / (1 - a)
+// where h is x-axis intercept and h is y-axis intercept
+// https://www.desmos.com/calculator/r2wkqakaqi
+const curve = (x, w, h, a) =>
+  Math.max(0, (h - h * Math.pow(a, 1 - x / w)) / (1 - a));
+
 const visualization = (canvas) => {
   // settings
   const resolution = 2; // set to 2x for high dpi screens
@@ -47,11 +57,11 @@ const visualization = (canvas) => {
   const spacing = 10; // space between waves/rows
   const size = 0.5; // dot radius
   const minSpeed = 1; // dot min horizontal speed
-  const maxSpeed = 3; // range of dot horizontal speed
+  const maxSpeed = 3; // dot max horizontal speed
   const ampMax = 10; // range of amplitude of wave
   const ampFall = 250; // how fast amp falls off away from center
   const freqMax = 10; // range of frequency of wave
-  const freqFall = 250; // how fast freq falls off away from center
+  const freqFall = 500; // how fast freq falls off away from center
 
   // globals
   const ctx = canvas.getContext('2d');
@@ -85,7 +95,7 @@ const visualization = (canvas) => {
       this.x = -size;
       this.y = undefined;
       this.yStart = Math.round((height / spacing) * Math.random()) * spacing;
-      this.vx = minSpeed + Math.random() * maxSpeed;
+      this.vx = minSpeed + Math.random() * (maxSpeed - minSpeed);
 
       this.xPrev = undefined;
       this.yPrev = undefined;
@@ -99,8 +109,8 @@ const visualization = (canvas) => {
 
       this.x += this.vx;
       const x = Math.abs(this.x - width / 2);
-      const freq = Math.pow(1 + 1 / freqFall, -x) * freqMax;
-      const amp = Math.pow(1 + 1 / ampFall, -x) * ampMax;
+      const freq = curve(x, freqFall, freqMax, 16);
+      const amp = curve(x, ampFall, ampMax, 16);
       this.y = this.yStart - cos(x * freq) * amp;
 
       this.speed = Math.sqrt(
