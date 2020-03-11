@@ -58,9 +58,9 @@ const visualization = (canvas) => {
   const size = 0.5; // dot radius
   const minSpeed = 1; // dot min horizontal speed
   const maxSpeed = 3; // dot max horizontal speed
-  const ampMax = 10; // range of amplitude of wave
+  const ampMax = 10; // max of amplitude of wave
   const ampFall = 250; // how fast amp falls off away from center
-  const freqMax = 10; // range of frequency of wave
+  const freqMax = 10; // max of frequency of wave
   const freqFall = 500; // how fast freq falls off away from center
 
   // globals
@@ -109,8 +109,8 @@ const visualization = (canvas) => {
 
       this.x += this.vx;
       const x = Math.abs(this.x - width / 2);
-      const freq = curve(x, freqFall, freqMax, 16);
-      const amp = curve(x, ampFall, ampMax, 16);
+      const freq = curve(x, freqFall, freqMax, 10);
+      const amp = curve(x, ampFall, ampMax, 10);
       this.y = this.yStart - cos(x * freq) * amp;
 
       this.speed = Math.sqrt(
