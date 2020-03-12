@@ -18,5 +18,13 @@ export const getSignatureList = createFetchAction(
   urlSignatureList
 );
 
+// search for signature based on query
+export const getSignatureSearch = createAction('GET_SIGNATURE_SEARCH');
+
 // select signature based on id
 export const selectSignature = createAction('SELECT_SIGNATURE');
+
+// fill in remaining details of selected signatures
+export const getSignatureSelectedDetails = createAction(
+  'GET_SIGNATURE_SELECTED_DETAILS'
+);

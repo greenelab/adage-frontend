@@ -18,7 +18,7 @@ let Single = ({ results, highlightedIndex }) => (
     )}
     {isString(results) && (
       <FetchAlert
-        className='gene_search_results_single_alert'
+        className='search_results_single_alert'
         status={results}
         subject='gene results'
       />

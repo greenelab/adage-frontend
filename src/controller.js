@@ -10,6 +10,7 @@ import { getSignatureList } from './actions/signatures';
 import { getGeneSelectedDetails } from './actions/genes';
 import { getExperimentSelectedDetails } from './actions/experiments';
 import { getSampleSelectedDetails } from './actions/samples';
+import { getSignatureSelectedDetails } from './actions/signatures';
 import { getParticipations } from './actions/genes';
 import { setEnrichedSignatures } from './actions/genes';
 import { getGeneEdges } from './actions/genes';
@@ -37,9 +38,11 @@ let Controller = ({
   selectedModel,
   selectedGenes,
   selectedExperiment,
+  selectedSignature,
   selectedGenesLoaded,
   selectedExperimentLoaded,
   selectedSamplesLoaded,
+  selectedSignatureLoaded,
   activities,
   diamondGroup,
   spadeGroup,
@@ -51,6 +54,7 @@ let Controller = ({
   getGeneSelectedDetails,
   getExperimentSelectedDetails,
   getSampleSelectedDetails,
+  getSignatureSelectedDetails,
   getParticipations,
   setEnrichedSignatures,
   getGeneEdges,
@@ -118,9 +122,10 @@ let Controller = ({
     });
   }, [selectedExperiment, selectSamples]);
 
-  // when full list loads or when new gene selected
+  // when full gene list loads or when new gene selected
   // fill in full details of selected genes
   useEffect(() => {
+    // if details already filled in, exit
     if (selectedGenesLoaded)
       return;
 
@@ -132,9 +137,10 @@ let Controller = ({
     getGeneSelectedDetails
   ]);
 
-  // when full list loads or when new experiment selected
+  // when full experiment list loads or when new experiment selected
   // fill in full details of selected experiments
   useEffect(() => {
+    // if details already filled in, exit
     if (selectedExperimentLoaded)
       return;
 
@@ -146,20 +152,36 @@ let Controller = ({
     getExperimentSelectedDetails
   ]);
 
-  // when full list loads or when new sample selected
+  // when full sample list loads or when new sample selected
   // fill in full details of selected samples
   useEffect(() => {
+    // if details already filled in, exit
     if (selectedSamplesLoaded)
       return;
 
     getSampleSelectedDetails();
   }, [sampleList.length, selectedSamplesLoaded, getSampleSelectedDetails]);
 
+  // when full signature list loads or when new signature selected
+  // fill in full details of selected signatures
+  useEffect(() => {
+    // if details already filled in, exit
+    if (selectedSignatureLoaded)
+      return;
+
+    getSignatureSelectedDetails();
+  }, [
+    signatureList.length,
+    selectedSignature.accession,
+    selectedSignatureLoaded,
+    getSignatureSelectedDetails
+  ]);
+
   // when full gene list, selected genes, or full signature list change
   // recompute enriched signatures
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
-    if (!selectedGenesLoaded)
+    if (!selectedGenes.length || !selectedGenesLoaded)
       return;
 
     getParticipations({
@@ -209,7 +231,7 @@ let Controller = ({
   // get gene network edges
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
-    if (!selectedGenesLoaded)
+    if (!selectedModel || !selectedGenes.length || !selectedGenesLoaded)
       return;
 
     getGeneEdges({
@@ -277,18 +299,16 @@ const mapStateToProps = (state) => ({
   participations: state.gene.participations,
   selectedModel: state.model.selected,
   selectedOrganism: isArray(state.model.list) ?
-    (
-      state.model.list.find((model) => model.id === state.model.selected) ||
-        {}
-    ).organism || null :
+    (state.model.list.find((model) => model.id === state.model.selected) || {})
+      .organism || null :
     null,
   selectedGenes: state.gene.selected,
   selectedExperiment: state.experiment.selected,
+  selectedSignature: state.signature.selected,
   selectedGenesLoaded: state.gene.selected.every((selected) => selected.name),
   selectedExperimentLoaded: state.experiment.selected.name ? true : false,
-  selectedSamplesLoaded: state.sample.selected.every(
-    (selected) => selected.name
-  ),
+  selectedSamplesLoaded: state.sample.selected.every((selected) => selected.name),
+  selectedSignatureLoaded: state.signature.selected.name ? true : false,
   activities: state.sample.activities,
   diamondGroup: state.sample.groups.diamond,
   spadeGroup: state.sample.groups.spade
@@ -304,6 +324,7 @@ const mapDispatchToProps = (dispatch) => {
     getGeneSelectedDetails,
     getExperimentSelectedDetails,
     getSampleSelectedDetails,
+    getSignatureSelectedDetails,
     getParticipations,
     setEnrichedSignatures,
     getGeneEdges,

@@ -70,6 +70,15 @@ export const querySync = reduxQuerySync.enhancer({
           ids: value ? value.split('-').map((id) => Number(id)) : null
         }
       })
+    },
+    'signatures': {
+      selector: (state) => state.signature.selected.id,
+      action: (value) => ({
+        type: 'SELECT_SIGNATURES_FROM_URL',
+        payload: {
+          id: Number(value)
+        }
+      })
     }
   },
   history: history,

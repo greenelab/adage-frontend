@@ -5,7 +5,7 @@ import SingleTable from '../single-table';
 import FetchAlert from '../../../../components/fetch-alert';
 import { isArray } from '../../../../util/types';
 import { isString } from '../../../../util/types';
-import { mapExperimentResult } from '../';
+import { mapSignatureResult } from '../';
 
 import './index.css';
 
@@ -20,19 +20,19 @@ let Single = ({ results, highlightedIndex }) => (
       <FetchAlert
         className='search_results_single_alert'
         status={results}
-        subject='experiment results'
+        subject='signature results'
       />
     )}
   </>
 );
 
 const mapStateToProps = (state) => ({
-  results: state.experiment.searches[0] ?
-    isArray(state.experiment.searches[0].results) ?
-      state.experiment.searches[0].results.map((result) =>
-        mapExperimentResult(result, state)
+  results: state.signature.searches[0] ?
+    isArray(state.signature.searches[0].results) ?
+      state.signature.searches[0].results.map((result) =>
+        mapSignatureResult(result, state)
       ) :
-      state.experiment.searches[0].results :
+      state.signature.searches[0].results :
     ''
 });
 
