@@ -6,7 +6,7 @@
   flex-direction: column;
   flex-grow: 0;
   flex-shrink: 0;
-  height: 250px;
+  height: 300px;
   background: var(--black);
   color: var(--white);
 }
@@ -14,14 +14,14 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  /* opacity: 0.75; */
+  opacity: 0.75;
   filter: contrast(125%);
 }
 .home_shadow {
   position: absolute;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, #000000c0 50px, #00000000 150px);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #000000ff 100px, #00000000 150px);
   z-index: 1;
 }
 .home_logo {

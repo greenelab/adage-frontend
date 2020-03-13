@@ -16,7 +16,7 @@ import './index.css';
 let Search = ({ results, select, search }) => (
   <SearchComponent
     length={results?.length || null}
-    placeholder='search for a experiment'
+    placeholder='search for an experiment'
     onSearch={(value) => {
       const string = value.trim();
       search({

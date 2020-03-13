@@ -3,6 +3,9 @@ import React from 'react';
 import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
+import Section from '../../components/section';
+import Search from './search';
+import Selected from './selected';
 
 import './index.css';
 
@@ -11,7 +14,14 @@ import './index.css';
 const Signatures = () => (
   <>
     <Header />
-    <Main />
+    <Main>
+      <Section header="Signature Search">
+        <Search />
+      </Section>
+      <Section header="Selected Signature">
+        <Selected />
+      </Section>
+    </Main>
     <Footer />
   </>
 );
