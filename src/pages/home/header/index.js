@@ -8,7 +8,7 @@ import './index.css';
 
 import packageJson from '../../../../package.json';
 
-// big header with logo on home page
+// big header with logo on home page and background visualization
 
 const Header = () => {
   const [mounted, setMounted] = useState(false);
@@ -51,13 +51,13 @@ const visualization = (canvas) => {
   const resolution = 2; // set to 2x for high dpi screens
   const fps = 50; // frames per second
   const background = '#000000'; // background color
-  const color = '#26a36c'; // dot color
+  const color = '#26a36c'; // photon color
   const blur = 100; // canvas blur
   const spawn = 0.25; // spawn probability each step
   const spacing = 10; // space between waves/rows
-  const size = 0.5; // dot radius
-  const minSpeed = 1; // dot min horizontal speed
-  const maxSpeed = 3; // dot max horizontal speed
+  const thickness = 1; // photon thickness
+  const minSpeed = 1; // photon min horizontal speed
+  const maxSpeed = 3; // photon max horizontal speed
   const ampMax = 10; // max of amplitude of wave
   const ampFall = 250; // how fast amp falls off away from center
   const freqMax = 10; // max of frequency of wave
@@ -68,7 +68,7 @@ const visualization = (canvas) => {
   let width;
   let height;
 
-  let dots = [];
+  let photons = [];
 
   // on window resize
   const resize = () => {
@@ -77,7 +77,7 @@ const visualization = (canvas) => {
     canvas.width = width * resolution;
     canvas.height = height * resolution;
     ctx.scale(resolution, resolution);
-    dots = [];
+    photons = [];
   };
   window.addEventListener('resize', resize);
 
@@ -89,17 +89,16 @@ const visualization = (canvas) => {
     ctx.globalAlpha = 1;
   };
 
-  // dot object
-  class Dot {
+  // photon object
+  class Photon {
     constructor() {
-      this.x = -size;
+      this.x = -thickness;
       this.y = undefined;
       this.yStart = Math.round((height / spacing) * Math.random()) * spacing;
       this.vx = minSpeed + Math.random() * (maxSpeed - minSpeed);
 
       this.xPrev = undefined;
       this.yPrev = undefined;
-      this.speed = undefined;
     }
 
     // calculate position and other props
@@ -112,44 +111,33 @@ const visualization = (canvas) => {
       const freq = curve(x, freqFall, freqMax, 10);
       const amp = curve(x, ampFall, ampMax, 10);
       this.y = this.yStart - cos(x * freq) * amp;
-
-      this.speed = Math.sqrt(
-        Math.pow(this.x - this.xPrev, 2) + Math.pow(this.y - this.yPrev, 2)
-      );
     }
 
     // draw, with interpolated positions based on speed
     draw() {
-      ctx.fillStyle = color;
-      const steps = this.speed / size;
-      for (let step = 0; step < steps; step++) {
-        ctx.beginPath();
-        ctx.arc(
-          this.xPrev + (this.x - this.xPrev) * (step / steps),
-          this.yPrev + (this.y - this.yPrev) * (step / steps),
-          size,
-          0,
-          2 * Math.PI
-        );
-        ctx.fill();
-      }
+      ctx.strokeStyle = color;
+      ctx.lineWidth = thickness;
+      ctx.beginPath();
+      ctx.moveTo(this.xPrev, this.yPrev);
+      ctx.lineTo(this.x, this.y);
+      ctx.stroke();
     }
   }
 
   // one frame step
   const step = () => {
-    // create new dots to left of screen at random
+    // create new photons to left of screen at random
     if (Math.random() < spawn)
-      dots.push(new Dot());
+      photons.push(new Photon());
 
-    // step all dots
-    for (const dot of dots)
-      dot.step();
+    // step all photons
+    for (const photon of photons)
+      photon.step();
 
-    // remove dots past right side of screen
-    for (let index = 0; index < dots.length; index++) {
-      if (dots[index].x > width) {
-        dots.splice(index, 1);
+    // remove photons past right side of screen
+    for (let index = 0; index < photons.length; index++) {
+      if (photons[index].x > width) {
+        photons.splice(index, 1);
         index--;
       }
     }
@@ -157,9 +145,9 @@ const visualization = (canvas) => {
 
   // one frame draw
   const draw = () => {
-    // draw all dots
-    for (const dot of dots)
-      dot.draw();
+    // draw all photons
+    for (const photon of photons)
+      photon.draw();
   };
 
   // one frame
