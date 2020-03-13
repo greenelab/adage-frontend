@@ -22,11 +22,11 @@ const Header = () => {
   }, [mounted]);
 
   return (
-    <header className="home_header" title={packageJson.version}>
-      <canvas className="home_canvas" />
-      <div className="home_shadow" />
-      <AdageLogo className="home_logo" />
-      <span className="home_title text_huge">adage</span>
+    <header className='home_header' title={packageJson.version}>
+      <canvas className='home_canvas' />
+      <div className='home_shadow' />
+      <AdageLogo className='home_logo' />
+      <span className='home_title text_huge'>adage</span>
     </header>
   );
 };
