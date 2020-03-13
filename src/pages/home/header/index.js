@@ -55,7 +55,7 @@ const visualization = (canvas) => {
   const blur = 100; // canvas blur
   const spawn = 0.25; // spawn probability each step
   const spacing = 10; // space between waves/rows
-  const size = 1; // photon radius
+  const thickness = 1; // photon thickness
   const minSpeed = 1; // photon min horizontal speed
   const maxSpeed = 3; // photon max horizontal speed
   const ampMax = 10; // max of amplitude of wave
@@ -92,7 +92,7 @@ const visualization = (canvas) => {
   // photon object
   class Photon {
     constructor() {
-      this.x = -size;
+      this.x = -thickness;
       this.y = undefined;
       this.yStart = Math.round((height / spacing) * Math.random()) * spacing;
       this.vx = minSpeed + Math.random() * (maxSpeed - minSpeed);
@@ -116,7 +116,7 @@ const visualization = (canvas) => {
     // draw, with interpolated positions based on speed
     draw() {
       ctx.strokeStyle = color;
-      ctx.lineWidth = size;
+      ctx.lineWidth = thickness;
       ctx.beginPath();
       ctx.moveTo(this.xPrev, this.yPrev);
       ctx.lineTo(this.x, this.y);
