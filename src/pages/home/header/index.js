@@ -22,11 +22,11 @@ const Header = () => {
   }, [mounted]);
 
   return (
-    <header className='home_header' title={packageJson.version}>
-      <canvas className='home_canvas' />
-      <div className='home_shadow' />
-      <AdageLogo className='home_logo' />
-      <span className='home_title text_huge'>adage</span>
+    <header className="home_header" title={packageJson.version}>
+      <canvas className="home_canvas" />
+      <div className="home_shadow" />
+      <AdageLogo className="home_logo" />
+      <span className="home_title text_huge">adage</span>
     </header>
   );
 };
@@ -55,7 +55,7 @@ const visualization = (canvas) => {
   const blur = 100; // canvas blur
   const spawn = 0.25; // spawn probability each step
   const spacing = 10; // space between waves/rows
-  const size = 0.5; // dot radius
+  const size = 1; // dot radius
   const minSpeed = 1; // dot min horizontal speed
   const maxSpeed = 3; // dot max horizontal speed
   const ampMax = 10; // max of amplitude of wave
@@ -99,7 +99,6 @@ const visualization = (canvas) => {
 
       this.xPrev = undefined;
       this.yPrev = undefined;
-      this.speed = undefined;
     }
 
     // calculate position and other props
@@ -112,27 +111,16 @@ const visualization = (canvas) => {
       const freq = curve(x, freqFall, freqMax, 10);
       const amp = curve(x, ampFall, ampMax, 10);
       this.y = this.yStart - cos(x * freq) * amp;
-
-      this.speed = Math.sqrt(
-        Math.pow(this.x - this.xPrev, 2) + Math.pow(this.y - this.yPrev, 2)
-      );
     }
 
     // draw, with interpolated positions based on speed
     draw() {
-      ctx.fillStyle = color;
-      const steps = this.speed / size;
-      for (let step = 0; step < steps; step++) {
-        ctx.beginPath();
-        ctx.arc(
-          this.xPrev + (this.x - this.xPrev) * (step / steps),
-          this.yPrev + (this.y - this.yPrev) * (step / steps),
-          size,
-          0,
-          2 * Math.PI
-        );
-        ctx.fill();
-      }
+      ctx.strokeStyle = color;
+      ctx.lineWidth = size;
+      ctx.beginPath();
+      ctx.moveTo(this.xPrev, this.yPrev);
+      ctx.lineTo(this.x, this.y);
+      ctx.stroke();
     }
   }
 
