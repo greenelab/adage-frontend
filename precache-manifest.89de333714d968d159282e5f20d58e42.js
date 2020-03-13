@@ -12,11 +12,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontend/index.html"
   },
   {
-    "revision": "0b6161d62756045532e5",
+    "revision": "a5bcd82912ceae30ee19",
     "url": "/adage-frontend/static/css/main.css"
   },
   {
-    "revision": "0b6161d62756045532e5",
+    "revision": "a5bcd82912ceae30ee19",
     "url": "/adage-frontend/static/js/main.js"
   },
   {
