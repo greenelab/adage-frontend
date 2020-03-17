@@ -24,7 +24,7 @@ export const getSignatureSearch = createAction('GET_SIGNATURE_SEARCH');
 // select signature based on id
 export const selectSignature = createAction('SELECT_SIGNATURE');
 
-// fill in remaining details of selected signatures
+// fill in remaining details of selected signature
 export const getSignatureSelectedDetails = createAction(
   'GET_SIGNATURE_SELECTED_DETAILS'
 );

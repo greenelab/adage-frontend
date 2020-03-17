@@ -42,7 +42,7 @@ export const selectFirstGenes = createAction('SELECT_FIRST_GENES');
 // deselect first gene of each search results
 export const deselectFirstGenes = createAction('DESELECT_FIRST_GENES');
 
-// fill in remaining details of selected experiments
+// fill in remaining details of selected gene
 export const getGeneSelectedDetails = createAction('GET_GENE_SELECTED_DETAILS');
 
 // get gene participations

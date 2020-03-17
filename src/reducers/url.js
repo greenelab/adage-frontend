@@ -35,10 +35,10 @@ export const querySync = reduxQuerySync.enhancer({
         }
       })
     },
-    'experiments': {
+    'experiment': {
       selector: (state) => state.experiment.selected.accession,
       action: (value) => ({
-        type: 'SELECT_EXPERIMENTS_FROM_URL',
+        type: 'SELECT_EXPERIMENT_FROM_URL',
         payload: {
           accession: value || null
         }
@@ -71,10 +71,10 @@ export const querySync = reduxQuerySync.enhancer({
         }
       })
     },
-    'signatures': {
+    'signature': {
       selector: (state) => state.signature.selected.id,
       action: (value) => ({
-        type: 'SELECT_SIGNATURES_FROM_URL',
+        type: 'SELECT_SIGNATURE_FROM_URL',
         payload: {
           id: Number(value)
         }

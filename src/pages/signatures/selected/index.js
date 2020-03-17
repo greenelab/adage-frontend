@@ -5,7 +5,7 @@ import Alert from '../../../components/alert';
 
 import './index.css';
 
-// signatures selected section
+// selected signature section
 
 let Selected = ({ anySelected, selected }) => (
   <>
