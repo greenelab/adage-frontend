@@ -100,7 +100,6 @@ let LocalLink = (props, ref) => {
   const location = useLocation();
 
   const params = new URLSearchParams(location.search);
-
   for (const [key, value] of Object.entries(search))
     params.set(key, value);
 
