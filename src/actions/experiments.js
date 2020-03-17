@@ -28,7 +28,7 @@ export const getExperimentSearch = createFetchAction(
 // select experiment based on id
 export const selectExperiment = createAction('SELECT_EXPERIMENT');
 
-// fill in remaining details of selected experiments
+// fill in remaining details of selected experiment
 export const getExperimentSelectedDetails = createAction(
   'GET_EXPERIMENT_SELECTED_DETAILS'
 );

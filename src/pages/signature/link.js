@@ -6,8 +6,8 @@ import Clickable from '../../components/clickable';
 
 const SignatureLink = ({ signature = {} }) => (
   <Clickable
-    to={'/signature/' + signature.id}
-    newTab
+    to="/signatures"
+    search={{ signature: signature.id }}
     text={signature.name}
     link
     aria-label={'Open details page for signature ' + signature.name}

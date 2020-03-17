@@ -26,7 +26,6 @@
     "no-invalid-this": ["off"],
     "eol-last": ["error"],
     "react/jsx-uses-vars": ["error"],
-    "react/jsx-uses-react": ["error"],
-    "jsx-quotes": ["error", "prefer-single"]
+    "react/jsx-uses-react": ["error"]
   }
 }

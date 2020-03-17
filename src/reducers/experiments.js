@@ -40,7 +40,7 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.selected = payload;
       break;
 
-    case 'SELECT_EXPERIMENTS_FROM_URL':
+    case 'SELECT_EXPERIMENT_FROM_URL':
       if (!payload.accession)
         draft.selected = {};
       else

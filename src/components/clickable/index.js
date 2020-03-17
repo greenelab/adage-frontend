@@ -24,6 +24,7 @@ let Clickable = (props, ref) => {
     icon,
     flip = false,
     to,
+    search = {},
     newTab = false,
     children,
     ...rest
@@ -65,6 +66,7 @@ let Clickable = (props, ref) => {
       className={'clickable ' + (link ? 'nowrap ' : '') + className}
       target={newTab ? '_blank' : undefined}
       to={to}
+      search={search}
       href={to}
       data-link={link ? true : false}
       data-button={button ? true : false}
@@ -86,6 +88,7 @@ Clickable.propTypes = {
   icon: PropTypes.node,
   flip: PropTypes.bool,
   to: PropTypes.string,
+  search: PropTypes.object,
   newTab: PropTypes.bool,
   children: PropTypes.node
 };
@@ -93,10 +96,19 @@ Clickable.propTypes = {
 export default Clickable;
 
 let LocalLink = (props, ref) => {
-  const { to, ...rest } = props;
+  const { to, search, ...rest } = props;
   const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  for (const [key, value] of Object.entries(search))
+    params.set(key, value);
+
   return (
-    <Link ref={ref} to={{ pathname: to, search: location.search }} {...rest} />
+    <Link
+      ref={ref}
+      to={{ pathname: to, search: '?' + params.toString() }}
+      {...rest}
+    />
   );
 };
 

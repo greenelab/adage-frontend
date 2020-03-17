@@ -138,7 +138,7 @@ let Controller = ({
   ]);
 
   // when full experiment list loads or when new experiment selected
-  // fill in full details of selected experiments
+  // fill in full details of selected experiment
   useEffect(() => {
     // if details already filled in, exit
     if (selectedExperimentLoaded)
@@ -163,7 +163,7 @@ let Controller = ({
   }, [sampleList.length, selectedSamplesLoaded, getSampleSelectedDetails]);
 
   // when full signature list loads or when new signature selected
-  // fill in full details of selected signatures
+  // fill in full details of selected signature
   useEffect(() => {
     // if details already filled in, exit
     if (selectedSignatureLoaded)
@@ -172,7 +172,7 @@ let Controller = ({
     getSignatureSelectedDetails();
   }, [
     signatureList.length,
-    selectedSignature.accession,
+    selectedSignature.id,
     selectedSignatureLoaded,
     getSignatureSelectedDetails
   ]);

@@ -17,20 +17,18 @@ const Head = () => {
     const genes = (new URLSearchParams(location.search).get('genes') || '')
       .split('-')
       .filter((id) => id).length;
-    const experiments =
-      new URLSearchParams(location.search).get('experiments') || '';
+    const experiment =
+      new URLSearchParams(location.search).get('experiment') || '';
 
     // make params string based on selected items
     const params = [];
     if (genes)
       params.push(genes + ' selected');
-    if (experiments)
-      params.push(experiments);
+    if (experiment)
+      params.push(experiment);
 
     // concat page and params into final title
-    const title = ['Adage', page, ...params]
-      .filter((entry) => entry)
-      .join(' · ');
+    const title = ['Adage', page, ...params].filter((entry) => entry).join(' · ');
 
     // set title
     document.title = title;

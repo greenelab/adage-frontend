@@ -7,7 +7,7 @@ import Controls from './controls';
 
 import './index.css';
 
-// genes selected section
+// selected genes section
 
 let Selected = ({ anySelected }) => (
   <>

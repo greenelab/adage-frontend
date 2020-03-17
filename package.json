@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "dependencies": {
     "@stdlib/stdlib": "^0.0.91",
     "color": "^3.1.2",
