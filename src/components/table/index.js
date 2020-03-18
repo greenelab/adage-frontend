@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { Fragment } from 'react';
 import { useTable } from 'react-table';
 import { useSortBy } from 'react-table';
@@ -34,16 +35,22 @@ const Table = ({
   highlightedIndex
 }) => {
   // map friendly names to rc-table names
-  columns = columns.map((column) => ({
-    Header: column.name,
-    accessor: column.value,
-    customRender: column.render ? true : false,
-    Cell: ({ row, cell }) =>
-      column.render ? column.render(row.original) : String(cell.value),
-    width: column.width,
-    align: column.align,
-    padded: column.padded
-  }));
+  columns = useMemo(
+    () =>
+      columns.map((column) => ({
+        Header: column.name,
+        accessor: column.value,
+        customRender: column.render ? true : false,
+        Cell: ({ row, cell }) =>
+          column.render ? column.render(row.original) : String(cell.value),
+        width: column.width,
+        align: column.align,
+        padded: column.padded
+      })),
+    [columns]
+  );
+
+  data = useMemo(() => data, [data]);
 
   // init table
   const {
@@ -72,24 +79,24 @@ const Table = ({
   return (
     <div
       {...getTableProps()}
-      className='table'
+      className="table"
       data-sortable={sortable}
       data-freeze={freeze}
     >
-      <div className='thead medium'>
+      <div className="thead medium">
         {headerGroups.map((headerGroup, index) => (
           <Fragment key={index}>
-            <div {...headerGroup.getHeaderGroupProps()} className='tr'>
+            <div {...headerGroup.getHeaderGroupProps()} className="tr">
               {headerGroup.headers.map((column) => (
                 <span
                   {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className='th'
+                  className="th"
                   style={{
                     width: column.width,
                     justifyContent: column.align
                   }}
                   data-padded={column.padded === false ? false : true}
-                  title=''
+                  title=""
                   tabIndex={sortable ? '0' : '-1'}
                   onKeyPress={(event) => {
                     if (
@@ -99,14 +106,14 @@ const Table = ({
                       column.toggleSortBy();
                   }}
                 >
-                  <span className='nowrap' aria-label=''>
+                  <span className="nowrap" aria-label="">
                     {column.render('Header')}
                   </span>
                   {column.isSorted ? (
                     column.isSortedDesc ? (
-                      <ArrowIcon className='rotate_ccw' />
+                      <ArrowIcon className="rotate_ccw" />
                     ) : (
-                      <ArrowIcon className='rotate_cw' />
+                      <ArrowIcon className="rotate_cw" />
                     )
                   ) : (
                     ''
@@ -118,13 +125,13 @@ const Table = ({
           </Fragment>
         ))}
       </div>
-      <div {...getTableBodyProps()} className='tbody'>
+      <div {...getTableBodyProps()} className="tbody">
         {rows.forEach(prepareRow)}
         {rows.map((row, index, array) => (
           <Fragment key={index}>
             <div
               {...row.getRowProps()}
-              className='tr'
+              className="tr"
               data-shade={index === highlightedIndex}
             >
               {row.cells.map((cell) => {
@@ -138,7 +145,7 @@ const Table = ({
                 // if cell value not component, wrap in Field
                 if (!cell.column.customRender) {
                   contents = (
-                    <span className='nowrap' aria-label=''>
+                    <span className="nowrap" aria-label="">
                       {contents}
                     </span>
                   );
@@ -147,7 +154,7 @@ const Table = ({
                 return (
                   <span
                     {...cell.getCellProps()}
-                    className='td'
+                    className="td"
                     data-highlight={
                       cell.column.id === row.original.highlightedField
                     }
