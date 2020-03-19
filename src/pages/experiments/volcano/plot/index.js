@@ -144,7 +144,7 @@ let Plot = ({ volcano }) => {
 };
 
 const mapStateToProps = (state) => ({
-  volcano: state.sample.volcano
+  volcano: state.samples.volcano
 });
 
 Plot = connect(mapStateToProps)(Plot);

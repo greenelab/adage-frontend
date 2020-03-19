@@ -104,7 +104,7 @@ const reducer = produce((draft, type, payload, meta) => {
       );
       break;
 
-    case 'GET_PARTICIPATIONS':
+    case 'GET_GENE_PARTICIPATIONS':
       draft.participations = payload;
       break;
 

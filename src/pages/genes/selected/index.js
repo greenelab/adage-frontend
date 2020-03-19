@@ -22,7 +22,7 @@ let Selected = ({ anySelected }) => (
 );
 
 const mapStateToProps = (state) => ({
-  anySelected: state.gene.selected.length ? true : false
+  anySelected: state.genes.selected.length ? true : false
 });
 
 Selected = connect(mapStateToProps)(Selected);

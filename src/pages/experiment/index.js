@@ -55,7 +55,7 @@ let Experiment = ({ details, getDetails }) => {
 };
 
 const mapStateToProps = (state) => {
-  let details = state.experiment.details;
+  let details = state.experiments.details;
 
   if (isObject(details)) {
     details = filterKeys(details, ['maxSimilarityField']);

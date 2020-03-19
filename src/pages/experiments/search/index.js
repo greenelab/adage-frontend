@@ -33,7 +33,7 @@ let Search = ({ results, select, search }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: mapExperimentSearch(state.experiment.searches[0] || {}, state)
+  results: mapExperimentSearch(state.experiments.searches[0] || {}, state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -54,6 +54,6 @@ export const mapExperimentSearch = (search, state) => ({
 
 export const mapExperimentResult = (result, state) => ({
   ...result,
-  selected: isSelected(state.experiment.selected, result.accession),
+  selected: isSelected(state.experiments.selected, result.accession),
   highlightedField: toCamelCase(result.maxSimilarityField || '')
 });

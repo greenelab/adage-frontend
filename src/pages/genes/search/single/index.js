@@ -27,7 +27,7 @@ let Single = ({ results, highlightedIndex }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: mapGeneSearch(state.gene.searches[0] || {}, state)?.results
+  results: mapGeneSearch(state.genes.searches[0] || {}, state)?.results
 });
 
 Single = connect(mapStateToProps)(Single);

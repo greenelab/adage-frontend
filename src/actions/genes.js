@@ -4,7 +4,7 @@ import { createFetchAction } from './fetch';
 import { urlGeneDetails } from '../backend/genes';
 import { urlGeneList } from '../backend/genes';
 import { urlGeneSearch } from '../backend/genes';
-import { urlParticipations } from '../backend/genes';
+import { urlGeneParticipations } from '../backend/genes';
 import { urlGeneEdges } from '../backend/genes';
 
 // actions related to "gene" sub-object of state
@@ -46,9 +46,9 @@ export const deselectFirstGenes = createAction('DESELECT_FIRST_GENES');
 export const getGeneSelectedDetails = createAction('GET_GENE_SELECTED_DETAILS');
 
 // get gene participations
-export const getParticipations = createFetchAction(
-  'GET_PARTICIPATIONS',
-  urlParticipations
+export const getGeneParticipations = createFetchAction(
+  'GET_GENE_PARTICIPATIONS',
+  urlGeneParticipations
 );
 
 // calculate enriched signatures and set them

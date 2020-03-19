@@ -52,6 +52,8 @@ const Table = ({
 
   data = useMemo(() => data, [data]);
 
+  defaultSort = useMemo(() => defaultSort, [defaultSort]);
+
   // init table
   const {
     getTableProps,

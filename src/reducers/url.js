@@ -13,7 +13,7 @@ export const history = createBrowserHistory({ basename });
 export const querySync = reduxQuerySync.enhancer({
   params: {
     'model': {
-      selector: (state) => state.model.selected,
+      selector: (state) => state.models.selected,
       action: (value) => ({
         type: 'SELECT_MODEL_FROM_URL',
         payload: {
@@ -23,8 +23,8 @@ export const querySync = reduxQuerySync.enhancer({
     },
     'genes': {
       selector: (state) =>
-        isArray(state.gene.selected) && state.gene.selected.length ?
-          state.gene.selected
+        isArray(state.genes.selected) && state.genes.selected.length ?
+          state.genes.selected
             .map((selected) => selected.id || selected)
             .join('-') :
           undefined,
@@ -36,7 +36,7 @@ export const querySync = reduxQuerySync.enhancer({
       })
     },
     'experiment': {
-      selector: (state) => state.experiment.selected.accession,
+      selector: (state) => state.experiments.selected.accession,
       action: (value) => ({
         type: 'SELECT_EXPERIMENT_FROM_URL',
         payload: {
@@ -46,9 +46,9 @@ export const querySync = reduxQuerySync.enhancer({
     },
     'diamond-samples': {
       selector: (state) =>
-        isArray(state.sample.groups.diamond) &&
-        state.sample.groups.diamond.length ?
-          state.sample.groups.diamond.join('-') :
+        isArray(state.samples.groups.diamond) &&
+        state.samples.groups.diamond.length ?
+          state.samples.groups.diamond.join('-') :
           undefined,
       action: (value) => ({
         type: 'GROUP_SAMPLES_FROM_URL',
@@ -60,8 +60,8 @@ export const querySync = reduxQuerySync.enhancer({
     },
     'spade-samples': {
       selector: (state) =>
-        isArray(state.sample.groups.spade) && state.sample.groups.spade.length ?
-          state.sample.groups.spade.join('-') :
+        isArray(state.samples.groups.spade) && state.samples.groups.spade.length ?
+          state.samples.groups.spade.join('-') :
           undefined,
       action: (value) => ({
         type: 'GROUP_SAMPLES_FROM_URL',
@@ -72,7 +72,7 @@ export const querySync = reduxQuerySync.enhancer({
       })
     },
     'signature': {
-      selector: (state) => state.signature.selected.id,
+      selector: (state) => state.signatures.selected.id,
       action: (value) => ({
         type: 'SELECT_SIGNATURE_FROM_URL',
         payload: {

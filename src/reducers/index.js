@@ -11,11 +11,11 @@ const reducer = (state = {}, action = {}) => {
   const { type = '', payload = {}, meta = {} } = action;
 
   return {
-    model: models(state.model, type, payload, meta),
-    gene: genes(state.gene, type, payload, meta),
-    experiment: experiments(state.experiment, type, payload, meta),
-    sample: samples(state.sample, type, payload, meta),
-    signature: signatures(state.signature, type, payload, meta)
+    models: models(state.models, type, payload, meta),
+    genes: genes(state.genes, type, payload, meta),
+    experiments: experiments(state.experiments, type, payload, meta),
+    samples: samples(state.samples, type, payload, meta),
+    signatures: signatures(state.signatures, type, payload, meta)
   };
 };
 

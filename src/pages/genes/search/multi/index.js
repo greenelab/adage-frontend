@@ -24,7 +24,7 @@ let Multi = ({ searches }) => (
 );
 
 const mapStateToProps = (state) => ({
-  searches: state.gene.searches.map((search) => mapGeneSearch(search, state))
+  searches: state.genes.searches.map((search) => mapGeneSearch(search, state))
 });
 
 Multi = connect(mapStateToProps)(Multi);

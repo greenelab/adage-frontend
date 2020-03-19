@@ -22,7 +22,7 @@ let Selected = ({ anySelected }) => (
 );
 
 const mapStateToProps = (state) => ({
-  anySelected: state.experiment.selected?.samples?.length ? true : false
+  anySelected: state.experiments.selected?.samples?.length ? true : false
 });
 
 Selected = connect(mapStateToProps)(Selected);

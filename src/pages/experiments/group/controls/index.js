@@ -32,7 +32,7 @@ let Controls = ({ selected, ungroupAll }) => (
 );
 
 const mapStateToProps = (state) => ({
-  selected: state.sample.selected
+  selected: state.samples.selected
 });
 
 const mapDispatchToProps = (dispatch) => ({

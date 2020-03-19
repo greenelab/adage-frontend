@@ -6,7 +6,7 @@ import { calculateEnrichedSignatures } from './math';
 import { calculateVolcanoSignatures } from './math';
 
 import selectedGenes from '../dummy-data/selected-genes.json';
-import participations from '../dummy-data/participations.json';
+import geneParticipations from '../dummy-data/gene-participations.json';
 import geneList from '../dummy-data/gene-list.json';
 import signatureList from '../dummy-data/signature-list.json';
 import activities from '../dummy-data/activities.json';
@@ -127,7 +127,7 @@ test('ttest', () => {
 test('calculate enriched signatures', () => {
   expect(
     calculateEnrichedSignatures({
-      participations: 'LOADING',
+      geneParticipations: 'LOADING',
       signatureList: 'LOADING'
     })
   ).toStrictEqual([]);
@@ -135,7 +135,7 @@ test('calculate enriched signatures', () => {
   expect(
     calculateEnrichedSignatures({
       selectedGenes: 'LOADING',
-      participations: [],
+      geneParticipations: [],
       geneList: 'LOADING',
       signatureList: []
     })
@@ -144,7 +144,7 @@ test('calculate enriched signatures', () => {
   expect(
     calculateEnrichedSignatures({
       selectedGenes: [1, 2, 3, 4, 5],
-      participations: [],
+      geneParticipations: [],
       geneList: [],
       signatureList: []
     })
@@ -153,10 +153,18 @@ test('calculate enriched signatures', () => {
   expect(
     calculateEnrichedSignatures({
       selectedGenes,
-      participations,
+      geneParticipations,
       geneList,
       signatureList
-    })
+    }).map((signature) => ({
+      id: signature.id,
+      name: signature.name,
+      mlmodel: signature.mlmodel,
+      selectedParticipatingGenes: signature.selectedParticipatingGenes.map(
+        (g) => g.id
+      ),
+      pValue: signature.pValue
+    }))
   ).toStrictEqual(enrichedSignatures);
 });
 

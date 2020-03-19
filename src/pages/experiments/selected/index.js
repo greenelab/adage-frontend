@@ -16,7 +16,7 @@ let Selected = ({ anySelected }) => (
 );
 
 const mapStateToProps = (state) => ({
-  anySelected: state.experiment.selected.accession ? true : false
+  anySelected: state.experiments.selected.accession ? true : false
 });
 
 Selected = connect(mapStateToProps)(Selected);
