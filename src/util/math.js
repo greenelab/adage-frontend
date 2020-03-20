@@ -25,7 +25,7 @@ export const mean = (array) => itermean(array2iterator(array));
 // https://en.wikipedia.org/wiki/Hypergeometric_distribution
 
 // see https://stattrek.com/online-calculator/hypergeometric.aspx
-// the stdlib cdf function calculates P(X <= k), but what we really want is 
+// the stdlib cdf function calculates P(X <= k), but what we really want is
 // P(X >= k). therefore, provide k-1 as X instead of k to get P(X < k), then
 
 // k - number of successes in sample
@@ -45,7 +45,7 @@ export const ttest = (array1, array2) => ttest2(array1, array2).pValue;
 // adapted from https://github.com/greenelab/adage-server/blob/master/interface/src/app/gene/enriched_signatures.js
 export const calculateEnrichedSignatures = ({
   selectedGenes,
-  participations,
+  geneParticipations,
   geneList,
   signatureList
 }) => {
@@ -53,8 +53,8 @@ export const calculateEnrichedSignatures = ({
   if (
     !isArray(selectedGenes) ||
     !selectedGenes.length ||
-    !isArray(participations) ||
-    !participations.length ||
+    !isArray(geneParticipations) ||
+    !geneParticipations.length ||
     !isArray(geneList) ||
     !geneList.length ||
     !isArray(signatureList) ||
@@ -65,19 +65,25 @@ export const calculateEnrichedSignatures = ({
   let enrichedSignatures = signatureList
     // for each signature
     .map((signature) => {
-      const participatingGenes = participations
+      const participatingGenes = geneParticipations
         // get participations that include this signature
         .filter((participation) => participation.signature === signature.id)
-        // get gene of each of those participations
-        .map((participation) => participation.gene);
+        // get gene id and weight of each of those participations
+        .map((participation) => ({
+          gene: participation.gene,
+          weight: participation.weight
+        }));
 
       // of participating genes, get selected ones
       const selectedParticipatingGenes = participatingGenes
-        .filter((gene) =>
+        .filter(({ gene }) =>
           selectedGenes.find((selected) => selected.id === gene)
         )
         // replace matched gene id with full gene info from selected genes
-        .map((gene) => selectedGenes.find((selected) => selected.id === gene));
+        .map(({ gene, weight }) => ({
+          ...selectedGenes.find((selected) => selected.id === gene),
+          weight
+        }));
 
       // add participating and matched genes to signature
       return { ...signature, participatingGenes, selectedParticipatingGenes };

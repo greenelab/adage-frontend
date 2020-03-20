@@ -29,6 +29,13 @@ let Table = ({ enrichedSignatures }) => (
             <Fragment key={index}>
               <GeneLink gene={gene} />
               &nbsp;
+              <span
+                className="text_small"
+                aria-label={'Gene participation weight: ' + gene.weight}
+              >
+                {gene.weight.toFixed(2)}
+              </span>
+              &nbsp;&nbsp;&nbsp;
             </Fragment>
           ))
       },
@@ -45,7 +52,7 @@ let Table = ({ enrichedSignatures }) => (
 );
 
 const mapStateToProps = (state) => ({
-  enrichedSignatures: state.gene.enrichedSignatures.map((signature) => ({
+  enrichedSignatures: state.genes.enrichedSignatures.map((signature) => ({
     id: signature.id,
     name: signature.name,
     genes: signature.selectedParticipatingGenes,

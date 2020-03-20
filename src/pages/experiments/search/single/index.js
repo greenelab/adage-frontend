@@ -27,12 +27,12 @@ let Single = ({ results, highlightedIndex }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: state.experiment.searches[0] ?
-    isArray(state.experiment.searches[0].results) ?
-      state.experiment.searches[0].results.map((result) =>
+  results: state.experiments.searches[0] ?
+    isArray(state.experiments.searches[0].results) ?
+      state.experiments.searches[0].results.map((result) =>
         mapExperimentResult(result, state)
       ) :
-      state.experiment.searches[0].results :
+      state.experiments.searches[0].results :
     ''
 });
 

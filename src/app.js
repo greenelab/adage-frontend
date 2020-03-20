@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import sequenceAction from 'redux-sequence-action';
 import { createLogger } from 'redux-logger';
 
-import Controller from './controller';
+import Controllers from './controllers';
 import Tooltip from './components/tooltip';
 import Head from './pages/head';
 import Home from './pages/home';
@@ -53,7 +53,7 @@ const store = createStore(
 // entry point to the app
 const App = () => (
   <Provider store={store}>
-    <Controller />
+    <Controllers />
     <Router basename={basename} history={history}>
       <Head />
       <Switch>

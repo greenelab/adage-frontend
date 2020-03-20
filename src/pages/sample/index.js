@@ -55,7 +55,7 @@ let Sample = ({ details, getDetails }) => {
 };
 
 const mapStateToProps = (state) => {
-  let details = state.sample.details;
+  let details = state.samples.details;
 
   if (isObject(details)) {
     details = filterKeys(details, ['id']);

@@ -54,7 +54,7 @@ let Search = ({ results, select, deselect, dispatch }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: mapGeneSearch(state.gene.searches[0] || {}, state)?.results
+  results: mapGeneSearch(state.genes.searches[0] || {}, state)?.results
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -76,6 +76,6 @@ export const mapGeneSearch = (search, state) => ({
 
 export const mapGeneResult = (result, state) => ({
   ...result,
-  selected: isSelected(state.gene.selected, result.id),
+  selected: isSelected(state.genes.selected, result.id),
   highlightedField: toCamelCase(result.maxSimilarityField || '')
 });

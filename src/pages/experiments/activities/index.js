@@ -80,8 +80,8 @@ let Activities = ({ selectedExperiment, activities }) => {
 };
 
 const mapStateToProps = (state) => ({
-  selectedExperiment: state.experiment.selected,
-  activities: mapActivities(state.sample.activities, state)
+  selectedExperiment: state.experiments.selected,
+  activities: mapActivities(state.samples.activities, state)
 });
 
 Activities = connect(mapStateToProps)(Activities);
@@ -97,13 +97,13 @@ export const mapActivity = (activity, state) => ({
   ...activity,
   sampleName:
     (
-      (isArray(state.sample.list) ? state.sample.list : []).find(
+      (isArray(state.samples.list) ? state.samples.list : []).find(
         (sample) => sample.id === activity.sample
       ) || {}
     ).name || activity.sample,
   signatureName:
     (
-      (isArray(state.signature.list) ? state.signature.list : []).find(
+      (isArray(state.signatures.list) ? state.signatures.list : []).find(
         (signature) => signature.id === activity.signature
       ) || {}
     ).name || activity.signature

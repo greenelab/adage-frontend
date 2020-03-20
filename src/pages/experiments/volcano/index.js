@@ -26,7 +26,7 @@ let Volcano = ({ volcano }) => (
 );
 
 const mapStateToProps = (state) => ({
-  volcano: state.sample.volcano
+  volcano: state.samples.volcano
 });
 
 Volcano = connect(mapStateToProps)(Volcano);

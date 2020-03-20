@@ -68,9 +68,9 @@ let Table = ({ samples }) => (
 );
 
 const mapStateToProps = (state) => ({
-  samples: state.sample.selected.map((sample) => ({
+  samples: state.samples.selected.map((sample) => ({
     ...sample,
-    groupIndex: isGrouped(state.sample.groups, sample.id)
+    groupIndex: isGrouped(state.samples.groups, sample.id)
   }))
 });
 

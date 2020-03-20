@@ -179,9 +179,9 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
 };
 
 const mapStateToProps = (state) => ({
-  list: state.gene.list,
-  selected: state.gene.selected,
-  edges: state.gene.edges
+  list: state.genes.list,
+  selected: state.genes.selected,
+  edges: state.genes.edges
 });
 
 Network = connect(mapStateToProps)(Network);

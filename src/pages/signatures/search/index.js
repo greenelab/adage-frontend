@@ -44,9 +44,9 @@ let Search = ({ model, list, results, select, search }) => {
 };
 
 const mapStateToProps = (state) => ({
-  model: state.model.selected,
-  list: state.signature.list,
-  results: mapSignatureSearch(state.signature.searches[0] || {}, state)
+  model: state.models.selected,
+  list: state.signatures.list,
+  results: mapSignatureSearch(state.signatures.searches[0] || {}, state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -67,6 +67,6 @@ export const mapSignatureSearch = (search, state) => ({
 
 export const mapSignatureResult = (result, state) => ({
   ...result,
-  selected: isSelected(state.signature.selected, result.id),
+  selected: isSelected(state.signatures.selected, result.id),
   highlightedField: toCamelCase(result.maxSimilarityField || '')
 });

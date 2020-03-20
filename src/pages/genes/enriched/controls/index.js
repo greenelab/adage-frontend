@@ -23,7 +23,7 @@ let Controls = ({ enrichedSignatures }) => (
 );
 
 const mapStateToProps = (state) => ({
-  enrichedSignatures: state.gene.enrichedSignatures
+  enrichedSignatures: state.genes.enrichedSignatures
 });
 
 Controls = connect(mapStateToProps)(Controls);

@@ -32,7 +32,7 @@ export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
   return url;
 };
 
-export const urlParticipations = ({ ids, limit = defaultLimit }) => {
+export const urlGeneParticipations = ({ ids, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (ids)

@@ -50,16 +50,16 @@ let ModelSelect = ({ models }) => {
 };
 
 const mapStateToProps = (state) => ({
-  models: isArray(state.model.list) ?
-    state.model.list.map((model) => ({
-      selected: state.model.selected === model.id,
+  models: isArray(state.models.list) ?
+    state.models.list.map((model) => ({
+      selected: state.models.selected === model.id,
       id: model.id,
       title: model.title,
       authors: (model.authors || '').split('\n'),
       journal: model.journal,
       year: model.year
     })) :
-    state.model.list
+    state.models.list
 });
 
 ModelSelect = connect(mapStateToProps)(ModelSelect);

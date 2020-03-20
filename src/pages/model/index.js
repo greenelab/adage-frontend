@@ -53,7 +53,7 @@ let Model = ({ details, getDetails }) => {
 };
 
 const mapStateToProps = (state) => {
-  let details = state.model.details;
+  let details = state.models.details;
 
   if (isObject(details)) {
     details = filterKeys(details, [

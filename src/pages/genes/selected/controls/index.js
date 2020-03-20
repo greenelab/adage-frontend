@@ -32,7 +32,7 @@ let Controls = ({ selected, deselectAll }) => (
 );
 
 const mapStateToProps = (state) => ({
-  selected: state.gene.selected
+  selected: state.genes.selected
 });
 
 const mapDispatchToProps = (dispatch) => ({

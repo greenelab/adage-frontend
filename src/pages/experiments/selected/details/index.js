@@ -25,7 +25,7 @@ let Details = ({ experiment }) => (
           (experiment.description?.length >= limit ? '...' : '')}
       </div>
     </div>
-    <div className='sample_table_info medium'>
+    <div className='selected_samples_info medium'>
       <span>
         <ExperimentIcon />
         <ExperimentLink experiment={experiment} />
@@ -39,7 +39,7 @@ let Details = ({ experiment }) => (
 );
 
 const mapStateToProps = (state) => ({
-  experiment: mapExperimentResult(state.experiment.selected, state)
+  experiment: mapExperimentResult(state.experiments.selected, state)
 });
 
 Details = connect(mapStateToProps)(Details);

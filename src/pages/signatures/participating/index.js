@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Alert from '../../../components/alert';
+import Details from './details';
+import Table from './table';
 
 import './index.css';
 
@@ -10,13 +12,18 @@ import './index.css';
 let Selected = ({ anySelected, selected }) => (
   <>
     {anySelected === false && <Alert text="No signature selected" />}
-    {anySelected === true && <>{selected.name}</>}
+    {anySelected === true && (
+      <>
+        <Details />
+        <Table />
+      </>
+    )}
   </>
 );
 
 const mapStateToProps = (state) => ({
-  anySelected: state.signature.selected.id ? true : false,
-  selected: state.signature.selected
+  anySelected: state.signatures.selected.id ? true : false,
+  selected: state.signatures.selected
 });
 
 Selected = connect(mapStateToProps)(Selected);

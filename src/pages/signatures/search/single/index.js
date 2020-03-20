@@ -27,12 +27,12 @@ let Single = ({ results, highlightedIndex }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: state.signature.searches[0] ?
-    isArray(state.signature.searches[0].results) ?
-      state.signature.searches[0].results.map((result) =>
+  results: state.signatures.searches[0] ?
+    isArray(state.signatures.searches[0].results) ?
+      state.signatures.searches[0].results.map((result) =>
         mapSignatureResult(result, state)
       ) :
-      state.signature.searches[0].results :
+      state.signatures.searches[0].results :
     ''
 });
 
