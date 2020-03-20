@@ -20,42 +20,36 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
       data={results}
       columns={[
         {
-          name: ' ',
-          value: ' ',
-          width: '30px',
-          padded: false,
-          render: (cell) => (
+          render: ({ row }) => (
             <Clickable
-              icon={cell.selected ? <CheckedIcon /> : <UncheckedIcon />}
+              icon={row.selected ? <CheckedIcon /> : <UncheckedIcon />}
               button
-              onClick={() =>
-                (cell.selected ? deselect : select)({ id: cell.id })
-              }
-              aria-label={
-                (cell.selected ? 'Deselect' : 'Select') + ' this gene'
-              }
+              onClick={() => (row.selected ? deselect : select)({ id: row.id })}
+              aria-label={(row.selected ? 'Deselect' : 'Select') + ' this gene'}
             />
-          )
+          ),
+          width: '30px',
+          padded: false
         },
         {
           name: 'Standard Name',
-          value: 'standardName',
-          width: 'calc((100% - 30px) * 0.2)',
-          render: (cell) => <GeneLink gene={cell} />
+          key: 'standardName',
+          render: ({ row }) => <GeneLink gene={row} />,
+          width: 'calc((100% - 30px) * 0.2)'
         },
         {
           name: 'Systematic Name',
-          value: 'systematicName',
+          key: 'systematicName',
           width: 'calc((100% - 30px) * 0.2)'
         },
         {
           name: 'Entrez ID',
-          value: 'entrezId',
+          key: 'entrezId',
           width: 'calc((100% - 30px) * 0.2)'
         },
         {
           name: 'Entrez Description',
-          value: 'description',
+          key: 'description',
           width: 'calc((100% - 30px) * 0.4)'
         }
       ]}

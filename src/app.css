@@ -103,3 +103,9 @@ table {
 td {
   padding: 0;
 }
+button {
+  border: none;
+  background: none;
+  font-size: 11pt;
+  cursor: pointer;
+}

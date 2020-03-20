@@ -21,6 +21,7 @@ const Tooltip = () => {
   const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState(null);
   const [speed, setSpeed] = useState(defaultSpeed);
+  const [center, setCenter] = useState(false);
   const openTimer = useRef();
   const closeTimer = useRef();
 
@@ -28,7 +29,7 @@ const Tooltip = () => {
   const openTooltip = useCallback((event) => {
     const newSpeed = Number(event.target?.dataset.tooltipSpeed) || defaultSpeed;
     setSpeed(newSpeed);
-
+    setCenter(event.target?.dataset.tooltipCenter === 'true');
     window.clearTimeout(closeTimer.current);
     openTimer.current = window.setTimeout(() => {
       setOpen(true);
@@ -76,10 +77,10 @@ const Tooltip = () => {
       <CSSTransition
         in={open ? true : false}
         timeout={speed}
-        classNames='tooltip'
+        classNames="tooltip"
         unmountOnExit
       >
-        <Portal anchor={anchor} speed={speed} />
+        <Portal anchor={anchor} speed={speed} center={center} />
       </CSSTransition>
     </>
   );
@@ -88,7 +89,7 @@ export default Tooltip;
 
 // append popup to body, not app root
 
-const Portal = ({ anchor, speed }) => {
+const Portal = ({ anchor, speed, center }) => {
   let content = <></>;
   const stringLabel = anchor?.getAttribute('aria-label');
   const objectLabel = parseObject(stringLabel);
@@ -97,7 +98,7 @@ const Portal = ({ anchor, speed }) => {
   if (objectLabel) {
     const fields = humanizeKeys(objectLabel);
     content = (
-      <table className='tooltip_table text_small'>
+      <table className="tooltip_table text_small">
         <tbody>
           {Object.entries(fields).map(([key, value], index) => (
             <tr key={index}>
@@ -113,9 +114,9 @@ const Portal = ({ anchor, speed }) => {
 
   return createPortal(
     <div
-      className='tooltip text_small'
+      className="tooltip text_small"
       style={{
-        ...computeStyle({ anchor }),
+        ...computeStyle({ anchor, center }),
         transition: 'opacity ease ' + speed + 'ms'
       }}
     >
@@ -130,7 +131,7 @@ const verticalMargin = 100;
 
 // position tooltip relative to anchor/target
 
-const computeStyle = ({ anchor }) => {
+const computeStyle = ({ anchor, center }) => {
   const anchorBbox = anchor?.getBoundingClientRect();
 
   if (!anchorBbox?.width || !anchorBbox?.height)
@@ -145,7 +146,7 @@ const computeStyle = ({ anchor }) => {
     width: anchorBbox.width,
     height: anchorBbox.height
   };
-  const style = {};
+  const style = { transform: '' };
 
   let horizontalAlign = 'left';
   let verticalAlign = 'top';
@@ -162,11 +163,17 @@ const computeStyle = ({ anchor }) => {
   if (anchorBbox.top < verticalMargin)
     verticalAlign = 'bottom';
 
+  // if data-tooltip-center explicitly set, center align
+  if (center) {
+    horizontalAlign = 'center';
+    verticalAlign = 'center';
+  }
+
   // calculate horizontal position
   switch (horizontalAlign) {
     case 'center':
       style.left = bbox.left + bbox.width / 2 + 'px';
-      style.transform = 'translateX(-50%)';
+      style.transform += 'translateX(-50%) ';
       break;
 
     case 'left':
@@ -183,6 +190,11 @@ const computeStyle = ({ anchor }) => {
 
   // calculate vertical position
   switch (verticalAlign) {
+    case 'center':
+      style.top = bbox.top + bbox.height / 2 + 'px';
+      style.transform += 'translateY(-50%) ';
+      break;
+
     case 'top':
       style.bottom = bbox.bottom + bbox.height + padding + 'px';
       break;

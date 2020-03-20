@@ -17,7 +17,11 @@ let Table = ({ participations }) => (
       <FetchAlert status={participations} subject="participating genes" />
     )}
     {console.log(
-      isArray(participations) ? JSON.stringify(participations.map((p) => p.weight).sort((a,b) => a-b)) : null
+      isArray(participations) ?
+        JSON.stringify(
+          participations.map((p) => p.weight).sort((a, b) => a - b)
+        ) :
+        null
     )}
     {isArray(participations) && (
       <TableComponent
@@ -25,31 +29,34 @@ let Table = ({ participations }) => (
         columns={[
           {
             name: 'Standard Name',
-            value: 'standardName',
-            width: '15%',
-            render: (cell) => <GeneLink gene={cell} />
+            key: 'standardName',
+            render: ({ row }) => <GeneLink gene={row} />,
+            width: '15%'
           },
           {
             name: 'Systematic Name',
-            value: 'systematicName',
+            key: 'systematicName',
             width: '15%'
           },
           {
             name: 'Entrez ID',
-            value: 'entrezId',
+            key: 'entrezId',
             width: '15%'
           },
           {
             name: 'Entrez Description',
-            value: 'description',
+            key: 'description',
             width: '40%'
           },
           {
             name: 'Weight',
-            value: 'weight',
+            key: 'weight',
             width: '15%'
           }
         ]}
+        defaultSortKey="weight"
+        defaultSortUp={false}
+        freezeCol={false}
       />
     )}
   </>

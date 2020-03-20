@@ -21,22 +21,22 @@ let Table = ({ samples }) => (
     columns={[
       {
         name: 'Group',
-        value: 'group',
+        key: 'groupIndex',
         width: '60px',
         align: 'center',
         padded: false,
-        render: (cell) => (
+        render: ({ row }) => (
           <>
             <GroupButton
-              sample={cell}
-              index='diamond'
-              color='var(--blue)'
+              sample={row}
+              index="diamond"
+              color="var(--blue)"
               Icon={DiamondIcon}
             />
             <GroupButton
-              sample={cell}
-              index='spade'
-              color='var(--red)'
+              sample={row}
+              index="spade"
+              color="var(--red)"
               Icon={SpadeIcon}
             />
           </>
@@ -44,23 +44,23 @@ let Table = ({ samples }) => (
       },
       {
         name: 'Name',
-        value: 'name',
+        key: 'name',
         width: 'calc((100% - 60px) * 0.2)',
-        render: (cell) => <SampleLink sample={cell} />
+        render: ({ row }) => <SampleLink sample={row} />
       },
       {
         name: 'Description',
-        value: 'description',
+        key: 'description',
         width: 'calc((100% - 60px) * 0.55)'
       },
       {
         name: 'Genotype',
-        value: 'genotype',
+        key: 'genotype',
         width: 'calc((100% - 60px) * 0.15)'
       },
       {
         name: 'Strain',
-        value: 'strain',
+        key: 'strain',
         width: 'calc((100% - 60px) * 0.10)'
       }
     ]}

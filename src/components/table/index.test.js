@@ -14,11 +14,11 @@ test('table component', () => {
         { fruit: 'banana', age: '38', name: 'Cara' }
       ]}
       columns={[
-        { name: 'Fruit Column', value: 'fruit' },
-        { name: 'Age Column', value: 'age' },
+        { name: 'Fruit Column', key: 'fruit' },
+        { name: 'Age Column', key: 'age' },
         {
           name: 'Name Column',
-          value: 'name',
+          key: 'name',
           render: () => 'render this instead of name'
         }
       ]}

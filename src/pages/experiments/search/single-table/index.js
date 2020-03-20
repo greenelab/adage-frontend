@@ -19,33 +19,34 @@ let Table = ({ results, highlightedIndex, select }) => {
       data={results}
       columns={[
         {
-          name: ' ',
-          width: '30px',
-          padded: false,
-          render: (cell) => (
+          render: ({ row }) => (
             <Clickable
-              icon={cell.selected ? <RadioedIcon /> : <UnradioedIcon />}
+              icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
               button
-              onClick={() => select({ accession: cell.accession })}
-              aria-label='Select this experiment'
+              onClick={() => select({ accession: row.accession })}
+              aria-label="Select this experiment"
             />
-          )
+          ),
+          width: '30px',
+          padded: false
         },
         {
           name: 'Accession',
-          value: 'accession',
-          width: 'calc((100% - 30px) * 0.25)',
-          render: (cell) => <ExperimentLink experiment={cell} />
+          key: 'accession',
+          render: ({ row }) => <ExperimentLink experiment={row} />,
+          width: 'calc((100% - 30px) * 0.25)'
         },
         {
           name: 'Samples',
-          value: (row) => row?.samples?.length,
+          key: 'samples',
+          value: ({ cell }) => cell?.length,
+          render: ({ cell }) => cell?.length,
           width: 'calc((100% - 30px) * 0.15)',
           align: 'center'
         },
         {
           name: 'Name',
-          value: 'name',
+          key: 'name',
           width: 'calc((100% - 30px) * 0.6)'
         }
       ]}
