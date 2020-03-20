@@ -47,7 +47,7 @@ const reducer = produce((draft, type, payload, meta) => {
       } else
         results = actionStatuses.LOADING;
 
-      draft.searches[meta.index].results = results.slice(0, 20);
+      draft.searches[meta.index].results = results.slice(0, 100);
       break;
 
     case 'SELECT_SIGNATURE':
