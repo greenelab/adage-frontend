@@ -1,26 +1,26 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "eeffb457e8330a97963f85d63a52eedb",
-    "url": "/adage-frontend/0f6ac98a7dce9dd32c8d.worker.js"
+    "revision": "fac344908837ff57a4f005a98d87decc",
+    "url": "/adage-frontend/6a4a5e799a79a3525d7a.worker.js"
   },
   {
     "revision": "7b0da54e81150b0223e5019d4186aab3",
-    "url": "/adage-frontend/0f6ac98a7dce9dd32c8d.worker.js.LICENSE.txt"
+    "url": "/adage-frontend/6a4a5e799a79a3525d7a.worker.js.LICENSE.txt"
   },
   {
     "revision": "2412c445b94576e91a0492e405e57243",
     "url": "/adage-frontend/index.html"
   },
   {
-    "revision": "c3145f173fafd50d6a2b",
+    "revision": "4d321094df245434a4df",
     "url": "/adage-frontend/static/css/main.css"
   },
   {
-    "revision": "c3145f173fafd50d6a2b",
+    "revision": "4d321094df245434a4df",
     "url": "/adage-frontend/static/js/main.js"
   },
   {
-    "revision": "7c327c8eb06725577bf38bf3f5ffe282",
+    "revision": "cff35f4105057fb034e1fd92d56735a6",
     "url": "/adage-frontend/static/js/main.js.LICENSE.txt"
   },
   {
