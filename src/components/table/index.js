@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useMemo } from 'react';
+import { useCallback } from 'react';
 import { Fragment } from 'react';
-import { useTable } from 'react-table';
-import { useSortBy } from 'react-table';
 
 import HorizontalLine from '../../components/horizontal-line';
-import { cleanValue } from '../../util/object';
 
 import { ReactComponent as ArrowIcon } from '../../images/arrow.svg';
 
 import './index.css';
+import { isFunction } from '../../util/types';
 
 // table component
 // columns - [{name, value, render, width, align, padded}]
 //   name - name to display in column header
-//   value - key/accessor to use for sorting cell
+//   key - key of the row object that is considered the cell
+//   value - value to use for sorting. assumed to be key if not a function
 //   render - component to use for rendering cell
 //   width - css width of column
 //   align - css flex justify-content value
@@ -29,46 +30,30 @@ import './index.css';
 const Table = ({
   columns,
   data,
-  defaultSort = [],
+  defaultSortKey = null,
+  defaultSortUp = null,
   sortable = true,
-  freeze = true,
+  freezeRow = true,
+  freezeCol = true,
   highlightedIndex
 }) => {
-  // map friendly names to rc-table names
-  columns = useMemo(
-    () =>
-      columns.map((column) => ({
-        Header: column.name,
-        accessor: column.value,
-        customRender: column.render ? true : false,
-        Cell: ({ row, cell }) =>
-          column.render ? column.render(row.original) : String(cell.value),
-        width: column.width,
-        align: column.align,
-        padded: column.padded
-      })),
-    [columns]
-  );
+  // internal state
+  const [sortKey, setSortKey] = useState(defaultSortKey);
+  const [sortUp, setSortUp] = useState(defaultSortUp);
 
-  data = useMemo(() => data, [data]);
-
-  defaultSort = useMemo(() => defaultSort, [defaultSort]);
-
-  // init table
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { sortBy: defaultSort },
-      disableSortBy: !sortable
+  const onClick = useCallback(
+    (key) => {
+      if (sortKey !== key) {
+        setSortKey(key);
+        setSortUp(false);
+      } else if (sortUp === false)
+        setSortUp(true);
+      else {
+        setSortKey(null);
+        setSortUp(null);
+      }
     },
-    useSortBy
+    [sortKey, sortUp]
   );
 
   // scroll highlighted row into view
@@ -78,92 +63,110 @@ const Table = ({
       element.scrollIntoView({ block: 'center' });
   });
 
+  const compare = useCallback(
+    (a, b) => {
+      if (a > b)
+        return sortUp ? -1 : 1;
+      else if (a < b)
+        return sortUp ? 1 : -1;
+      else
+        return 0;
+    },
+    [sortUp]
+  );
+
+  const table = useMemo(() => {
+    if (sortKey === null || sortUp === null)
+      return [...data];
+
+    const value = (columns.find((column) => column.key === sortKey) || {}).value;
+
+    let sortFunc;
+    if (isFunction(value)) {
+      sortFunc = (a, b) => {
+        a = a[sortKey];
+        b = b[sortKey];
+        a = value({ cell: a });
+        b = value({ cell: b });
+        return compare(a, b);
+      };
+    } else {
+      sortFunc = (a, b) => {
+        a = a[sortKey];
+        b = b[sortKey];
+        return compare(a, b);
+      };
+    }
+
+    return [...data].sort(sortFunc);
+  }, [columns, compare, data, sortKey, sortUp]);
+
   return (
     <div
-      {...getTableProps()}
       className="table"
       data-sortable={sortable}
-      data-freeze={freeze}
+      data-freeze-row={freezeRow}
+      data-freeze-col={freezeCol}
     >
       <div className="thead medium">
-        {headerGroups.map((headerGroup, index) => (
-          <Fragment key={index}>
-            <div {...headerGroup.getHeaderGroupProps()} className="tr">
-              {headerGroup.headers.map((column) => (
-                <span
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className="th"
-                  style={{
-                    width: column.width,
-                    justifyContent: column.align
-                  }}
-                  data-padded={column.padded === false ? false : true}
-                  title=""
-                  tabIndex={sortable ? '0' : '-1'}
-                  onKeyPress={(event) => {
-                    if (
-                      column.sortable !== false &&
-                      (event.key === 'Enter' || event.key === ' ')
-                    )
-                      column.toggleSortBy();
-                  }}
-                >
-                  <span className="nowrap" aria-label="">
-                    {column.render('Header')}
-                  </span>
-                  {column.isSorted ? (
-                    column.isSortedDesc ? (
-                      <ArrowIcon className="rotate_ccw" />
-                    ) : (
-                      <ArrowIcon className="rotate_cw" />
-                    )
-                  ) : (
-                    ''
-                  )}
-                </span>
-              ))}
-            </div>
-            <HorizontalLine />
-          </Fragment>
-        ))}
-      </div>
-      <div {...getTableBodyProps()} className="tbody">
-        {rows.forEach(prepareRow)}
-        {rows.map((row, index, array) => (
-          <Fragment key={index}>
-            <div
-              {...row.getRowProps()}
-              className="tr"
-              data-shade={index === highlightedIndex}
+        <div className="tr">
+          {columns.map((column, index) => (
+            <button
+              key={index}
+              className="th"
+              style={{
+                width: column.width,
+                justifyContent: column.align
+              }}
+              data-padded={column.padded === false ? false : true}
+              title=""
+              onClick={() => onClick(column.key)}
+              disabled={!sortable}
             >
-              {row.cells.map((cell) => {
+              <span className="nowrap" aria-label="">
+                {column.name}
+              </span>
+              {sortKey !== null && column.key && sortKey === column.key ? (
+                sortUp ? (
+                  <ArrowIcon className="rotate_ccw" />
+                ) : (
+                  <ArrowIcon className="rotate_cw" />
+                )
+              ) : (
+                ''
+              )}
+            </button>
+          ))}
+        </div>
+        <HorizontalLine />
+      </div>
+      <div className="tbody">
+        {table.map((row, index, array) => (
+          <Fragment key={index}>
+            <div className="tr" data-shade={index === highlightedIndex}>
+              {columns.map((column, index) => {
+                const cell = row[column.key];
                 // render cell contents
-                let contents = cell.render('Cell');
-
-                // if cell value not component, make dash if blank
-                if (cleanValue(cell.value) === '-' && !cell.column.customRender)
-                  contents = '-';
-
-                // if cell value not component, wrap in Field
-                if (!cell.column.customRender) {
+                let contents;
+                if (column.render)
+                  contents = column.render({ row, column, cell });
+                else {
                   contents = (
                     <span className="nowrap" aria-label="">
-                      {contents}
+                      {cell}
                     </span>
                   );
                 }
 
                 return (
                   <span
-                    {...cell.getCellProps()}
+                    key={index}
                     className="td"
-                    data-highlight={
-                      cell.column.id === row.original.highlightedField
-                    }
-                    data-padded={cell.column.padded === false ? false : true}
+                    data-highlight={column.key === row.highlightedField}
+                    data-padded={column.padded === false ? false : true}
                     style={{
-                      width: cell.column.width,
-                      justifyContent: cell.column.align
+                      width: column.width,
+                      justifyContent: column.align
                     }}
                   >
                     {contents}
@@ -183,7 +186,8 @@ Table.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
   sortable: PropTypes.bool,
-  freeze: PropTypes.bool,
+  freezeRow: PropTypes.bool,
+  freezeCol: PropTypes.bool,
   highlightedIndex: PropTypes.number
 };
 

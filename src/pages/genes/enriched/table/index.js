@@ -16,16 +16,16 @@ let Table = ({ enrichedSignatures }) => (
     columns={[
       {
         name: 'Name',
-        value: 'name',
-        width: '25%',
-        render: (cell) => <SignatureLink signature={cell} />
+        key: 'name',
+        render: ({ row }) => <SignatureLink signature={row} />,
+        width: '25%'
       },
       {
         name: 'Overlapping Genes',
-        value: (cell) => cell.genes.map((gene) => gene.name).join(' '),
-        width: '50%',
-        render: (cell) =>
-          cell.genes.map((gene, index) => (
+        key: 'genes',
+        value: ({ cell }) => cell.map((gene) => gene.name).join(' '),
+        render: ({ cell }) =>
+          cell.map((gene, index) => (
             <Fragment key={index}>
               <GeneLink gene={gene} />
               &nbsp;
@@ -37,17 +37,20 @@ let Table = ({ enrichedSignatures }) => (
               </span>
               &nbsp;&nbsp;&nbsp;
             </Fragment>
-          ))
+          )),
+        width: '50%'
       },
       {
         name: 'p-value',
-        value: (cell) => cell.pValue.toFixed(8),
+        key: 'pValue',
+        render: ({ cell }) => cell.toFixed(5),
         width: '25%',
         align: 'center'
       }
     ]}
-    defaultSort={[{ id: 'pValue', desc: false }]}
-    freeze={false}
+    defaultSortKey="pValue"
+    defaultSortUp={false}
+    freezeCol={false}
   />
 );
 

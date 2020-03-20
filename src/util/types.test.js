@@ -1,9 +1,29 @@
+import { isBoolean } from './types';
 import { isNumber } from './types';
 import { isString } from './types';
 import { isArray } from './types';
 import { isObject } from './types';
+import { isFunction } from './types';
 import { isEmpty } from './types';
 import { isBlank } from './types';
+
+test('is boolean', () => {
+  // should be
+  expect(isBoolean(true)).toBe(true);
+  expect(isBoolean(false)).toBe(true);
+
+  // shouldn't be
+  expect(isBoolean(12)).toBe(false);
+  expect(isBoolean(-12)).toBe(false);
+  expect(isBoolean(0)).toBe(false);
+  expect(isBoolean(Infinity)).toBe(false);
+  expect(isBoolean('12')).toBe(false);
+  expect(isBoolean('0')).toBe(false);
+  expect(isBoolean(NaN)).toBe(false);
+  expect(isBoolean(null)).toBe(false);
+  expect(isBoolean({})).toBe(false);
+  expect(isBoolean([])).toBe(false);
+});
 
 test('is number', () => {
   // should be
@@ -36,6 +56,21 @@ test('is string', () => {
   expect(isString([])).toBe(false);
 });
 
+test('is array', () => {
+  // should be
+  expect(isArray([])).toBe(true);
+  expect(isArray([1, 2, 3])).toBe(true);
+
+  // shouldn't be
+  expect(isArray(true)).toBe(false);
+  expect(isArray(12)).toBe(false);
+  expect(isArray('12')).toBe(false);
+  expect(isArray('')).toBe(false);
+  expect(isArray(NaN)).toBe(false);
+  expect(isArray(null)).toBe(false);
+  expect(isArray({})).toBe(false);
+});
+
 test('is object', () => {
   // should be
   expect(isObject({})).toBe(true);
@@ -51,19 +86,24 @@ test('is object', () => {
   expect(isObject([])).toBe(false);
 });
 
-test('is array', () => {
+test('is function', () => {
   // should be
-  expect(isArray([])).toBe(true);
-  expect(isArray([1, 2, 3])).toBe(true);
+  expect(isFunction(() => null)).toBe(true);
+  expect(isFunction(function() {})).toBe(true);
 
   // shouldn't be
-  expect(isArray(true)).toBe(false);
-  expect(isArray(12)).toBe(false);
-  expect(isArray('12')).toBe(false);
-  expect(isArray('')).toBe(false);
-  expect(isArray(NaN)).toBe(false);
-  expect(isArray(null)).toBe(false);
-  expect(isArray({})).toBe(false);
+  expect(isFunction(true)).toBe(false);
+  expect(isFunction(false)).toBe(false);
+  expect(isFunction(12)).toBe(false);
+  expect(isFunction(-12)).toBe(false);
+  expect(isFunction(0)).toBe(false);
+  expect(isFunction(Infinity)).toBe(false);
+  expect(isFunction('12')).toBe(false);
+  expect(isFunction('0')).toBe(false);
+  expect(isFunction(NaN)).toBe(false);
+  expect(isFunction(null)).toBe(false);
+  expect(isFunction({})).toBe(false);
+  expect(isFunction([])).toBe(false);
 });
 
 test('is empty', () => {

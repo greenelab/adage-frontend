@@ -19,23 +19,22 @@ let Table = ({ results, highlightedIndex, select }) => {
       data={results}
       columns={[
         {
-          name: ' ',
-          width: '30px',
-          padded: false,
-          render: (cell) => (
+          render: ({ row }) => (
             <Clickable
-              icon={cell.selected ? <RadioedIcon /> : <UnradioedIcon />}
+              icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
               button
-              onClick={() => select({ id: cell.id })}
-              aria-label='Select this signature'
+              onClick={() => select({ id: row.id })}
+              aria-label="Select this signature"
             />
-          )
+          ),
+          width: '30px',
+          padded: false
         },
         {
           name: 'Name',
-          value: 'id',
-          width: 'calc((100% - 30px) * 1)',
-          render: (cell) => <SignatureLink signature={cell} />
+          key: 'id',
+          render: ({ row }) => <SignatureLink signature={row} />,
+          width: 'calc((100% - 30px) * 1)'
         }
       ]}
       highlightedIndex={highlightedIndex}

@@ -5,10 +5,7 @@
   align-items: center;
   margin: 0;
   padding: 0;
-  background: none;
-  border: none;
   cursor: pointer;
-  font-size: 11pt;
   text-decoration: none;
 }
 .clickable {

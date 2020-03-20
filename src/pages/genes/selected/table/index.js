@@ -17,38 +17,36 @@ let Table = ({ selected, deselect }) => (
     data={selected}
     columns={[
       {
-        name: ' ',
-        value: 'deselect',
-        width: '30px',
-        padded: false,
-        render: (cell) => (
+        render: ({ cell }) => (
           <Clickable
             icon={<CrossIcon />}
             button
             onClick={() => deselect({ id: cell.id })}
-            aria-label='Deselect this gene'
+            aria-label="Deselect this gene"
           />
-        )
+        ),
+        width: '30px',
+        padded: false
       },
       {
         name: 'Standard Name',
-        value: 'standardName',
-        width: 'calc((100% - 30px) * 0.2)',
-        render: (cell) => <GeneLink gene={cell} />
+        key: 'standardName',
+        render: ({ row }) => <GeneLink gene={row} />,
+        width: 'calc((100% - 30px) * 0.2)'
       },
       {
         name: 'Systematic Name',
-        value: 'systematicName',
+        key: 'systematicName',
         width: 'calc((100% - 30px) * 0.2)'
       },
       {
         name: 'Entrez ID',
-        value: 'entrezId',
+        key: 'entrezId',
         width: 'calc((100% - 30px) * 0.2)'
       },
       {
         name: 'Entrez Description',
-        value: 'description',
+        key: 'description',
         width: 'calc((100% - 30px) * 0.4)'
       }
     ]}

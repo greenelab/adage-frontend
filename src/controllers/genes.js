@@ -80,7 +80,7 @@ let GeneController = ({
     )
       return;
 
-    const calculateEnrichedSignatures = async () => {
+    const calculate = async () => {
       setEnrichedSignatures(
         await worker().calculateEnrichedSignatures({
           geneParticipations,
@@ -90,7 +90,7 @@ let GeneController = ({
         })
       );
     };
-    calculateEnrichedSignatures();
+    calculate();
   }, [
     geneParticipations,
     selectedGenes,
