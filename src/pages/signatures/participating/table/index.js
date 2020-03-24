@@ -16,13 +16,6 @@ let Table = ({ participations }) => (
     {isString(participations) && (
       <FetchAlert status={participations} subject="participating genes" />
     )}
-    {console.log(
-      isArray(participations) ?
-        JSON.stringify(
-          participations.map((p) => p.weight).sort((a, b) => a - b)
-        ) :
-        null
-    )}
     {isArray(participations) && (
       <TableComponent
         data={participations}
@@ -65,18 +58,11 @@ let Table = ({ participations }) => (
 const mapStateToProps = (state) => ({
   participations:
     isArray(state.signatures.participations) && isArray(state.genes.list) ?
-      state.signatures.participations.map((participation) => {
-        const gene = state.genes.list.find(
-          (gene) => gene.id === participation.gene
-        );
-        return {
-          standardName: gene?.standardName,
-          systematicName: gene?.systematicName,
-          entrezId: gene?.entrezId,
-          description: gene?.description,
-          weight: participation.weight
-        };
-      }) :
+      state.signatures.participations.map((participation) => ({
+        ...(state.genes.list.find((gene) => gene.id === participation.gene) ||
+            {}),
+        weight: participation.weight
+      })) :
       state.signatures.participations
 });
 

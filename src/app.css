@@ -43,7 +43,6 @@ body {
 }
 a {
   color: unset;
-  text-decoration: none;
 }
 *:focus {
   outline: none;

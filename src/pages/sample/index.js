@@ -45,7 +45,7 @@ let Sample = ({ details, getDetails }) => {
         >
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
-            <FetchAlert status={details} subject='sample details' />
+            <FetchAlert status={details} subject="sample details" />
           )}
         </Section>
       </Main>
@@ -64,8 +64,7 @@ const mapStateToProps = (state) => {
         <>
           {details.experiments.map((experiment, index) => (
             <Fragment key={index}>
-              {console.log(experiment)}
-              <ExperimentLink experiment={experiment} />
+              <ExperimentLink experiment={{ accession: experiment }} />
               <br />
             </Fragment>
           ))}

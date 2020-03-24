@@ -6,10 +6,7 @@ import Clickable from '../../components/clickable';
 
 const GeneLink = ({ gene = {} }) => (
   <Clickable
-    to={
-      'http://www.pseudomonas.com/feature/show/?locus_tag=' +
-      gene.systematicName
-    }
+    to={gene.externalUrl || '/gene/' + gene.id}
     newTab
     text={gene.standardName}
     link
