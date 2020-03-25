@@ -19,6 +19,7 @@ import Experiments from './pages/experiments';
 import Signatures from './pages/signatures';
 import Help from './pages/help';
 import Model from './pages/model';
+import Gene from './pages/gene';
 import Experiment from './pages/experiment';
 import Sample from './pages/sample';
 import reducer from './reducers';
@@ -62,6 +63,7 @@ const App = () => (
         <Route path='/signatures' component={Signatures} />
         <Route path='/help' component={Help} />
         <Route path='/model/:id' component={Model} />
+        <Route path='/gene/:id' component={Gene} />
         <Route path='/experiment/:accession' component={Experiment} />
         <Route path='/sample/:id' component={Sample} />
         <Route path='/' component={Home} />

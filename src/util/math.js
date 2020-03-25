@@ -10,8 +10,8 @@ import cdf from '@stdlib/stats/base/dists/hypergeometric/cdf';
 // https://stdlib.io/docs/api/v0.0.90/@stdlib/stats/ttest2
 import ttest2 from '@stdlib/stats/ttest2';
 
-// https://github.com/cmpolis/hcluster.js
-import hcluster from 'hclusterjs';
+// https://github.com/greenelab/hclust
+import { clusterData as hclust } from '@greenelab/hclust';
 
 // https://github.com/Planeshifter/multtest
 import { fdr } from 'multtest';
@@ -119,7 +119,7 @@ export const calculateEnrichedSignatures = ({
   return enrichedSignatures;
 };
 
-export const clusterData = (data, idKey, valueKey) => {
+export const clusterData = ({ data, idKey, valueKey }) => {
   // transform
   // [ { id, value }, { id, value }, ... ]
   // to
@@ -134,15 +134,10 @@ export const clusterData = (data, idKey, valueKey) => {
   }
   newData = [...Object.values(newData)];
 
-  // cluster data using hcluster library
-  newData = hcluster()
-    .distance('euclidean')
-    .linkage('avg')
-    .posKey(valueKey)
-    .data(newData);
-
-  // give back clustered (sorted) list of ids
-  return newData.orderedNodes().map((d) => d[idKey]);
+  // cluster data using hclust library and give back ordered list of ids
+  return hclust({ data: newData, key: valueKey }).order.map(
+    (index) => newData[index][idKey]
+  );
 };
 
 // calculate data for volcano plot

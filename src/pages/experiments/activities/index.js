@@ -27,10 +27,7 @@ let Activities = ({ selectedExperiment, activities }) => {
   let unsortedSignatures;
   if (isArray(activities)) {
     unsortedSamples = uniqueMap(activities, (activity) => activity.sample);
-    unsortedSignatures = uniqueMap(
-      activities,
-      (activity) => activity.signature
-    );
+    unsortedSignatures = uniqueMap(activities, (activity) => activity.signature);
   }
 
   // when selected experiment changes
@@ -40,22 +37,34 @@ let Activities = ({ selectedExperiment, activities }) => {
     setSortedSignatures(null);
   }, [selectedExperiment]);
 
+  // sort samples with clustering
   const sortSamples = useCallback(async () => {
     setSortedSamples(actionStatuses.LOADING);
-    setSortedSamples(await worker().clusterData(activities, 'sample', 'value'));
+    setSortedSamples(
+      await worker().clusterData({
+        data: activities,
+        idKey: 'sample',
+        valueKey: 'value'
+      })
+    );
   }, [activities]);
 
+  // sort signatures with clustering
   const sortSignatures = useCallback(async () => {
     setSortedSignatures(actionStatuses.LOADING);
     setSortedSignatures(
-      await worker().clusterData(activities, 'signature', 'value')
+      await worker().clusterData({
+        data: activities,
+        idKey: 'signature',
+        valueKey: 'value'
+      })
     );
   }, [activities]);
 
   return (
     <>
       {isString(activities) && (
-        <FetchAlert status={activities} subject='activities' />
+        <FetchAlert status={activities} subject="activities" />
       )}
       {isArray(activities) && (
         <>

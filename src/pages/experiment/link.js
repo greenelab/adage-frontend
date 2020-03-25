@@ -6,13 +6,11 @@ import Clickable from '../../components/clickable';
 
 const ExperimentLink = ({ experiment = {} }) => (
   <Clickable
-    to={'/experiment/' + (experiment.accession || experiment)}
+    to={'/experiment/' + experiment.accession}
     newTab
-    text={experiment.accession || experiment}
+    text={experiment.accession}
     link
-    aria-label={
-      'Open details page for experiment ' + (experiment.accession || experiment)
-    }
+    aria-label={'Open details page for experiment ' + experiment.accession}
   />
 );
 
