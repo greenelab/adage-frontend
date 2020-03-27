@@ -3,7 +3,7 @@ import { createFetchAction } from './fetch';
 
 import { urlSampleDetails } from '../backend/samples';
 import { urlSampleList } from '../backend/samples';
-import { urlActivities } from '../backend/samples';
+import { urlSampleActivities } from '../backend/samples';
 
 // actions related to the "sample" sub-object of the state
 
@@ -36,8 +36,11 @@ export const getSampleSelectedDetails = createAction(
   'GET_SAMPLE_SELECTED_DETAILS'
 );
 
-// get signatures for specified samples
-export const getActivities = createFetchAction('GET_ACTIVITIES', urlActivities);
+// get activities for specified samples
+export const getSampleActivities = createFetchAction(
+  'GET_SAMPLE_ACTIVITIES',
+  urlSampleActivities
+);
 
 // calculate volcano plot data based on sample groups and set it in state
 export const setVolcano = createAction('SET_VOLCANO');

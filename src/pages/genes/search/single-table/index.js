@@ -14,50 +14,48 @@ import './index.css';
 
 // single search result table
 
-let Table = ({ results, highlightedIndex, select, deselect }) => {
-  return (
-    <TableComponent
-      data={results}
-      columns={[
-        {
-          render: ({ row }) => (
-            <Clickable
-              icon={row.selected ? <CheckedIcon /> : <UncheckedIcon />}
-              button
-              onClick={() => (row.selected ? deselect : select)({ id: row.id })}
-              aria-label={(row.selected ? 'Deselect' : 'Select') + ' this gene'}
-            />
-          ),
-          width: '30px',
-          padded: false
-        },
-        {
-          name: 'Standard Name',
-          key: 'standardName',
-          render: ({ row }) => <GeneLink gene={row} />,
-          width: 'calc((100% - 30px) * 0.2)'
-        },
-        {
-          name: 'Systematic Name',
-          key: 'systematicName',
-          width: 'calc((100% - 30px) * 0.2)'
-        },
-        {
-          name: 'Entrez ID',
-          key: 'entrezId',
-          width: 'calc((100% - 30px) * 0.2)'
-        },
-        {
-          name: 'Entrez Description',
-          key: 'description',
-          width: 'calc((100% - 30px) * 0.4)'
-        }
-      ]}
-      highlightedIndex={highlightedIndex}
-      sortable={false}
-    />
-  );
-};
+let Table = ({ results, highlightedIndex, select, deselect }) => (
+  <TableComponent
+    data={results}
+    columns={[
+      {
+        render: ({ row }) => (
+          <Clickable
+            icon={row.selected ? <CheckedIcon /> : <UncheckedIcon />}
+            button
+            onClick={() => (row.selected ? deselect : select)({ id: row.id })}
+            aria-label={(row.selected ? 'Deselect' : 'Select') + ' this gene'}
+          />
+        ),
+        width: '30px',
+        padded: false
+      },
+      {
+        name: 'Standard Name',
+        key: 'standardName',
+        render: ({ row }) => <GeneLink gene={row} />,
+        width: 'calc((100% - 30px) * 0.2)'
+      },
+      {
+        name: 'Systematic Name',
+        key: 'systematicName',
+        width: 'calc((100% - 30px) * 0.2)'
+      },
+      {
+        name: 'Entrez ID',
+        key: 'entrezId',
+        width: 'calc((100% - 30px) * 0.2)'
+      },
+      {
+        name: 'Entrez Description',
+        key: 'description',
+        width: 'calc((100% - 30px) * 0.4)'
+      }
+    ]}
+    highlightedIndex={highlightedIndex}
+    sortable={false}
+  />
+);
 
 const mapDispatchToProps = (dispatch) => ({
   select: (...args) => dispatch(selectGene(...args)),

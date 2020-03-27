@@ -19,7 +19,11 @@ export const urlSampleList = ({ limit = defaultLimit }) => {
   return url;
 };
 
-export const urlActivities = ({ modelId, sampleIds, limit = defaultLimit }) => {
+export const urlSampleActivities = ({
+  modelId,
+  sampleIds,
+  limit = defaultLimit
+}) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (modelId)

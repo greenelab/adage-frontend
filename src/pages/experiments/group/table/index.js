@@ -22,9 +22,6 @@ let Table = ({ samples }) => (
       {
         name: 'Group',
         key: 'groupIndex',
-        width: '60px',
-        align: 'center',
-        padded: false,
         render: ({ row }) => (
           <>
             <GroupButton
@@ -40,13 +37,16 @@ let Table = ({ samples }) => (
               Icon={SpadeIcon}
             />
           </>
-        )
+        ),
+        width: '60px',
+        align: 'center',
+        padded: false
       },
       {
         name: 'Name',
         key: 'name',
-        width: 'calc((100% - 60px) * 0.2)',
-        render: ({ row }) => <SampleLink sample={row} />
+        render: ({ row }) => <SampleLink sample={row} />,
+        width: 'calc((100% - 60px) * 0.2)'
       },
       {
         name: 'Description',

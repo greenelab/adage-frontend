@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getSignatureList } from '../actions/signatures';
 import { getSignatureSelectedDetails } from '../actions/signatures';
 import { getSignatureParticipations } from '../actions/signatures';
+import { getSignatureActivities } from '../actions/signatures';
 import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
@@ -16,7 +17,8 @@ let SignatureController = ({
   selectedSignatureLoaded,
   getSignatureList,
   getSignatureSelectedDetails,
-  getSignatureParticipations
+  getSignatureParticipations,
+  getSignatureActivities
 }) => {
   // when selected model changes
   // get full signature list
@@ -45,7 +47,7 @@ let SignatureController = ({
     getSignatureSelectedDetails
   ]);
 
-  // when selected signature change
+  // when selected signature changes
   // re-get participations
   useEffect(() => {
     // if we don't have all we need, exit
@@ -57,7 +59,21 @@ let SignatureController = ({
       id: selectedSignature.id,
       limit: MAX_INT
     });
-  }, [selectedSignature, getSignatureParticipations]);
+  }, [selectedSignature.id, getSignatureParticipations]);
+
+  // when selected model or signature changes
+  // get signature activities
+  useEffect(() => {
+    // if we dont have all we need, dont even dispatch action
+    if (!selectedModel || !selectedSignature.id)
+      return;
+
+    getSignatureActivities({
+      modelId: selectedModel,
+      signatureIds: [selectedSignature.id],
+      limit: MAX_INT
+    });
+  }, [selectedModel, selectedSignature.id, getSignatureActivities]);
 
   return <></>;
 };
@@ -72,7 +88,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = makeMapDispatchToProps({
   getSignatureList,
   getSignatureSelectedDetails,
-  getSignatureParticipations
+  getSignatureParticipations,
+  getSignatureActivities
 });
 
 SignatureController = connect(

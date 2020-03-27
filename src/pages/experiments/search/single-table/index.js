@@ -13,48 +13,46 @@ import './index.css';
 
 // single search result table
 
-let Table = ({ results, highlightedIndex, select }) => {
-  return (
-    <TableComponent
-      data={results}
-      columns={[
-        {
-          render: ({ row }) => (
-            <Clickable
-              icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
-              button
-              onClick={() => select({ accession: row.accession })}
-              aria-label="Select this experiment"
-            />
-          ),
-          width: '30px',
-          padded: false
-        },
-        {
-          name: 'Accession',
-          key: 'accession',
-          render: ({ row }) => <ExperimentLink experiment={row} />,
-          width: 'calc((100% - 30px) * 0.25)'
-        },
-        {
-          name: 'Samples',
-          key: 'samples',
-          value: ({ cell }) => cell?.length,
-          render: ({ cell }) => cell?.length,
-          width: 'calc((100% - 30px) * 0.15)',
-          align: 'center'
-        },
-        {
-          name: 'Name',
-          key: 'name',
-          width: 'calc((100% - 30px) * 0.6)'
-        }
-      ]}
-      highlightedIndex={highlightedIndex}
-      sortable={false}
-    />
-  );
-};
+let Table = ({ results, highlightedIndex, select }) => (
+  <TableComponent
+    data={results}
+    columns={[
+      {
+        render: ({ row }) => (
+          <Clickable
+            icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
+            button
+            onClick={() => select({ accession: row.accession })}
+            aria-label="Select this experiment"
+          />
+        ),
+        width: '30px',
+        padded: false
+      },
+      {
+        name: 'Accession',
+        key: 'accession',
+        render: ({ row }) => <ExperimentLink experiment={row} />,
+        width: 'calc((100% - 30px) * 0.25)'
+      },
+      {
+        name: 'Samples',
+        key: 'samples',
+        value: ({ cell }) => cell?.length,
+        render: ({ cell }) => cell?.length,
+        width: 'calc((100% - 30px) * 0.15)',
+        align: 'center'
+      },
+      {
+        name: 'Name',
+        key: 'name',
+        width: 'calc((100% - 30px) * 0.6)'
+      }
+    ]}
+    highlightedIndex={highlightedIndex}
+    sortable={false}
+  />
+);
 
 const mapDispatchToProps = (dispatch) => ({
   select: (...args) => dispatch(selectExperiment(...args))

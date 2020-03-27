@@ -17,6 +17,8 @@ const typeCheck = (draft) => {
     draft.selected = {};
   if (!isString(draft.participations) && !isArray(draft.participations))
     draft.participations = actionStatuses.EMPTY;
+  if (!isString(draft.activities) && !isArray(draft.activities))
+    draft.activities = actionStatuses.EMPTY;
 };
 
 // defines how state (redux store) changes in response to dispatched actions
@@ -71,6 +73,10 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'GET_SIGNATURE_PARTICIPATIONS':
       draft.participations = payload;
+      break;
+
+    case 'GET_SIGNATURE_ACTIVITIES':
+      draft.activities = payload;
       break;
 
     default:
