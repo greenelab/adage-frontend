@@ -30,8 +30,7 @@ const mapStateToProps = (state) => ({
   results: state.signatures.searches[0] ?
     isArray(state.signatures.searches[0].results) ?
       state.signatures.searches[0].results.map((result) =>
-        mapSignatureResult(result, state)
-      ) :
+        mapSignatureResult(result, state)) :
       state.signatures.searches[0].results :
     ''
 });

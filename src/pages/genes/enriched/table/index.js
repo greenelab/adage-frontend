@@ -30,7 +30,7 @@ let Table = ({ enrichedSignatures }) => (
               <GeneLink gene={gene} />
               &nbsp;
               <span
-                className="text_small"
+                className='text_small'
                 aria-label={'Gene participation weight: ' + gene.weight}
               >
                 {gene.weight.toFixed(5)}
@@ -47,7 +47,7 @@ let Table = ({ enrichedSignatures }) => (
         width: '20%'
       }
     ]}
-    defaultSortKey="pValue"
+    defaultSortKey='pValue'
     defaultSortUp={false}
     freezeCol={false}
   />

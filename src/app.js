@@ -69,7 +69,7 @@ const App = () => (
         <Route path='/' component={Home} />
       </Switch>
     </Router>
-    <Tooltip/>
+    <Tooltip />
   </Provider>
 );
 

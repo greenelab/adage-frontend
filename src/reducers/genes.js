@@ -100,8 +100,7 @@ const reducer = produce((draft, type, payload, meta) => {
       if (!isArray(draft.list) || !draft.list.length)
         break;
       draft.selected = draft.selected.map((selected) =>
-        draft.list.find((gene) => gene.id === selected.id)
-      );
+        draft.list.find((gene) => gene.id === selected.id));
       break;
 
     case 'GET_GENE_PARTICIPATIONS':

@@ -14,7 +14,7 @@ import './index.css';
 let Selected = ({ participations }) => (
   <>
     {isString(participations) && (
-      <FetchAlert status={participations} subject="participating genes" />
+      <FetchAlert status={participations} subject='participating genes' />
     )}
     {isArray(participations) && (
       <>

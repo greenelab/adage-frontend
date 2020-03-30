@@ -18,19 +18,19 @@ const Experiments = () => (
   <>
     <Header />
     <Main>
-      <Section header="Experiment Search">
+      <Section header='Experiment Search'>
         <Search />
       </Section>
-      <Section header="Selected Experiment">
+      <Section header='Selected Experiment'>
         <Selected />
       </Section>
-      <Section header="Activity Heatmap">
+      <Section header='Activity Heatmap'>
         <Activities />
       </Section>
-      <Section header="Sample Groups">
+      <Section header='Sample Groups'>
         <Group />
       </Section>
-      <Section header="Volcano Plot">
+      <Section header='Volcano Plot'>
         <Volcano />
       </Section>
     </Main>

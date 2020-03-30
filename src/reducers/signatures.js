@@ -42,8 +42,7 @@ const reducer = produce((draft, type, payload, meta) => {
       let results;
       if (isArray(draft.list)) {
         results = draft.list.filter((signature) =>
-          signature.name.includes(meta.query)
-        );
+          signature.name.includes(meta.query));
         if (!results.length)
           results = actionStatuses.EMPTY;
       } else
@@ -68,7 +67,8 @@ const reducer = produce((draft, type, payload, meta) => {
         break;
 
       draft.selected =
-        draft.list.find((signature) => signature.id === draft.selected.id) || {};
+        draft.list.find((signature) => signature.id === draft.selected.id) ||
+        {};
       break;
 
     case 'GET_SIGNATURE_PARTICIPATIONS':

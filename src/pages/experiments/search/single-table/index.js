@@ -23,7 +23,7 @@ let Table = ({ results, highlightedIndex, select }) => (
             icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
             button
             onClick={() => select({ accession: row.accession })}
-            aria-label="Select this experiment"
+            aria-label='Select this experiment'
           />
         ),
         width: '30px',

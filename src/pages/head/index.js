@@ -28,7 +28,9 @@ const Head = () => {
       params.push(experiment);
 
     // concat page and params into final title
-    const title = ['Adage', page, ...params].filter((entry) => entry).join(' · ');
+    const title = ['Adage', page, ...params]
+      .filter((entry) => entry)
+      .join(' · ');
 
     // set title
     document.title = title;

@@ -30,15 +30,12 @@ export const drawNodeHighlights = () => {
         systematicName: d.systematicName,
         entrezId: d.entrezId,
         description: d.description
-      })
-    );
+      }));
 
   nodeHighlights.exit().remove();
 };
 
 export const positionNodeHighlights = () => {
-  d3.selectAll('.graph_node_highlight').attr(
-    'transform',
-    (d) => transformString('translate', d.x, d.y)
-  );
+  d3.selectAll('.graph_node_highlight').attr('transform', (d) =>
+    transformString('translate', d.x, d.y));
 };

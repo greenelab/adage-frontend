@@ -77,7 +77,7 @@ const Tooltip = () => {
       <CSSTransition
         in={open ? true : false}
         timeout={speed}
-        classNames="tooltip"
+        classNames='tooltip'
         unmountOnExit
       >
         <Portal anchor={anchor} speed={speed} center={center} />
@@ -98,7 +98,7 @@ const Portal = ({ anchor, speed, center }) => {
   if (objectLabel) {
     const fields = humanizeKeys(objectLabel);
     content = (
-      <table className="tooltip_table text_small">
+      <table className='tooltip_table text_small'>
         <tbody>
           {Object.entries(fields).map(([key, value], index) => (
             <tr key={index}>
@@ -114,7 +114,7 @@ const Portal = ({ anchor, speed, center }) => {
 
   return createPortal(
     <div
-      className="tooltip text_small"
+      className='tooltip text_small'
       style={{
         ...computeStyle({ anchor, center }),
         transition: 'opacity ease ' + speed + 'ms'

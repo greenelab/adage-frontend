@@ -79,7 +79,8 @@ const Table = ({
     if (sortKey === null || sortUp === null)
       return [...data];
 
-    const value = (columns.find((column) => column.key === sortKey) || {}).value;
+    const value = (columns.find((column) => column.key === sortKey) || {})
+      .value;
 
     let sortFunc;
     if (isFunction(value)) {
@@ -103,34 +104,34 @@ const Table = ({
 
   return (
     <div
-      className="table"
+      className='table'
       data-sortable={sortable}
       data-freeze-row={freezeRow}
       data-freeze-col={freezeCol}
     >
-      <div className="thead medium">
-        <div className="tr">
+      <div className='thead medium'>
+        <div className='tr'>
           {columns.map((column, index) => (
             <button
               key={index}
-              className="th"
+              className='th'
               style={{
                 width: column.width,
                 justifyContent: column.align
               }}
               data-padded={column.padded === false ? false : true}
-              title=""
+              title=''
               onClick={() => onClick(column.key)}
               disabled={!sortable}
             >
-              <span className="nowrap" aria-label="">
+              <span className='nowrap' aria-label=''>
                 {column.name}
               </span>
               {sortKey !== null && column.key && sortKey === column.key ? (
                 sortUp ? (
-                  <ArrowIcon className="rotate_ccw" />
+                  <ArrowIcon className='rotate_ccw' />
                 ) : (
-                  <ArrowIcon className="rotate_cw" />
+                  <ArrowIcon className='rotate_cw' />
                 )
               ) : (
                 ''
@@ -140,10 +141,10 @@ const Table = ({
         </div>
         <HorizontalLine />
       </div>
-      <div className="tbody">
+      <div className='tbody'>
         {table.map((row, index, array) => (
           <Fragment key={index}>
-            <div className="tr" data-shade={index === highlightedIndex}>
+            <div className='tr' data-shade={index === highlightedIndex}>
               {columns.map((column, index) => {
                 const cell = row[column.key];
                 // render cell contents
@@ -152,7 +153,7 @@ const Table = ({
                   contents = column.render({ row, column, cell });
                 else {
                   contents = (
-                    <span className="nowrap" aria-label="">
+                    <span className='nowrap' aria-label=''>
                       {cell}
                     </span>
                   );
@@ -161,7 +162,7 @@ const Table = ({
                 return (
                   <span
                     key={index}
-                    className="td"
+                    className='td'
                     data-highlight={column.key === row.highlightedField}
                     data-padded={column.padded === false ? false : true}
                     style={{

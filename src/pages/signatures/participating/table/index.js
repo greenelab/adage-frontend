@@ -41,7 +41,7 @@ let Table = ({ participations }) => (
         render: ({ cell }) => cell.toFixed(5)
       }
     ]}
-    defaultSortKey="weight"
+    defaultSortKey='weight'
     defaultSortUp={false}
     freezeCol={false}
   />

@@ -24,7 +24,7 @@ let Table = ({ results, highlightedIndex, select }) => {
               icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
               button
               onClick={() => select({ id: row.id })}
-              aria-label="Select this signature"
+              aria-label='Select this signature'
             />
           ),
           width: '30px',

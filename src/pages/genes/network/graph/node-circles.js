@@ -27,6 +27,5 @@ export const drawNodeCircles = () => {
 
 export const positionNodeCircles = () => {
   d3.selectAll('.graph_node_circle').attr('transform', (d) =>
-    transformString('translate', d.x, d.y)
-  );
+    transformString('translate', d.x, d.y));
 };

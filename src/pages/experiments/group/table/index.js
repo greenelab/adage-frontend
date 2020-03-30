@@ -26,14 +26,14 @@ let Table = ({ samples }) => (
           <>
             <GroupButton
               sample={row}
-              index="diamond"
-              color="var(--blue)"
+              index='diamond'
+              color='var(--blue)'
               Icon={DiamondIcon}
             />
             <GroupButton
               sample={row}
-              index="spade"
-              color="var(--red)"
+              index='spade'
+              color='var(--red)'
               Icon={SpadeIcon}
             />
           </>

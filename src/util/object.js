@@ -64,6 +64,7 @@ export const filterKeys = (object, filter = [], whiteList = false) => {
       delete object[key];
   }
 
+
   return object;
 };
 

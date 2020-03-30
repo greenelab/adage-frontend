@@ -12,7 +12,6 @@ import { isString } from '../../../util/types';
 import { isArray } from '../../../util/types';
 import { uniqueMap } from '../../../util/object';
 
-/* eslint import/no-webpack-loader-syntax: off */
 import worker from 'workerize-loader!../../../util/math';
 
 import './index.css';
@@ -27,7 +26,10 @@ let Activities = ({ selectedExperiment, activities }) => {
   let unsortedSignatures;
   if (isArray(activities)) {
     unsortedSamples = uniqueMap(activities, (activity) => activity.sample);
-    unsortedSignatures = uniqueMap(activities, (activity) => activity.signature);
+    unsortedSignatures = uniqueMap(
+      activities,
+      (activity) => activity.signature
+    );
   }
 
   // when selected experiment changes
@@ -64,7 +66,7 @@ let Activities = ({ selectedExperiment, activities }) => {
   return (
     <>
       {isString(activities) && (
-        <FetchAlert status={activities} subject="activities" />
+        <FetchAlert status={activities} subject='activities' />
       )}
       {isArray(activities) && (
         <>

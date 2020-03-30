@@ -10,7 +10,7 @@ import './index.css';
 
 let Selected = ({ anySelected }) => (
   <>
-    {anySelected === false && <Alert text="No experiment selected" />}
+    {anySelected === false && <Alert text='No experiment selected' />}
     {anySelected === true && <Details />}
   </>
 );

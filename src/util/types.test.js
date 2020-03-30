@@ -89,7 +89,7 @@ test('is object', () => {
 test('is function', () => {
   // should be
   expect(isFunction(() => null)).toBe(true);
-  expect(isFunction(function() {})).toBe(true);
+  expect(isFunction(() => {})).toBe(true);
 
   // shouldn't be
   expect(isFunction(true)).toBe(false);

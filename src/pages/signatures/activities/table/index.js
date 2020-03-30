@@ -46,7 +46,7 @@ let Table = ({ activities }) => (
         width: '12%'
       }
     ]}
-    defaultSortKey="range"
+    defaultSortKey='range'
     defaultSortUp={true}
     freezeCol={false}
   />

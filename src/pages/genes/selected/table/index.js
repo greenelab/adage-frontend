@@ -22,7 +22,7 @@ let Table = ({ selected, deselect }) => (
             icon={<CrossIcon />}
             button
             onClick={() => deselect({ id: cell.id })}
-            aria-label="Deselect this gene"
+            aria-label='Deselect this gene'
           />
         ),
         width: '30px',

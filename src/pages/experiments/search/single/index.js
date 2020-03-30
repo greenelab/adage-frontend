@@ -30,8 +30,7 @@ const mapStateToProps = (state) => ({
   results: state.experiments.searches[0] ?
     isArray(state.experiments.searches[0].results) ?
       state.experiments.searches[0].results.map((result) =>
-        mapExperimentResult(result, state)
-      ) :
+        mapExperimentResult(result, state)) :
       state.experiments.searches[0].results :
     ''
 });

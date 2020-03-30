@@ -13,7 +13,7 @@ import './index.css';
 let Activities = ({ activities }) => (
   <>
     {isString(activities) && (
-      <FetchAlert status={activities} subject="activities" />
+      <FetchAlert status={activities} subject='activities' />
     )}
     {isArray(activities) && <Table />}
   </>

@@ -43,8 +43,7 @@ const reducer = produce((draft, type, payload, meta) => {
       if (!isArray(draft.list) || !draft.list.length)
         break;
       draft.selected = draft.selected.map((selected) =>
-        draft.list.find((sample) => sample.id === selected.id)
-      );
+        draft.list.find((sample) => sample.id === selected.id));
       break;
 
     case 'UNGROUP_SAMPLE':
@@ -99,6 +98,7 @@ export const isGrouped = (groups, id) => {
     if (isArray(value) && value.includes(id))
       return key;
   }
+
 
   return -1;
 };

@@ -16,13 +16,13 @@ const Signatures = () => (
   <>
     <Header />
     <Main>
-      <Section header="Signature Search">
+      <Section header='Signature Search'>
         <Search />
       </Section>
-      <Section header="Participating Genes">
+      <Section header='Participating Genes'>
         <Participating />
       </Section>
-      <Section header="Experiment Activities">
+      <Section header='Experiment Activities'>
         <Activities />
       </Section>
     </Main>
