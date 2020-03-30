@@ -1422,9 +1422,9 @@
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
 "@types/node@*":
-  version "13.9.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.5.tgz#59738bf30b31aea1faa2df7f4a5f55613750cf00"
-  integrity sha512-hkzMMD3xu6BrJpGVLeQ3htQQNAcOrJjX7WFmtK8zWQpz2UJf13LCFF2ALA7c9OVdvc2vQJeDdjfR35M0sBCxvw==
+  version "13.9.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.6.tgz#3371aa845ca4dfb86c2ff7a9a3bf62d86a3a59f6"
+  integrity sha512-ojnAmpyicIR0pS40ZA3dfOXeyRjNFMDcuImX8dVdqkfINnI/V6+cdyYnU7GaMIXeSPAfi3oCJaDLOYY927Rizw==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -4371,7 +4371,7 @@ escodegen@^1.11.0, escodegen@^1.9.1:
 
 "eslint-config-greenelab@git+https://git@github.com/greenelab/eslint-config-greenelab.git":
   version "1.0.0"
-  resolved "git+https://git@github.com/greenelab/eslint-config-greenelab.git#945e18f9b7c40ffe25e0c6fec6566d4287a1617a"
+  resolved "git+https://git@github.com/greenelab/eslint-config-greenelab.git#1bba90876fe4c937ff949c6f82282e07e8bf05c4"
   dependencies:
     babel-eslint "^10.1.0"
     eslint "^6.8.0"

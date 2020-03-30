@@ -34,7 +34,7 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.list = payload;
       break;
 
-    case 'GET_SIGNATURE_SEARCH':
+    case 'GET_SIGNATURE_SEARCH': {
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
       draft.searches[meta.index].query = meta.query;
@@ -50,6 +50,7 @@ const reducer = produce((draft, type, payload, meta) => {
 
       draft.searches[meta.index].results = results.slice(0, 100);
       break;
+    }
 
     case 'SELECT_SIGNATURE':
       draft.selected = payload;
