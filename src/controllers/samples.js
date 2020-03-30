@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 
 import { getSampleList } from '../actions/samples';
 import { getSampleSelectedDetails } from '../actions/samples';
-import { getSignatureSelectedDetails } from '../actions/signatures';
-import { getActivities } from '../actions/samples';
+import { getSampleActivities } from '../actions/samples';
 import { setVolcano } from '../actions/samples';
 import { selectSamples } from '../actions/samples';
 import { isArray } from '../util/types';
@@ -22,16 +21,13 @@ let SampleController = ({
   signatureList,
   selectedModel,
   selectedExperiment,
-  selectedSignature,
   selectedSamplesLoaded,
-  selectedSignatureLoaded,
   activities,
   diamondGroup,
   spadeGroup,
   getSampleList,
   getSampleSelectedDetails,
-  getSignatureSelectedDetails,
-  getActivities,
+  getSampleActivities,
   setVolcano,
   selectSamples
 }) => {
@@ -62,21 +58,6 @@ let SampleController = ({
     getSampleSelectedDetails();
   }, [sampleList.length, selectedSamplesLoaded, getSampleSelectedDetails]);
 
-  // when full signature list loads or when new signature selected
-  // fill in full details of selected signature
-  useEffect(() => {
-    // if details already filled in, exit
-    if (selectedSignatureLoaded)
-      return;
-
-    getSignatureSelectedDetails();
-  }, [
-    signatureList.length,
-    selectedSignature.id,
-    selectedSignatureLoaded,
-    getSignatureSelectedDetails
-  ]);
-
   // when selected model or experiment changes
   // get sample activities
   useEffect(() => {
@@ -88,12 +69,12 @@ let SampleController = ({
     )
       return;
 
-    getActivities({
+    getSampleActivities({
       modelId: selectedModel,
       sampleIds: selectedExperiment.samples.map((sample) => sample.id),
       limit: MAX_INT
     });
-  }, [selectedModel, selectedExperiment, getActivities]);
+  }, [selectedModel, selectedExperiment, getSampleActivities]);
 
   // when sample groups or activities change
   // recalculate volcano plot data
@@ -129,11 +110,9 @@ const mapStateToProps = (state) => ({
   signatureList: state.signatures.list,
   selectedModel: state.models.selected,
   selectedExperiment: state.experiments.selected,
-  selectedSignature: state.signatures.selected,
   selectedSamplesLoaded: state.samples.selected.every(
     (selected) => selected.name
   ),
-  selectedSignatureLoaded: state.signatures.selected.name ? true : false,
   activities: state.samples.activities,
   diamondGroup: state.samples.groups.diamond,
   spadeGroup: state.samples.groups.spade
@@ -142,8 +121,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = makeMapDispatchToProps({
   getSampleList,
   getSampleSelectedDetails,
-  getSignatureSelectedDetails,
-  getActivities,
+  getSampleActivities,
   setVolcano,
   selectSamples
 });

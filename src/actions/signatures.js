@@ -4,6 +4,7 @@ import { createFetchAction } from './fetch';
 import { urlSignatureDetails } from '../backend/signatures';
 import { urlSignatureList } from '../backend/signatures';
 import { urlSignatureParticipations } from '../backend/signatures';
+import { urlSignatureActivities } from '../backend/signatures';
 
 // actions related to the "signature" sub-object of the state
 
@@ -34,4 +35,10 @@ export const getSignatureSelectedDetails = createAction(
 export const getSignatureParticipations = createFetchAction(
   'GET_SIGNATURE_PARTICIPATIONS',
   urlSignatureParticipations
+);
+
+// get activities for specified signatures
+export const getSignatureActivities = createFetchAction(
+  'GET_SIGNATURE_ACTIVITIES',
+  urlSignatureActivities
 );

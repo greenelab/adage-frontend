@@ -74,7 +74,7 @@ const reducer = produce((draft, type, payload, meta) => {
       draft.groups = {};
       break;
 
-    case 'GET_ACTIVITIES':
+    case 'GET_SAMPLE_ACTIVITIES':
       draft.activities = payload;
       break;
 

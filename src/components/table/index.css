@@ -15,6 +15,7 @@
 }
 .th {
   height: 28px;
+  font-weight: 500;
   transition: color var(--fast);
   user-select: none;
 }

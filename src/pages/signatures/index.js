@@ -6,6 +6,7 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Search from './search';
 import Participating from './participating';
+import Activities from './activities';
 
 import './index.css';
 
@@ -20,6 +21,9 @@ const Signatures = () => (
       </Section>
       <Section header="Participating Genes">
         <Participating />
+      </Section>
+      <Section header="Experiment Activities">
+        <Activities />
       </Section>
     </Main>
     <Footer />

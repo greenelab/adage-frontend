@@ -59,18 +59,23 @@ let GeneController = ({
   // when selected genes change
   // re-get participations
   useEffect(() => {
+    // if we dont have all we need, dont even dispatch action
+    if (!selectedGenesLoaded)
+      return;
+
     getGeneParticipations({
       cancelType: 'GET_GENE_PARTICIPATIONS',
       ids: selectedGenes.map((gene) => gene.id),
       limit: selectedGenes.length ? MAX_INT : 1
     });
-  }, [selectedGenes, getGeneParticipations]);
+  }, [selectedGenes, selectedGenesLoaded, getGeneParticipations]);
 
   // when full gene or signature lists load, or selected genes change
   // recompute enriched signatures
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
     if (
+      !selectedGenesLoaded ||
       !isArray(geneParticipations) ||
       !geneParticipations.length ||
       !isArray(geneList) ||
@@ -94,6 +99,7 @@ let GeneController = ({
   }, [
     geneParticipations,
     selectedGenes,
+    selectedGenesLoaded,
     geneList,
     signatureList,
     setEnrichedSignatures

@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Alert from '../../../components/alert';
+import FetchAlert from '../../../components/fetch-alert';
+import { isString } from '../../../util/types';
+import { isArray } from '../../../util/types';
 import Details from './details';
 import Table from './table';
 
@@ -9,10 +11,12 @@ import './index.css';
 
 // selected signature section
 
-let Selected = ({ anySelected, selected }) => (
+let Selected = ({ participations }) => (
   <>
-    {anySelected === false && <Alert text="No signature selected" />}
-    {anySelected === true && (
+    {isString(participations) && (
+      <FetchAlert status={participations} subject="participating genes" />
+    )}
+    {isArray(participations) && (
       <>
         <Details />
         <Table />
@@ -22,8 +26,7 @@ let Selected = ({ anySelected, selected }) => (
 );
 
 const mapStateToProps = (state) => ({
-  anySelected: state.signatures.selected.id ? true : false,
-  selected: state.signatures.selected
+  participations: state.signatures.participations
 });
 
 Selected = connect(mapStateToProps)(Selected);

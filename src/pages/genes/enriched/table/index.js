@@ -33,19 +33,18 @@ let Table = ({ enrichedSignatures }) => (
                 className="text_small"
                 aria-label={'Gene participation weight: ' + gene.weight}
               >
-                {gene.weight.toFixed(2)}
+                {gene.weight.toFixed(5)}
               </span>
               &nbsp;&nbsp;&nbsp;
             </Fragment>
           )),
-        width: '50%'
+        width: '60%'
       },
       {
         name: 'p-value',
         key: 'pValue',
         render: ({ cell }) => cell.toFixed(5),
-        width: '25%',
-        align: 'center'
+        width: '20%'
       }
     ]}
     defaultSortKey="pValue"
