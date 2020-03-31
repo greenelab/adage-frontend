@@ -17,30 +17,35 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_MODEL_DETAILS':
+    case 'GET_MODEL_DETAILS': {
       draft.details = payload;
       break;
+    }
 
-    case 'GET_MODEL_LIST':
+    case 'GET_MODEL_LIST': {
       draft.list = payload;
       break;
+    }
 
-    case 'SELECT_MODEL':
+    case 'SELECT_MODEL': {
       if (payload.id)
         draft.selected = payload.id;
       else if (!draft.selected && isArray(draft.list) && draft.list.length)
         draft.selected = draft.list[0].id;
       break;
+    }
 
-    case 'SELECT_MODEL_FROM_URL':
+    case 'SELECT_MODEL_FROM_URL': {
       if (payload.id)
         draft.selected = payload.id;
       else if (!draft.selected && isArray(draft.list) && draft.list.length)
         draft.selected = draft.list[0].id;
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
 
   typeCheck(draft);

@@ -27,37 +27,43 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_SAMPLE_DETAILS':
+    case 'GET_SAMPLE_DETAILS': {
       draft.details = payload;
       break;
+    }
 
-    case 'GET_SAMPLE_LIST':
+    case 'GET_SAMPLE_LIST': {
       draft.list = payload;
       break;
+    }
 
-    case 'SELECT_SAMPLES':
+    case 'SELECT_SAMPLES': {
       draft.selected = payload.ids.map((id) => ({ id }));
       break;
+    }
 
-    case 'GET_SAMPLE_SELECTED_DETAILS':
+    case 'GET_SAMPLE_SELECTED_DETAILS': {
       if (!isArray(draft.list) || !draft.list.length)
         break;
       draft.selected = draft.selected.map((selected) =>
         draft.list.find((sample) => sample.id === selected.id));
       break;
+    }
 
-    case 'UNGROUP_SAMPLE':
+    case 'UNGROUP_SAMPLE': {
       draft.groups = filterGrouped(draft.groups, payload.id);
       break;
+    }
 
-    case 'GROUP_SAMPLE':
+    case 'GROUP_SAMPLE': {
       draft.groups = filterGrouped(draft.groups, payload.id);
       if (!isArray(draft.groups[payload.index]))
         draft.groups[payload.index] = [];
       draft.groups[payload.index].push(payload.id);
       break;
+    }
 
-    case 'GROUP_SAMPLES_FROM_URL':
+    case 'GROUP_SAMPLES_FROM_URL': {
       if (
         !payload.index ||
         !payload.ids ||
@@ -68,24 +74,29 @@ const reducer = produce((draft, type, payload, meta) => {
       else
         draft.groups[payload.index] = payload.ids;
       break;
+    }
 
-    case 'UNGROUP_ALL_SAMPLES':
+    case 'UNGROUP_ALL_SAMPLES': {
       draft.groups = {};
       break;
+    }
 
-    case 'GET_SAMPLE_ACTIVITIES':
+    case 'GET_SAMPLE_ACTIVITIES': {
       draft.activities = payload;
       break;
+    }
 
-    case 'SET_VOLCANO':
+    case 'SET_VOLCANO': {
       if (isEmpty(payload))
         draft.volcano = actionStatuses.EMPTY;
       else
         draft.volcano = payload;
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
 
   typeCheck(draft);
@@ -98,6 +109,7 @@ export const isGrouped = (groups, id) => {
     if (isArray(value) && value.includes(id))
       return key;
   }
+
 
   return -1;
 };

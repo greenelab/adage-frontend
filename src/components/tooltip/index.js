@@ -171,40 +171,48 @@ const computeStyle = ({ anchor, center }) => {
 
   // calculate horizontal position
   switch (horizontalAlign) {
-    case 'center':
+    case 'center': {
       style.left = bbox.left + bbox.width / 2 + 'px';
       style.transform += 'translateX(-50%) ';
       break;
+    }
 
-    case 'left':
+    case 'left': {
       style.left = bbox.left + 'px';
       break;
+    }
 
-    case 'right':
+    case 'right': {
       style.right = bbox.right + 'px';
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
 
   // calculate vertical position
   switch (verticalAlign) {
-    case 'center':
+    case 'center': {
       style.top = bbox.top + bbox.height / 2 + 'px';
       style.transform += 'translateY(-50%) ';
       break;
+    }
 
-    case 'top':
+    case 'top': {
       style.bottom = bbox.bottom + bbox.height + padding + 'px';
       break;
+    }
 
-    case 'bottom':
+    case 'bottom': {
       style.top = bbox.top + bbox.height + padding + 'px';
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
 
   return style;

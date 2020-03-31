@@ -26,13 +26,15 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_SIGNATURE_DETAILS':
+    case 'GET_SIGNATURE_DETAILS': {
       draft.details = payload;
       break;
+    }
 
-    case 'GET_SIGNATURE_LIST':
+    case 'GET_SIGNATURE_LIST': {
       draft.list = payload;
       break;
+    }
 
     case 'GET_SIGNATURE_SEARCH': {
       if (!isObject(draft.searches[meta.index]))
@@ -52,18 +54,20 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
     }
 
-    case 'SELECT_SIGNATURE':
+    case 'SELECT_SIGNATURE': {
       draft.selected = payload;
       break;
+    }
 
-    case 'SELECT_SIGNATURE_FROM_URL':
+    case 'SELECT_SIGNATURE_FROM_URL': {
       if (!payload.id)
         draft.selected = {};
       else
         draft.selected = { id: payload.id };
       break;
+    }
 
-    case 'GET_SIGNATURE_SELECTED_DETAILS':
+    case 'GET_SIGNATURE_SELECTED_DETAILS': {
       if (!isArray(draft.list) || !draft.list.length)
         break;
 
@@ -71,17 +75,21 @@ const reducer = produce((draft, type, payload, meta) => {
         draft.list.find((signature) => signature.id === draft.selected.id) ||
         {};
       break;
+    }
 
-    case 'GET_SIGNATURE_PARTICIPATIONS':
+    case 'GET_SIGNATURE_PARTICIPATIONS': {
       draft.participations = payload;
       break;
+    }
 
-    case 'GET_SIGNATURE_ACTIVITIES':
+    case 'GET_SIGNATURE_ACTIVITIES': {
       draft.activities = payload;
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
 
   typeCheck(draft);
