@@ -28,7 +28,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npm test
       - name: Build app
-        run: npm run build
+        run: CI=false npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2
         if: github.event_name == 'push'
