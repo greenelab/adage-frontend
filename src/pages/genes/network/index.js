@@ -92,8 +92,7 @@ const constructGraph = ({ list, selected, edges }) => {
     xor(
       selected.find((selected) => link.gene1 === selected.id),
       selected.find((selected) => link.gene2 === selected.id)
-    )
-  );
+    ));
 
   // look up node ids in master gene list and replace with full gene props
   nodes = nodes
