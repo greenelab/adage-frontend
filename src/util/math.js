@@ -77,8 +77,7 @@ export const calculateEnrichedSignatures = ({
       // of participating genes, get selected ones
       const selectedParticipatingGenes = participatingGenes
         .filter(({ gene }) =>
-          selectedGenes.find((selected) => selected.id === gene)
-        )
+          selectedGenes.find((selected) => selected.id === gene))
         // replace matched gene id with full gene info from selected genes
         .map(({ gene, weight }) => ({
           ...selectedGenes.find((selected) => selected.id === gene),
@@ -172,8 +171,7 @@ export const calculateVolcanoSignatures = ({
 
   // remove any signatures that are not part of activities
   signatureList = signatureList.filter((signature) =>
-    activities.find((activity) => activity.signature === signature.id)
-  );
+    activities.find((activity) => activity.signature === signature.id));
 
   // for each signature
   let volcanoSignatures = signatureList.map((signature) => {

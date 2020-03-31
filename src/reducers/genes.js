@@ -29,41 +29,48 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_GENE_DETAILS':
+    case 'GET_GENE_DETAILS': {
       draft.details = mapGeneResults(payload);
       break;
+    }
 
-    case 'GET_GENE_LIST':
+    case 'GET_GENE_LIST': {
       draft.list = mapGeneResults(payload);
       break;
+    }
 
-    case 'GET_GENE_SEARCH':
+    case 'GET_GENE_SEARCH': {
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
       draft.searches[meta.index].query = meta.query;
       draft.searches[meta.index].results = mapGeneResults(payload);
       break;
+    }
 
-    case 'CLEAR_GENE_SEARCH':
+    case 'CLEAR_GENE_SEARCH': {
       draft.searches = [];
       draft.searches[0] = { results: actionStatuses.EMPTY };
       break;
+    }
 
-    case 'SELECT_GENE':
+    case 'SELECT_GENE': {
       if (isSelected(draft.selected, payload.id))
         break;
       draft.selected.push({ id: payload.id });
       break;
+    }
 
-    case 'DESELECT_GENE':
+    case 'DESELECT_GENE': {
       draft.selected = filterSelected(draft.selected, payload.id);
       break;
+    }
 
-    case 'DESELECT_ALL_GENES':
+    case 'DESELECT_ALL_GENES': {
       draft.selected = [];
       break;
+    }
 
-    case 'SELECT_FIRST_GENES':
+    case 'SELECT_FIRST_GENES': {
       for (const search of draft.searches) {
         const firstResult =
           isArray(search.results) && search.results.length ?
@@ -76,8 +83,9 @@ const reducer = produce((draft, type, payload, meta) => {
         draft.selected.push({ id: firstResult.id });
       }
       break;
+    }
 
-    case 'DESELECT_FIRST_GENES':
+    case 'DESELECT_FIRST_GENES': {
       for (const search of draft.searches) {
         const firstResult =
           isArray(search.results) && search.results.length ?
@@ -88,27 +96,30 @@ const reducer = produce((draft, type, payload, meta) => {
         draft.selected = filterSelected(draft.selected, firstResult.id);
       }
       break;
+    }
 
-    case 'SELECT_GENES_FROM_URL':
+    case 'SELECT_GENES_FROM_URL': {
       if (!payload.ids || !isArray(payload.ids) || !payload.ids.length)
         draft.selected = [];
       else
         draft.selected = payload.ids.map((id) => ({ id: id }));
       break;
+    }
 
-    case 'GET_GENE_SELECTED_DETAILS':
+    case 'GET_GENE_SELECTED_DETAILS': {
       if (!isArray(draft.list) || !draft.list.length)
         break;
       draft.selected = draft.selected.map((selected) =>
-        draft.list.find((gene) => gene.id === selected.id)
-      );
+        draft.list.find((gene) => gene.id === selected.id));
       break;
+    }
 
-    case 'GET_GENE_PARTICIPATIONS':
+    case 'GET_GENE_PARTICIPATIONS': {
       draft.participations = payload;
       break;
+    }
 
-    case 'SET_ENRICHED_SIGNATURES':
+    case 'SET_ENRICHED_SIGNATURES': {
       if (isArray(payload)) {
         if (isEmpty(payload))
           draft.enrichedSignatures = actionStatuses.EMPTY;
@@ -117,17 +128,20 @@ const reducer = produce((draft, type, payload, meta) => {
       } else
         draft.enrichedSignatures = draft.participations;
       break;
+    }
 
-    case 'GET_GENE_EDGES':
+    case 'GET_GENE_EDGES': {
       const { selectedGenes } = meta;
       if (selectedGenes.length)
         draft.edges = payload;
       else
         draft.edges = actionStatuses.EMPTY;
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
 
   typeCheck(draft);

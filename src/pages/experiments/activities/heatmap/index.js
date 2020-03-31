@@ -75,8 +75,7 @@ const Heatmap = ({ activities, samples, signatures }) => {
           sample: d.sampleName,
           signature: d.signatureName,
           activity: d.value.toFixed(5)
-        })
-      )
+        }))
       .attr('data-tooltip-speed', 10);
     cells.exit().remove();
   }, [mounted, activities, samples, signatures, width, height]);

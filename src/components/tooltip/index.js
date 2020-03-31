@@ -77,7 +77,7 @@ const Tooltip = () => {
       <CSSTransition
         in={open ? true : false}
         timeout={speed}
-        classNames="tooltip"
+        classNames='tooltip'
         unmountOnExit
       >
         <Portal anchor={anchor} speed={speed} center={center} />
@@ -98,7 +98,7 @@ const Portal = ({ anchor, speed, center }) => {
   if (objectLabel) {
     const fields = humanizeKeys(objectLabel);
     content = (
-      <table className="tooltip_table text_small">
+      <table className='tooltip_table text_small'>
         <tbody>
           {Object.entries(fields).map(([key, value], index) => (
             <tr key={index}>
@@ -114,7 +114,7 @@ const Portal = ({ anchor, speed, center }) => {
 
   return createPortal(
     <div
-      className="tooltip text_small"
+      className='tooltip text_small'
       style={{
         ...computeStyle({ anchor, center }),
         transition: 'opacity ease ' + speed + 'ms'
@@ -171,40 +171,48 @@ const computeStyle = ({ anchor, center }) => {
 
   // calculate horizontal position
   switch (horizontalAlign) {
-    case 'center':
+    case 'center': {
       style.left = bbox.left + bbox.width / 2 + 'px';
       style.transform += 'translateX(-50%) ';
       break;
+    }
 
-    case 'left':
+    case 'left': {
       style.left = bbox.left + 'px';
       break;
+    }
 
-    case 'right':
+    case 'right': {
       style.right = bbox.right + 'px';
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
 
   // calculate vertical position
   switch (verticalAlign) {
-    case 'center':
+    case 'center': {
       style.top = bbox.top + bbox.height / 2 + 'px';
       style.transform += 'translateY(-50%) ';
       break;
+    }
 
-    case 'top':
+    case 'top': {
       style.bottom = bbox.bottom + bbox.height + padding + 'px';
       break;
+    }
 
-    case 'bottom':
+    case 'bottom': {
       style.top = bbox.top + bbox.height + padding + 'px';
       break;
+    }
 
-    default:
+    default: {
       break;
+    }
   }
 
   return style;

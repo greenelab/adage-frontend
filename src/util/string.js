@@ -20,8 +20,7 @@ export const toCamelCase = (string) => {
     .toLowerCase()
     .split(/_|-|\s+/);
   string = string.map((word, index) =>
-    index > 0 ? word.charAt(0).toUpperCase() + word.substring(1) : word
-  );
+    index > 0 ? word.charAt(0).toUpperCase() + word.substring(1) : word);
   string = string.join('');
   return string;
 };

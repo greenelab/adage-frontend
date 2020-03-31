@@ -18,8 +18,7 @@ export const drawNodeLabels = () => {
     .merge(nodeLabels)
     .attr('class', 'graph_node_label')
     .attr('fill', (d) =>
-      color(d.selected ? fillA : fillB).isLight() ? '#000000' : '#ffffff'
-    )
+      color(d.selected ? fillA : fillB).isLight() ? '#000000' : '#ffffff')
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .style('font-size', fontSize)
@@ -30,8 +29,6 @@ export const drawNodeLabels = () => {
 };
 
 export const positionNodeLabels = () => {
-  d3.selectAll('.graph_node_label').attr(
-    'transform',
-    (d) => transformString('translate', d.x, d.y)
-  );
+  d3.selectAll('.graph_node_label').attr('transform', (d) =>
+    transformString('translate', d.x, d.y));
 };

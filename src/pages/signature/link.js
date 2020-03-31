@@ -6,7 +6,7 @@ import Clickable from '../../components/clickable';
 
 const SignatureLink = ({ signature = {} }) => (
   <Clickable
-    to="/signatures"
+    to='/signatures'
     search={{ signature: signature.id }}
     text={signature.name}
     link

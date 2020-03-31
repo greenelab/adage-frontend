@@ -45,7 +45,7 @@ let Sample = ({ details, getDetails }) => {
         >
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
-            <FetchAlert status={details} subject="sample details" />
+            <FetchAlert status={details} subject='sample details' />
           )}
         </Section>
       </Main>

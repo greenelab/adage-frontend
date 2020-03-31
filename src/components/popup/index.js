@@ -40,8 +40,8 @@ const Portal = ({
       className={'popup_content ' + className}
       onClick={(event) => event.stopPropagation()}
       style={{
-        right: (window.innerWidth - anchorBbox.rightAbsolute) || 0,
-        top: (anchorBbox.bottomAbsolute + distance) || 0
+        right: window.innerWidth - anchorBbox.rightAbsolute || 0,
+        top: anchorBbox.bottomAbsolute + distance || 0
       }}
     >
       {children}

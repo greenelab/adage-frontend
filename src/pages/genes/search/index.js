@@ -36,8 +36,7 @@ let Search = ({ results, select, deselect, dispatch }) => (
           index: index,
           query: string,
           cancelType: 'GET_GENE_SEARCH_' + index
-        })
-      );
+        }));
       cancelAction({ cancelTypeRegex: /GENE_SEARCH.*/ });
       dispatch([clearGeneSearch(), [...actions]]);
     }}

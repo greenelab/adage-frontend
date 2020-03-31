@@ -81,16 +81,15 @@ let Plot = ({ volcano }) => {
           signature: d.name,
           meanDiff: d.meanDiff,
           pValue: d.pValue
-        })
-      )
+        }))
       .attr('data-tooltip-speed', 10);
     dot.exit().remove();
   }, [mounted, width, height, volcano]);
 
   return (
-    <svg ref={ref} id="volcano" xmlns="http://www.w3.org/2000/svg">
+    <svg ref={ref} id='volcano' xmlns='http://www.w3.org/2000/svg'>
       <g
-        id="volcano_view"
+        id='volcano_view'
         transform={transformString(
           'translate',
           width / 2,
@@ -106,9 +105,9 @@ let Plot = ({ volcano }) => {
         )}
       >
         <text
-          id="y_axis_label"
-          textAnchor="middle"
-          dominantBaseline="middle"
+          id='y_axis_label'
+          textAnchor='middle'
+          dominantBaseline='middle'
           x={0}
           y={0}
           transform={transformString(
@@ -122,9 +121,9 @@ let Plot = ({ volcano }) => {
           - log10 p value
         </text>
         <text
-          id="x_axis_label"
-          textAnchor="middle"
-          dominantBaseline="middle"
+          id='x_axis_label'
+          textAnchor='middle'
+          dominantBaseline='middle'
           x={0}
           y={0}
           transform={transformString(
@@ -135,9 +134,9 @@ let Plot = ({ volcano }) => {
         >
           diff in mean activity
         </text>
-        <g id="volcano_dots"></g>
-        <g id="volcano_x_axis"></g>
-        <g id="volcano_y_axis"></g>
+        <g id='volcano_dots'></g>
+        <g id='volcano_x_axis'></g>
+        <g id='volcano_y_axis'></g>
       </g>
     </svg>
   );

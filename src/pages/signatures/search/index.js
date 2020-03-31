@@ -26,7 +26,7 @@ let Search = ({ model, list, results, select, search }) => {
   return (
     <SearchComponent
       length={results?.length || null}
-      placeholder="search for a signature"
+      placeholder='search for a signature'
       onSearch={(value) => {
         const string = value.trim();
         search({
