@@ -11,7 +11,6 @@ import { isArray } from '../util/types';
 import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!../util/math';
 
 let GeneController = ({

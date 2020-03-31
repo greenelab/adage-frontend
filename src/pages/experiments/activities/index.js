@@ -12,7 +12,6 @@ import { isString } from '../../../util/types';
 import { isArray } from '../../../util/types';
 import { uniqueMap } from '../../../util/object';
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!../../../util/math';
 
 import './index.css';

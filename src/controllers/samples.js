@@ -12,7 +12,6 @@ import { actionStatuses } from '../actions/fetch';
 import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
-// eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!../util/math';
 
 // dispatch new actions in response to redux state changes
