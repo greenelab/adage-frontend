@@ -99,7 +99,6 @@ export const isGrouped = (groups, id) => {
       return key;
   }
 
-
   return -1;
 };
 
