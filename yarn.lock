@@ -4371,7 +4371,7 @@ escodegen@^1.11.0, escodegen@^1.9.1:
 
 "eslint-config-greenelab@git+https://git@github.com/greenelab/eslint-config-greenelab.git":
   version "1.0.0"
-  resolved "git+https://git@github.com/greenelab/eslint-config-greenelab.git#f5ee12ae275126782b3f09c914afcbdfb7d4daf3"
+  resolved "git+https://git@github.com/greenelab/eslint-config-greenelab.git#b4c318ac14f3657b69da0bfd3ef1baea1d0a9bab"
   dependencies:
     babel-eslint "^10.1.0"
     eslint "^6.8.0"
