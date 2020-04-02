@@ -41,6 +41,7 @@
   margin-left: 3px;
 }
 .table[data-freeze-row='true'] .thead {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   background: var(--white);
@@ -48,6 +49,7 @@
 }
 .table[data-freeze-col='true'] .th:first-child,
 .table[data-freeze-col='true'] .td:first-child {
+  position: -webkit-sticky;
   position: sticky;
   left: 0;
   background: var(--white);

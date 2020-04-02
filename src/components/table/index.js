@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useMemo } from 'react';
 import { useCallback } from 'react';
 import { InView } from 'react-intersection-observer';
+import 'intersection-observer'; // polyfill for ios
 
 import HorizontalLine from '../../components/horizontal-line';
 
