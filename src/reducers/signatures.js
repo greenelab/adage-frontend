@@ -3,6 +3,8 @@ import produce from 'immer';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
+import { split } from '../util/string';
+import { includes } from '../util/object';
 import { actionStatuses } from '../actions/fetch';
 
 // type check for key variables, run before and after reducer
@@ -39,18 +41,15 @@ const reducer = produce((draft, type, payload, meta) => {
     case 'GET_SIGNATURE_SEARCH': {
       if (!isObject(draft.searches[meta.index]))
         draft.searches[meta.index] = {};
-      draft.searches[meta.index].query = meta.query;
-
       let results;
       if (isArray(draft.list)) {
         results = draft.list.filter((signature) =>
-          signature.name.includes(meta.query));
+          includes(signature.name.toLowerCase(), split(meta.query)));
         if (!results.length)
           results = actionStatuses.EMPTY;
       } else
         results = actionStatuses.LOADING;
-
-      draft.searches[meta.index].results = results.slice(0, 100);
+      draft.searches[meta.index].results = results;
       break;
     }
 
@@ -70,7 +69,6 @@ const reducer = produce((draft, type, payload, meta) => {
     case 'GET_SIGNATURE_SELECTED_DETAILS': {
       if (!isArray(draft.list) || !draft.list.length)
         break;
-
       draft.selected =
         draft.list.find((signature) => signature.id === draft.selected.id) ||
         {};

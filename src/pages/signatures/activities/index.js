@@ -34,28 +34,43 @@ export const mapActivities = (activities, state) => {
     !isArray(state.experiments.list) ||
     !state.experiments.list.length
   )
-    return activities;
+    return { activities };
 
-  const allValues = activities.map((activity) => activity.value);
-  return state.experiments.list
-    .map((experiment) => {
-      const samples = experiment.samples.map((sample) => sample.id);
-      const values = activities
-        .filter((activity) => samples.includes(activity.sample))
-        .map((activity) => activity.value);
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      const range = max - min;
-      return {
-        experiment: experiment.accession,
-        allValues,
-        values,
-        samples: samples.length,
-        activities: values.length,
-        min,
-        max,
-        range
-      };
-    })
-    .filter((experiment) => experiment.activities);
+  // get all activity values
+  let allValues = activities.map((activity) => activity.value);
+  // get min/max of values
+  const allMin = Math.min(...allValues);
+  const allMax = Math.max(...allValues);
+  // normalize values between 0 and 1
+  allValues = allValues.map((value) => (value - allMin) / (allMax - allMin));
+
+  // for each experiment
+  return {
+    activities: state.experiments.list
+      .map((experiment) => {
+        // get experiment sample ids
+        const samples = experiment.samples.map((sample) => sample.id);
+        // get activity value of each sample
+        let values = activities
+          .filter((activity) => samples.includes(activity.sample))
+          .map((activity) => activity.value);
+        // get min/max/range of values
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const range = max - min;
+        // normalize values between 0 and 1, compared to all activities
+        values = values.map((value) => (value - allMin) / (allMax - allMin));
+        return {
+          experiment: experiment.accession,
+          values,
+          samples: samples.length,
+          activities: values.length,
+          min,
+          max,
+          range
+        };
+      })
+      .filter((experiment) => experiment.activities),
+    values: allValues
+  };
 };

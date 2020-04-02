@@ -64,6 +64,7 @@ export const filterKeys = (object, filter = [], whiteList = false) => {
       delete object[key];
   }
 
+
   return object;
 };
 
@@ -110,3 +111,13 @@ export const parseObject = (value) => {
 
 // run map function on array and return unique values
 export const uniqueMap = (array, func) => [...new Set([...array.map(func)])];
+
+// check if all entries in array are found in string
+export const includes = (string, array) => {
+  for (const entry of array) {
+    if (string.indexOf(entry) === -1)
+      return false;
+  }
+
+  return true;
+};

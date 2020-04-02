@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
+import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
 import Table from './';
 
@@ -24,6 +25,9 @@ test('table component', () => {
       ]}
     />
   );
+
+  mockAllIsIntersecting(true);
+
   const element = container.firstChild;
   const ageCol = () => container.querySelector('.th:nth-of-type(2)');
   const firstRow = () => container.querySelectorAll('.tbody .tr')[0];
@@ -35,6 +39,9 @@ test('table component', () => {
   expect(element).toHaveTextContent(/fruit column/i);
   expect(element).toHaveTextContent(/age column/i);
   expect(element).toHaveTextContent(/name column/i);
+  expect(element).toHaveTextContent(/apple/i);
+  expect(element).toHaveTextContent(/pear/i);
+  expect(element).toHaveTextContent(/banana/i);
   expect(element).not.toHaveTextContent(/james/i);
   expect(element).not.toHaveTextContent(/anna/i);
   expect(element).not.toHaveTextContent(/cara/i);
