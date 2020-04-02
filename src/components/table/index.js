@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useMemo } from 'react';
 import { useCallback } from 'react';
-import { Fragment } from 'react';
+import { InView } from 'react-intersection-observer';
+import 'intersection-observer'; // polyfill for ios
 
 import HorizontalLine from '../../components/horizontal-line';
 
@@ -109,76 +110,18 @@ const Table = ({
       data-freeze-row={freezeRow}
       data-freeze-col={freezeCol}
     >
-      <div className='thead medium'>
-        <div className='tr'>
-          {columns.map((column, index) => (
-            <button
-              key={index}
-              className='th'
-              style={{
-                width: column.width,
-                justifyContent: column.align
-              }}
-              data-padded={column.padded === false ? false : true}
-              title=''
-              onClick={() => onClick(column.key)}
-              disabled={!sortable}
-            >
-              <span className='nowrap' aria-label=''>
-                {column.name}
-              </span>
-              {sortKey !== null && column.key && sortKey === column.key ? (
-                sortUp ? (
-                  <ArrowIcon className='rotate_ccw' />
-                ) : (
-                  <ArrowIcon className='rotate_cw' />
-                )
-              ) : (
-                ''
-              )}
-            </button>
-          ))}
-        </div>
-        <HorizontalLine />
-      </div>
-      <div className='tbody'>
-        {table.map((row, index, array) => (
-          <Fragment key={index}>
-            <div className='tr' data-shade={index === highlightedIndex}>
-              {columns.map((column, index) => {
-                const cell = row[column.key];
-                // render cell contents
-                let contents;
-                if (column.render)
-                  contents = column.render({ row, column, cell });
-                else {
-                  contents = (
-                    <span className='nowrap' aria-label=''>
-                      {cell}
-                    </span>
-                  );
-                }
-
-                return (
-                  <span
-                    key={index}
-                    className='td'
-                    data-highlight={column.key === row.highlightedField}
-                    data-padded={column.padded === false ? false : true}
-                    style={{
-                      width: column.width,
-                      justifyContent: column.align
-                    }}
-                  >
-                    {contents}
-                  </span>
-                );
-              })}
-            </div>
-            {index < array.length - 1 && <HorizontalLine />}
-          </Fragment>
-        ))}
-      </div>
+      <Head
+        columns={columns}
+        sortable={sortable}
+        sortKey={sortKey}
+        sortUp={sortUp}
+        onClick={onClick}
+      />
+      <Body
+        table={table}
+        highlightedIndex={highlightedIndex}
+        columns={columns}
+      />
     </div>
   );
 };
@@ -193,3 +136,107 @@ Table.propTypes = {
 };
 
 export default Table;
+
+const Head = ({ columns, sortable, sortKey, sortUp, onClick }) => (
+  <div className='thead medium'>
+    <div className='tr'>
+      {columns.map((column, index) => (
+        <HeadCell
+          key={index}
+          sortable={sortable}
+          sortKey={sortKey}
+          sortUp={sortUp}
+          column={column}
+          onClick={onClick}
+        />
+      ))}
+    </div>
+    <HorizontalLine />
+  </div>
+);
+
+const HeadCell = ({ sortable, sortKey, sortUp, column, onClick }) => (
+  <button
+    className='th'
+    style={{
+      width: column.width,
+      justifyContent: column.align
+    }}
+    data-padded={column.padded === false ? false : true}
+    title=''
+    onClick={() => onClick(column.key)}
+    disabled={!sortable}
+  >
+    <span className='nowrap' aria-label=''>
+      {column.name}
+    </span>
+    {sortKey !== null && column.key && sortKey === column.key ? (
+      sortUp ? (
+        <ArrowIcon className='rotate_ccw' />
+      ) : (
+        <ArrowIcon className='rotate_cw' />
+      )
+    ) : (
+      ''
+    )}
+  </button>
+);
+
+const Body = ({ table, columns, highlightedIndex }) => (
+  <div className='tbody'>
+    {table.map((row, index) => (
+      <BodyRow
+        key={index}
+        columns={columns}
+        row={row}
+        highlightedIndex={highlightedIndex}
+        index={index}
+      />
+    ))}
+  </div>
+);
+
+const BodyRow = ({ columns, row, highlightedIndex, index }) => (
+  <>
+    <InView>
+      {({ inView, ref }) => (
+        <div className='tr' ref={ref} data-shade={index === highlightedIndex}>
+          {inView &&
+            columns.map((column, index) => (
+              <BodyCell key={index} row={row} column={column} />
+            ))}
+        </div>
+      )}
+    </InView>
+    <HorizontalLine />
+  </>
+);
+
+const BodyCell = ({ row, column }) => {
+  const cell = row[column.key];
+  // render cell contents
+  let contents;
+  if (column.render)
+    contents = column.render({ row, column, cell });
+  else {
+    contents = (
+      <span className='nowrap' aria-label=''>
+        {cell}
+      </span>
+    );
+  }
+
+  return (
+    <span
+      className='td'
+      data-highlight={column.key === row.highlightedField}
+      data-padded={column.padded === false ? false : true}
+      style={{
+        width: column.width,
+        justifyContent: column.align
+      }}
+    >
+      {contents}
+    </span>
+  );
+};

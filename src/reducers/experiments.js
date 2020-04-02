@@ -55,7 +55,6 @@ const reducer = produce((draft, type, payload, meta) => {
     case 'GET_EXPERIMENT_SELECTED_DETAILS': {
       if (!isArray(draft.list) || !draft.list.length)
         break;
-
       draft.selected =
         draft.list.find(
           (experiment) => experiment.accession === draft.selected.accession
