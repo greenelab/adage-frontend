@@ -7,7 +7,7 @@ import Clickable from './';
 test('clickable component', () => {
   // render
   const { container } = render(
-    <Clickable text='hello adage' link className='test_class' newTab />
+    <Clickable text='hello adage' link className='test_class' />
   );
   const element = container.firstChild;
 

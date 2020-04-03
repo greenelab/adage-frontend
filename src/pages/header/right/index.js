@@ -15,7 +15,6 @@ const Right = () => (
     <ModelSelect />
     <Clickable
       to='/help'
-      newTab
       icon={<HelpIcon />}
       button
       aria-label='View help documentation for this page'

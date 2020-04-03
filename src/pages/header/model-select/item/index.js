@@ -35,7 +35,6 @@ const Item = ({
     </div>
     <Clickable
       to={'/model/' + id}
-      newTab
       icon={<InfoIcon />}
       button
       aria-label={'Open details page for model ' + title}
