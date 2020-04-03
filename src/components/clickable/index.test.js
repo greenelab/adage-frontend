@@ -18,7 +18,6 @@ test('clickable component', () => {
   expect(element).toHaveAttribute('data-button', 'false');
   expect(element).toHaveAttribute('data-text', 'true');
   expect(element).toHaveAttribute('data-icon', 'false');
-  expect(element).toHaveAttribute('target', '_blank');
   expect(element).toHaveTextContent('hello adage');
 });
 
