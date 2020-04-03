@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
 import GeneLink from '../../../gene/link';
-import { isArray } from '../../../../util/types';
+import { mapParticipations } from '..';
 
 import './index.css';
 
@@ -48,14 +48,7 @@ let Table = ({ participations }) => (
 );
 
 const mapStateToProps = (state) => ({
-  participations:
-    isArray(state.signatures.participations) && isArray(state.genes.list) ?
-      state.signatures.participations.map((participation) => ({
-        ...(state.genes.list.find((gene) => gene.id === participation.gene) ||
-            {}),
-        weight: participation.weight
-      })) :
-      state.signatures.participations
+  participations: mapParticipations(state)
 });
 
 Table = connect(mapStateToProps)(Table);
