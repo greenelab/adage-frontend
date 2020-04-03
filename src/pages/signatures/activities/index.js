@@ -61,7 +61,7 @@ export const mapActivities = (activities, state) => {
         // normalize values between 0 and 1, compared to all activities
         values = values.map((value) => (value - allMin) / (allMax - allMin));
         return {
-          experiment: experiment.accession,
+          accession: experiment.accession,
           values,
           samples: samples.length,
           activities: values.length,

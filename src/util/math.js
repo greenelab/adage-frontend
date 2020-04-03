@@ -191,8 +191,6 @@ export const calculateVolcanoSignatures = ({
 
     return {
       ...signature,
-      diamondActivities,
-      spadeActivities,
       meanDiff,
       pValue
     };

@@ -7,7 +7,6 @@ import Clickable from '../../components/clickable';
 const SampleLink = ({ sample = {} }) => (
   <Clickable
     to={'/sample/' + sample.id}
-    newTab
     text={sample.name}
     link
     aria-label={'Open details page for sample ' + sample.name}

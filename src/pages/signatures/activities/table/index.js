@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
 import Canvas from '../../../../components/canvas';
+import ExperimentLink from '../../../experiment/link';
 import { getBackground } from './barcode';
 import { getForeground } from './barcode';
 import { mapActivities } from '../';
@@ -27,6 +28,7 @@ let Table = ({ activities = {}, values = [] }) => {
         {
           name: 'Experiment',
           key: 'experiment',
+          render: ({ row }) => <ExperimentLink experiment={row} />,
           width: '20%'
         },
         {

@@ -32,12 +32,11 @@ let Activities = ({ selectedExperiment, activities }) => {
     );
   }
 
-  // when selected experiment changes
   // reset sorts
-  useEffect(() => {
+  const reset = useCallback(() => {
     setSortedSamples(null);
     setSortedSignatures(null);
-  }, [selectedExperiment]);
+  }, []);
 
   // sort samples with clustering
   const sortSamples = useCallback(async () => {
@@ -63,6 +62,12 @@ let Activities = ({ selectedExperiment, activities }) => {
     );
   }, [activities]);
 
+  // when selected experiment changes
+  // reset sorts
+  useEffect(() => {
+    reset();
+  }, [reset, selectedExperiment]);
+
   return (
     <>
       {isString(activities) && (
@@ -83,6 +88,7 @@ let Activities = ({ selectedExperiment, activities }) => {
             sortedSignatures={sortedSignatures}
             sortSamples={sortSamples}
             sortSignatures={sortSignatures}
+            reset={reset}
           />
         </>
       )}

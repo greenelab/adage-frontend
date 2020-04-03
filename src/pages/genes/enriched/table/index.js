@@ -27,15 +27,11 @@ let Table = ({ enrichedSignatures }) => (
         render: ({ cell }) =>
           cell.map((gene, index) => (
             <Fragment key={index}>
-              <GeneLink gene={gene} />
-              &nbsp;
-              <span
-                className='text_small'
-                aria-label={'Gene participation weight: ' + gene.weight}
-              >
-                {gene.weight.toFixed(5)}
-              </span>
-              &nbsp;&nbsp;&nbsp;
+              <GeneLink
+                gene={gene}
+                extraTooltip={'weight: ' + gene.weight}
+              />
+              &nbsp;&nbsp;
             </Fragment>
           )),
         width: '60%'

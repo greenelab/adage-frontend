@@ -159,6 +159,6 @@ export const mapGeneResults = (genes) =>
 
 export const mapGene = (gene) => ({
   ...gene,
-  name: gene.standard_name || gene.systematic_name || gene.entrezid || '-',
+  name: gene.standardName || gene.systematicName || gene.entrezid || '-',
   entrezId: gene.entrezid
 });

@@ -7,7 +7,7 @@ import Clickable from './';
 test('clickable component', () => {
   // render
   const { container } = render(
-    <Clickable text='hello adage' link className='test_class' newTab />
+    <Clickable text='hello adage' link className='test_class' />
   );
   const element = container.firstChild;
 
@@ -18,7 +18,6 @@ test('clickable component', () => {
   expect(element).toHaveAttribute('data-button', 'false');
   expect(element).toHaveAttribute('data-text', 'true');
   expect(element).toHaveAttribute('data-icon', 'false');
-  expect(element).toHaveAttribute('target', '_blank');
   expect(element).toHaveTextContent('hello adage');
 });
 

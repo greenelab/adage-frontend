@@ -7,6 +7,7 @@ import { actionStatuses } from '../../../../actions/fetch';
 
 import { ReactComponent as LoadingIcon } from '../../../../images/loading.svg';
 import { ReactComponent as BiArrowIcon } from '../../../../images/bi-arrow.svg';
+import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
 import { ReactComponent as DownloadIcon } from '../../../../images/download.svg';
 
 import './index.css';
@@ -18,7 +19,8 @@ const Controls = ({
   sortedSamples,
   sortedSignatures,
   sortSamples,
-  sortSignatures
+  sortSignatures,
+  reset
 }) => (
   <div className='controls'>
     <Clickable
@@ -46,6 +48,13 @@ const Controls = ({
       button
       onClick={sortSignatures}
       aria-label='Cluster heatmap by signature (re-order columns)'
+    />
+    <Clickable
+      text='Reset'
+      icon={<CrossIcon />}
+      button
+      onClick={reset}
+      aria-label='Reset heatmap'
     />
     <Clickable
       text='Download Image'
