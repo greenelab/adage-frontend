@@ -1,4 +1,5 @@
 import React from 'react';
+import { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -42,6 +43,11 @@ const Table = ({
   const [sortKey, setSortKey] = useState(defaultSortKey);
   const [sortUp, setSortUp] = useState(defaultSortUp);
 
+  // when default sort key changes, set sort key
+  // useful for when different table renders in place of old one
+  useEffect(() => setSortKey(defaultSortKey), [defaultSortKey]);
+
+  // on clicking sort button
   const onClick = useCallback(
     (key) => {
       if (sortKey !== key) {
@@ -64,6 +70,7 @@ const Table = ({
       element.scrollIntoView({ block: 'center' });
   });
 
+  // sort compare function
   const compare = useCallback(
     (a, b) => {
       if (a > b)
@@ -76,6 +83,7 @@ const Table = ({
     [sortUp]
   );
 
+  // get final table data to display
   const table = useMemo(() => {
     if (sortKey === null || sortUp === null)
       return [...data];
@@ -137,6 +145,7 @@ Table.propTypes = {
 
 export default Table;
 
+// thead
 const Head = ({ columns, sortable, sortKey, sortUp, onClick }) => (
   <div className='thead medium'>
     <div className='tr'>
@@ -155,6 +164,7 @@ const Head = ({ columns, sortable, sortKey, sortUp, onClick }) => (
   </div>
 );
 
+// th
 const HeadCell = ({ sortable, sortKey, sortUp, column, onClick }) => (
   <button
     className='th'
@@ -166,10 +176,9 @@ const HeadCell = ({ sortable, sortKey, sortUp, column, onClick }) => (
     title=''
     onClick={() => onClick(column.key)}
     disabled={!sortable}
+    aria-label=''
   >
-    <span className='nowrap' aria-label=''>
-      {column.name}
-    </span>
+    <span className='nowrap'>{column.name}</span>
     {sortKey !== null && column.key && sortKey === column.key ? (
       sortUp ? (
         <ArrowIcon className='rotate_ccw' />
@@ -182,6 +191,7 @@ const HeadCell = ({ sortable, sortKey, sortUp, column, onClick }) => (
   </button>
 );
 
+// tbody
 const Body = ({ table, columns, highlightedIndex }) => (
   <div className='tbody'>
     {table.map((row, index) => (
@@ -196,6 +206,7 @@ const Body = ({ table, columns, highlightedIndex }) => (
   </div>
 );
 
+// tr
 const BodyRow = ({ columns, row, highlightedIndex, index }) => (
   <>
     <InView>
@@ -212,6 +223,7 @@ const BodyRow = ({ columns, row, highlightedIndex, index }) => (
   </>
 );
 
+// td
 const BodyCell = ({ row, column }) => {
   const cell = row[column.key];
   // render cell contents
@@ -220,7 +232,7 @@ const BodyCell = ({ row, column }) => {
     contents = column.render({ row, column, cell });
   else {
     contents = (
-      <span className='nowrap' aria-label=''>
+      <span className='nowrap'>
         {cell}
       </span>
     );
@@ -231,6 +243,9 @@ const BodyCell = ({ row, column }) => {
       className='td'
       data-highlight={column.key === row.highlightedField}
       data-padded={column.padded === false ? false : true}
+      aria-label={
+        !contents.props || !contents.props['aria-label'] ? '' : undefined
+      }
       style={{
         width: column.width,
         justifyContent: column.align

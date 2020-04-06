@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
 
 import { humanizeKeys } from '../../util/object';
 import { parseObject } from '../../util/object';
@@ -18,47 +17,53 @@ const padding = 5;
 
 const Tooltip = () => {
   // internal state
-  const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState(null);
   const [speed, setSpeed] = useState(defaultSpeed);
   const [center, setCenter] = useState(false);
-  const openTimer = useRef();
-  const closeTimer = useRef();
+  const timer = useRef();
 
   // set tooltip to open
   const openTooltip = useCallback((event) => {
     const newSpeed = Number(event.target?.dataset.tooltipSpeed) || defaultSpeed;
     setSpeed(newSpeed);
     setCenter(event.target?.dataset.tooltipCenter === 'true');
-    window.clearTimeout(closeTimer.current);
-    openTimer.current = window.setTimeout(() => {
-      setOpen(true);
+    window.clearTimeout(timer.current);
+    setAnchor(null);
+    timer.current = window.setTimeout(() => {
       setAnchor(event.target);
     }, newSpeed);
   }, []);
 
   // set tooltip to close
   const closeTooltip = useCallback(() => {
-    window.clearTimeout(openTimer.current);
-    setOpen(false);
-    closeTimer.current = window.setTimeout(() => setAnchor(null), speed);
-  }, [speed]);
+    window.clearTimeout(timer.current);
+    setAnchor(null);
+  }, []);
 
   // when any dom node changes
-  const onMutation = useCallback(() => {
-    // get all nodes with an aria-label that haven't been processed yet
-    // MutationRecord's "addedNodes" doesn't seem to play nice with react
-    const nodes = document.querySelectorAll(
-      '[aria-label]:not([data-tooltipped])'
-    );
+  const onMutation = useCallback(
+    (records) => {
+      // get all nodes with an aria-label that haven't been processed yet
+      // MutationRecord's "addedNodes" doesn't seem to play nice with react
+      const nodes = document.querySelectorAll(
+        '[aria-label]:not([data-tooltipped])'
+      );
 
-    // attach tooltip triggers to each node, and mark as processed
-    for (const node of nodes) {
-      node.addEventListener('mouseenter', openTooltip);
-      node.addEventListener('mouseleave', closeTooltip);
-      node.setAttribute('data-tooltipped', 'true');
-    }
-  }, [openTooltip, closeTooltip]);
+      // if the dom change does not include the tooltip, close tooltip
+      if (
+        records.every((record) => !record.target.classList.contains('tooltip'))
+      )
+        closeTooltip();
+
+      // attach tooltip triggers to each node, and mark as processed
+      for (const node of nodes) {
+        node.addEventListener('mouseenter', openTooltip);
+        node.addEventListener('mouseleave', closeTooltip);
+        node.setAttribute('data-tooltipped', 'true');
+      }
+    },
+    [openTooltip, closeTooltip]
+  );
 
   // set up mutation observer to watch for dom node additions/changes
   useEffect(() => {
@@ -72,18 +77,7 @@ const Tooltip = () => {
     };
   }, [onMutation]);
 
-  return (
-    <>
-      <CSSTransition
-        in={open ? true : false}
-        timeout={speed}
-        classNames='tooltip'
-        unmountOnExit
-      >
-        <Portal anchor={anchor} speed={speed} center={center} />
-      </CSSTransition>
-    </>
-  );
+  return <Portal anchor={anchor} speed={speed} center={center} />;
 };
 export default Tooltip;
 
@@ -115,10 +109,7 @@ const Portal = ({ anchor, speed, center }) => {
   return createPortal(
     <div
       className='tooltip text_small'
-      style={{
-        ...computeStyle({ anchor, center }),
-        transition: 'opacity ease ' + speed + 'ms'
-      }}
+      style={{ ...computeStyle({ anchor, center }) }}
     >
       {content}
     </div>,
