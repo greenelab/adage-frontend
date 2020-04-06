@@ -22,7 +22,8 @@ export const drawLinkHighlights = () => {
     .attr('stroke-width', strokeWidth * 4)
     .style('cursor', 'pointer')
     .attr('aria-label', (d) => stringifyObject({ weight: d.weight.toFixed(5) }))
-    .attr('data-tooltip-center', true);
+    .attr('data-tooltip-h-align', 'center')
+    .attr('data-tooltip-v-align', 'center');
 
   linkHighlights.exit().remove();
 };

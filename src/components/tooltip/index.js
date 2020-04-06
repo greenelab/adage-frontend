@@ -18,17 +18,16 @@ const padding = 5;
 const Tooltip = () => {
   // internal state
   const [anchor, setAnchor] = useState(null);
-  const [speed, setSpeed] = useState(defaultSpeed);
-  const [center, setCenter] = useState(false);
+  const [hAlign, setHAlign] = useState();
+  const [vAlign, setVAlign] = useState();
   const timer = useRef();
 
   // set tooltip to open
   const openTooltip = useCallback((event) => {
     const newSpeed = Number(event.target?.dataset.tooltipSpeed) || defaultSpeed;
-    setSpeed(newSpeed);
-    setCenter(event.target?.dataset.tooltipCenter === 'true');
+    setHAlign(event.target?.dataset.tooltipHAlign);
+    setVAlign(event.target?.dataset.tooltipVAlign);
     window.clearTimeout(timer.current);
-    setAnchor(null);
     timer.current = window.setTimeout(() => {
       setAnchor(event.target);
     }, newSpeed);
@@ -77,13 +76,6 @@ const Tooltip = () => {
     };
   }, [onMutation]);
 
-  return <Portal anchor={anchor} speed={speed} center={center} />;
-};
-export default Tooltip;
-
-// append popup to body, not app root
-
-const Portal = ({ anchor, speed, center }) => {
   let content = <></>;
   const stringLabel = anchor?.getAttribute('aria-label');
   const objectLabel = parseObject(stringLabel);
@@ -96,8 +88,8 @@ const Portal = ({ anchor, speed, center }) => {
         <tbody>
           {Object.entries(fields).map(([key, value], index) => (
             <tr key={index}>
-              <td>{key}</td>
-              <td>{value}</td>
+              <td className='nowrap'>{key}</td>
+              <td className='nowrap'>{value}</td>
             </tr>
           ))}
         </tbody>
@@ -109,23 +101,22 @@ const Portal = ({ anchor, speed, center }) => {
   return createPortal(
     <div
       className='tooltip text_small'
-      style={{ ...computeStyle({ anchor, center }) }}
+      style={{
+        ...computeStyle({ anchor, content, hAlign, vAlign })
+      }}
     >
       {content}
     </div>,
     document.body
   );
 };
-
-const horizontalMargin = 200;
-const verticalMargin = 100;
+export default Tooltip;
 
 // position tooltip relative to anchor/target
-
-const computeStyle = ({ anchor, center }) => {
+const computeStyle = ({ anchor, content, hAlign = 'left', vAlign = 'top' }) => {
   const anchorBbox = anchor?.getBoundingClientRect();
 
-  if (!anchorBbox?.width || !anchorBbox?.height)
+  if (!content || !anchorBbox?.width || !anchorBbox?.height)
     return { left: '-100000px', top: '-100000px' };
 
   const bodyBbox = document.body.getBoundingClientRect();
@@ -139,29 +130,8 @@ const computeStyle = ({ anchor, center }) => {
   };
   const style = { transform: '' };
 
-  let horizontalAlign = 'left';
-  let verticalAlign = 'top';
-
-  // if too close to right side of screen, right align
-  if (anchorBbox.left > window.innerWidth - horizontalMargin) {
-    horizontalAlign = 'right';
-    // then, if also too close to left screen, center align
-    if (anchorBbox.left < horizontalMargin)
-      horizontalAlign = 'center';
-  }
-
-  // if too close to top of screen, bottom align
-  if (anchorBbox.top < verticalMargin)
-    verticalAlign = 'bottom';
-
-  // if data-tooltip-center explicitly set, center align
-  if (center) {
-    horizontalAlign = 'center';
-    verticalAlign = 'center';
-  }
-
   // calculate horizontal position
-  switch (horizontalAlign) {
+  switch (hAlign) {
     case 'center': {
       style.left = bbox.left + bbox.width / 2 + 'px';
       style.transform += 'translateX(-50%) ';
@@ -184,7 +154,7 @@ const computeStyle = ({ anchor, center }) => {
   }
 
   // calculate vertical position
-  switch (verticalAlign) {
+  switch (vAlign) {
     case 'center': {
       style.top = bbox.top + bbox.height / 2 + 'px';
       style.transform += 'translateY(-50%) ';

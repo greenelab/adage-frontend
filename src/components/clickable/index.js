@@ -117,9 +117,6 @@ let ExternalLink = (props, ref) => {
   return (
     <a ref={ref} {...rest}>
       {children}
-      <span style={{ position: 'fixed', left: '-100000px', top: '-100000px' }}>
-        {rest['aria-label'] || 'button'}
-      </span>
     </a>
   );
 };

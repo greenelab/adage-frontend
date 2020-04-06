@@ -1,5 +1,4 @@
 import React from 'react';
-import { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -177,6 +176,7 @@ const HeadCell = ({ sortable, sortKey, sortUp, column, onClick }) => (
     onClick={() => onClick(column.key)}
     disabled={!sortable}
     aria-label=''
+    data-tooltip-h-align={column.align === 'center' ? 'center' : undefined}
   >
     <span className='nowrap'>{column.name}</span>
     {sortKey !== null && column.key && sortKey === column.key ? (
@@ -230,22 +230,17 @@ const BodyCell = ({ row, column }) => {
   let contents;
   if (column.render)
     contents = column.render({ row, column, cell });
-  else {
-    contents = (
-      <span className='nowrap'>
-        {cell}
-      </span>
-    );
-  }
+  else
+    contents = <span className='nowrap'>{cell}</span>;
+
 
   return (
     <span
       className='td'
       data-highlight={column.key === row.highlightedField}
       data-padded={column.padded === false ? false : true}
-      aria-label={
-        !contents.props || !contents.props['aria-label'] ? '' : undefined
-      }
+      aria-label=''
+      data-tooltip-h-align={column.align === 'center' ? 'center' : undefined}
       style={{
         width: column.width,
         justifyContent: column.align

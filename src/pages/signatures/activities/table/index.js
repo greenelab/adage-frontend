@@ -51,6 +51,7 @@ let Table = ({ bySignature = {}, byExperiment = [] }) => {
                   canvases={[background, foreground]}
                   onClick={() => setSelected(row.accession)}
                   aria-label='See individual sample activities'
+                  data-tooltip-h-align='center'
                 />
               );
             },

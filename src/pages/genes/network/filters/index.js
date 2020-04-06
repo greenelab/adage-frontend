@@ -46,6 +46,7 @@ let Filters = ({
         aria-label={
           'Showing ' + filteredNodes + ' of ' + fullNodes + ' nodes (genes)'
         }
+        data-tooltip-h-align='center'
       >
         <GeneIcon />
         {filteredNodes} of {fullNodes}
@@ -54,6 +55,7 @@ let Filters = ({
         aria-label={
           'Showing ' + filteredLinks + ' of ' + fullLinks + ' edges (links)'
         }
+        data-tooltip-h-align='center'
       >
         <LinkIcon />
         {filteredLinks} of {fullLinks}

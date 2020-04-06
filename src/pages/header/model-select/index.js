@@ -29,6 +29,8 @@ let ModelSelect = ({ models }) => {
         button
         onClick={() => setIsOpen(!isOpen)}
         aria-label='Switch between machine learning models'
+        data-tooltip-h-align='right'
+        data-tooltip-v-align='bottom'
       />
       <Popup
         isOpen={isOpen}
