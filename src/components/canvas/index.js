@@ -6,7 +6,7 @@ import './index.css';
 // canvas component that renders canvas objects passed to it
 // canvases are composited on top of each other
 
-const Canvas = ({ canvases = [], className = '' }) => {
+const Canvas = ({ canvases = [], className = '', ...rest }) => {
   const ref = useRef();
 
   const width = Math.max(...canvases.map((canvas) => canvas.width)) || 0;
@@ -29,6 +29,7 @@ const Canvas = ({ canvases = [], className = '' }) => {
       className={className}
       width={width + 'px'}
       height={height + 'px'}
+      {...rest}
     />
   );
 };

@@ -8,7 +8,7 @@ import { ReactComponent as SignatureIcon } from '../../../../images/signature.sv
 // main details of selected signature
 
 let Details = ({ signature }) => (
-  <div className='signature_info medium'>
+  <div className='info medium'>
     <span>
       <SignatureIcon />
       {signature.name}

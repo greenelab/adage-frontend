@@ -1,19 +1,21 @@
+import { normalize } from '../../../../util/math';
+
 import './barcode.css';
 
 export const width = 450;
 export const height = 90;
 
-export const getBackground = (values) =>
+export const getBackground = (values, min = 0, max = 1) =>
   drawBarcode({
-    values,
+    values: normalize(values, min, max),
     color: '#000000',
     lineWidth: 3,
     lineHeight: 30
   });
 
-export const getForeground = (values) =>
+export const getForeground = (values, min = 0, max = 1) =>
   drawBarcode({
-    values,
+    values: normalize(values, min, max),
     color: '#26a36c',
     lineWidth: 3,
     lineHeight: 60

@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
 
 import { humanizeKeys } from '../../util/object';
 import { parseObject } from '../../util/object';
@@ -18,47 +17,52 @@ const padding = 5;
 
 const Tooltip = () => {
   // internal state
-  const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState(null);
-  const [speed, setSpeed] = useState(defaultSpeed);
-  const [center, setCenter] = useState(false);
-  const openTimer = useRef();
-  const closeTimer = useRef();
+  const [hAlign, setHAlign] = useState();
+  const [vAlign, setVAlign] = useState();
+  const timer = useRef();
 
   // set tooltip to open
   const openTooltip = useCallback((event) => {
     const newSpeed = Number(event.target?.dataset.tooltipSpeed) || defaultSpeed;
-    setSpeed(newSpeed);
-    setCenter(event.target?.dataset.tooltipCenter === 'true');
-    window.clearTimeout(closeTimer.current);
-    openTimer.current = window.setTimeout(() => {
-      setOpen(true);
+    setHAlign(event.target?.dataset.tooltipHAlign);
+    setVAlign(event.target?.dataset.tooltipVAlign);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => {
       setAnchor(event.target);
     }, newSpeed);
   }, []);
 
   // set tooltip to close
   const closeTooltip = useCallback(() => {
-    window.clearTimeout(openTimer.current);
-    setOpen(false);
-    closeTimer.current = window.setTimeout(() => setAnchor(null), speed);
-  }, [speed]);
+    window.clearTimeout(timer.current);
+    setAnchor(null);
+  }, []);
 
   // when any dom node changes
-  const onMutation = useCallback(() => {
-    // get all nodes with an aria-label that haven't been processed yet
-    // MutationRecord's "addedNodes" doesn't seem to play nice with react
-    const nodes = document.querySelectorAll(
-      '[aria-label]:not([data-tooltipped])'
-    );
+  const onMutation = useCallback(
+    (records) => {
+      // get all nodes with an aria-label that haven't been processed yet
+      // MutationRecord's "addedNodes" doesn't seem to play nice with react
+      const nodes = document.querySelectorAll(
+        '[aria-label]:not([data-tooltipped])'
+      );
 
-    // attach tooltip triggers to each node, and mark as processed
-    for (const node of nodes) {
-      node.addEventListener('mouseenter', openTooltip);
-      node.addEventListener('mouseleave', closeTooltip);
-      node.setAttribute('data-tooltipped', 'true');
-    }
-  }, [openTooltip, closeTooltip]);
+      // if the dom change does not include the tooltip, close tooltip
+      if (
+        records.every((record) => !record.target.classList.contains('tooltip'))
+      )
+        closeTooltip();
+
+      // attach tooltip triggers to each node, and mark as processed
+      for (const node of nodes) {
+        node.addEventListener('mouseenter', openTooltip);
+        node.addEventListener('mouseleave', closeTooltip);
+        node.setAttribute('data-tooltipped', 'true');
+      }
+    },
+    [openTooltip, closeTooltip]
+  );
 
   // set up mutation observer to watch for dom node additions/changes
   useEffect(() => {
@@ -72,24 +76,6 @@ const Tooltip = () => {
     };
   }, [onMutation]);
 
-  return (
-    <>
-      <CSSTransition
-        in={open ? true : false}
-        timeout={speed}
-        classNames='tooltip'
-        unmountOnExit
-      >
-        <Portal anchor={anchor} speed={speed} center={center} />
-      </CSSTransition>
-    </>
-  );
-};
-export default Tooltip;
-
-// append popup to body, not app root
-
-const Portal = ({ anchor, speed, center }) => {
   let content = <></>;
   const stringLabel = anchor?.getAttribute('aria-label');
   const objectLabel = parseObject(stringLabel);
@@ -102,8 +88,8 @@ const Portal = ({ anchor, speed, center }) => {
         <tbody>
           {Object.entries(fields).map(([key, value], index) => (
             <tr key={index}>
-              <td>{key}</td>
-              <td>{value}</td>
+              <td className='nowrap'>{key}</td>
+              <td className='nowrap'>{value}</td>
             </tr>
           ))}
         </tbody>
@@ -116,8 +102,7 @@ const Portal = ({ anchor, speed, center }) => {
     <div
       className='tooltip text_small'
       style={{
-        ...computeStyle({ anchor, center }),
-        transition: 'opacity ease ' + speed + 'ms'
+        ...computeStyle({ anchor, content, hAlign, vAlign })
       }}
     >
       {content}
@@ -125,16 +110,13 @@ const Portal = ({ anchor, speed, center }) => {
     document.body
   );
 };
-
-const horizontalMargin = 200;
-const verticalMargin = 100;
+export default Tooltip;
 
 // position tooltip relative to anchor/target
-
-const computeStyle = ({ anchor, center }) => {
+const computeStyle = ({ anchor, content, hAlign = 'left', vAlign = 'top' }) => {
   const anchorBbox = anchor?.getBoundingClientRect();
 
-  if (!anchorBbox?.width || !anchorBbox?.height)
+  if (!content || !anchorBbox?.width || !anchorBbox?.height)
     return { left: '-100000px', top: '-100000px' };
 
   const bodyBbox = document.body.getBoundingClientRect();
@@ -148,29 +130,8 @@ const computeStyle = ({ anchor, center }) => {
   };
   const style = { transform: '' };
 
-  let horizontalAlign = 'left';
-  let verticalAlign = 'top';
-
-  // if too close to right side of screen, right align
-  if (anchorBbox.left > window.innerWidth - horizontalMargin) {
-    horizontalAlign = 'right';
-    // then, if also too close to left screen, center align
-    if (anchorBbox.left < horizontalMargin)
-      horizontalAlign = 'center';
-  }
-
-  // if too close to top of screen, bottom align
-  if (anchorBbox.top < verticalMargin)
-    verticalAlign = 'bottom';
-
-  // if data-tooltip-center explicitly set, center align
-  if (center) {
-    horizontalAlign = 'center';
-    verticalAlign = 'center';
-  }
-
   // calculate horizontal position
-  switch (horizontalAlign) {
+  switch (hAlign) {
     case 'center': {
       style.left = bbox.left + bbox.width / 2 + 'px';
       style.transform += 'translateX(-50%) ';
@@ -193,7 +154,7 @@ const computeStyle = ({ anchor, center }) => {
   }
 
   // calculate vertical position
-  switch (verticalAlign) {
+  switch (vAlign) {
     case 'center': {
       style.top = bbox.top + bbox.height / 2 + 'px';
       style.transform += 'translateY(-50%) ';

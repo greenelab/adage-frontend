@@ -119,6 +119,7 @@ const Input = ({
           button
           onClick={() => changeExpanded(!expanded)}
           aria-label={expanded ? tooltip : multiTooltip}
+          data-tooltip-h-align='right'
         />
       )}
       {value.length > 0 && (
@@ -128,6 +129,7 @@ const Input = ({
           button
           onClick={() => changeValue('')}
           aria-label='Clear search'
+          data-tooltip-h-align='right'
         />
       )}
       {value.length === 0 && (

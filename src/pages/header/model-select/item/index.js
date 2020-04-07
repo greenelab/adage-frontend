@@ -25,6 +25,7 @@ const Item = ({
       icon={selected ? <RadioedIcon /> : <UnradioedIcon />}
       button
       aria-label='Select this model'
+      data-tooltip-v-align='bottom'
       onClick={onClick}
     />
     <div className='model_summary'>
@@ -38,6 +39,8 @@ const Item = ({
       icon={<InfoIcon />}
       button
       aria-label={'Open details page for model ' + title}
+      data-tooltip-h-align='right'
+      data-tooltip-v-align='bottom'
     />
   </div>
 );

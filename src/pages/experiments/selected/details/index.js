@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import ExperimentLink from '../../../experiment/link';
 import { mapExperimentResult } from '../../search';
 
-import './index.css';
-
 import { ReactComponent as ExperimentIcon } from '../../../../images/experiment.svg';
 import { ReactComponent as SampleIcon } from '../../../../images/sample.svg';
+
+import './index.css';
 
 const limit = 200;
 
@@ -15,17 +15,7 @@ const limit = 200;
 
 let Details = ({ experiment }) => (
   <>
-    <div className='selected_experiment_info'>
-      <div className='medium'>
-        {(experiment.name?.substr(0, limit) || '') +
-          (experiment.name?.length >= limit ? '...' : '')}
-      </div>
-      <div>
-        {(experiment.description?.substr(0, limit) || '') +
-          (experiment.description?.length >= limit ? '...' : '')}
-      </div>
-    </div>
-    <div className='selected_samples_info medium'>
+    <div className='info medium'>
       <span>
         <ExperimentIcon />
         <ExperimentLink experiment={experiment} />
@@ -34,6 +24,14 @@ let Details = ({ experiment }) => (
         <SampleIcon />
         {experiment.samples?.length || 0} sample(s)
       </span>
+    </div>
+    <div className='medium'>
+      {(experiment.name?.substr(0, limit) || '') +
+        (experiment.name?.length >= limit ? '...' : '')}
+    </div>
+    <div>
+      {(experiment.description?.substr(0, limit) || '') +
+        (experiment.description?.length >= limit ? '...' : '')}
     </div>
   </>
 );

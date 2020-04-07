@@ -18,6 +18,10 @@ import { fdr } from 'multtest';
 
 import { isArray } from './types';
 
+// normalize an array of values to a % between min and max
+export const normalize = (values = [], min = 0, max = 1) =>
+  values.map((value) => (value - min) / (max - min));
+
 // get mean/average of array
 export const mean = (array) => itermean(array2iterator(array));
 

@@ -1,3 +1,4 @@
+import { normalize } from './math';
 import { mean } from './math';
 import { hyperGeometricTest } from './math';
 import { ttest } from './math';
@@ -12,6 +13,12 @@ import signatureList from '../dummy-data/signature-list.json';
 import activities from '../dummy-data/activities.json';
 import enrichedSignatures from '../dummy-data/enriched-signatures.json';
 import volcanoSignatures from '../dummy-data/volcano-signatures.json';
+
+test('normalize', () => {
+  expect(normalize([0.25, 0.5], 0, 1)).toStrictEqual([0.25, 0.5]);
+  expect(normalize([1, 2, 5], 1, 5)).toStrictEqual([0, 0.25, 1]);
+  expect(normalize([-50, 0, 25], -100, 100)).toStrictEqual([0.25, 0.5, 0.625]);
+});
 
 test('mean', () => {
   expect(mean([1, 2, 3])).toBe(2);
