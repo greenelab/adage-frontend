@@ -29,11 +29,6 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_GENE_DETAILS': {
-      draft.details = mapGeneResults(payload);
-      break;
-    }
-
     case 'GET_GENE_LIST': {
       draft.list = mapGeneResults(payload);
       break;
@@ -106,14 +101,6 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
     }
 
-    case 'GET_GENE_SELECTED_DETAILS': {
-      if (!isArray(draft.list) || !draft.list.length)
-        break;
-      draft.selected = draft.selected.map((selected) =>
-        draft.list.find((gene) => gene.id === selected.id));
-      break;
-    }
-
     case 'GET_GENE_PARTICIPATIONS': {
       draft.participations = payload;
       break;
@@ -143,6 +130,15 @@ const reducer = produce((draft, type, payload, meta) => {
     }
   }
 
+  // fill in details of selected from full list
+  if (isArray(draft.list)) {
+    for (const [key, selected] of Object.entries(draft.selected)) {
+      const found = draft.list.find((gene) => gene.id === selected.id);
+      if (found && !geneIsLoaded(selected))
+        draft.selected[key] = found;
+    }
+  }
+
   typeCheck(draft);
 }, {});
 
@@ -162,3 +158,5 @@ export const mapGene = (gene) => ({
   name: gene.standardName || gene.systematicName || gene.entrezid || '-',
   entrezId: gene.entrezid
 });
+
+export const geneIsLoaded = (gene) => gene?.name ? true : false;

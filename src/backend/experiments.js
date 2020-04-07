@@ -5,11 +5,6 @@ import { defaultLimit } from '.';
 
 const prefix = 'experiment/';
 
-export const urlExperimentDetails = ({ accession }) => {
-  const url = server + prefix + accession;
-  return url;
-};
-
 export const urlExperimentList = ({ limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);

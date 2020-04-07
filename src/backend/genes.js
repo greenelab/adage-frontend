@@ -7,11 +7,6 @@ const prefixA = 'gene/';
 const prefixB = 'participation/';
 const prefixC = 'edge/';
 
-export const urlGeneDetails = ({ id }) => {
-  const url = server + prefixA + id;
-  return url;
-};
-
 export const urlGeneList = ({ organism, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);

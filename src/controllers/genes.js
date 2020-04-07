@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getGeneList } from '../actions/genes';
-import { getGeneSelectedDetails } from '../actions/genes';
 import { getGeneParticipations } from '../actions/genes';
 import { setEnrichedSignatures } from '../actions/genes';
 import { getGeneEdges } from '../actions/genes';
+import { geneIsLoaded } from '../reducers/genes';
 import { isArray } from '../util/types';
 import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
@@ -22,12 +22,10 @@ let GeneController = ({
   selectedGenes,
   selectedGenesLoaded,
   getGeneList,
-  getGeneSelectedDetails,
   getGeneParticipations,
   setEnrichedSignatures,
   getGeneEdges
 }) => {
-  // on first render
   // when selected model (and thus selected organism) changes
   // get full gene list
   useEffect(() => {
@@ -40,26 +38,11 @@ let GeneController = ({
     });
   }, [selectedOrganism, getGeneList]);
 
-  // when full gene list loads or when new gene selected
-  // fill in full details of selected genes
-  useEffect(() => {
-    // if details already filled in, exit
-    if (selectedGenesLoaded)
-      return;
-
-    getGeneSelectedDetails();
-  }, [
-    geneList.length,
-    selectedGenes.length,
-    selectedGenesLoaded,
-    getGeneSelectedDetails
-  ]);
-
   // when selected genes change
   // re-get participations
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
-    if (!selectedGenesLoaded)
+    if (!selectedGenes.length || !selectedGenesLoaded)
       return;
 
     getGeneParticipations({
@@ -74,6 +57,7 @@ let GeneController = ({
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
     if (
+      !selectedGenes.length ||
       !selectedGenesLoaded ||
       !isArray(geneParticipations) ||
       !geneParticipations.length ||
@@ -135,12 +119,11 @@ const mapStateToProps = (state) => ({
     ).organism || null :
     null,
   selectedGenes: state.genes.selected,
-  selectedGenesLoaded: state.genes.selected.every((selected) => selected.name)
+  selectedGenesLoaded: state.genes.selected.every(geneIsLoaded)
 });
 
 const mapDispatchToProps = makeMapDispatchToProps({
   getGeneList,
-  getGeneSelectedDetails,
   getGeneParticipations,
   setEnrichedSignatures,
   getGeneEdges

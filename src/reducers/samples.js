@@ -16,6 +16,10 @@ const typeCheck = (draft) => {
     draft.selected = [];
   if (!isObject(draft.groups))
     draft.groups = {};
+  if (!isArray(draft.groups.diamond))
+    draft.groups.diamond = [];
+  if (!isArray(draft.groups.spade))
+    draft.groups.spade = [];
   if (!isString(draft.activities) && !isArray(draft.activities))
     draft.activities = actionStatuses.EMPTY;
   if (!isString(draft.volcano) && !isArray(draft.volcano))

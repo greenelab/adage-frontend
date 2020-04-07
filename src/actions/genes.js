@@ -1,19 +1,12 @@
 import { createAction } from './';
 import { createFetchAction } from './fetch';
 
-import { urlGeneDetails } from '../backend/genes';
 import { urlGeneList } from '../backend/genes';
 import { urlGeneSearch } from '../backend/genes';
 import { urlGeneParticipations } from '../backend/genes';
 import { urlGeneEdges } from '../backend/genes';
 
 // actions related to "gene" sub-object of state
-
-// get full details of viewed gene (on gene details page)
-export const getGeneDetails = createFetchAction(
-  'GET_GENE_DETAILS',
-  urlGeneDetails
-);
 
 // get full list of all genes
 export const getGeneList = createFetchAction('GET_GENE_LIST', urlGeneList);
@@ -41,9 +34,6 @@ export const selectFirstGenes = createAction('SELECT_FIRST_GENES');
 
 // deselect first gene of each search results
 export const deselectFirstGenes = createAction('DESELECT_FIRST_GENES');
-
-// fill in remaining details of selected gene
-export const getGeneSelectedDetails = createAction('GET_GENE_SELECTED_DETAILS');
 
 // get gene participations
 export const getGeneParticipations = createFetchAction(

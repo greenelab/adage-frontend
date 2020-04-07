@@ -33,7 +33,7 @@ let Sample = ({ details, getDetails }) => {
 
   return (
     <>
-      <Header justTitle />
+      <Header />
       <Main>
         <Section
           header={

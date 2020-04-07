@@ -62,10 +62,10 @@ const App = () => (
         <Route path='/experiments' component={Experiments} />
         <Route path='/signatures' component={Signatures} />
         <Route path='/help' component={Help} />
-        <Route path='/model/:id' component={Model} />
-        <Route path='/gene/:id' component={Gene} />
-        <Route path='/experiment/:accession' component={Experiment} />
-        <Route path='/sample/:id' component={Sample} />
+        <Route path='/model' component={Model} />
+        <Route path='/gene' component={Gene} />
+        <Route path='/experiment' component={Experiment} />
+        <Route path='/sample' component={Sample} />
         <Route path='/' component={Home} />
       </Switch>
     </Router>

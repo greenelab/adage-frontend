@@ -31,7 +31,7 @@ let Model = ({ details, getDetails }) => {
 
   return (
     <>
-      <Header justTitle />
+      <Header />
       <Main>
         <Section
           header={

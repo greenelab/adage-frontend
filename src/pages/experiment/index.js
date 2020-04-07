@@ -1,8 +1,6 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useRouteMatch } from 'react-router';
 
 import SampleLink from '../sample/link';
 import Header from '../header';
@@ -11,7 +9,8 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getExperimentDetails } from '../../actions/experiments';
+import { experimentIsLoaded } from '../../reducers/experiments';
+import { actionStatuses } from '../../actions/fetch';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
 import { filterKeys } from '../../util/object';
@@ -23,46 +22,41 @@ import './index.css';
 
 // experiment details page
 
-let Experiment = ({ details, getDetails }) => {
-  const match = useRouteMatch();
-  const accession = match.params.accession;
-
-  useEffect(() => {
-    getDetails({ accession: accession });
-  }, [accession, getDetails]);
-
-  return (
-    <>
-      <Header justTitle />
-      <Main>
-        <Section
-          header={
-            <>
-              <ExperimentIcon />
-              <span>Experiment Details</span>
-            </>
-          }
-        >
-          {isObject(details) && <Details data={details} />}
-          {isString(details) && (
-            <FetchAlert status={details} subject='experiment details' />
-          )}
-        </Section>
-      </Main>
-      <Footer />
-    </>
-  );
-};
+let Experiment = ({ experiment }) => (
+  <>
+    <Header />
+    <Main>
+      <Section
+        header={
+          <>
+            <ExperimentIcon />
+            <span>Experiment Details</span>
+          </>
+        }
+      >
+        {isObject(experiment) && <Details data={experiment} />}
+        {isString(experiment) && (
+          <FetchAlert status={experiment} subject='experiment details' />
+        )}
+      </Section>
+    </Main>
+    <Footer />
+  </>
+);
 
 const mapStateToProps = (state) => {
-  let details = state.experiments.details;
+  let experiment = state.experiments.selected;
 
-  if (isObject(details)) {
-    details = filterKeys(details, ['maxSimilarityField']);
-    if (details.samples) {
-      details.samples = (
+  if (!experiment)
+    experiment = actionStatuses.EMPTY;
+  else if (!experimentIsLoaded(experiment))
+    experiment = state.experiments.list;
+  else if (isObject(experiment)) {
+    experiment = filterKeys(experiment, ['maxSimilarityField']);
+    if (experiment.samples) {
+      experiment.samples = (
         <>
-          {details.samples.map((sample, index) => (
+          {experiment.samples.map((sample, index) => (
             <Fragment key={index}>
               <SampleLink sample={sample} />
               <br />
@@ -71,16 +65,12 @@ const mapStateToProps = (state) => {
         </>
       );
     }
-    details = humanizeKeys(details);
+    experiment = humanizeKeys(experiment);
   }
 
-  return { details };
+  return { experiment };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getDetails: (...args) => dispatch(getExperimentDetails(...args))
-});
-
-Experiment = connect(mapStateToProps, mapDispatchToProps)(Experiment);
+Experiment = connect(mapStateToProps)(Experiment);
 
 export default Experiment;
