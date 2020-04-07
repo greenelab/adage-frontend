@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { getExperimentList } from '../actions/experiments';
 import { MAX_INT } from './';
-import { makeMapDispatchToProps } from './util';
+import { makeMapDispatchToProps } from '../actions';
 
 // dispatch new actions in response to redux state changes
 let ExperimentController = ({ getExperimentList }) => {

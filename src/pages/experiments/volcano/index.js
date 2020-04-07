@@ -11,12 +11,12 @@ import './index.css';
 
 // volcano plot section
 
-let Volcano = ({ volcano }) => (
+let Volcano = ({ sampleVolcano }) => (
   <>
-    {isString(volcano) && (
-      <FetchAlert status={volcano} subject='volcano data' />
+    {isString(sampleVolcano) && (
+      <FetchAlert status={sampleVolcano} subject='volcano data' />
     )}
-    {isArray(volcano) && (
+    {isArray(sampleVolcano) && (
       <>
         <Plot />
         <Controls />
@@ -26,7 +26,7 @@ let Volcano = ({ volcano }) => (
 );
 
 const mapStateToProps = (state) => ({
-  volcano: state.samples.volcano
+  sampleVolcano: state.samples.volcano
 });
 
 Volcano = connect(mapStateToProps)(Volcano);

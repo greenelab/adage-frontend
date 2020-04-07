@@ -9,22 +9,22 @@ import { ReactComponent as DownloadIcon } from '../../../../images/download.svg'
 
 import './index.css';
 
-// controls below selected experiment samples table
+// controls below participating genes table
 
-let Controls = ({ participations }) => (
+let Controls = ({ signatureParticipations }) => (
   <div className='controls'>
     <Clickable
       text='Download'
       icon={<DownloadIcon />}
       button
-      onClick={() => downloadTable({ participations })}
+      onClick={() => downloadTable({ signatureParticipations })}
       aria-label='Download this table as a .tsv file'
     />
   </div>
 );
 
 const mapStateToProps = (state) => ({
-  participations: mapParticipations(state)
+  signatureParticipations: mapParticipations(state)
 });
 
 Controls = connect(mapStateToProps)(Controls);

@@ -67,8 +67,9 @@ let Filters = ({
 const mapStateToProps = (state) => ({
   minEdgeWeightCutoff:
     (
-      state.models.list.find((model) => state.models.selected === model.id) ||
-      {}
+      state.models.list.find(
+        (model) => state.models.selected.id === model.id
+      ) || {}
     ).g2gEdgeCutoff || 0
 });
 

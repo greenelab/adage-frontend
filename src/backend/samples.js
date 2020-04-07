@@ -6,11 +6,6 @@ import { defaultLimit } from '.';
 const prefixA = 'sample/';
 const prefixB = 'activity/';
 
-export const urlSampleDetails = ({ id }) => {
-  const url = server + prefixA + id;
-  return url;
-};
-
 export const urlSampleList = ({ limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);

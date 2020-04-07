@@ -12,12 +12,12 @@ import './index.css';
 
 // selected signature section
 
-let Selected = ({ participations }) => (
+let Selected = ({ signatureParticipations }) => (
   <>
-    {isString(participations) && (
-      <FetchAlert status={participations} subject='participating genes' />
+    {isString(signatureParticipations) && (
+      <FetchAlert status={signatureParticipations} subject='participating genes' />
     )}
-    {isArray(participations) && (
+    {isArray(signatureParticipations) && (
       <>
         <Details />
         <Table />
@@ -28,7 +28,7 @@ let Selected = ({ participations }) => (
 );
 
 const mapStateToProps = (state) => ({
-  participations: state.signatures.participations
+  signatureParticipations: state.signatures.participations
 });
 
 Selected = connect(mapStateToProps)(Selected);

@@ -16,7 +16,7 @@ import './index.css';
 
 // model select button and dropdown/popup
 
-let ModelSelect = ({ models }) => {
+let ModelSelect = ({ modelList }) => {
   const [buttonBbox, buttonRef] = useBbox();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,11 +38,11 @@ let ModelSelect = ({ models }) => {
         className='model_select_popup'
         close={() => setIsOpen(false)}
       >
-        {isArray(models) && <List models={models} />}
-        {isString(models) && (
+        {isArray(modelList) && <List models={modelList} />}
+        {isString(modelList) && (
           <FetchAlert
             className='model_alert'
-            status={models}
+            status={modelList}
             subject='models'
           />
         )}
@@ -52,9 +52,9 @@ let ModelSelect = ({ models }) => {
 };
 
 const mapStateToProps = (state) => ({
-  models: isArray(state.models.list) ?
+  modelList: isArray(state.models.list) ?
     state.models.list.map((model) => ({
-      selected: state.models.selected === model.id,
+      selected: state.models.selected.id === model.id,
       id: model.id,
       title: model.title,
       authors: (model.authors || '').split('\n'),

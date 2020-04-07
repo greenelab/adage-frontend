@@ -9,6 +9,7 @@ import { clearGeneSearch } from '../../../actions/genes';
 import { cancelAction } from '../../../actions/fetch';
 import { selectGene } from '../../../actions/genes';
 import { deselectGene } from '../../../actions/genes';
+import { makeMapDispatchToProps } from '../../../actions';
 import { isArray } from '../../../util/types';
 import { toCamelCase } from '../../../util/string';
 import { isSelected } from '../../../reducers/genes';
@@ -17,9 +18,9 @@ import './index.css';
 
 // genes search section
 
-let Search = ({ results, select, deselect, dispatch }) => (
+let Search = ({ geneResults, selectGene, deselectGene, dispatch }) => (
   <SearchComponent
-    length={results?.length || 0}
+    length={geneResults?.length || 0}
     multi
     placeholder='search for a gene'
     multiPlaceholder='search for a list of genes'
@@ -42,10 +43,10 @@ let Search = ({ results, select, deselect, dispatch }) => (
     }}
     onKeySelect={(highlightedIndex) => {
       // select/deselect gene when row highlighted and enter key pressed
-      if (results[highlightedIndex].selected)
-        deselect({ id: results[highlightedIndex].id });
+      if (geneResults[highlightedIndex].selected)
+        deselectGene({ id: geneResults[highlightedIndex].id });
       else
-        select({ id: results[highlightedIndex].id });
+        selectGene({ id: geneResults[highlightedIndex].id });
     }}
     SingleComponent={<Single />}
     MultiComponent={<Multi />}
@@ -53,14 +54,10 @@ let Search = ({ results, select, deselect, dispatch }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: mapGeneSearch(state.genes.searches[0] || {}, state)?.results
+  geneResults: mapGeneSearch(state.genes.searches[0] || {}, state)?.results
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  select: (...args) => dispatch(selectGene(...args)),
-  deselect: (...args) => dispatch(deselectGene(...args)),
-  dispatch
-});
+const mapDispatchToProps = makeMapDispatchToProps({ selectGene, deselectGene });
 
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);
 

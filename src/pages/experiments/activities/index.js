@@ -18,16 +18,16 @@ import './index.css';
 
 // sample activities section
 
-let Activities = ({ selectedExperiment, activities }) => {
+let Activities = ({ selectedExperiment, sampleActivities }) => {
   const [sortedSamples, setSortedSamples] = useState(null);
   const [sortedSignatures, setSortedSignatures] = useState(null);
 
   let unsortedSamples;
   let unsortedSignatures;
-  if (isArray(activities)) {
-    unsortedSamples = uniqueMap(activities, (activity) => activity.sample);
+  if (isArray(sampleActivities)) {
+    unsortedSamples = uniqueMap(sampleActivities, (activity) => activity.sample);
     unsortedSignatures = uniqueMap(
-      activities,
+      sampleActivities,
       (activity) => activity.signature
     );
   }
@@ -43,24 +43,24 @@ let Activities = ({ selectedExperiment, activities }) => {
     setSortedSamples(actionStatuses.LOADING);
     setSortedSamples(
       await worker().clusterData({
-        data: activities,
+        data: sampleActivities,
         idKey: 'sample',
         valueKey: 'value'
       })
     );
-  }, [activities]);
+  }, [sampleActivities]);
 
   // sort signatures with clustering
   const sortSignatures = useCallback(async () => {
     setSortedSignatures(actionStatuses.LOADING);
     setSortedSignatures(
       await worker().clusterData({
-        data: activities,
+        data: sampleActivities,
         idKey: 'signature',
         valueKey: 'value'
       })
     );
-  }, [activities]);
+  }, [sampleActivities]);
 
   // when selected experiment changes
   // reset sorts
@@ -70,20 +70,20 @@ let Activities = ({ selectedExperiment, activities }) => {
 
   return (
     <>
-      {isString(activities) && (
-        <FetchAlert status={activities} subject='activities' />
+      {isString(sampleActivities) && (
+        <FetchAlert status={sampleActivities} subject='activities' />
       )}
-      {isArray(activities) && (
+      {isArray(sampleActivities) && (
         <>
           <Heatmap
-            activities={activities}
+            activities={sampleActivities}
             samples={isArray(sortedSamples) ? sortedSamples : unsortedSamples}
             signatures={
               isArray(sortedSignatures) ? sortedSignatures : unsortedSignatures
             }
           />
           <Controls
-            activities={activities}
+            activities={sampleActivities}
             sortedSamples={sortedSamples}
             sortedSignatures={sortedSignatures}
             sortSamples={sortSamples}
@@ -98,7 +98,7 @@ let Activities = ({ selectedExperiment, activities }) => {
 
 const mapStateToProps = (state) => ({
   selectedExperiment: state.experiments.selected,
-  activities: mapActivities(state.samples.activities, state)
+  sampleActivities: mapActivities(state.samples.activities, state)
 });
 
 Activities = connect(mapStateToProps)(Activities);

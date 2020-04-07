@@ -8,8 +8,6 @@ import { actionStatuses } from '../actions/fetch';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
-  if (!isString(draft.details) && !isObject(draft.details))
-    draft.details = {};
   if (!isString(draft.list) && !isArray(draft.list))
     draft.list = [];
   if (!isArray(draft.selected))
@@ -31,11 +29,6 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_SAMPLE_DETAILS': {
-      draft.details = payload;
-      break;
-    }
-
     case 'GET_SAMPLE_LIST': {
       draft.list = payload;
       break;
@@ -43,14 +36,6 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'SELECT_SAMPLES': {
       draft.selected = payload.ids.map((id) => ({ id }));
-      break;
-    }
-
-    case 'GET_SAMPLE_SELECTED_DETAILS': {
-      if (!isArray(draft.list) || !draft.list.length)
-        break;
-      draft.selected = draft.selected.map((selected) =>
-        draft.list.find((sample) => sample.id === selected.id));
       break;
     }
 
@@ -103,6 +88,15 @@ const reducer = produce((draft, type, payload, meta) => {
     }
   }
 
+  // fill in details of selected from full list
+  if (isArray(draft.list)) {
+    for (const [key, selected] of Object.entries(draft.selected)) {
+      const found = draft.list.find((sample) => sample.id === selected.id);
+      if (found && !sampleIsLoaded(selected))
+        draft.selected[key] = found;
+    }
+  }
+
   typeCheck(draft);
 }, {});
 
@@ -113,7 +107,6 @@ export const isGrouped = (groups, id) => {
     if (isArray(value) && value.includes(id))
       return key;
   }
-
 
   return -1;
 };
@@ -127,3 +120,5 @@ export const filterGrouped = (groups, id) => {
   }
   return groups;
 };
+
+export const sampleIsLoaded = (sample) => (sample?.name ? true : false);

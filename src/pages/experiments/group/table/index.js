@@ -6,6 +6,7 @@ import SampleLink from '../../../sample/link';
 import TableComponent from '../../../../components/table';
 import { groupSample } from '../../../../actions/samples';
 import { ungroupSample } from '../../../../actions/samples';
+import { makeMapDispatchToProps } from '../../../../actions';
 import { isGrouped } from '../../../../reducers/samples';
 
 import { ReactComponent as DiamondIcon } from '../../../../images/diamond.svg';
@@ -15,9 +16,9 @@ import './index.css';
 
 // table of samples for selected experiment
 
-let Table = ({ samples }) => (
+let Table = ({ selectedSamples }) => (
   <TableComponent
-    data={samples}
+    data={selectedSamples}
     columns={[
       {
         name: 'Group',
@@ -68,7 +69,7 @@ let Table = ({ samples }) => (
 );
 
 const mapStateToProps = (state) => ({
-  samples: state.samples.selected.map((sample) => ({
+  selectedSamples: state.samples.selected.map((sample) => ({
     ...sample,
     groupIndex: isGrouped(state.samples.groups, sample.id)
   }))
@@ -78,7 +79,14 @@ Table = connect(mapStateToProps)(Table);
 
 export default Table;
 
-let GroupButton = ({ sample, index, color, Icon, group, ungroup }) => {
+let GroupButton = ({
+  sample,
+  index,
+  color,
+  Icon,
+  groupSample,
+  ungroupSample
+}) => {
   const isGrouped = sample.groupIndex === index;
   const defaultColor = 'var(--light-gray)';
   return (
@@ -86,7 +94,10 @@ let GroupButton = ({ sample, index, color, Icon, group, ungroup }) => {
       icon={<Icon />}
       button
       onClick={() =>
-        (isGrouped ? ungroup : group)({ index: index, id: sample.id })
+        (isGrouped ? ungroupSample : groupSample)({
+          index: index,
+          id: sample.id
+        })
       }
       style={{ color: isGrouped ? color : defaultColor }}
       aria-label={
@@ -96,9 +107,9 @@ let GroupButton = ({ sample, index, color, Icon, group, ungroup }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  group: (...args) => dispatch(groupSample(...args)),
-  ungroup: (...args) => dispatch(ungroupSample(...args))
+const mapDispatchToProps = makeMapDispatchToProps({
+  groupSample,
+  ungroupSample
 });
 
 GroupButton = connect(null, mapDispatchToProps)(GroupButton);

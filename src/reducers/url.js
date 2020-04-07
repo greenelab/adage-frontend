@@ -11,7 +11,7 @@ export const history = createBrowserHistory({ basename });
 export const querySync = reduxQuerySync.enhancer({
   params: {
     'model': {
-      selector: (state) => state.models.selected || undefined,
+      selector: (state) => state.models.selected.id || undefined,
       action: (value) => ({
         type: 'SELECT_MODEL_FROM_URL',
         payload: {

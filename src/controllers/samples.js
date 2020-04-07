@@ -3,29 +3,25 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getSampleList } from '../actions/samples';
-import { getSampleSelectedDetails } from '../actions/samples';
 import { getSampleActivities } from '../actions/samples';
 import { setVolcano } from '../actions/samples';
 import { selectSamples } from '../actions/samples';
 import { isArray } from '../util/types';
 import { actionStatuses } from '../actions/fetch';
 import { MAX_INT } from './';
-import { makeMapDispatchToProps } from './util';
+import { makeMapDispatchToProps } from '../actions';
 
 import worker from 'workerize-loader!../util/math';
 
 // dispatch new actions in response to redux state changes
 let SampleController = ({
-  sampleList,
   signatureList,
   selectedModel,
   selectedExperiment,
-  selectedSamplesLoaded,
-  activities,
+  sampleActivities,
   diamondGroup,
   spadeGroup,
   getSampleList,
-  getSampleSelectedDetails,
   getSampleActivities,
   setVolcano,
   selectSamples
@@ -47,33 +43,23 @@ let SampleController = ({
     });
   }, [selectedExperiment, selectSamples]);
 
-  // when full sample list loads or when new sample selected
-  // fill in full details of selected samples
-  useEffect(() => {
-    // if details already filled in, exit
-    if (selectedSamplesLoaded)
-      return;
-
-    getSampleSelectedDetails();
-  }, [sampleList.length, selectedSamplesLoaded, getSampleSelectedDetails]);
-
   // when selected model or experiment changes
   // get sample activities
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
     if (
-      !selectedModel ||
+      !selectedModel.id ||
       !selectedExperiment.samples ||
       !selectedExperiment.samples.length
     )
       return;
 
     getSampleActivities({
-      modelId: selectedModel,
+      modelId: selectedModel.id,
       sampleIds: selectedExperiment.samples.map((sample) => sample.id),
       limit: MAX_INT
     });
-  }, [selectedModel, selectedExperiment, getSampleActivities]);
+  }, [selectedModel.id, selectedExperiment, getSampleActivities]);
 
   // when sample groups or activities change
   // recalculate volcano plot data
@@ -82,8 +68,8 @@ let SampleController = ({
     if (
       !isArray(signatureList) ||
       !signatureList.length ||
-      !isArray(activities) ||
-      !activities.length
+      !isArray(sampleActivities) ||
+      !sampleActivities.length
     )
       return;
 
@@ -92,34 +78,29 @@ let SampleController = ({
       setVolcano(
         await worker().calculateVolcanoSignatures({
           signatureList,
-          activities,
+          sampleActivities,
           diamondGroup,
           spadeGroup
         })
       );
     };
     calculateVolcanoSignatures();
-  }, [signatureList, activities, diamondGroup, spadeGroup, setVolcano]);
+  }, [signatureList, sampleActivities, diamondGroup, spadeGroup, setVolcano]);
 
   return <></>;
 };
 
 const mapStateToProps = (state) => ({
-  sampleList: state.samples.list,
   signatureList: state.signatures.list,
   selectedModel: state.models.selected,
   selectedExperiment: state.experiments.selected,
-  selectedSamplesLoaded: state.samples.selected.every(
-    (selected) => selected.name
-  ),
-  activities: state.samples.activities,
+  sampleActivities: state.samples.activities,
   diamondGroup: state.samples.groups.diamond,
   spadeGroup: state.samples.groups.spade
 });
 
 const mapDispatchToProps = makeMapDispatchToProps({
   getSampleList,
-  getSampleSelectedDetails,
   getSampleActivities,
   setVolcano,
   selectSamples

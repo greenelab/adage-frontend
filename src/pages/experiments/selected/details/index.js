@@ -13,31 +13,31 @@ const limit = 200;
 
 // main details of selected experiment
 
-let Details = ({ experiment }) => (
+let Details = ({ selectedExperiment }) => (
   <>
     <div className='info medium'>
       <span>
         <ExperimentIcon />
-        <ExperimentLink experiment={experiment} />
+        <ExperimentLink experiment={selectedExperiment} />
       </span>
       <span>
         <SampleIcon />
-        {experiment.samples?.length || 0} sample(s)
+        {selectedExperiment.samples?.length || 0} sample(s)
       </span>
     </div>
     <div className='medium'>
-      {(experiment.name?.substr(0, limit) || '') +
-        (experiment.name?.length >= limit ? '...' : '')}
+      {(selectedExperiment.name?.substr(0, limit) || '') +
+        (selectedExperiment.name?.length >= limit ? '...' : '')}
     </div>
     <div>
-      {(experiment.description?.substr(0, limit) || '') +
-        (experiment.description?.length >= limit ? '...' : '')}
+      {(selectedExperiment.description?.substr(0, limit) || '') +
+        (selectedExperiment.description?.length >= limit ? '...' : '')}
     </div>
   </>
 );
 
 const mapStateToProps = (state) => ({
-  experiment: mapExperimentResult(state.experiments.selected, state)
+  selectedExperiment: mapExperimentResult(state.experiments.selected, state)
 });
 
 Details = connect(mapStateToProps)(Details);

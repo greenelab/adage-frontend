@@ -11,15 +11,18 @@ import './index.css';
 
 // component to show below search box when doing a single search
 
-let Single = ({ results, highlightedIndex }) => (
+let Single = ({ signatureResults, highlightedIndex }) => (
   <>
-    {isArray(results) && (
-      <SingleTable results={results} highlightedIndex={highlightedIndex} />
+    {isArray(signatureResults) && (
+      <SingleTable
+        results={signatureResults}
+        highlightedIndex={highlightedIndex}
+      />
     )}
-    {isString(results) && (
+    {isString(signatureResults) && (
       <FetchAlert
         className='search_results_single_alert'
-        status={results}
+        status={signatureResults}
         subject='signature results'
       />
     )}
@@ -27,7 +30,7 @@ let Single = ({ results, highlightedIndex }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: state.signatures.searches[0] ?
+  signatureResults: state.signatures.searches[0] ?
     isArray(state.signatures.searches[0].results) ?
       state.signatures.searches[0].results.map((result) =>
         mapSignatureResult(result, state)) :

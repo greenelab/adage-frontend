@@ -7,26 +7,24 @@ const prefixA = 'signature/';
 const prefixB = 'participation/';
 const prefixC = 'activity/';
 
-export const urlSignatureDetails = ({ id }) => {
-  const url = server + prefixA + id;
-  return url;
-};
-
-export const urlSignatureList = ({ model, limit = defaultLimit }) => {
+export const urlSignatureList = ({ modelId, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (model)
-    params.set('mlmodel', model);
+  if (modelId)
+    params.set('mlmodel', modelId);
 
   const url = server + prefixA + '?' + params.toString();
   return url;
 };
 
-export const urlSignatureParticipations = ({ id, limit = defaultLimit }) => {
+export const urlSignatureParticipations = ({
+  signatureId,
+  limit = defaultLimit
+}) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (id)
-    params.set('signature', id);
+  if (signatureId)
+    params.set('signature', signatureId);
 
   const url = server + prefixB + '?' + params.toString();
   return url;

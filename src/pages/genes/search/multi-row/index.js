@@ -11,6 +11,7 @@ import HorizontalLine from '../../../../components/horizontal-line';
 import VerticalLine from '../../../../components/vertical-line';
 import { selectGene } from '../../../../actions/genes';
 import { deselectGene } from '../../../../actions/genes';
+import { makeMapDispatchToProps } from '../../../../actions';
 import { isString } from '../../../../util/types';
 import { isArray } from '../../../../util/types';
 
@@ -25,12 +26,12 @@ const expandedResultLimit = 5;
 
 // multi search result row
 
-let MultiRow = ({ search, select, deselect }) => {
+let MultiRow = ({ search, selectGene, deselectGene }) => {
   const [expanded, setExpanded] = useState(false);
 
   // select/deselect gene on click of a result button
   const onClick = (result) =>
-    (result.selected ? deselect : select)({ id: result.id });
+    (result.selected ? deselectGene : selectGene)({ id: result.id });
 
   let content = <></>;
   if (isString(search.results)) {
@@ -103,10 +104,7 @@ let MultiRow = ({ search, select, deselect }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  select: (...args) => dispatch(selectGene(...args)),
-  deselect: (...args) => dispatch(deselectGene(...args))
-});
+const mapDispatchToProps = makeMapDispatchToProps({ selectGene, deselectGene });
 
 MultiRow = connect(null, mapDispatchToProps)(MultiRow);
 

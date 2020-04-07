@@ -8,8 +8,6 @@ import { isObject } from '../util/types';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
-  if (!isString(draft.details) && !isObject(draft.details))
-    draft.details = {};
   if (!isString(draft.list) && !isArray(draft.list))
     draft.list = [];
   if (!isArray(draft.searches))
@@ -97,7 +95,7 @@ const reducer = produce((draft, type, payload, meta) => {
       if (!payload.ids || !isArray(payload.ids) || !payload.ids.length)
         draft.selected = [];
       else
-        draft.selected = payload.ids.map((id) => ({ id: id }));
+        draft.selected = payload.ids.map((id) => ({ id }));
       break;
     }
 

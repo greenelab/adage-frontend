@@ -5,6 +5,7 @@ import SignatureLink from '../../../signature/link';
 import Clickable from '../../../../components/clickable';
 import TableComponent from '../../../../components/table';
 import { selectSignature } from '../../../../actions/signatures';
+import { makeMapDispatchToProps } from '../../../../actions';
 
 import { ReactComponent as RadioedIcon } from '../../../../images/radioed.svg';
 import { ReactComponent as UnradioedIcon } from '../../../../images/unradioed.svg';
@@ -13,7 +14,7 @@ import './index.css';
 
 // single search result table
 
-let Table = ({ results, highlightedIndex, select }) => {
+let Table = ({ results, highlightedIndex, selectSignature }) => {
   return (
     <TableComponent
       data={results}
@@ -23,7 +24,7 @@ let Table = ({ results, highlightedIndex, select }) => {
             <Clickable
               icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
               button
-              onClick={() => select({ id: row.id })}
+              onClick={() => selectSignature({ id: row.id })}
               aria-label='Select this signature'
             />
           ),
@@ -43,9 +44,7 @@ let Table = ({ results, highlightedIndex, select }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  select: (...args) => dispatch(selectSignature(...args))
-});
+const mapDispatchToProps = makeMapDispatchToProps({ selectSignature });
 
 Table = connect(null, mapDispatchToProps)(Table);
 

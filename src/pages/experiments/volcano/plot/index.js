@@ -17,7 +17,7 @@ export let svg;
 
 // volcano plot
 
-let Plot = ({ volcano }) => {
+let Plot = ({ sampleVolcano }) => {
   // internal state
   const mounted = useMounted();
   const [bbox, ref] = useBbox();
@@ -33,8 +33,8 @@ let Plot = ({ volcano }) => {
     svg = d3.select('#volcano');
 
     // find x and y domains (min/max values)
-    const xValues = volcano.map((d) => d.meanDiff);
-    const yValues = volcano.map((d) => d.pValue);
+    const xValues = sampleVolcano.map((d) => d.meanDiff);
+    const yValues = sampleVolcano.map((d) => d.pValue);
     const xMax = Math.max(
       Math.abs(Math.min(...xValues)),
       Math.abs(Math.max(...xValues))
@@ -66,7 +66,7 @@ let Plot = ({ volcano }) => {
     const dot = svg
       .select('#volcano_dots')
       .selectAll('.volcano_dot')
-      .data(volcano, (d) => d.meanDiff + ':' + d.pValue);
+      .data(sampleVolcano, (d) => d.meanDiff + ':' + d.pValue);
     dot
       .enter()
       .append('circle')
@@ -84,7 +84,7 @@ let Plot = ({ volcano }) => {
         }))
       .attr('data-tooltip-speed', 10);
     dot.exit().remove();
-  }, [mounted, width, height, volcano]);
+  }, [mounted, width, height, sampleVolcano]);
 
   return (
     <svg ref={ref} id='volcano' xmlns='http://www.w3.org/2000/svg'>
@@ -143,7 +143,7 @@ let Plot = ({ volcano }) => {
 };
 
 const mapStateToProps = (state) => ({
-  volcano: state.samples.volcano
+  sampleVolcano: state.samples.volcano
 });
 
 Plot = connect(mapStateToProps)(Plot);

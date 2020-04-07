@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { getModelList } from '../actions/models';
 import { selectModel } from '../actions/models';
-import { makeMapDispatchToProps } from './util';
+import { makeMapDispatchToProps } from '../actions';
 
 let ModelController = ({ modelList, getModelList, selectModel }) => {
   // on first render

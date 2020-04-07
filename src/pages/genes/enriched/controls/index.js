@@ -10,20 +10,20 @@ import './index.css';
 
 // controls below enriched signatures table
 
-let Controls = ({ enrichedSignatures }) => (
+let Controls = ({ geneEnrichedSignatures }) => (
   <div className='controls'>
     <Clickable
       text='Download'
       icon={<DownloadIcon />}
       button
-      onClick={() => downloadTable({ enrichedSignatures })}
+      onClick={() => downloadTable({ geneEnrichedSignatures })}
       aria-label='Download this table as a .tsv file'
     />
   </div>
 );
 
 const mapStateToProps = (state) => ({
-  enrichedSignatures: state.genes.enrichedSignatures
+  geneEnrichedSignatures: state.genes.enrichedSignatures
 });
 
 Controls = connect(mapStateToProps)(Controls);

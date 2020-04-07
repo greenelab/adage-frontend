@@ -11,7 +11,7 @@ import './index.css';
 
 // controls below volcano plot
 
-let Controls = ({ volcano }) => (
+let Controls = ({ sampleVolcano }) => (
   <div className='controls'>
     <Clickable
       text='Download Image'
@@ -24,14 +24,14 @@ let Controls = ({ volcano }) => (
       text='Download Table'
       icon={<DownloadIcon />}
       button
-      onClick={() => downloadTable({ volcano })}
+      onClick={() => downloadTable({ sampleVolcano })}
       aria-label='Download this data as a .tsv file'
     />
   </div>
 );
 
 const mapStateToProps = (state) => ({
-  volcano: state.samples.volcano
+  sampleVolcano: state.samples.volcano
 });
 
 Controls = connect(mapStateToProps)(Controls);

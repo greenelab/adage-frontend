@@ -6,6 +6,7 @@ import SearchComponent from '../../../components/search';
 import Single from './single';
 import { getSignatureSearch } from '../../../actions/signatures';
 import { selectSignature } from '../../../actions/signatures';
+import { makeMapDispatchToProps } from '../../../actions';
 import { isArray } from '../../../util/types';
 import { isSelected } from '../../../reducers/signatures';
 import { toCamelCase } from '../../../util/string';
@@ -14,29 +15,35 @@ import './index.css';
 
 // signature search section
 
-let Search = ({ model, list, results, select, search }) => {
+let Search = ({
+  selectedModel,
+  signatureList,
+  sigantureResults,
+  selectSignature,
+  getSignatureSearch
+}) => {
   useEffect(() => {
-    search({
+    getSignatureSearch({
       index: 0,
-      model: model,
+      modelId: selectedModel.id,
       query: ''
     });
-  }, [model, list.length, search]);
+  }, [selectedModel, signatureList.length, getSignatureSearch]);
 
   return (
     <SearchComponent
-      length={results?.length || null}
+      length={sigantureResults?.length || null}
       placeholder='search for a signature'
       onSearch={(value) => {
         const string = value.trim();
-        search({
+        getSignatureSearch({
           index: 0,
-          model: model,
+          modelId: selectedModel.id,
           query: string
         });
       }}
       onKeySelect={(highlightedIndex) =>
-        select({ id: results[highlightedIndex].id })
+        selectSignature({ id: sigantureResults[highlightedIndex].id })
       }
       SingleComponent={<Single />}
     />
@@ -44,14 +51,14 @@ let Search = ({ model, list, results, select, search }) => {
 };
 
 const mapStateToProps = (state) => ({
-  model: state.models.selected,
-  list: state.signatures.list,
-  results: mapSignatureSearch(state.signatures.searches[0] || {}, state)
+  selectedModel: state.models.selected,
+  signatureList: state.signatures.list,
+  sigantureResults: mapSignatureSearch(state.signatures.searches[0] || {}, state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  search: (...args) => dispatch(getSignatureSearch(...args)),
-  select: (...args) => dispatch(selectSignature(...args))
+const mapDispatchToProps = makeMapDispatchToProps({
+  getSignatureSearch,
+  selectSignature
 });
 
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);

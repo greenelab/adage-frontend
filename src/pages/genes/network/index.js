@@ -15,17 +15,16 @@ import './index.css';
 
 // genes network section
 
-let Network = ({ list, selected, edges }) => {
+let Network = ({ geneList, selected, geneEdges }) => {
   // internal state
   const [nodeCutoff, setNodeCutoff] = useState(20);
   const [edgeWeightCutoff, setEdgeWeightCutoff] = useState(0.4);
 
   // memoized full graph
-  const fullGraph = useMemo(() => constructGraph({ list, selected, edges }), [
-    list,
-    selected,
-    edges
-  ]);
+  const fullGraph = useMemo(
+    () => constructGraph({ geneList, selected, geneEdges }),
+    [geneList, selected, geneEdges]
+  );
 
   // memoized filtered graph
   const graph = useMemo(
@@ -35,7 +34,7 @@ let Network = ({ list, selected, edges }) => {
 
   return (
     <>
-      {isString(edges) && <FetchAlert status={edges} subject='edges' />}
+      {isString(geneEdges) && <FetchAlert status={geneEdges} subject='edges' />}
       {graph && (
         <>
           <Filters
@@ -59,49 +58,49 @@ let Network = ({ list, selected, edges }) => {
 
 // take gene list, selected, and edges to produce nodes and links objects
 // in format that d3 expects
-const constructGraph = ({ list, selected, edges }) => {
+const constructGraph = ({ geneList, selectedGenes, geneEdges }) => {
   // if we dont have all we need, exit
   if (
-    !isArray(list) ||
-    !list.length ||
-    !isArray(edges) ||
-    !edges.length ||
-    !isArray(selected) ||
-    !selected.length
+    !isArray(geneList) ||
+    !geneList.length ||
+    !isArray(geneEdges) ||
+    !geneEdges.length ||
+    !isArray(selectedGenes) ||
+    !selectedGenes.length
   )
     return;
 
   // copy objects to make them extensible
   // (objects coming from immer state are frozen by default)
-  list = list.map((gene) => ({ ...gene }));
-  selected = selected.map((gene) => ({ ...gene }));
-  edges = edges.map((edge) => ({ ...edge }));
+  geneList = geneList.map((gene) => ({ ...gene }));
+  selectedGenes = selectedGenes.map((gene) => ({ ...gene }));
+  geneEdges = geneEdges.map((edge) => ({ ...edge }));
 
   // init nodes and links
   let nodes = new Set();
-  let links = edges;
+  let links = geneEdges;
 
   // build master list of node ids, without duplicates
   links.forEach((link) => nodes.add(link.gene1).add(link.gene2));
-  selected.forEach((selected) => nodes.add(selected.id));
+  selectedGenes.forEach((selected) => nodes.add(selected.id));
   nodes = [...nodes];
 
   // dont include links that aren't connected to a selected node, or links
   // between selected nodes
   const selectedLinks = links.filter((link) =>
     xor(
-      selected.find((selected) => link.gene1 === selected.id),
-      selected.find((selected) => link.gene2 === selected.id)
+      selectedGenes.find((selected) => link.gene1 === selected.id),
+      selectedGenes.find((selected) => link.gene2 === selected.id)
     ));
 
   // look up node ids in master gene list and replace with full gene props
   nodes = nodes
-    .map((node) => list.find((gene) => gene.id === node))
+    .map((node) => geneList.find((gene) => gene.id === node))
     .filter((node) => node);
 
   // mark each node as selected or not
   nodes.forEach((node) => {
-    node.selected = selected.find((selected) => selected.id === node.id);
+    node.selected = selectedGenes.find((selected) => selected.id === node.id);
   });
 
   // calculate the relative "degree" of each node by summing the weights of
@@ -178,9 +177,9 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
 };
 
 const mapStateToProps = (state) => ({
-  list: state.genes.list,
-  selected: state.genes.selected,
-  edges: state.genes.edges
+  geneList: state.genes.list,
+  selectedGenes: state.genes.selected,
+  geneEdges: state.genes.edges
 });
 
 Network = connect(mapStateToProps)(Network);

@@ -20,7 +20,7 @@ import './index.css';
 
 // gene details page
 
-let Gene = ({ gene }) => (
+let Gene = ({ selectedGene }) => (
   <>
     <Header justTitle />
     <Main>
@@ -32,8 +32,10 @@ let Gene = ({ gene }) => (
           </>
         }
       >
-        {isObject(gene) && <Details data={gene} />}
-        {isString(gene) && <FetchAlert status={gene} subject='gene details' />}
+        {isObject(selectedGene) && <Details data={selectedGene} />}
+        {isString(selectedGene) && (
+          <FetchAlert status={selectedGene} subject='gene details' />
+        )}
       </Section>
     </Main>
     <Footer />
@@ -41,18 +43,18 @@ let Gene = ({ gene }) => (
 );
 
 const mapStateToProps = (state) => {
-  let gene = state.genes.selected[0];
+  let selectedGene = state.genes.selected[0];
 
-  if (!gene)
-    gene = actionStatuses.EMPTY;
-  else if (!geneIsLoaded(gene))
-    gene = state.genes.list;
-  else if (isObject(gene)) {
-    gene = filterKeys(gene, ['maxSimilarityField', 'weight']);
-    gene = humanizeKeys(gene);
+  if (!selectedGene)
+    selectedGene = actionStatuses.EMPTY;
+  else if (!geneIsLoaded(selectedGene))
+    selectedGene = state.genes.list;
+  else if (isObject(selectedGene)) {
+    selectedGene = filterKeys(selectedGene, ['maxSimilarityField', 'weight']);
+    selectedGene = humanizeKeys(selectedGene);
   }
 
-  return { gene };
+  return { selectedGene };
 };
 
 Gene = connect(mapStateToProps)(Gene);

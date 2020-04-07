@@ -1,7 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useRouteMatch } from 'react-router';
 
 import Header from '../header';
 import Main from '../main';
@@ -9,7 +7,8 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getModelDetails } from '../../actions/models';
+import { modelIsLoaded } from '../../reducers/models';
+import { actionStatuses } from '../../actions/fetch';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
 import { filterKeys } from '../../util/object';
@@ -21,57 +20,48 @@ import './index.css';
 
 // model details page
 
-let Model = ({ details, getDetails }) => {
-  const match = useRouteMatch();
-  const id = match.params.id;
-
-  useEffect(() => {
-    getDetails({ id: id });
-  }, [id, getDetails]);
-
-  return (
-    <>
-      <Header />
-      <Main>
-        <Section
-          header={
-            <>
-              <ModelIcon />
-              <span>Model Details</span>
-            </>
-          }
-        >
-          {isObject(details) && <Details data={details} />}
-          {isString(details) && (
-            <FetchAlert status={details} subject='model details' />
-          )}
-        </Section>
-      </Main>
-      <Footer />
-    </>
-  );
-};
+let Model = ({ selectedModel }) => (
+  <>
+    <Header />
+    <Main>
+      <Section
+        header={
+          <>
+            <ModelIcon />
+            <span>Model Details</span>
+          </>
+        }
+      >
+        {isObject(selectedModel) && <Details data={selectedModel} />}
+        {isString(selectedModel) && (
+          <FetchAlert status={selectedModel} subject='model details' />
+        )}
+      </Section>
+    </Main>
+    <Footer />
+  </>
+);
 
 const mapStateToProps = (state) => {
-  let details = state.models.details;
+  let selectedModel = state.models.selected;
 
-  if (isObject(details)) {
-    details = filterKeys(details, [
+  if (!selectedModel)
+    selectedModel = actionStatuses.EMPTY;
+  else if (!modelIsLoaded(selectedModel))
+    selectedModel = state.models.list;
+  else if (isObject(selectedModel)) {
+    selectedModel = filterKeys(selectedModel, [
       'id',
       'directedG2gEdge',
       'g2gEdgeCutoff',
       'organism'
     ]);
-    details = humanizeKeys(details);
+    selectedModel = humanizeKeys(selectedModel);
   }
 
-  return { details };
+  return { selectedModel };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getDetails: (...args) => dispatch(getModelDetails(...args))
-});
-
-Model = connect(mapStateToProps, mapDispatchToProps)(Model);
+Model = connect(mapStateToProps)(Model);
 
 export default Model;

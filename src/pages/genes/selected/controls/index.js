@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { deselectAllGenes } from '../../../../actions/genes';
 import Clickable from '../../../../components/clickable';
+import { deselectAllGenes } from '../../../../actions/genes';
+import { makeMapDispatchToProps } from '../../../../actions';
 import { downloadTable } from './download';
 
 import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
@@ -12,32 +13,30 @@ import './index.css';
 
 // controls below selected genes table
 
-let Controls = ({ selected, deselectAll }) => (
+let Controls = ({ selectedGenes, deselectAllGenes }) => (
   <div className='controls'>
     <Clickable
       text='Deselect All'
       icon={<CrossIcon />}
       button
-      onClick={deselectAll}
+      onClick={deselectAllGenes}
       aria-label='Deselect all genes'
     />
     <Clickable
       text='Download'
       icon={<DownloadIcon />}
       button
-      onClick={() => downloadTable({ selected })}
+      onClick={() => downloadTable({ selectedGenes })}
       aria-label='Download this table as a .tsv file'
     />
   </div>
 );
 
 const mapStateToProps = (state) => ({
-  selected: state.genes.selected
+  selectedGenes: state.genes.selected
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  deselectAll: () => dispatch(deselectAllGenes())
-});
+const mapDispatchToProps = makeMapDispatchToProps({ deselectAllGenes });
 
 Controls = connect(mapStateToProps, mapDispatchToProps)(Controls);
 

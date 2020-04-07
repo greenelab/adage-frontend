@@ -10,17 +10,17 @@ import './index.css';
 
 // signature activities section
 
-let Activities = ({ activities }) => (
+let Activities = ({ signatureActivities }) => (
   <>
-    {isString(activities) && (
-      <FetchAlert status={activities} subject='activities' />
+    {isString(signatureActivities) && (
+      <FetchAlert status={signatureActivities} subject='activities' />
     )}
-    {isArray(activities) && <Table />}
+    {isArray(signatureActivities) && <Table />}
   </>
 );
 
 const mapStateToProps = (state) => ({
-  activities: state.signatures.activities
+  signatureActivities: state.signatures.activities
 });
 
 Activities = connect(mapStateToProps)(Activities);

@@ -11,9 +11,9 @@ import './index.css';
 
 // component to show below search box when doing a multi search
 
-let Multi = ({ searches }) => (
+let Multi = ({ geneSearches }) => (
   <>
-    {searches.map((search, index, array) => (
+    {geneSearches.map((search, index, array) => (
       <Fragment key={index}>
         <MultiRow search={search} />
         {index < array.length - 1 && <HorizontalLine />}
@@ -24,7 +24,8 @@ let Multi = ({ searches }) => (
 );
 
 const mapStateToProps = (state) => ({
-  searches: state.genes.searches.map((search) => mapGeneSearch(search, state))
+  geneSearches: state.genes.searches.map((search) =>
+    mapGeneSearch(search, state))
 });
 
 Multi = connect(mapStateToProps)(Multi);

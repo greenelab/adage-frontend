@@ -10,9 +10,9 @@ import './index.css';
 
 // table of enriched signatures for selected genes
 
-let Table = ({ enrichedSignatures }) => (
+let Table = ({ geneEnrichedSignatures }) => (
   <TableComponent
-    data={enrichedSignatures}
+    data={geneEnrichedSignatures}
     columns={[
       {
         name: 'Name',
@@ -50,7 +50,7 @@ let Table = ({ enrichedSignatures }) => (
 );
 
 const mapStateToProps = (state) => ({
-  enrichedSignatures: state.genes.enrichedSignatures.map((signature) => ({
+  geneEnrichedSignatures: state.genes.enrichedSignatures.map((signature) => ({
     id: signature.id,
     name: signature.name,
     genes: signature.selectedParticipatingGenes,

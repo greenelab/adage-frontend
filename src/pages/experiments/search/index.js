@@ -5,6 +5,7 @@ import SearchComponent from '../../../components/search';
 import Single from './single';
 import { getExperimentSearch } from '../../../actions/experiments';
 import { selectExperiment } from '../../../actions/experiments';
+import { makeMapDispatchToProps } from '../../../actions';
 import { isArray } from '../../../util/types';
 import { isSelected } from '../../../reducers/experiments';
 import { toCamelCase } from '../../../util/string';
@@ -13,32 +14,37 @@ import './index.css';
 
 // experiment search section
 
-let Search = ({ results, select, search }) => (
+let Search = ({ experimentResults, selectExperiment, getExperimentSearch }) => (
   <SearchComponent
-    length={results?.length || null}
+    length={experimentResults?.length || null}
     placeholder='search for an experiment'
     onSearch={(value) => {
       const string = value.trim();
-      search({
+      getExperimentSearch({
         index: 0,
         query: string,
         cancelType: 'GET_EXPERIMENT_SEARCH'
       });
     }}
     onKeySelect={(highlightedIndex) =>
-      select({ accession: results[highlightedIndex].accession })
+      selectExperiment({
+        accession: experimentResults[highlightedIndex].accession
+      })
     }
     SingleComponent={<Single />}
   />
 );
 
 const mapStateToProps = (state) => ({
-  results: mapExperimentSearch(state.experiments.searches[0] || {}, state)
+  experimentResults: mapExperimentSearch(
+    state.experiments.searches[0] || {},
+    state
+  )
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  search: (...args) => dispatch(getExperimentSearch(...args)),
-  select: (...args) => dispatch(selectExperiment(...args))
+const mapDispatchToProps = makeMapDispatchToProps({
+  getExperimentSearch,
+  selectExperiment
 });
 
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);

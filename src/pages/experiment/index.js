@@ -22,7 +22,7 @@ import './index.css';
 
 // experiment details page
 
-let Experiment = ({ experiment }) => (
+let Experiment = ({ selectedExperiment }) => (
   <>
     <Header />
     <Main>
@@ -34,9 +34,12 @@ let Experiment = ({ experiment }) => (
           </>
         }
       >
-        {isObject(experiment) && <Details data={experiment} />}
-        {isString(experiment) && (
-          <FetchAlert status={experiment} subject='experiment details' />
+        {isObject(selectedExperiment) && <Details data={selectedExperiment} />}
+        {isString(selectedExperiment) && (
+          <FetchAlert
+            status={selectedExperiment}
+            subject='experiment details'
+          />
         )}
       </Section>
     </Main>
@@ -45,18 +48,18 @@ let Experiment = ({ experiment }) => (
 );
 
 const mapStateToProps = (state) => {
-  let experiment = state.experiments.selected;
+  let selectedExperiment = state.experiments.selected;
 
-  if (!experiment)
-    experiment = actionStatuses.EMPTY;
-  else if (!experimentIsLoaded(experiment))
-    experiment = state.experiments.list;
-  else if (isObject(experiment)) {
-    experiment = filterKeys(experiment, ['maxSimilarityField']);
-    if (experiment.samples) {
-      experiment.samples = (
+  if (!selectedExperiment)
+    selectedExperiment = actionStatuses.EMPTY;
+  else if (!experimentIsLoaded(selectedExperiment))
+    selectedExperiment = state.experiments.list;
+  else if (isObject(selectedExperiment)) {
+    selectedExperiment = filterKeys(selectedExperiment, ['maxSimilarityField']);
+    if (selectedExperiment.samples) {
+      selectedExperiment.samples = (
         <>
-          {experiment.samples.map((sample, index) => (
+          {selectedExperiment.samples.map((sample, index) => (
             <Fragment key={index}>
               <SampleLink sample={sample} />
               <br />
@@ -65,10 +68,10 @@ const mapStateToProps = (state) => {
         </>
       );
     }
-    experiment = humanizeKeys(experiment);
+    selectedExperiment = humanizeKeys(selectedExperiment);
   }
 
-  return { experiment };
+  return { selectedExperiment };
 };
 
 Experiment = connect(mapStateToProps)(Experiment);

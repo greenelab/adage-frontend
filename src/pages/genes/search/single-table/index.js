@@ -6,6 +6,7 @@ import Clickable from '../../../../components/clickable';
 import TableComponent from '../../../../components/table';
 import { selectGene } from '../../../../actions/genes';
 import { deselectGene } from '../../../../actions/genes';
+import { makeMapDispatchToProps } from '../../../../actions';
 
 import { ReactComponent as CheckedIcon } from '../../../../images/checked.svg';
 import { ReactComponent as UncheckedIcon } from '../../../../images/unchecked.svg';
@@ -14,7 +15,7 @@ import './index.css';
 
 // single search result table
 
-let Table = ({ results, highlightedIndex, select, deselect }) => (
+let Table = ({ results, highlightedIndex, selectGene, deselectGene }) => (
   <TableComponent
     data={results}
     columns={[
@@ -23,7 +24,9 @@ let Table = ({ results, highlightedIndex, select, deselect }) => (
           <Clickable
             icon={row.selected ? <CheckedIcon /> : <UncheckedIcon />}
             button
-            onClick={() => (row.selected ? deselect : select)({ id: row.id })}
+            onClick={() =>
+              (row.selected ? deselectGene : selectGene)({ id: row.id })
+            }
             aria-label={(row.selected ? 'Deselect' : 'Select') + ' this gene'}
           />
         ),
@@ -57,10 +60,7 @@ let Table = ({ results, highlightedIndex, select, deselect }) => (
   />
 );
 
-const mapDispatchToProps = (dispatch) => ({
-  select: (...args) => dispatch(selectGene(...args)),
-  deselect: (...args) => dispatch(deselectGene(...args))
-});
+const mapDispatchToProps = makeMapDispatchToProps({ selectGene, deselectGene });
 
 Table = connect(null, mapDispatchToProps)(Table);
 

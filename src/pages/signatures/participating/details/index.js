@@ -7,17 +7,17 @@ import { ReactComponent as SignatureIcon } from '../../../../images/signature.sv
 
 // main details of selected signature
 
-let Details = ({ signature }) => (
+let Details = ({ selectedSignature }) => (
   <div className='info medium'>
     <span>
       <SignatureIcon />
-      {signature.name}
+      {selectedSignature.name}
     </span>
   </div>
 );
 
 const mapStateToProps = (state) => ({
-  signature: state.signatures.selected
+  selectedSignature: state.signatures.selected
 });
 
 Details = connect(mapStateToProps)(Details);

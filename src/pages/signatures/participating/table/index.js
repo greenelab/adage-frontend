@@ -9,9 +9,9 @@ import './index.css';
 
 // table of enriched signatures for selected genes
 
-let Table = ({ participations }) => (
+let Table = ({ signatureParticipations }) => (
   <TableComponent
-    data={participations}
+    data={signatureParticipations}
     columns={[
       {
         name: 'Standard Name',
@@ -48,7 +48,7 @@ let Table = ({ participations }) => (
 );
 
 const mapStateToProps = (state) => ({
-  participations: mapParticipations(state)
+  signatureParticipations: mapParticipations(state)
 });
 
 Table = connect(mapStateToProps)(Table);

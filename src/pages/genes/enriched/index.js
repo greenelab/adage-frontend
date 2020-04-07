@@ -12,13 +12,13 @@ import './index.css';
 
 // genes enriched signatures section
 
-let Enriched = ({ enrichedSignatures }) => {
+let Enriched = ({ geneEnrichedSignatures }) => {
   return (
     <>
-      {isString(enrichedSignatures) && (
-        <FetchAlert status={enrichedSignatures} subject='enriched signatures' />
+      {isString(geneEnrichedSignatures) && (
+        <FetchAlert status={geneEnrichedSignatures} subject='enriched signatures' />
       )}
-      {isArray(enrichedSignatures) && (
+      {isArray(geneEnrichedSignatures) && (
         <>
           <Table />
           <Controls />
@@ -29,7 +29,7 @@ let Enriched = ({ enrichedSignatures }) => {
 };
 
 const mapStateToProps = (state) => ({
-  enrichedSignatures: state.genes.enrichedSignatures
+  geneEnrichedSignatures: state.genes.enrichedSignatures
 });
 
 Enriched = connect(mapStateToProps)(Enriched);

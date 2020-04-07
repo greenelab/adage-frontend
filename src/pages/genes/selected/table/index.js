@@ -5,6 +5,7 @@ import GeneLink from '../../../gene/link';
 import Clickable from '../../../../components/clickable';
 import TableComponent from '../../../../components/table';
 import { deselectGene } from '../../../../actions/genes';
+import { makeMapDispatchToProps } from '../../../../actions';
 
 import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
 
@@ -12,16 +13,16 @@ import './index.css';
 
 // table of selected genes
 
-let Table = ({ selected, deselect }) => (
+let Table = ({ selectedGenes, deselectGene }) => (
   <TableComponent
-    data={selected}
+    data={selectedGenes}
     columns={[
       {
-        render: ({ cell }) => (
+        render: ({ row }) => (
           <Clickable
             icon={<CrossIcon />}
             button
-            onClick={() => deselect({ id: cell.id })}
+            onClick={() => deselectGene({ id: row.id })}
             aria-label='Deselect this gene'
           />
         ),
@@ -54,12 +55,10 @@ let Table = ({ selected, deselect }) => (
 );
 
 const mapStateToProps = (state) => ({
-  selected: state.genes.selected
+  selectedGenes: state.genes.selected
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  deselect: (...args) => dispatch(deselectGene(...args))
-});
+const mapDispatchToProps = makeMapDispatchToProps({ deselectGene });
 
 Table = connect(mapStateToProps, mapDispatchToProps)(Table);
 

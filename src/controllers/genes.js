@@ -9,7 +9,7 @@ import { getGeneEdges } from '../actions/genes';
 import { geneIsLoaded } from '../reducers/genes';
 import { isArray } from '../util/types';
 import { MAX_INT } from './';
-import { makeMapDispatchToProps } from './util';
+import { makeMapDispatchToProps } from '../actions';
 
 import worker from 'workerize-loader!../util/math';
 
@@ -92,17 +92,17 @@ let GeneController = ({
   // get gene network edges
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
-    if (!selectedModel || !selectedGenes.length || !selectedGenesLoaded)
+    if (!selectedModel.id || !selectedGenes.length || !selectedGenesLoaded)
       return;
 
     getGeneEdges({
       cancelType: 'GET_GENE_EDGES',
-      modelId: selectedModel,
+      modelId: selectedModel.id,
       geneIds: selectedGenes.map((selected) => selected.id),
       selectedGenes: selectedGenes,
       limit: selectedGenes.length ? MAX_INT : 1
     });
-  }, [selectedModel, selectedGenes, selectedGenesLoaded, getGeneEdges]);
+  }, [selectedModel.id, selectedGenes, selectedGenesLoaded, getGeneEdges]);
 
   return <></>;
 };
@@ -114,8 +114,9 @@ const mapStateToProps = (state) => ({
   selectedModel: state.models.selected,
   selectedOrganism: isArray(state.models.list) ?
     (
-      state.models.list.find((model) => model.id === state.models.selected) ||
-        {}
+      state.models.list.find(
+        (model) => model.id === state.models.selected.id
+      ) || {}
     ).organism || null :
     null,
   selectedGenes: state.genes.selected,

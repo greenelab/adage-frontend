@@ -5,6 +5,7 @@ import ExperimentLink from '../../../experiment/link';
 import Clickable from '../../../../components/clickable';
 import TableComponent from '../../../../components/table';
 import { selectExperiment } from '../../../../actions/experiments';
+import { makeMapDispatchToProps } from '../../../../actions';
 
 import { ReactComponent as RadioedIcon } from '../../../../images/radioed.svg';
 import { ReactComponent as UnradioedIcon } from '../../../../images/unradioed.svg';
@@ -13,7 +14,7 @@ import './index.css';
 
 // single search result table
 
-let Table = ({ results, highlightedIndex, select }) => (
+let Table = ({ results, highlightedIndex, selectExperiment }) => (
   <TableComponent
     data={results}
     columns={[
@@ -22,7 +23,7 @@ let Table = ({ results, highlightedIndex, select }) => (
           <Clickable
             icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
             button
-            onClick={() => select({ accession: row.accession })}
+            onClick={() => selectExperiment({ accession: row.accession })}
             aria-label='Select this experiment'
           />
         ),
@@ -54,9 +55,7 @@ let Table = ({ results, highlightedIndex, select }) => (
   />
 );
 
-const mapDispatchToProps = (dispatch) => ({
-  select: (...args) => dispatch(selectExperiment(...args))
-});
+const mapDispatchToProps = makeMapDispatchToProps({ selectExperiment });
 
 Table = connect(null, mapDispatchToProps)(Table);
 

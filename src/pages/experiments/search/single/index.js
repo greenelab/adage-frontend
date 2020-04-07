@@ -11,15 +11,18 @@ import './index.css';
 
 // component to show below search box when doing a single search
 
-let Single = ({ results, highlightedIndex }) => (
+let Single = ({ experimentResults, highlightedIndex }) => (
   <>
-    {isArray(results) && (
-      <SingleTable results={results} highlightedIndex={highlightedIndex} />
+    {isArray(experimentResults) && (
+      <SingleTable
+        results={experimentResults}
+        highlightedIndex={highlightedIndex}
+      />
     )}
-    {isString(results) && (
+    {isString(experimentResults) && (
       <FetchAlert
         className='search_results_single_alert'
-        status={results}
+        status={experimentResults}
         subject='experiment results'
       />
     )}
@@ -27,7 +30,7 @@ let Single = ({ results, highlightedIndex }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: state.experiments.searches[0] ?
+  experimentResults: state.experiments.searches[0] ?
     isArray(state.experiments.searches[0].results) ?
       state.experiments.searches[0].results.map((result) =>
         mapExperimentResult(result, state)) :

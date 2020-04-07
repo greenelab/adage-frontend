@@ -11,15 +11,15 @@ import './index.css';
 
 // component to show below search box when doing a single search
 
-let Single = ({ results, highlightedIndex }) => (
+let Single = ({ geneResults, highlightedIndex }) => (
   <>
-    {isArray(results) && (
-      <SingleTable results={results} highlightedIndex={highlightedIndex} />
+    {isArray(geneResults) && (
+      <SingleTable results={geneResults} highlightedIndex={highlightedIndex} />
     )}
-    {isString(results) && (
+    {isString(geneResults) && (
       <FetchAlert
         className='search_results_single_alert'
-        status={results}
+        status={geneResults}
         subject='gene results'
       />
     )}
@@ -27,7 +27,7 @@ let Single = ({ results, highlightedIndex }) => (
 );
 
 const mapStateToProps = (state) => ({
-  results: mapGeneSearch(state.genes.searches[0] || {}, state)?.results
+  geneResults: mapGeneSearch(state.genes.searches[0] || {}, state)?.results
 });
 
 Single = connect(mapStateToProps)(Single);

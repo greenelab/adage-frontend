@@ -7,11 +7,11 @@ const prefixA = 'gene/';
 const prefixB = 'participation/';
 const prefixC = 'edge/';
 
-export const urlGeneList = ({ organism, limit = defaultLimit }) => {
+export const urlGeneList = ({ organismId, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (organism)
-    params.set('organism', organism);
+  if (organismId)
+    params.set('organism', organismId);
 
   const url = server + prefixA + '?' + params.toString();
   return url;
@@ -27,11 +27,11 @@ export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
   return url;
 };
 
-export const urlGeneParticipations = ({ ids, limit = defaultLimit }) => {
+export const urlGeneParticipations = ({ geneIds, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (ids)
-    params.set('related-genes', ids.join(','));
+  if (geneIds)
+    params.set('related-genes', geneIds.join(','));
 
   const url = server + prefixB + '?' + params.toString();
   return url;
