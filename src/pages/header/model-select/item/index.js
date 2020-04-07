@@ -35,7 +35,8 @@ const Item = ({
       </span>
     </div>
     <Clickable
-      to={'/model/' + id}
+      to='/model'
+      search={{ model: id }}
       icon={<InfoIcon />}
       button
       aria-label={'Open details page for model ' + title}

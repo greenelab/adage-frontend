@@ -19,14 +19,14 @@ let SignatureController = ({
   // when selected model changes
   // get full signature list
   useEffect(() => {
-    if (!selectedModel)
+    if (!selectedModel.id)
       return;
 
     getSignatureList({
       modelId: selectedModel.id,
       limit: MAX_INT
     });
-  }, [selectedModel, getSignatureList]);
+  }, [selectedModel.id, getSignatureList]);
 
   // when selected signature changes
   // re-get participations

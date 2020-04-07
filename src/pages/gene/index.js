@@ -45,7 +45,7 @@ let Gene = ({ selectedGene }) => (
 const mapStateToProps = (state) => {
   let selectedGene = state.genes.selected[0];
 
-  if (!selectedGene)
+  if (!selectedGene?.id)
     selectedGene = actionStatuses.EMPTY;
   else if (!geneIsLoaded(selectedGene))
     selectedGene = state.genes.list;

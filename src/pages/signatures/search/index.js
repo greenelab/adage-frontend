@@ -28,7 +28,7 @@ let Search = ({
       modelId: selectedModel.id,
       query: ''
     });
-  }, [selectedModel, signatureList.length, getSignatureSearch]);
+  }, [selectedModel.id, signatureList.length, getSignatureSearch]);
 
   return (
     <SearchComponent

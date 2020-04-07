@@ -6,7 +6,12 @@ import { getModelList } from '../actions/models';
 import { selectModel } from '../actions/models';
 import { makeMapDispatchToProps } from '../actions';
 
-let ModelController = ({ modelList, getModelList, selectModel }) => {
+let ModelController = ({
+  modelList,
+  selectedModel,
+  getModelList,
+  selectModel
+}) => {
   // on first render
   // get full model list
   useEffect(() => {
@@ -14,16 +19,18 @@ let ModelController = ({ modelList, getModelList, selectModel }) => {
   }, [getModelList]);
 
   // when full model list loads
-  // select model (first in list if not specified)
+  // select model id = 1 if none selected
   useEffect(() => {
-    selectModel();
-  }, [modelList, selectModel]);
+    if (!selectedModel.id)
+      selectModel({ id: 1 });
+  }, [modelList, selectedModel.id, selectModel]);
 
   return <></>;
 };
 
 const mapStateToProps = (state) => ({
-  modelList: state.models.list
+  modelList: state.models.list,
+  selectedModel: state.models.selected
 });
 
 const mapDispatchToProps = makeMapDispatchToProps({

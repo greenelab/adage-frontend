@@ -11,8 +11,11 @@ export const makeMapDispatchToProps = (actions) => (dispatch) => {
   // for each of the provided actions
   for (const [actionName, action] of Object.entries(actions)) {
     // dispatch actions with a slight delay to avoid overwhelming browser
-    actions[actionName] = (...args) =>
-      window.setTimeout(() => dispatch(action(...args)), 50);
+    actions[actionName] = (...args) => {
+      window.setTimeout(() => {
+        dispatch(action(...args));
+      }, 50);
+    };
   }
 
   return { ...actions, dispatch };

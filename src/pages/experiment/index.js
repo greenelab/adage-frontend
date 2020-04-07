@@ -50,7 +50,7 @@ let Experiment = ({ selectedExperiment }) => (
 const mapStateToProps = (state) => {
   let selectedExperiment = state.experiments.selected;
 
-  if (!selectedExperiment)
+  if (!selectedExperiment?.accession)
     selectedExperiment = actionStatuses.EMPTY;
   else if (!experimentIsLoaded(selectedExperiment))
     selectedExperiment = state.experiments.list;

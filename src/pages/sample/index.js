@@ -47,7 +47,7 @@ let Sample = ({ selectedSample }) => (
 const mapStateToProps = (state) => {
   let selectedSample = state.samples.selected[0];
 
-  if (!selectedSample)
+  if (!selectedSample?.id)
     selectedSample = actionStatuses.EMPTY;
   else if (!sampleIsLoaded(selectedSample))
     selectedSample = state.samples.list;

@@ -45,13 +45,12 @@ let Model = ({ selectedModel }) => (
 const mapStateToProps = (state) => {
   let selectedModel = state.models.selected;
 
-  if (!selectedModel)
+  if (!selectedModel?.id)
     selectedModel = actionStatuses.EMPTY;
   else if (!modelIsLoaded(selectedModel))
     selectedModel = state.models.list;
   else if (isObject(selectedModel)) {
     selectedModel = filterKeys(selectedModel, [
-      'id',
       'directedG2gEdge',
       'g2gEdgeCutoff',
       'organism'
