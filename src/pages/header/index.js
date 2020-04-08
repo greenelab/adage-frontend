@@ -8,15 +8,11 @@ import './index.css';
 
 // header page component
 
-const Header = ({ justTitle }) => (
+const Header = () => (
   <header className='page_header'>
     <Title />
-    {!justTitle && (
-      <>
-        <Nav />
-        <Right />
-      </>
-    )}
+    <Nav />
+    <Right />
   </header>
 );
 

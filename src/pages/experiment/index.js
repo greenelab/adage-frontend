@@ -58,7 +58,7 @@ let Experiment = ({ experiments }) => {
 
   return (
     <>
-      <Header justTitle />
+      <Header />
       <Main>
         <Section
           header={

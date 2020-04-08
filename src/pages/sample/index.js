@@ -54,7 +54,7 @@ let Sample = ({ samples }) => {
 
   return (
     <>
-      <Header justTitle />
+      <Header />
       <Main>
         <Section
           header={

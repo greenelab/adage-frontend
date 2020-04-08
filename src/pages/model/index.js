@@ -46,7 +46,7 @@ let Model = ({ models }) => {
 
   return (
     <>
-      <Header justTitle />
+      <Header />
       <Main>
         <Section
           header={

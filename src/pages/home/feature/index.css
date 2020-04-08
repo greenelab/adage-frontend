@@ -27,7 +27,7 @@
   margin-right: 10px;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 660px) {
   .feature {
     flex-direction: column;
   }

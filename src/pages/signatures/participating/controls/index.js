@@ -9,7 +9,7 @@ import { ReactComponent as DownloadIcon } from '../../../../images/download.svg'
 
 import './index.css';
 
-// controls below selected experiment samples table
+// controls below participating genes table
 
 let Controls = ({ participations }) => (
   <div className='controls'>
