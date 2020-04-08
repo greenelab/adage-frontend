@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 
@@ -9,7 +8,8 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getModelDetails } from '../../actions/models';
+import { actionStatuses } from '../../actions/fetch';
+import { isArray } from '../../util/types';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
 import { filterKeys } from '../../util/object';
@@ -21,13 +21,28 @@ import './index.css';
 
 // model details page
 
-let Model = ({ details, getDetails }) => {
+let Model = ({ models }) => {
   const match = useRouteMatch();
   const id = match.params.id;
 
-  useEffect(() => {
-    getDetails({ id: id });
-  }, [id, getDetails]);
+  let details;
+
+  if (isString(models))
+    details = models;
+  else if (isArray(models)) {
+    const found = models.find((model) => String(model.id) === String(id));
+    if (!found)
+      details = actionStatuses.EMPTY;
+    else {
+      details = { ...found };
+      details = filterKeys(details, [
+        'directedG2GEdge',
+        'g2GEdgeCutoff',
+        'organism'
+      ]);
+      details = humanizeKeys(details);
+    }
+  }
 
   return (
     <>
@@ -52,26 +67,8 @@ let Model = ({ details, getDetails }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  let details = state.models.details;
+const mapStateToProps = (state) => ({ models: state.models.list });
 
-  if (isObject(details)) {
-    details = filterKeys(details, [
-      'id',
-      'directedG2gEdge',
-      'g2gEdgeCutoff',
-      'organism'
-    ]);
-    details = humanizeKeys(details);
-  }
-
-  return { details };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  getDetails: (...args) => dispatch(getModelDetails(...args))
-});
-
-Model = connect(mapStateToProps, mapDispatchToProps)(Model);
+Model = connect(mapStateToProps)(Model);
 
 export default Model;

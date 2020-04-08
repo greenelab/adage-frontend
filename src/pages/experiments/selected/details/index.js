@@ -22,7 +22,8 @@ let Details = ({ experiment }) => (
       </span>
       <span>
         <SampleIcon />
-        {experiment.samples?.length || 0} sample(s)
+        {experiment.samples?.length || 0} sample
+        {experiment.samples?.length > 1 ? 's' : ''}
       </span>
     </div>
     <div className='medium'>

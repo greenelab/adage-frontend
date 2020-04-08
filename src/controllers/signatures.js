@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getSignatureList } from '../actions/signatures';
-import { getSignatureSelectedDetails } from '../actions/signatures';
 import { getSignatureParticipations } from '../actions/signatures';
 import { getSignatureActivities } from '../actions/signatures';
 import { MAX_INT } from './';
@@ -11,41 +10,23 @@ import { makeMapDispatchToProps } from './util';
 
 // dispatch new actions in response to redux state changes
 let SignatureController = ({
-  signatureList,
   selectedModel,
   selectedSignature,
-  selectedSignatureLoaded,
   getSignatureList,
-  getSignatureSelectedDetails,
   getSignatureParticipations,
   getSignatureActivities
 }) => {
   // when selected model changes
   // get full signature list
   useEffect(() => {
-    if (!selectedModel)
+    if (!selectedModel.id)
       return;
 
     getSignatureList({
-      model: selectedModel,
+      model: selectedModel.id,
       limit: MAX_INT
     });
-  }, [selectedModel, getSignatureList]);
-
-  // when full signature list loads or when new signature selected
-  // fill in full details of selected signature
-  useEffect(() => {
-    // if details already filled in, exit
-    if (selectedSignatureLoaded)
-      return;
-
-    getSignatureSelectedDetails();
-  }, [
-    signatureList.length,
-    selectedSignature.id,
-    selectedSignatureLoaded,
-    getSignatureSelectedDetails
-  ]);
+  }, [selectedModel.id, getSignatureList]);
 
   // when selected signature changes
   // re-get participations
@@ -65,29 +46,26 @@ let SignatureController = ({
   // get signature activities
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
-    if (!selectedModel || !selectedSignature.id)
+    if (!selectedModel.id || !selectedSignature.id)
       return;
 
     getSignatureActivities({
-      modelId: selectedModel,
+      modelId: selectedModel.id,
       signatureIds: [selectedSignature.id],
       limit: MAX_INT
     });
-  }, [selectedModel, selectedSignature.id, getSignatureActivities]);
+  }, [selectedModel.id, selectedSignature.id, getSignatureActivities]);
 
   return <></>;
 };
 
 const mapStateToProps = (state) => ({
-  signatureList: state.signatures.list,
   selectedModel: state.models.selected,
-  selectedSignature: state.signatures.selected,
-  selectedSignatureLoaded: state.signatures.selected.name ? true : false
+  selectedSignature: state.signatures.selected
 });
 
 const mapDispatchToProps = makeMapDispatchToProps({
   getSignatureList,
-  getSignatureSelectedDetails,
   getSignatureParticipations,
   getSignatureActivities
 });

@@ -1,17 +1,15 @@
 import React from 'react';
-import { Fragment } from 'react';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 
-import SampleLink from '../sample/link';
 import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getGeneDetails } from '../../actions/genes';
+import { actionStatuses } from '../../actions/fetch';
+import { isArray } from '../../util/types';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
 import { filterKeys } from '../../util/object';
@@ -23,13 +21,24 @@ import './index.css';
 
 // gene details page
 
-let Gene = ({ details, getDetails }) => {
+let Gene = ({ genes }) => {
   const match = useRouteMatch();
   const id = match.params.id;
 
-  useEffect(() => {
-    getDetails({ id: id });
-  }, [id, getDetails]);
+  let details;
+
+  if (isString(genes))
+    details = genes;
+  else if (isArray(genes)) {
+    const found = genes.find((gene) => String(gene.id) === String(id));
+    if (!found)
+      details = actionStatuses.EMPTY;
+    else {
+      details = { ...found };
+      details = filterKeys(details, ['maxSimilarityField', 'weight']);
+      details = humanizeKeys(details);
+    }
+  }
 
   return (
     <>
@@ -54,33 +63,8 @@ let Gene = ({ details, getDetails }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  let details = state.genes.details;
+const mapStateToProps = (state) => ({ genes: state.genes.list });
 
-  if (isObject(details)) {
-    details = filterKeys(details, ['maxSimilarityField']);
-    if (details.samples) {
-      details.samples = (
-        <>
-          {details.samples.map((sample, index) => (
-            <Fragment key={index}>
-              <SampleLink sample={sample} />
-              <br />
-            </Fragment>
-          ))}
-        </>
-      );
-    }
-    details = humanizeKeys(details);
-  }
-
-  return { details };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  getDetails: (...args) => dispatch(getGeneDetails(...args))
-});
-
-Gene = connect(mapStateToProps, mapDispatchToProps)(Gene);
+Gene = connect(mapStateToProps)(Gene);
 
 export default Gene;

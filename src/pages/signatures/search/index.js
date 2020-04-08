@@ -18,7 +18,7 @@ let Search = ({ model, list, results, select, search }) => {
   useEffect(() => {
     search({
       index: 0,
-      model: model,
+      model: model.id,
       query: ''
     });
   }, [model, list.length, search]);

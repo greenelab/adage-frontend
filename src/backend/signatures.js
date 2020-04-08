@@ -7,11 +7,6 @@ const prefixA = 'signature/';
 const prefixB = 'participation/';
 const prefixC = 'activity/';
 
-export const urlSignatureDetails = ({ id }) => {
-  const url = server + prefixA + id;
-  return url;
-};
-
 export const urlSignatureList = ({ model, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);

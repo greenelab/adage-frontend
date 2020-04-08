@@ -54,7 +54,7 @@ let ModelSelect = ({ models }) => {
 const mapStateToProps = (state) => ({
   models: isArray(state.models.list) ?
     state.models.list.map((model) => ({
-      selected: state.models.selected === model.id,
+      selected: state.models.selected.id === model.id,
       id: model.id,
       title: model.title,
       authors: (model.authors || '').split('\n'),

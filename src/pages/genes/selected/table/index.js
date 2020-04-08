@@ -17,11 +17,11 @@ let Table = ({ selected, deselect }) => (
     data={selected}
     columns={[
       {
-        render: ({ cell }) => (
+        render: ({ row }) => (
           <Clickable
             icon={<CrossIcon />}
             button
-            onClick={() => deselect({ id: cell.id })}
+            onClick={() => deselect({ id: row.id })}
             aria-label='Deselect this gene'
           />
         ),

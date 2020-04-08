@@ -1,6 +1,5 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 
@@ -11,7 +10,8 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import { getExperimentDetails } from '../../actions/experiments';
+import { actionStatuses } from '../../actions/fetch';
+import { isArray } from '../../util/types';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
 import { filterKeys } from '../../util/object';
@@ -23,13 +23,38 @@ import './index.css';
 
 // experiment details page
 
-let Experiment = ({ details, getDetails }) => {
+let Experiment = ({ experiments }) => {
   const match = useRouteMatch();
   const accession = match.params.accession;
 
-  useEffect(() => {
-    getDetails({ accession: accession });
-  }, [accession, getDetails]);
+  let details;
+
+  if (isString(experiments))
+    details = experiments;
+  else if (isArray(experiments)) {
+    const found = experiments.find(
+      (experiment) => String(experiment.accession) === String(accession)
+    );
+    if (!found)
+      details = actionStatuses.EMPTY;
+    else {
+      details = { ...found };
+      details = filterKeys(details, ['maxSimilarityField']);
+      if (details.samples) {
+        details.samples = (
+          <>
+            {details.samples.map((sample, index) => (
+              <Fragment key={index}>
+                <SampleLink sample={sample} />
+                <br />
+              </Fragment>
+            ))}
+          </>
+        );
+      }
+      details = humanizeKeys(details);
+    }
+  }
 
   return (
     <>
@@ -54,33 +79,8 @@ let Experiment = ({ details, getDetails }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  let details = state.experiments.details;
+const mapStateToProps = (state) => ({ experiments: state.experiments.list });
 
-  if (isObject(details)) {
-    details = filterKeys(details, ['maxSimilarityField']);
-    if (details.samples) {
-      details.samples = (
-        <>
-          {details.samples.map((sample, index) => (
-            <Fragment key={index}>
-              <SampleLink sample={sample} />
-              <br />
-            </Fragment>
-          ))}
-        </>
-      );
-    }
-    details = humanizeKeys(details);
-  }
-
-  return { details };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  getDetails: (...args) => dispatch(getExperimentDetails(...args))
-});
-
-Experiment = connect(mapStateToProps, mapDispatchToProps)(Experiment);
+Experiment = connect(mapStateToProps)(Experiment);
 
 export default Experiment;

@@ -6,8 +6,6 @@ import { isObject } from '../util/types';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
-  if (!isString(draft.details) && !isObject(draft.details))
-    draft.details = {};
   if (!isString(draft.list) && !isArray(draft.list))
     draft.list = [];
   if (!isArray(draft.searches))
@@ -21,11 +19,6 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_EXPERIMENT_DETAILS': {
-      draft.details = payload;
-      break;
-    }
-
     case 'GET_EXPERIMENT_LIST': {
       draft.list = payload;
       break;
@@ -48,23 +41,22 @@ const reducer = produce((draft, type, payload, meta) => {
       if (!payload.accession)
         draft.selected = {};
       else
-        draft.selected = { accession: payload.accession };
-      break;
-    }
-
-    case 'GET_EXPERIMENT_SELECTED_DETAILS': {
-      if (!isArray(draft.list) || !draft.list.length)
-        break;
-      draft.selected =
-        draft.list.find(
-          (experiment) => experiment.accession === draft.selected.accession
-        ) || {};
+        draft.selected = payload;
       break;
     }
 
     default: {
       break;
     }
+  }
+
+  // fill in details of selected from full list
+  if (isArray(draft.list)) {
+    const found = draft.list.find(
+      (experiment) => experiment.accession === draft.selected.accession
+    );
+    if (found && !experimentIsLoaded(draft.selected))
+      draft.selected = found;
   }
 
   typeCheck(draft);
@@ -74,3 +66,6 @@ export default reducer;
 
 export const isSelected = (selected, accession) =>
   selected.accession === accession;
+
+export const experimentIsLoaded = (experiment) =>
+  experiment?.name ? true : false;
