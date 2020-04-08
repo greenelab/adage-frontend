@@ -55,8 +55,8 @@ let SampleController = ({
       return;
 
     getSampleActivities({
-      modelId: selectedModel.id,
-      sampleIds: selectedExperiment.samples.map((sample) => sample.id),
+      model: selectedModel.id,
+      samples: selectedExperiment.samples.map((sample) => sample.id),
       limit: MAX_INT
     });
   }, [selectedModel.id, selectedExperiment, getSampleActivities]);

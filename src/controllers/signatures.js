@@ -37,7 +37,7 @@ let SignatureController = ({
 
     getSignatureParticipations({
       cancelType: 'GET_SIGNATURE_PARTICIPATIONS',
-      id: selectedSignature.id,
+      signature: selectedSignature.id,
       limit: MAX_INT
     });
   }, [selectedSignature.id, getSignatureParticipations]);
@@ -50,8 +50,8 @@ let SignatureController = ({
       return;
 
     getSignatureActivities({
-      modelId: selectedModel.id,
-      signatureIds: [selectedSignature.id],
+      model: selectedModel.id,
+      signatures: [selectedSignature.id],
       limit: MAX_INT
     });
   }, [selectedModel.id, selectedSignature.id, getSignatureActivities]);

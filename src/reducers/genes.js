@@ -116,7 +116,7 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'GET_GENE_EDGES': {
-      if (meta.selectedGenes.length)
+      if (meta.genes.length)
         draft.edges = payload;
       else
         draft.edges = actionStatuses.EMPTY;

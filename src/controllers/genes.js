@@ -29,14 +29,14 @@ let GeneController = ({
   // when selected model (and thus selected organism) changes
   // get full gene list
   useEffect(() => {
-    if (!selectedOrganism)
+    if (!selectedOrganism.id)
       return;
 
     getGeneList({
-      organism: selectedOrganism,
+      organism: selectedOrganism.id,
       limit: MAX_INT
     });
-  }, [selectedOrganism, getGeneList]);
+  }, [selectedOrganism.id, getGeneList]);
 
   // when selected genes change
   // re-get participations
@@ -47,7 +47,7 @@ let GeneController = ({
 
     getGeneParticipations({
       cancelType: 'GET_GENE_PARTICIPATIONS',
-      ids: selectedGenes.map((gene) => gene.id),
+      genes: selectedGenes.map((gene) => gene.id),
       limit: selectedGenes.length ? MAX_INT : 1
     });
   }, [selectedGenes, selectedGenesLoaded, getGeneParticipations]);
@@ -96,9 +96,8 @@ let GeneController = ({
 
     getGeneEdges({
       cancelType: 'GET_GENE_EDGES',
-      modelId: selectedModel.id,
-      geneIds: selectedGenes.map((selected) => selected.id),
-      selectedGenes: selectedGenes,
+      model: selectedModel.id,
+      genes: selectedGenes.map((selected) => selected.id),
       // if no genes selected, still make query but with 1 result
       // to reset state.genes.edges and show "empty" alert in network section
       limit: selectedGenes.length ? MAX_INT : 1
@@ -113,13 +112,7 @@ const mapStateToProps = (state) => ({
   signatureList: state.signatures.list,
   geneParticipations: state.genes.participations,
   selectedModel: state.models.selected,
-  selectedOrganism: isArray(state.models.list) ?
-    (
-      state.models.list.find(
-        (model) => model.id === state.models.selected.id
-      ) || {}
-    ).organism || null :
-    null,
+  selectedOrganism: state.organisms.selected,
   selectedGenes: state.genes.selected,
   selectedGenesLoaded: state.genes.selected.every((selected) => selected.name)
 });

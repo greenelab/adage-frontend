@@ -17,27 +17,30 @@ export const urlSignatureList = ({ model, limit = defaultLimit }) => {
   return url;
 };
 
-export const urlSignatureParticipations = ({ id, limit = defaultLimit }) => {
+export const urlSignatureParticipations = ({
+  signature,
+  limit = defaultLimit
+}) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (id)
-    params.set('signature', id);
+  if (signature)
+    params.set('signature', signature);
 
   const url = server + prefixB + '?' + params.toString();
   return url;
 };
 
 export const urlSignatureActivities = ({
-  modelId,
-  signatureIds,
+  model,
+  signatures,
   limit = defaultLimit
 }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (modelId)
-    params.set('mlmodel', modelId);
-  if (signatureIds)
-    params.set('signatures', signatureIds.join(','));
+  if (model)
+    params.set('mlmodel', model);
+  if (signatures)
+    params.set('signatures', signatures.join(','));
 
   const url = server + prefixC + '?' + params.toString();
   return url;

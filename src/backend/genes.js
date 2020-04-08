@@ -27,23 +27,23 @@ export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
   return url;
 };
 
-export const urlGeneParticipations = ({ ids, limit = defaultLimit }) => {
+export const urlGeneParticipations = ({ genes, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (ids)
-    params.set('related-genes', ids.join(','));
+  if (genes)
+    params.set('related-genes', genes.join(','));
 
   const url = server + prefixB + '?' + params.toString();
   return url;
 };
 
-export const urlGeneEdges = ({ modelId, geneIds, limit = defaultLimit }) => {
+export const urlGeneEdges = ({ model, genes, limit = defaultLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
-  if (modelId)
-    params.set('mlmodel', modelId);
-  if (geneIds)
-    params.set('genes', geneIds.join(','));
+  if (model)
+    params.set('mlmodel', model);
+  if (genes)
+    params.set('genes', genes.join(','));
 
   const url = server + prefixC + '?' + params.toString();
   return url;
