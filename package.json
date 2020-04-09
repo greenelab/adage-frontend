@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "bash ./scripts/build.sh",
+    "build": "node ./scripts/build.js",
     "test": "react-scripts test a",
     "eject": "react-scripts eject"
   },
