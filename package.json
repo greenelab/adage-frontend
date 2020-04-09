@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf /opt/build/cache && node ./scripts/build.js",
+    "build": "ls /opt/build/cache && rm -rf /opt/build/cache/node_modules/* && ./scripts/build.sh",
     "test": "react-scripts test a",
     "eject": "react-scripts eject"
   },
