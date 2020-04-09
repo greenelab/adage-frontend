@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "ls ~/ && rm -rf $NETLIFY_CACHE_DIR && node ./scripts/build.js",
+    "build": "ls ~/tmp && echo $NETLIFY_CACHE_DIR && node ./scripts/build.js",
     "test": "react-scripts test a",
     "eject": "react-scripts eject"
   },
