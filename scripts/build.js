@@ -7,8 +7,14 @@ const rewire = require('rewire');
 const defaults = rewire('react-scripts/scripts/build.js');
 const config = defaults.__get__('config');
 
-// remove Netlify cache
-fs.rmdirSync('/opt/buildhome/cache', { recursive: true });
+const ls = (dir) => fs.readdir(dir, (err, files) => files.forEach(console.log));
+
+ls('/');
+ls('~/');
+ls('./');
+ls('/opt');
+ls('/opt/buildhome');
+ls('/opt/buildhome/cache');
 
 // consolidate chunk files instead
 config.optimization.splitChunks = {
