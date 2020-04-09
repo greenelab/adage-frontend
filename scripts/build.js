@@ -1,14 +1,14 @@
 // reconfigure default create-react-app build script
 // from https://github.com/facebook/create-react-app/issues/5306
 
-const fs = require('filesystem');
+const fs = require('fs');
 const process = require('process');
 const rewire = require('rewire');
 const defaults = rewire('react-scripts/scripts/build.js');
 const config = defaults.__get__('config');
 
 // remove Netlify cache
-fs.rmdir('/opt/buildhome/cache', { recursive: true });
+fs.rmdirSync('/opt/buildhome/cache', { recursive: true });
 
 // consolidate chunk files instead
 config.optimization.splitChunks = {
