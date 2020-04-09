@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getGeneList } from '../actions/genes';
-import { getGeneSelectedDetails } from '../actions/genes';
 import { getGeneParticipations } from '../actions/genes';
 import { setEnrichedSignatures } from '../actions/genes';
 import { getGeneEdges } from '../actions/genes';
@@ -22,7 +21,6 @@ let GeneController = ({
   selectedGenes,
   selectedGenesLoaded,
   getGeneList,
-  getGeneSelectedDetails,
   getGeneParticipations,
   setEnrichedSignatures,
   getGeneEdges
@@ -31,29 +29,14 @@ let GeneController = ({
   // when selected model (and thus selected organism) changes
   // get full gene list
   useEffect(() => {
-    if (!selectedOrganism)
+    if (!selectedOrganism.id)
       return;
 
     getGeneList({
-      organism: selectedOrganism,
+      organism: selectedOrganism.id,
       limit: MAX_INT
     });
-  }, [selectedOrganism, getGeneList]);
-
-  // when full gene list loads or when new gene selected
-  // fill in full details of selected genes
-  useEffect(() => {
-    // if details already filled in, exit
-    if (selectedGenesLoaded)
-      return;
-
-    getGeneSelectedDetails();
-  }, [
-    geneList.length,
-    selectedGenes.length,
-    selectedGenesLoaded,
-    getGeneSelectedDetails
-  ]);
+  }, [selectedOrganism.id, getGeneList]);
 
   // when selected genes change
   // re-get participations
@@ -64,7 +47,7 @@ let GeneController = ({
 
     getGeneParticipations({
       cancelType: 'GET_GENE_PARTICIPATIONS',
-      ids: selectedGenes.map((gene) => gene.id),
+      genes: selectedGenes.map((gene) => gene.id),
       limit: selectedGenes.length ? MAX_INT : 1
     });
   }, [selectedGenes, selectedGenesLoaded, getGeneParticipations]);
@@ -108,17 +91,18 @@ let GeneController = ({
   // get gene network edges
   useEffect(() => {
     // if we dont have all we need, dont even dispatch action
-    if (!selectedModel || !selectedGenes.length || !selectedGenesLoaded)
+    if (!selectedModel.id || !selectedGenesLoaded)
       return;
 
     getGeneEdges({
       cancelType: 'GET_GENE_EDGES',
-      modelId: selectedModel,
-      geneIds: selectedGenes.map((selected) => selected.id),
-      selectedGenes: selectedGenes,
+      model: selectedModel.id,
+      genes: selectedGenes.map((selected) => selected.id),
+      // if no genes selected, still make query but with 1 result
+      // to reset state.genes.edges and show "empty" alert in network section
       limit: selectedGenes.length ? MAX_INT : 1
     });
-  }, [selectedModel, selectedGenes, selectedGenesLoaded, getGeneEdges]);
+  }, [selectedModel.id, selectedGenes, selectedGenesLoaded, getGeneEdges]);
 
   return <></>;
 };
@@ -128,19 +112,13 @@ const mapStateToProps = (state) => ({
   signatureList: state.signatures.list,
   geneParticipations: state.genes.participations,
   selectedModel: state.models.selected,
-  selectedOrganism: isArray(state.models.list) ?
-    (
-      state.models.list.find((model) => model.id === state.models.selected) ||
-        {}
-    ).organism || null :
-    null,
+  selectedOrganism: state.organisms.selected,
   selectedGenes: state.genes.selected,
   selectedGenesLoaded: state.genes.selected.every((selected) => selected.name)
 });
 
 const mapDispatchToProps = makeMapDispatchToProps({
   getGeneList,
-  getGeneSelectedDetails,
   getGeneParticipations,
   setEnrichedSignatures,
   getGeneEdges

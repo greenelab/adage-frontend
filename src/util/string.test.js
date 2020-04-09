@@ -16,12 +16,15 @@ test('split', () => {
   expect(split('test_string').join(' ')).toBe('test string');
   expect(split('test-string-123').join(' ')).toBe('test string 123');
   expect(split('test_string_123').join(' ')).toBe('test string 123');
+  expect(split('test+string+123').join(' ')).toBe('test string 123');
   expect(split('test-string123').join(' ')).toBe('test string 123');
   expect(split('test_string123').join(' ')).toBe('test string 123');
   expect(split('testString123').join(' ')).toBe('test string 123');
   expect(split('test123String').join(' ')).toBe('test 123 string');
   expect(split('Test123string').join(' ')).toBe('test 123 string');
   expect(split('test  string   123').join(' ')).toBe('test string 123');
+  expect(split('testAString').join(' ')).toBe('test a string');
+  expect(split('ABCString').join(' ')).toBe('a b c string');
 });
 
 test('to human case', () => {

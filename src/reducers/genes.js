@@ -8,8 +8,6 @@ import { isObject } from '../util/types';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
-  if (!isString(draft.details) && !isObject(draft.details))
-    draft.details = {};
   if (!isString(draft.list) && !isArray(draft.list))
     draft.list = [];
   if (!isArray(draft.searches))
@@ -29,11 +27,6 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_GENE_DETAILS': {
-      draft.details = mapGeneResults(payload);
-      break;
-    }
-
     case 'GET_GENE_LIST': {
       draft.list = mapGeneResults(payload);
       break;
@@ -106,14 +99,6 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
     }
 
-    case 'GET_GENE_SELECTED_DETAILS': {
-      if (!isArray(draft.list) || !draft.list.length)
-        break;
-      draft.selected = draft.selected.map((selected) =>
-        draft.list.find((gene) => gene.id === selected.id));
-      break;
-    }
-
     case 'GET_GENE_PARTICIPATIONS': {
       draft.participations = payload;
       break;
@@ -131,7 +116,7 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'GET_GENE_EDGES': {
-      if (meta.selectedGenes.length)
+      if (meta.genes.length)
         draft.edges = payload;
       else
         draft.edges = actionStatuses.EMPTY;
@@ -140,6 +125,15 @@ const reducer = produce((draft, type, payload, meta) => {
 
     default: {
       break;
+    }
+  }
+
+  // fill in details of selected from full list
+  if (isArray(draft.list)) {
+    for (const [key, selected] of Object.entries(draft.selected)) {
+      const found = draft.list.find((gene) => gene.id === selected.id);
+      if (found && !geneIsLoaded(selected))
+        draft.selected[key] = found;
     }
   }
 
@@ -162,3 +156,5 @@ export const mapGene = (gene) => ({
   name: gene.standardName || gene.systematicName || gene.entrezid || '-',
   entrezId: gene.entrezid
 });
+
+export const geneIsLoaded = (gene) => (gene?.name ? true : false);

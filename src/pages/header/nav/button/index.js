@@ -14,7 +14,7 @@ const Button = ({ icon = <></>, text = '' }) => {
   return (
     <Clickable
       className='nav_button text_medium'
-      to={text.toLowerCase()}
+      to={'/' + text.toLowerCase()}
       icon={icon}
       text={text}
       flip

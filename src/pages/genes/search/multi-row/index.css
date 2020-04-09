@@ -34,7 +34,7 @@
   width: 30px;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 660px) {
   .gene_search_result_multi_results > .td {
     width: calc((100% - 30px - 30px - 30px - 1px - 1px) / 3);
   }

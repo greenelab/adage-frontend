@@ -9,8 +9,6 @@ import { actionStatuses } from '../actions/fetch';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
-  if (!isString(draft.details) && !isObject(draft.details))
-    draft.details = {};
   if (!isString(draft.list) && !isArray(draft.list))
     draft.list = [];
   if (!isArray(draft.searches))
@@ -28,11 +26,6 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_SIGNATURE_DETAILS': {
-      draft.details = payload;
-      break;
-    }
-
     case 'GET_SIGNATURE_LIST': {
       draft.list = payload;
       break;
@@ -66,15 +59,6 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
     }
 
-    case 'GET_SIGNATURE_SELECTED_DETAILS': {
-      if (!isArray(draft.list) || !draft.list.length)
-        break;
-      draft.selected =
-        draft.list.find((signature) => signature.id === draft.selected.id) ||
-        {};
-      break;
-    }
-
     case 'GET_SIGNATURE_PARTICIPATIONS': {
       draft.participations = payload;
       break;
@@ -90,9 +74,21 @@ const reducer = produce((draft, type, payload, meta) => {
     }
   }
 
+  // fill in details of selected from full list
+  if (isArray(draft.list)) {
+    const found = draft.list.find(
+      (signature) => signature.id === draft.selected.id
+    );
+    if (found && !signatureIsLoaded(draft.selected))
+      draft.selected = found;
+  }
+
   typeCheck(draft);
 }, {});
 
 export default reducer;
 
 export const isSelected = (selected, id) => selected.id === id;
+
+export const signatureIsLoaded = (signature) =>
+  signature?.name ? true : false;

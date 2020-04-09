@@ -17,21 +17,13 @@ const reducer = produce((draft, type, payload, meta) => {
   typeCheck(draft);
 
   switch (type) {
-    case 'GET_MODEL_LIST': {
+    case 'GET_ORGANISM_LIST': {
       draft.list = payload;
       break;
     }
 
-    case 'SELECT_MODEL': {
+    case 'SELECT_ORGANISM': {
       draft.selected = payload;
-      break;
-    }
-
-    case 'SELECT_MODEL_FROM_URL': {
-      if (!payload.id)
-        draft.selected = {};
-      else
-        draft.selected = payload;
       break;
     }
 
@@ -42,8 +34,10 @@ const reducer = produce((draft, type, payload, meta) => {
 
   // fill in details of selected from full list
   if (isArray(draft.list)) {
-    const found = draft.list.find((model) => model.id === draft.selected.id);
-    if (found && !modelIsLoaded(draft.selected))
+    const found = draft.list.find(
+      (organism) => organism.id === draft.selected.id
+    );
+    if (found && !organismIsLoaded(draft.selected))
       draft.selected = found;
   }
 
@@ -52,4 +46,4 @@ const reducer = produce((draft, type, payload, meta) => {
 
 export default reducer;
 
-export const modelIsLoaded = (model) => (model?.title ? true : false);
+export const organismIsLoaded = (organism) => (organism?.title ? true : false);

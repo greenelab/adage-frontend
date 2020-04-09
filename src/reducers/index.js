@@ -1,4 +1,5 @@
 import models from './models';
+import organisms from './organisms';
 import genes from './genes';
 import experiments from './experiments';
 import samples from './samples';
@@ -12,6 +13,7 @@ const reducer = (state = {}, action = {}) => {
 
   return {
     models: models(state.models, type, payload, meta),
+    organisms: organisms(state.organisms, type, payload, meta),
     genes: genes(state.genes, type, payload, meta),
     experiments: experiments(state.experiments, type, payload, meta),
     samples: samples(state.samples, type, payload, meta),
