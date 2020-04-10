@@ -15,7 +15,7 @@ let Table = ({ enrichedGenes }) => (
         name: 'Name',
         key: 'name',
         render: ({ cell, row }) => <Clickable text={cell} to={row.url} link />,
-        width: '30%'
+        width: '25%'
       },
       {
         name: 'Database',
@@ -27,7 +27,7 @@ let Table = ({ enrichedGenes }) => (
         name: 'p Value',
         key: 'pValue',
         render: ({ cell }) => toExponential(cell),
-        width: '10%',
+        width: '15%',
         align: 'center'
       },
       {

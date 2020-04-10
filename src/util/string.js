@@ -72,7 +72,7 @@ export const toExponential = (value) => {
     return '-';
 
   return (
-    <span>
+    <span className='nowrap'>
       {mantissa} &times; 10<sup>{exponent}</sup>
     </span>
   );

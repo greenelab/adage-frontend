@@ -209,7 +209,7 @@ const Body = ({ table, columns, highlightedIndex }) => (
 // tr
 const BodyRow = ({ columns, row, highlightedIndex, index }) => (
   <>
-    <InView>
+    <InView triggerOnce>
       {({ inView, ref }) => (
         <div className='tr' ref={ref} data-shade={index === highlightedIndex}>
           {inView &&

@@ -273,7 +273,6 @@ export const calculateEnrichedGenes = ({
     const n = allGenesetInfo[enrichedGenesetIDs[i]].size;
 
     const pValue = hyperGeometricTest(k, K, n, N);
-    console.log(pValue, k, K, n, N);
     pValueArray.push(pValue);
   }
 
