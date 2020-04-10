@@ -113,7 +113,7 @@ let LocalLink = (props, ref) => {
 };
 
 let ExternalLink = (props, ref) => {
-  const { children, ...rest } = props;
+  const { children, to, search, ...rest } = props;
   return (
     <a ref={ref} {...rest}>
       {children}

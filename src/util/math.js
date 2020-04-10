@@ -17,6 +17,7 @@ import { clusterData as hclust } from '@greenelab/hclust';
 import { fdr } from 'multtest';
 
 import { isArray } from './types';
+import { isObject } from './types';
 
 // normalize an array of values to a % between min and max
 export const normalize = (values = [], min = 0, max = 1) =>
@@ -49,7 +50,7 @@ export const ttest = (array1, array2) => ttest2(array1, array2).pValue;
 // adapted from https://github.com/greenelab/adage-server/blob/master/interface/src/app/gene/enriched_signatures.js
 export const calculateEnrichedSignatures = ({
   selectedGenes,
-  geneParticipations,
+  participations,
   geneList,
   signatureList
 }) => {
@@ -57,8 +58,8 @@ export const calculateEnrichedSignatures = ({
   if (
     !isArray(selectedGenes) ||
     !selectedGenes.length ||
-    !isArray(geneParticipations) ||
-    !geneParticipations.length ||
+    !isArray(participations) ||
+    !participations.length ||
     !isArray(geneList) ||
     !geneList.length ||
     !isArray(signatureList) ||
@@ -69,7 +70,7 @@ export const calculateEnrichedSignatures = ({
   let enrichedSignatures = signatureList
     // for each signature
     .map((signature) => {
-      const participatingGenes = geneParticipations
+      const participatingGenes = participations
         // get participations that include this signature
         .filter((participation) => participation.signature === signature.id)
         // get gene id and weight of each of those participations
@@ -122,6 +123,7 @@ export const calculateEnrichedSignatures = ({
   return enrichedSignatures;
 };
 
+// cluster table of data using hclust library
 export const clusterData = ({ data, idKey, valueKey }) => {
   // transform
   // [ { id, value }, { id, value }, ... ]
@@ -212,4 +214,137 @@ export const calculateVolcanoSignatures = ({
   }));
 
   return volcanoSignatures;
+};
+
+// calculate enriched gene sets
+// adapted from https://github.com/greenelab/adage-server/blob/master/interface/src/app/signature/signature.js
+export const calculateEnrichedGenes = ({
+  geneList,
+  participations,
+  pickledGenes
+}) => {
+  // if we dont have all we need, exit
+  if (
+    !isArray(geneList) ||
+    !geneList.length ||
+    !isArray(participations) ||
+    !participations.length ||
+    !isObject(pickledGenes)
+  )
+    return [];
+
+  const scopeGenes = participations.map((participation) =>
+    geneList.find((gene) => gene.id === participation.gene));
+  const genesetGenes = {};
+  const relevantGenesetArray = [];
+  const geneGenesets = pickledGenes.genes;
+  const allGenesetInfo = pickledGenes.sets;
+  const N = pickledGenes.bgtotal;
+
+  let K = 0;
+
+  // Fill out the genesetGenes object
+  for (let i = 0; i < scopeGenes.length; i++) {
+    let genesetList = null;
+    const geneEntrezId = scopeGenes[i].entrezId;
+
+    if (geneGenesets.hasOwnProperty(geneEntrezId)) {
+      genesetList = geneGenesets[geneEntrezId];
+
+      if (genesetList && genesetList.length > 0)
+        K += 1;
+
+      for (let j = 0; j < genesetList.length; j++) {
+        const genesetID = genesetList[j];
+        if (!genesetGenes[genesetID])
+          genesetGenes[genesetID] = [];
+
+        genesetGenes[genesetID].push(scopeGenes[i]);
+      }
+    }
+  }
+
+  const pValueArray = [];
+
+  const enrichedGenesetIDs = Object.keys(genesetGenes);
+
+  for (let i = 0; i < enrichedGenesetIDs.length; i++) {
+    const k = genesetGenes[enrichedGenesetIDs[i]].length;
+    const n = allGenesetInfo[enrichedGenesetIDs[i]].size;
+
+    const pValue = hyperGeometricTest(k, K, n, N);
+    console.log(pValue, k, K, n, N);
+    pValueArray.push(pValue);
+  }
+
+  const correctedPValues = fdr(pValueArray);
+
+  for (let i = 0; i < enrichedGenesetIDs.length; i++) {
+    const correctedPValue = correctedPValues[i];
+    const gsID = enrichedGenesetIDs[i];
+    const genesetInfoObj = allGenesetInfo[gsID];
+
+    relevantGenesetArray.push({
+      name: genesetInfoObj.name,
+      dbase: genesetInfoObj.dbase,
+      url: genesetInfoObj.url,
+      pValue: correctedPValue,
+      genes: genesetGenes[gsID]
+    });
+  }
+
+  return relevantGenesetArray;
+
+  // const { genes, sets } = pickledGenes;
+
+  // let enrichedGeneSets = sets
+  //   // for each set
+  //   .map((set) => ({
+  //     ...set,
+  //     // replace gene entrez ids with gene name and id from full gene list
+  //     genes: set.genes.map((gene) => {
+  //       const found =
+  //         geneList.find(
+  //           (fullGene) => String(gene) === String(fullGene.entrezId)
+  //         ) || {};
+  //       return {
+  //         id: found.id || '-',
+  //         name: found.name || '-'
+  //       };
+  //     })
+  //   }))
+  //   // remove sets that have no genes that participate in signature
+  //   .filter((set) =>
+  //     set.genes.some((gene) =>
+  //       participations.find((participation) => participation.gene === gene.id)));
+
+  // enrichedGeneSets = enrichedGeneSets
+  //   // compute p value of set
+  //   .map((set) => {
+  //     // # of unique genes in pickled gene sets
+  //     const N = genes.length;
+  //     // # of
+  //     const K = enrichedGeneSets.length;
+  //     // # of
+  //     const n = set.genes.length;
+  //     // # of
+  //     const k = set.genes.length;
+
+  //     const pValue = hyperGeometricTest(k, K, n, N);
+
+  //     return { ...set, pValue };
+  //   });
+
+  // // extract p values from enriched gene sets into array
+  // const pValues = enrichedGeneSets.map((signature) => signature.pValue);
+  // // correct p values using false discovery rate function from multtest library
+  // const correctedPValues = fdr(pValues);
+  // // put corrected p values back into enriched gene sets
+  // enrichedGeneSets = enrichedGeneSets.map((enrichedGeneSet, index) => ({
+  //   ...enrichedGeneSet,
+  //   // round decimal point
+  //   pValue: correctedPValues[index]
+  // }));
+
+  // return enrichedGeneSets;
 };

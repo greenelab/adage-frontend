@@ -48,7 +48,7 @@ export const urlSignatureActivities = ({
   return url;
 };
 
-export const urlEnrichedGenes = ({ organism }) => {
+export const urlPickledGenes = ({ organism }) => {
   const params = new URLSearchParams();
   if (organism)
     params.set('organism', organism);

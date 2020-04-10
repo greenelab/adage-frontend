@@ -3,6 +3,7 @@ import produce from 'immer';
 import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
+import { isEmpty } from '../util/types';
 import { split } from '../util/string';
 import { includes } from '../util/object';
 import { actionStatuses } from '../actions/fetch';
@@ -19,8 +20,10 @@ const typeCheck = (draft) => {
     draft.participations = actionStatuses.EMPTY;
   if (!isString(draft.activities) && !isArray(draft.activities))
     draft.activities = actionStatuses.EMPTY;
-  if (!isString(draft.enrichedGenes) && !isObject(draft.enrichedGenes))
-    draft.enrichedGenes = [];
+  if (!isString(draft.pickledGenes) && !isObject(draft.pickledGenes))
+    draft.pickledGenes = actionStatuses.EMPTY;
+  if (!isString(draft.enrichedGenes) && !isArray(draft.enrichedGenes))
+    draft.enrichedGenes = actionStatuses.EMPTY;
 };
 
 // defines how state (redux store) changes in response to dispatched actions
@@ -71,8 +74,23 @@ const reducer = produce((draft, type, payload, meta) => {
       break;
     }
 
-    case 'GET_ENRICHED_GENES': {
-      draft.enrichedGenes = payload;
+    case 'GET_PICKLED_GENES': {
+      if (isObject(payload)) {
+        const { genes, procs: sets, bgtotal } = payload;
+        draft.pickledGenes = { genes, sets, bgtotal };
+      } else
+        draft.pickledGenes = payload;
+      break;
+    }
+
+    case 'SET_ENRICHED_GENES': {
+      if (isArray(payload)) {
+        if (isEmpty(payload))
+          draft.enrichedGenes = actionStatuses.EMPTY;
+        else
+          draft.enrichedGenes = payload;
+      } else
+        draft.enrichedGenes = draft.participations;
       break;
     }
 

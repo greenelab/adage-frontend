@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TableComponent from '../../../../components/table';
 import SignatureLink from '../../../signature/link';
 import GeneLink from '../../../gene/link';
+import { toExponential } from '../../../../util/string';
 
 import './index.css';
 
@@ -27,10 +28,7 @@ let Table = ({ enrichedSignatures }) => (
         render: ({ cell }) =>
           cell.map((gene, index) => (
             <Fragment key={index}>
-              <GeneLink
-                gene={gene}
-                extraTooltip={'weight: ' + gene.weight}
-              />
+              <GeneLink gene={gene} extraTooltip={'weight: ' + gene.weight} />
               &nbsp;&nbsp;
             </Fragment>
           )),
@@ -39,7 +37,7 @@ let Table = ({ enrichedSignatures }) => (
       {
         name: 'p-value',
         key: 'pValue',
-        render: ({ cell }) => cell.toFixed(5),
+        render: ({ cell }) => toExponential(cell),
         width: '20%'
       }
     ]}

@@ -5,19 +5,28 @@ import { connect } from 'react-redux';
 import { getSignatureList } from '../actions/signatures';
 import { getSignatureParticipations } from '../actions/signatures';
 import { getSignatureActivities } from '../actions/signatures';
-import { getEnrichedGenes } from '../actions/signatures';
+import { getPickledGenes } from '../actions/signatures';
+import { setEnrichedGenes } from '../actions/signatures';
+import { isArray } from '../util/types';
+import { isObject } from '../util/types';
 import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
+import worker from 'workerize-loader!../util/math';
+
 // dispatch new actions in response to redux state changes
 let SignatureController = ({
+  geneList,
   selectedModel,
   selectedOrganism,
   selectedSignature,
+  participations,
+  pickledGenes,
   getSignatureList,
   getSignatureParticipations,
   getSignatureActivities,
-  getEnrichedGenes
+  getPickledGenes,
+  setEnrichedGenes
 }) => {
   // when selected model changes
   // get full signature list
@@ -66,25 +75,54 @@ let SignatureController = ({
     if (!selectedOrganism.scientificName)
       return;
 
-    getEnrichedGenes({
+    getPickledGenes({
       organism: selectedOrganism.scientificName
     });
-  }, [selectedOrganism.scientificName, getEnrichedGenes]);
+  }, [selectedOrganism.scientificName, getPickledGenes]);
+
+  // when full gene or signature lists load, or selected genes change
+  // recompute enriched gene sets
+  useEffect(() => {
+    // if we dont have all we need, dont even dispatch action
+    if (
+      !isArray(geneList) ||
+      !geneList.length ||
+      !isArray(participations) ||
+      !participations.length ||
+      !isObject(pickledGenes)
+    )
+      return;
+
+    const calculate = async () => {
+      setEnrichedGenes(
+        await worker().calculateEnrichedGenes({
+          geneList,
+          participations,
+          pickledGenes
+        })
+      );
+    };
+    calculate();
+  }, [geneList, participations, pickledGenes, setEnrichedGenes]);
 
   return <></>;
 };
 
 const mapStateToProps = (state) => ({
+  geneList: state.genes.list,
   selectedModel: state.models.selected,
   selectedOrganism: state.organisms.selected,
-  selectedSignature: state.signatures.selected
+  selectedSignature: state.signatures.selected,
+  participations: state.signatures.participations,
+  pickledGenes: state.signatures.pickledGenes
 });
 
 const mapDispatchToProps = makeMapDispatchToProps({
   getSignatureList,
   getSignatureParticipations,
   getSignatureActivities,
-  getEnrichedGenes
+  getPickledGenes,
+  setEnrichedGenes
 });
 
 SignatureController = connect(

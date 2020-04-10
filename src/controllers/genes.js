@@ -15,7 +15,7 @@ import worker from 'workerize-loader!../util/math';
 let GeneController = ({
   geneList,
   signatureList,
-  geneParticipations,
+  participations,
   selectedOrganism,
   selectedModel,
   selectedGenes,
@@ -58,8 +58,8 @@ let GeneController = ({
     // if we dont have all we need, dont even dispatch action
     if (
       !selectedGenesLoaded ||
-      !isArray(geneParticipations) ||
-      !geneParticipations.length ||
+      !isArray(participations) ||
+      !participations.length ||
       !isArray(geneList) ||
       !geneList.length ||
       !isArray(signatureList) ||
@@ -70,7 +70,7 @@ let GeneController = ({
     const calculate = async () => {
       setEnrichedSignatures(
         await worker().calculateEnrichedSignatures({
-          geneParticipations,
+          participations,
           selectedGenes,
           geneList,
           signatureList
@@ -79,7 +79,7 @@ let GeneController = ({
     };
     calculate();
   }, [
-    geneParticipations,
+    participations,
     selectedGenes,
     selectedGenesLoaded,
     geneList,
@@ -110,7 +110,7 @@ let GeneController = ({
 const mapStateToProps = (state) => ({
   geneList: state.genes.list,
   signatureList: state.signatures.list,
-  geneParticipations: state.genes.participations,
+  participations: state.genes.participations,
   selectedModel: state.models.selected,
   selectedOrganism: state.organisms.selected,
   selectedGenes: state.genes.selected,

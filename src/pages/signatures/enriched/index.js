@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FetchAlert from '../../../components/fetch-alert';
 import Table from './table';
 import { isString } from '../../../util/types';
-import { isObject } from '../../../util/types';
+import { isArray } from '../../../util/types';
 
 import './index.css';
 
@@ -15,7 +15,7 @@ let Enriched = ({ enrichedGenes }) => (
     {isString(enrichedGenes) && (
       <FetchAlert status={enrichedGenes} subject='enriched genes' />
     )}
-    {isObject(enrichedGenes) && <Table />}
+    {isArray(enrichedGenes) && <Table />}
   </>
 );
 
