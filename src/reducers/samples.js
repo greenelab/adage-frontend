@@ -4,6 +4,7 @@ import { isString } from '../util/types';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
 import { isEmpty } from '../util/types';
+import { flatten } from '../util/object';
 import { actionStatuses } from '../actions/fetch';
 
 // type check for key variables, run before and after reducer
@@ -93,7 +94,7 @@ const reducer = produce((draft, type, payload, meta) => {
     for (const [key, selected] of Object.entries(draft.selected)) {
       const found = draft.list.find((sample) => sample.id === selected.id);
       if (found && !sampleIsLoaded(selected))
-        draft.selected[key] = found;
+        draft.selected[key] = flatten(found, 1);
     }
   }
 

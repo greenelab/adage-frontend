@@ -5,16 +5,19 @@ import { connect } from 'react-redux';
 import { getSignatureList } from '../actions/signatures';
 import { getSignatureParticipations } from '../actions/signatures';
 import { getSignatureActivities } from '../actions/signatures';
+import { getEnrichedGenes } from '../actions/signatures';
 import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
 // dispatch new actions in response to redux state changes
 let SignatureController = ({
   selectedModel,
+  selectedOrganism,
   selectedSignature,
   getSignatureList,
   getSignatureParticipations,
-  getSignatureActivities
+  getSignatureActivities,
+  getEnrichedGenes
 }) => {
   // when selected model changes
   // get full signature list
@@ -56,18 +59,32 @@ let SignatureController = ({
     });
   }, [selectedModel.id, selectedSignature.id, getSignatureActivities]);
 
+  // when selected organism changes
+  // get pickled genes
+  useEffect(() => {
+    // if we dont have all we need, dont even dispatch action
+    if (!selectedOrganism.scientificName)
+      return;
+
+    getEnrichedGenes({
+      organism: selectedOrganism.scientificName
+    });
+  }, [selectedOrganism.scientificName, getEnrichedGenes]);
+
   return <></>;
 };
 
 const mapStateToProps = (state) => ({
   selectedModel: state.models.selected,
+  selectedOrganism: state.organisms.selected,
   selectedSignature: state.signatures.selected
 });
 
 const mapDispatchToProps = makeMapDispatchToProps({
   getSignatureList,
   getSignatureParticipations,
-  getSignatureActivities
+  getSignatureActivities,
+  getEnrichedGenes
 });
 
 SignatureController = connect(

@@ -19,6 +19,8 @@ const typeCheck = (draft) => {
     draft.participations = actionStatuses.EMPTY;
   if (!isString(draft.activities) && !isArray(draft.activities))
     draft.activities = actionStatuses.EMPTY;
+  if (!isString(draft.enrichedGenes) && !isObject(draft.enrichedGenes))
+    draft.enrichedGenes = [];
 };
 
 // defines how state (redux store) changes in response to dispatched actions
@@ -66,6 +68,11 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'GET_SIGNATURE_ACTIVITIES': {
       draft.activities = payload;
+      break;
+    }
+
+    case 'GET_ENRICHED_GENES': {
+      draft.enrichedGenes = payload;
       break;
     }
 
