@@ -20,7 +20,7 @@ let SignatureController = ({
   selectedModel,
   selectedOrganism,
   selectedSignature,
-  participations,
+  signatureParticipations,
   pickledGenes,
   getSignatureList,
   getSignatureParticipations,
@@ -87,8 +87,8 @@ let SignatureController = ({
     if (
       !isArray(geneList) ||
       !geneList.length ||
-      !isArray(participations) ||
-      !participations.length ||
+      !isArray(signatureParticipations) ||
+      !signatureParticipations.length ||
       !isObject(pickledGenes)
     )
       return;
@@ -97,13 +97,13 @@ let SignatureController = ({
       setEnrichedGenes(
         await worker().calculateEnrichedGenes({
           geneList,
-          participations,
+          signatureParticipations,
           pickledGenes
         })
       );
     };
     calculate();
-  }, [geneList, participations, pickledGenes, setEnrichedGenes]);
+  }, [geneList, signatureParticipations, pickledGenes, setEnrichedGenes]);
 
   return <></>;
 };
@@ -113,7 +113,7 @@ const mapStateToProps = (state) => ({
   selectedModel: state.models.selected,
   selectedOrganism: state.organisms.selected,
   selectedSignature: state.signatures.selected,
-  participations: state.signatures.participations,
+  signatureParticipations: state.signatures.participations,
   pickledGenes: state.signatures.pickledGenes
 });
 

@@ -50,7 +50,7 @@ export const ttest = (array1, array2) => ttest2(array1, array2).pValue;
 // adapted from https://github.com/greenelab/adage-server/blob/master/interface/src/app/gene/enriched_signatures.js
 export const calculateEnrichedSignatures = ({
   selectedGenes,
-  participations,
+  geneParticipations,
   geneList,
   signatureList
 }) => {
@@ -58,8 +58,8 @@ export const calculateEnrichedSignatures = ({
   if (
     !isArray(selectedGenes) ||
     !selectedGenes.length ||
-    !isArray(participations) ||
-    !participations.length ||
+    !isArray(geneParticipations) ||
+    !geneParticipations.length ||
     !isArray(geneList) ||
     !geneList.length ||
     !isArray(signatureList) ||
@@ -70,7 +70,7 @@ export const calculateEnrichedSignatures = ({
   let enrichedSignatures = signatureList
     // for each signature
     .map((signature) => {
-      const participatingGenes = participations
+      const participatingGenes = geneParticipations
         // get participations that include this signature
         .filter((participation) => participation.signature === signature.id)
         // get gene id and weight of each of those participations
@@ -220,20 +220,20 @@ export const calculateVolcanoSignatures = ({
 // adapted from https://github.com/greenelab/adage-server/blob/master/interface/src/app/signature/signature.js
 export const calculateEnrichedGenes = ({
   geneList,
-  participations,
+  signatureParticipations,
   pickledGenes
 }) => {
   // if we dont have all we need, exit
   if (
     !isArray(geneList) ||
     !geneList.length ||
-    !isArray(participations) ||
-    !participations.length ||
+    !isArray(signatureParticipations) ||
+    !signatureParticipations.length ||
     !isObject(pickledGenes)
   )
     return [];
 
-  const scopeGenes = participations.map((participation) =>
+  const scopeGenes = signatureParticipations.map((participation) =>
     geneList.find((gene) => gene.id === participation.gene));
   const genesetGenes = {};
   const relevantGenesetArray = [];
