@@ -134,7 +134,7 @@ test('ttest', () => {
 test('calculate enriched signatures', () => {
   expect(
     calculateEnrichedSignatures({
-      geneParticipations: 'LOADING',
+      participations: 'LOADING',
       signatureList: 'LOADING'
     })
   ).toStrictEqual([]);
@@ -142,7 +142,7 @@ test('calculate enriched signatures', () => {
   expect(
     calculateEnrichedSignatures({
       selectedGenes: 'LOADING',
-      geneParticipations: [],
+      participations: [],
       geneList: 'LOADING',
       signatureList: []
     })
@@ -151,7 +151,7 @@ test('calculate enriched signatures', () => {
   expect(
     calculateEnrichedSignatures({
       selectedGenes: [1, 2, 3, 4, 5],
-      geneParticipations: [],
+      participations: [],
       geneList: [],
       signatureList: []
     })
@@ -160,7 +160,7 @@ test('calculate enriched signatures', () => {
   expect(
     calculateEnrichedSignatures({
       selectedGenes,
-      geneParticipations,
+      participations: geneParticipations,
       geneList,
       signatureList
     }).map((signature) => ({
