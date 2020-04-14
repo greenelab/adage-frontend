@@ -1,5 +1,4 @@
 import React from 'react';
-import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
@@ -27,10 +26,11 @@ let Table = ({ enrichedSignatures }) => (
         value: ({ cell }) => cell.map((gene) => gene.name).join(' '),
         render: ({ cell }) =>
           cell.map((gene, index) => (
-            <Fragment key={index}>
-              <GeneLink gene={gene} extraTooltip={'weight: ' + gene.weight} />
-              &nbsp;&nbsp;
-            </Fragment>
+            <GeneLink
+              key={index}
+              gene={gene}
+              extraTooltip={'weight: ' + gene.weight}
+            />
           )),
         width: '60%'
       },

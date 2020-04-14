@@ -1,0 +1,793 @@
+[
+  {
+    "id": 1,
+    "weight": 0.10626552,
+    "signature": 1,
+    "gene": 1619,
+    "participationType": 1
+  },
+  {
+    "id": 2,
+    "weight": 0.1016996,
+    "signature": 1,
+    "gene": 1848,
+    "participationType": 1
+  },
+  {
+    "id": 3,
+    "weight": 0.11615191,
+    "signature": 1,
+    "gene": 5520,
+    "participationType": 1
+  },
+  {
+    "id": 4,
+    "weight": 0.09206688,
+    "signature": 1,
+    "gene": 627,
+    "participationType": 1
+  },
+  {
+    "id": 5,
+    "weight": 0.16140525,
+    "signature": 1,
+    "gene": 3803,
+    "participationType": 1
+  },
+  {
+    "id": 6,
+    "weight": 0.10073859,
+    "signature": 1,
+    "gene": 4444,
+    "participationType": 1
+  },
+  {
+    "id": 7,
+    "weight": 0.10991452,
+    "signature": 1,
+    "gene": 2718,
+    "participationType": 1
+  },
+  {
+    "id": 8,
+    "weight": 0.09547349,
+    "signature": 1,
+    "gene": 4528,
+    "participationType": 1
+  },
+  {
+    "id": 9,
+    "weight": 0.09111201,
+    "signature": 1,
+    "gene": 1872,
+    "participationType": 1
+  },
+  {
+    "id": 10,
+    "weight": 0.09065144,
+    "signature": 1,
+    "gene": 4628,
+    "participationType": 1
+  },
+  {
+    "id": 11,
+    "weight": 0.12203303,
+    "signature": 1,
+    "gene": 5385,
+    "participationType": 1
+  },
+  {
+    "id": 12,
+    "weight": 0.09049558,
+    "signature": 1,
+    "gene": 3171,
+    "participationType": 1
+  },
+  {
+    "id": 13,
+    "weight": 0.09508222,
+    "signature": 1,
+    "gene": 3132,
+    "participationType": 1
+  },
+  {
+    "id": 14,
+    "weight": 0.11016179,
+    "signature": 1,
+    "gene": 11,
+    "participationType": 1
+  },
+  {
+    "id": 15,
+    "weight": 0.09364833,
+    "signature": 1,
+    "gene": 3882,
+    "participationType": 1
+  },
+  {
+    "id": 16,
+    "weight": 0.10952861,
+    "signature": 1,
+    "gene": 5403,
+    "participationType": 1
+  },
+  {
+    "id": 17,
+    "weight": 0.09577798,
+    "signature": 1,
+    "gene": 3336,
+    "participationType": 1
+  },
+  {
+    "id": 18,
+    "weight": 0.1075687,
+    "signature": 1,
+    "gene": 4329,
+    "participationType": 1
+  },
+  {
+    "id": 19,
+    "weight": 0.11004428,
+    "signature": 1,
+    "gene": 4340,
+    "participationType": 1
+  },
+  {
+    "id": 20,
+    "weight": 0.09785241,
+    "signature": 1,
+    "gene": 4422,
+    "participationType": 1
+  },
+  {
+    "id": 21,
+    "weight": 0.12371608,
+    "signature": 1,
+    "gene": 4462,
+    "participationType": 1
+  },
+  {
+    "id": 22,
+    "weight": 0.14747932,
+    "signature": 1,
+    "gene": 869,
+    "participationType": 1
+  },
+  {
+    "id": 23,
+    "weight": 0.09113683,
+    "signature": 1,
+    "gene": 67,
+    "participationType": 1
+  },
+  {
+    "id": 24,
+    "weight": 0.11471064,
+    "signature": 1,
+    "gene": 786,
+    "participationType": 1
+  },
+  {
+    "id": 25,
+    "weight": 0.10169808,
+    "signature": 1,
+    "gene": 734,
+    "participationType": 1
+  },
+  {
+    "id": 26,
+    "weight": 0.11782659,
+    "signature": 1,
+    "gene": 735,
+    "participationType": 1
+  },
+  {
+    "id": 27,
+    "weight": 0.10747783,
+    "signature": 1,
+    "gene": 4335,
+    "participationType": 1
+  },
+  {
+    "id": 28,
+    "weight": 0.1234096,
+    "signature": 1,
+    "gene": 3086,
+    "participationType": 1
+  },
+  {
+    "id": 29,
+    "weight": 0.1032035,
+    "signature": 1,
+    "gene": 4730,
+    "participationType": 1
+  },
+  {
+    "id": 30,
+    "weight": 0.09362553,
+    "signature": 1,
+    "gene": 4742,
+    "participationType": 1
+  },
+  {
+    "id": 31,
+    "weight": 0.11297428,
+    "signature": 1,
+    "gene": 5376,
+    "participationType": 1
+  },
+  {
+    "id": 32,
+    "weight": 0.14126299,
+    "signature": 1,
+    "gene": 1843,
+    "participationType": 1
+  },
+  {
+    "id": 33,
+    "weight": 0.13213492,
+    "signature": 1,
+    "gene": 1844,
+    "participationType": 1
+  },
+  {
+    "id": 34,
+    "weight": 0.11404506,
+    "signature": 1,
+    "gene": 2264,
+    "participationType": 1
+  },
+  {
+    "id": 35,
+    "weight": 0.15927072,
+    "signature": 1,
+    "gene": 2308,
+    "participationType": 1
+  },
+  {
+    "id": 36,
+    "weight": 0.12426548,
+    "signature": 1,
+    "gene": 5375,
+    "participationType": 1
+  },
+  {
+    "id": 37,
+    "weight": 0.11930102,
+    "signature": 1,
+    "gene": 5262,
+    "participationType": 1
+  },
+  {
+    "id": 38,
+    "weight": 0.11060636,
+    "signature": 1,
+    "gene": 4962,
+    "participationType": 1
+  },
+  {
+    "id": 39,
+    "weight": 0.10592706,
+    "signature": 1,
+    "gene": 4972,
+    "participationType": 1
+  },
+  {
+    "id": 40,
+    "weight": 0.09203355,
+    "signature": 1,
+    "gene": 4973,
+    "participationType": 1
+  },
+  {
+    "id": 41,
+    "weight": 0.10397866,
+    "signature": 1,
+    "gene": 4808,
+    "participationType": 1
+  },
+  {
+    "id": 42,
+    "weight": 0.09450288,
+    "signature": 1,
+    "gene": 1139,
+    "participationType": 1
+  },
+  {
+    "id": 43,
+    "weight": 0.10244932,
+    "signature": 1,
+    "gene": 2355,
+    "participationType": 1
+  },
+  {
+    "id": 44,
+    "weight": 0.12986429,
+    "signature": 1,
+    "gene": 2424,
+    "participationType": 1
+  },
+  {
+    "id": 45,
+    "weight": 0.09943361,
+    "signature": 1,
+    "gene": 2957,
+    "participationType": 1
+  },
+  {
+    "id": 46,
+    "weight": 0.10108805,
+    "signature": 1,
+    "gene": 3003,
+    "participationType": 1
+  },
+  {
+    "id": 47,
+    "weight": 0.11763089,
+    "signature": 1,
+    "gene": 3004,
+    "participationType": 1
+  },
+  {
+    "id": 48,
+    "weight": 0.1143264,
+    "signature": 1,
+    "gene": 2921,
+    "participationType": 1
+  },
+  {
+    "id": 49,
+    "weight": 0.12764575,
+    "signature": 1,
+    "gene": 2331,
+    "participationType": 1
+  },
+  {
+    "id": 50,
+    "weight": 0.13074744,
+    "signature": 1,
+    "gene": 2332,
+    "participationType": 1
+  },
+  {
+    "id": 51,
+    "weight": 0.11625704,
+    "signature": 1,
+    "gene": 2322,
+    "participationType": 1
+  },
+  {
+    "id": 52,
+    "weight": 0.09588918,
+    "signature": 1,
+    "gene": 2207,
+    "participationType": 1
+  },
+  {
+    "id": 53,
+    "weight": 0.09815882,
+    "signature": 1,
+    "gene": 4221,
+    "participationType": 1
+  },
+  {
+    "id": 54,
+    "weight": 0.11295448,
+    "signature": 1,
+    "gene": 4225,
+    "participationType": 1
+  },
+  {
+    "id": 55,
+    "weight": 0.15359004,
+    "signature": 1,
+    "gene": 4246,
+    "participationType": 1
+  },
+  {
+    "id": 56,
+    "weight": 0.09056194,
+    "signature": 1,
+    "gene": 4211,
+    "participationType": 1
+  },
+  {
+    "id": 57,
+    "weight": 0.09536452,
+    "signature": 1,
+    "gene": 4212,
+    "participationType": 1
+  },
+  {
+    "id": 58,
+    "weight": 0.0955489,
+    "signature": 1,
+    "gene": 4195,
+    "participationType": 1
+  },
+  {
+    "id": 59,
+    "weight": 0.11250079,
+    "signature": 1,
+    "gene": 4202,
+    "participationType": 1
+  },
+  {
+    "id": 60,
+    "weight": 0.10912973,
+    "signature": 1,
+    "gene": 4203,
+    "participationType": 1
+  },
+  {
+    "id": 61,
+    "weight": 0.13014784,
+    "signature": 1,
+    "gene": 4147,
+    "participationType": 1
+  },
+  {
+    "id": 62,
+    "weight": 0.12341449,
+    "signature": 1,
+    "gene": 4185,
+    "participationType": 1
+  },
+  {
+    "id": 63,
+    "weight": 0.10022214,
+    "signature": 1,
+    "gene": 4186,
+    "participationType": 1
+  },
+  {
+    "id": 64,
+    "weight": 0.09247466,
+    "signature": 1,
+    "gene": 4218,
+    "participationType": 1
+  },
+  {
+    "id": 65,
+    "weight": 0.09292556,
+    "signature": 1,
+    "gene": 4177,
+    "participationType": 1
+  },
+  {
+    "id": 66,
+    "weight": 0.11927299,
+    "signature": 1,
+    "gene": 4169,
+    "participationType": 1
+  },
+  {
+    "id": 67,
+    "weight": 0.11748045,
+    "signature": 1,
+    "gene": 4170,
+    "participationType": 1
+  },
+  {
+    "id": 68,
+    "weight": 0.10470853,
+    "signature": 1,
+    "gene": 4157,
+    "participationType": 1
+  },
+  {
+    "id": 69,
+    "weight": 0.09987934,
+    "signature": 1,
+    "gene": 4163,
+    "participationType": 1
+  },
+  {
+    "id": 70,
+    "weight": 0.09549804,
+    "signature": 1,
+    "gene": 4137,
+    "participationType": 1
+  },
+  {
+    "id": 71,
+    "weight": 0.10689906,
+    "signature": 1,
+    "gene": 4126,
+    "participationType": 1
+  },
+  {
+    "id": 72,
+    "weight": 0.09041995,
+    "signature": 1,
+    "gene": 4127,
+    "participationType": 1
+  },
+  {
+    "id": 73,
+    "weight": 0.09064389,
+    "signature": 1,
+    "gene": 4153,
+    "participationType": 1
+  },
+  {
+    "id": 74,
+    "weight": 0.10387434,
+    "signature": 1,
+    "gene": 4154,
+    "participationType": 1
+  },
+  {
+    "id": 75,
+    "weight": 0.1338272,
+    "signature": 1,
+    "gene": 4118,
+    "participationType": 1
+  },
+  {
+    "id": 76,
+    "weight": 0.10041892,
+    "signature": 1,
+    "gene": 4111,
+    "participationType": 1
+  },
+  {
+    "id": 77,
+    "weight": 0.11052152,
+    "signature": 1,
+    "gene": 4113,
+    "participationType": 1
+  },
+  {
+    "id": 78,
+    "weight": 0.13256915,
+    "signature": 1,
+    "gene": 3951,
+    "participationType": 1
+  },
+  {
+    "id": 79,
+    "weight": 0.0900026,
+    "signature": 1,
+    "gene": 3806,
+    "participationType": 1
+  },
+  {
+    "id": 80,
+    "weight": 0.10406344,
+    "signature": 1,
+    "gene": 3685,
+    "participationType": 1
+  },
+  {
+    "id": 81,
+    "weight": 0.10592646,
+    "signature": 1,
+    "gene": 3433,
+    "participationType": 1
+  },
+  {
+    "id": 82,
+    "weight": 0.12032757,
+    "signature": 1,
+    "gene": 3407,
+    "participationType": 1
+  },
+  {
+    "id": 83,
+    "weight": 0.11789152,
+    "signature": 1,
+    "gene": 2021,
+    "participationType": 1
+  },
+  {
+    "id": 84,
+    "weight": 0.11880849,
+    "signature": 1,
+    "gene": 3558,
+    "participationType": 1
+  },
+  {
+    "id": 85,
+    "weight": 0.09479642,
+    "signature": 1,
+    "gene": 3392,
+    "participationType": 1
+  },
+  {
+    "id": 86,
+    "weight": 0.10084495,
+    "signature": 1,
+    "gene": 3753,
+    "participationType": 1
+  },
+  {
+    "id": 87,
+    "weight": 0.11436707,
+    "signature": 1,
+    "gene": 3804,
+    "participationType": 1
+  },
+  {
+    "id": 88,
+    "weight": 0.09865795,
+    "signature": 1,
+    "gene": 4084,
+    "participationType": 1
+  },
+  {
+    "id": 89,
+    "weight": 0.09397013,
+    "signature": 1,
+    "gene": 4105,
+    "participationType": 1
+  },
+  {
+    "id": 90,
+    "weight": 0.09135978,
+    "signature": 1,
+    "gene": 4173,
+    "participationType": 1
+  },
+  {
+    "id": 91,
+    "weight": 0.11758973,
+    "signature": 1,
+    "gene": 476,
+    "participationType": 1
+  },
+  {
+    "id": 92,
+    "weight": 0.09783541,
+    "signature": 1,
+    "gene": 185,
+    "participationType": 1
+  },
+  {
+    "id": 93,
+    "weight": 0.11285886,
+    "signature": 1,
+    "gene": 445,
+    "participationType": 1
+  },
+  {
+    "id": 94,
+    "weight": 0.09128404,
+    "signature": 1,
+    "gene": 3832,
+    "participationType": 1
+  },
+  {
+    "id": 95,
+    "weight": 0.10498979,
+    "signature": 1,
+    "gene": 1179,
+    "participationType": 1
+  },
+  {
+    "id": 96,
+    "weight": 0.0967972,
+    "signature": 1,
+    "gene": 4130,
+    "participationType": 1
+  },
+  {
+    "id": 97,
+    "weight": 0.09098315,
+    "signature": 1,
+    "gene": 376,
+    "participationType": 1
+  },
+  {
+    "id": 98,
+    "weight": 0.09227383,
+    "signature": 1,
+    "gene": 2136,
+    "participationType": 1
+  },
+  {
+    "id": 99,
+    "weight": 0.09237914,
+    "signature": 1,
+    "gene": 184,
+    "participationType": 1
+  },
+  {
+    "id": 100,
+    "weight": 0.09527245,
+    "signature": 1,
+    "gene": 910,
+    "participationType": 1
+  },
+  {
+    "id": 101,
+    "weight": 0.09324854,
+    "signature": 1,
+    "gene": 911,
+    "participationType": 1
+  },
+  {
+    "id": 102,
+    "weight": 0.11894622,
+    "signature": 1,
+    "gene": 3302,
+    "participationType": 1
+  },
+  {
+    "id": 103,
+    "weight": 0.10542912,
+    "signature": 1,
+    "gene": 478,
+    "participationType": 1
+  },
+  {
+    "id": 104,
+    "weight": 0.09003637,
+    "signature": 1,
+    "gene": 2057,
+    "participationType": 1
+  },
+  {
+    "id": 105,
+    "weight": 0.09869053,
+    "signature": 1,
+    "gene": 950,
+    "participationType": 1
+  },
+  {
+    "id": 106,
+    "weight": 0.09164656,
+    "signature": 1,
+    "gene": 1716,
+    "participationType": 1
+  },
+  {
+    "id": 107,
+    "weight": 0.10806765,
+    "signature": 1,
+    "gene": 222,
+    "participationType": 1
+  },
+  {
+    "id": 108,
+    "weight": 0.10317585,
+    "signature": 1,
+    "gene": 181,
+    "participationType": 1
+  },
+  {
+    "id": 109,
+    "weight": 0.10518685,
+    "signature": 1,
+    "gene": 936,
+    "participationType": 1
+  },
+  {
+    "id": 110,
+    "weight": 0.11004627,
+    "signature": 1,
+    "gene": 2500,
+    "participationType": 1
+  },
+  {
+    "id": 111,
+    "weight": 0.11339418,
+    "signature": 1,
+    "gene": 2501,
+    "participationType": 1
+  },
+  {
+    "id": 112,
+    "weight": 0.10263206,
+    "signature": 1,
+    "gene": 340,
+    "participationType": 1
+  },
+  {
+    "id": 113,
+    "weight": 0.11945432,
+    "signature": 1,
+    "gene": 341,
+    "participationType": 1
+  }
+]

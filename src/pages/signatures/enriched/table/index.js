@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
 import Clickable from '../../../../components/clickable';
+import GeneLink from '../../../gene/link';
 import { toExponential } from '../../../../util/string';
 
 import './index.css';
@@ -15,13 +16,13 @@ let Table = ({ enrichedGenes }) => (
         name: 'Name',
         key: 'name',
         render: ({ cell, row }) => <Clickable text={cell} to={row.url} link />,
-        width: '25%'
+        width: '30%'
       },
       {
         name: 'Database',
-        key: 'dbase',
+        key: 'database',
         render: ({ cell, row }) => <Clickable text={cell} to={row.url} link />,
-        width: '20%'
+        width: '15%'
       },
       {
         name: 'p Value',
@@ -34,11 +35,8 @@ let Table = ({ enrichedGenes }) => (
         name: 'Genes',
         key: 'genes',
         value: ({ cell }) => cell.length,
-        render: ({ cell }) => (
-          <span className='nowrap'>
-            {cell.map((cell) => cell.name).join(' ')}
-          </span>
-        ),
+        render: ({ cell }) =>
+          cell.map((gene, index) => <GeneLink key={index} gene={gene} />),
         width: '40%'
       }
     ]}

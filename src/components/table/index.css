@@ -11,10 +11,10 @@
 .tr {
   display: flex;
   align-items: center;
-  height: 30px;
+  min-height: 30px;
 }
 .th {
-  height: 28px;
+  min-height: 28px;
   font-weight: 500;
   transition: color var(--fast);
   user-select: none;
@@ -28,6 +28,7 @@
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 }
 .td {
   height: 100%;
@@ -38,7 +39,10 @@
 }
 .th > svg {
   flex-shrink: 0;
-  margin-left: 3px;
+}
+.th > *:not(:last-child),
+.td > *:not(:last-child) {
+  margin-right: 3px;
 }
 .table[data-freeze-row='true'] .thead {
   position: -webkit-sticky;

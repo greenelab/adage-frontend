@@ -72,6 +72,8 @@ const Table = ({
   // sort compare function
   const compare = useCallback(
     (a, b) => {
+      a = Number(a) || a;
+      b = Number(b) || b;
       if (a > b)
         return sortUp ? -1 : 1;
       else if (a < b)
@@ -232,7 +234,6 @@ const BodyCell = ({ row, column }) => {
     contents = column.render({ row, column, cell });
   else
     contents = <span className='nowrap'>{cell}</span>;
-
 
   return (
     <span
