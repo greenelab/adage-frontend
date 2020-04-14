@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
 import Canvas from '../../../../components/canvas';
+import Clickable from '../../../../components/clickable';
 import ExperimentLink from '../../../experiment/link';
 import SampleLink from '../../../sample/link';
 import { getBackground } from './barcode';
@@ -15,7 +16,6 @@ import { ReactComponent as ExperimentIcon } from '../../../../images/experiment.
 import { ReactComponent as ArrowIcon } from '../../../../images/arrow.svg';
 
 import './index.css';
-import Clickable from '../../../../components/clickable';
 
 // table of signature activities
 

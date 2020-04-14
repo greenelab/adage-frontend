@@ -17,6 +17,7 @@ import { clusterData as hclust } from '@greenelab/hclust';
 import { fdr } from 'multtest';
 
 import { isArray } from './types';
+import { isObject } from './types';
 
 // normalize an array of values to a % between min and max
 export const normalize = (values = [], min = 0, max = 1) =>
@@ -31,6 +32,7 @@ export const mean = (array) => itermean(array2iterator(array));
 // see https://stattrek.com/online-calculator/hypergeometric.aspx
 // the stdlib cdf function calculates P(X <= k), but what we really want is
 // P(X >= k). therefore, provide k-1 as X instead of k to get P(X < k), then
+// subtract the result from 1 to get P(X >= k)
 
 // k - number of successes in sample
 // K - number of successes in population
@@ -122,6 +124,7 @@ export const calculateEnrichedSignatures = ({
   return enrichedSignatures;
 };
 
+// cluster table of data using hclust library
 export const clusterData = ({ data, idKey, valueKey }) => {
   // transform
   // [ { id, value }, { id, value }, ... ]
@@ -212,4 +215,98 @@ export const calculateVolcanoSignatures = ({
   }));
 
   return volcanoSignatures;
+};
+
+// calculate enriched gene sets
+// adapted from https://github.com/greenelab/adage-server/blob/master/interface/src/app/signature/signature.js
+export const calculateEnrichedGenes = ({
+  pickledGenes,
+  signatureParticipations,
+  geneList
+}) => {
+  // if we dont have all we need, exit
+  if (
+    !isArray(geneList) ||
+    !geneList.length ||
+    !isArray(signatureParticipations) ||
+    !signatureParticipations.length ||
+    !isObject(pickledGenes)
+  )
+    return [];
+
+  const { genes, sets } = pickledGenes;
+  // genes:
+  // object of genes and all the sets each of them belong to by set id
+  // sets:
+  // object of sets and their relevant info
+
+  // convert key/value map to array
+  const enrichedGenes = Object.entries(genes).map(([geneId, setList]) => ({
+    ...(geneList.find((gene) => geneId === String(gene.entrezId)) || {}),
+    list: setList
+  }));
+  let enrichedGeneSets = Object.entries(sets).map(
+    ([setId, { dbase, ...setInfo }]) => ({
+      id: setId,
+      ...setInfo,
+      // rename dbase field to database to be consistent
+      database: dbase
+    })
+  );
+
+  // count number of total number of genes participating in signature and
+  // found in any of gene sets
+  const participatingGenes = signatureParticipations.filter((participation) =>
+    enrichedGenes.find((gene) => gene.id === participation.gene)).length;
+
+  // for each set
+  enrichedGeneSets = enrichedGeneSets
+    // make list of genes looking them up in genes object
+    .map((set) => ({
+      ...set,
+      genes: enrichedGenes
+        .filter((enrichedGene) => enrichedGene.list.includes(set.id))
+        // filter out unnecessary gene information to reduce memory usage
+        .map(({ id, standardName }) => ({ id, standardName }))
+    }))
+    // find genes in set that also participate in signature
+    .map((set) => ({
+      ...set,
+      participatingGenes: set.genes.filter((gene) =>
+        signatureParticipations.find(
+          (participation) => gene.id === participation.gene
+        ))
+    }))
+    // filter out sets with no overlapping genes
+    .filter((set) => set.participatingGenes.length);
+
+  enrichedGeneSets = enrichedGeneSets
+    // compute p value of set
+    .map((set) => {
+      // # of unique genes in gene sets
+      const N = enrichedGenes.length;
+      // # of genes participating in signature and found in any of gene sets
+      const K = participatingGenes;
+      // # of genes in set
+      const n = set.genes.length;
+      // # of genes in set and in signature
+      const k = set.participatingGenes.length;
+
+      const pValue = hyperGeometricTest(k, K, n, N);
+
+      return { ...set, pValue };
+    });
+
+  // extract p values from enriched gene sets into array
+  const pValues = enrichedGeneSets.map((signature) => signature.pValue);
+  // correct p values using false discovery rate function from multtest library
+  const correctedPValues = fdr(pValues);
+  // put corrected p values back into enriched gene sets
+  enrichedGeneSets = enrichedGeneSets.map((enrichedGeneSet, index) => ({
+    ...enrichedGeneSet,
+    // round decimal point
+    pValue: correctedPValues[index]
+  }));
+
+  return enrichedGeneSets;
 };

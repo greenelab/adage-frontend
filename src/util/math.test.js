@@ -5,6 +5,7 @@ import { ttest } from './math';
 import { fdr } from 'multtest';
 import { calculateEnrichedSignatures } from './math';
 import { calculateVolcanoSignatures } from './math';
+import { calculateEnrichedGenes } from './math';
 
 import selectedGenes from '../dummy-data/selected-genes.json';
 import geneParticipations from '../dummy-data/gene-participations.json';
@@ -13,6 +14,9 @@ import signatureList from '../dummy-data/signature-list.json';
 import activities from '../dummy-data/activities.json';
 import enrichedSignatures from '../dummy-data/enriched-signatures.json';
 import volcanoSignatures from '../dummy-data/volcano-signatures.json';
+import pickledGenes from '../dummy-data/pickled-genesets.json';
+import signatureParticipations from '../dummy-data/signature-participations.json';
+import enrichedGenes from '../dummy-data/enriched-genes.json';
 
 test('normalize', () => {
   expect(normalize([0.25, 0.5], 0, 1)).toStrictEqual([0.25, 0.5]);
@@ -317,4 +321,46 @@ test('calculate volcano signatures', () => {
       spadeGroup: [13, 14]
     })
   ).toStrictEqual(volcanoSignatures);
+});
+
+test('calculate enriched gene sets', () => {
+  expect(
+    calculateEnrichedGenes({
+      signatureParticipations: 'LOADING'
+    })
+  ).toStrictEqual([]);
+
+  expect(
+    calculateEnrichedGenes({
+      pickledGenes: 'LOADING',
+      signatureParticipations: [],
+      geneList: 'LOADING'
+    })
+  ).toStrictEqual([]);
+
+  expect(
+    calculateEnrichedGenes({
+      pickledGenes: [],
+      signatureParticipations: [],
+      geneList: []
+    })
+  ).toStrictEqual([]);
+
+  expect(
+    calculateEnrichedGenes({
+      pickledGenes,
+      signatureParticipations,
+      geneList
+    }).map((set) => ({
+      id: set.id,
+      size: set.size,
+      genes: set.genes.map((gene) => ({
+        id: gene.id
+      })),
+      participatingGenes: set.participatingGenes.map((gene) => ({
+        id: gene.id
+      })),
+      pValue: set.pValue
+    }))
+  ).toStrictEqual(enrichedGenes);
 });

@@ -6,6 +6,8 @@ import { defaultLimit } from '.';
 const prefixA = 'signature/';
 const prefixB = 'participation/';
 const prefixC = 'activity/';
+const tribeServer =
+  'https://py3-adage.greenelab.com/api/v1/tribe_client/return_unpickled_genesets';
 
 export const urlSignatureList = ({ model, limit = defaultLimit }) => {
   const params = new URLSearchParams();
@@ -43,5 +45,14 @@ export const urlSignatureActivities = ({
     params.set('signatures', signatures.join(','));
 
   const url = server + prefixC + '?' + params.toString();
+  return url;
+};
+
+export const urlPickledGenes = ({ organism }) => {
+  const params = new URLSearchParams();
+  if (organism)
+    params.set('organism', organism);
+
+  const url = tribeServer + '?' + params.toString();
   return url;
 };

@@ -7,6 +7,7 @@ import Section from '../../components/section';
 import Search from './search';
 import Participating from './participating';
 import Activities from './activities';
+import Enriched from './enriched';
 
 import './index.css';
 
@@ -24,6 +25,9 @@ const Signatures = () => (
       </Section>
       <Section header='Experiment Activities'>
         <Activities />
+      </Section>
+      <Section header='Enriched Gene Sets'>
+        <Enriched />
       </Section>
     </Main>
     <Footer />

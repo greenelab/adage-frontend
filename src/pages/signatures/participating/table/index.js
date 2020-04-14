@@ -42,7 +42,7 @@ let Table = ({ participations }) => (
       }
     ]}
     defaultSortKey='weight'
-    defaultSortUp={false}
+    defaultSortUp={true}
     freezeCol={false}
   />
 );

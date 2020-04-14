@@ -1,5 +1,5 @@
-import { createAction } from 'redux-actions';
 import sizeof from 'object-sizeof';
+import { createAction } from 'redux-actions';
 
 // import { sleep } from '../util/debug';
 import { isEmpty } from '../util/types';

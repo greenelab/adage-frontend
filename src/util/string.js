@@ -1,3 +1,5 @@
+import React from 'react';
+
 // split string by lower to upper case and letter to number
 // and convert to lower case
 export const split = (string) =>
@@ -58,4 +60,20 @@ export const transformString = (...args) => {
         operation.name + '(' + operation.parameters.join(', ') + ')'
     )
     .join(' ');
+};
+
+// format number as exponential
+export const toExponential = (value) => {
+  const number = parseFloat(value).toExponential(1);
+  const mantissa = parseFloat(number.split('e')[0]).toFixed(1);
+  const exponent = parseInt(number.split('e')[1]);
+
+  if (Number.isNaN(mantissa) || Number.isNaN(exponent))
+    return '-';
+
+  return (
+    <span className='nowrap'>
+      {mantissa} &times; 10<sup>{exponent}</sup>
+    </span>
+  );
 };
