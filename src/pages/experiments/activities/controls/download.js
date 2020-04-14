@@ -3,7 +3,7 @@ import { downloadSvg } from '../../../../util/download';
 import { downloadTsv } from '../../../../util/download';
 
 export const downloadImage = () => {
-  downloadSvg(svg.node(), 'activites');
+  downloadSvg(svg.node(), 'experiment-activites');
 };
 
 export const downloadTable = ({ activities }) => {
@@ -12,5 +12,5 @@ export const downloadTable = ({ activities }) => {
     Signature: activity.signatureName,
     Activity: activity.value
   }));
-  downloadTsv(data, 'activities');
+  downloadTsv(data, 'sample-activities');
 };

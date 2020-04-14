@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import FetchAlert from '../../../components/fetch-alert';
 import Table from './table';
+import Controls from './controls';
 import { isString } from '../../../util/types';
 import { isArray } from '../../../util/types';
 
@@ -15,7 +16,12 @@ let Activities = ({ activities }) => (
     {isString(activities) && (
       <FetchAlert status={activities} subject='activities' />
     )}
-    {isArray(activities) && <Table />}
+    {isArray(activities) && (
+      <>
+        <Table />
+        <Controls />
+      </>
+    )}
   </>
 );
 
