@@ -30,9 +30,6 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.td {
-  height: 100%;
-}
 .th[data-padded='true'],
 .td[data-padded='true'] {
   padding: 0 5px;
