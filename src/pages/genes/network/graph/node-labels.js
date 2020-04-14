@@ -16,7 +16,7 @@ export const drawNodeLabels = () => {
     .append('text')
     .merge(nodeLabels)
     .attr('class', 'graph_node_label')
-    .attr('fill', (d) => (d.selected ? '#000000' : '#ffffff'))
+    .attr('fill', (d) => (d.selected ? '#ffffff' : '#000000'))
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .style('font-size', fontSize)
