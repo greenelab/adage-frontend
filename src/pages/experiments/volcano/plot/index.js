@@ -89,14 +89,7 @@ let Plot = ({ volcano }) => {
       .append('circle')
       .attr('class', 'volcano_dot')
       .merge(dot)
-      .sort((a, b) => {
-        if (a.highlighted && !b.highlighted)
-          return 1;
-        else if (!a.highlighted && b.highlighted)
-          return -1;
-        else
-          return 0;
-      })
+      .sort((a, b) => a.highlighted - b.highlighted)
       .attr('cx', (d) => xScale(d.meanDiff))
       .attr('cy', (d) => yScale(d.pValue))
       .attr('r', radius)
