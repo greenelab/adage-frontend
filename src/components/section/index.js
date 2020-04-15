@@ -17,7 +17,12 @@ const Section = ({ header = '', children = <></> }) => {
 
   const onKeyDown = useCallback(
     (event) => {
+      // if component hasn't mounted yet, exit
       if (!ref.current)
+        return;
+
+      // if an element is focused (like an input box), exit
+      if (document.activeElement !== document.body)
         return;
 
       // find which number section this is on page

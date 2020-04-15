@@ -41,8 +41,7 @@ const reducer = produce((draft, type, payload, meta) => {
         draft.searches[meta.index] = {};
       let results;
       if (isArray(draft.list)) {
-        results = draft.list.filter((signature) =>
-          includes(signature.name.toLowerCase(), split(meta.query)));
+        results = searchSignatures(meta.query, draft.list);
         if (!results.length)
           results = actionStatuses.EMPTY;
       } else
@@ -117,3 +116,7 @@ export const isSelected = (selected, id) => selected.id === id;
 
 export const signatureIsLoaded = (signature) =>
   signature?.name ? true : false;
+
+export const searchSignatures = (query, list) =>
+  list.filter((signature) =>
+    includes(signature.name.toLowerCase(), split(query)));
