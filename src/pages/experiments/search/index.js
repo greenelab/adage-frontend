@@ -34,6 +34,7 @@ let Search = ({ results, select, search }) => (
 
 const mapStateToProps = (state) => ({
   results: mapExperimentSearch(state.experiments.searches[0] || {}, state)
+    .results
 });
 
 const mapDispatchToProps = (dispatch) => ({

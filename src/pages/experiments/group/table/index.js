@@ -23,7 +23,7 @@ let Table = ({ samples }) => (
         name: 'Group',
         key: 'groupIndex',
         render: ({ row }) => (
-          <>
+          <div>
             <GroupButton
               sample={row}
               index='diamond'
@@ -36,7 +36,7 @@ let Table = ({ samples }) => (
               color='var(--red)'
               Icon={SpadeIcon}
             />
-          </>
+          </div>
         ),
         width: '60px',
         align: 'center',

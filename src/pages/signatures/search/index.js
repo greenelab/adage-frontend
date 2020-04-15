@@ -46,7 +46,7 @@ let Search = ({ model, list, results, select, search }) => {
 const mapStateToProps = (state) => ({
   model: state.models.selected,
   list: state.signatures.list,
-  results: mapSignatureSearch(state.signatures.searches[0] || {}, state)
+  results: mapSignatureSearch(state.signatures.searches[0] || {}, state).results
 });
 
 const mapDispatchToProps = (dispatch) => ({
