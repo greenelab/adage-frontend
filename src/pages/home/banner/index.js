@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Clickable from '../../../components/clickable';
 
 import { ReactComponent as ArrowIcon } from '../../../images/arrow.svg';
-import { ReactComponent as HelpIcon } from '../../../images/help.svg';
 
 import './index.css';
 
