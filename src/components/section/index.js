@@ -17,7 +17,12 @@ const Section = ({ header = '', children = <></> }) => {
 
   const onKeyDown = useCallback(
     (event) => {
+      // if component hasn't mounted yet, exit
       if (!ref.current)
+        return;
+
+      // if an element is focused (like an input box), exit
+      if (document.activeElement !== document.body)
         return;
 
       // find which number section this is on page
@@ -50,7 +55,7 @@ const Section = ({ header = '', children = <></> }) => {
     <>
       <div
         ref={ref}
-        className='section_header text_medium'
+        className='section_header size_medium'
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();

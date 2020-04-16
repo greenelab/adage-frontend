@@ -15,7 +15,7 @@ const limit = 200;
 
 let Details = ({ experiment }) => (
   <>
-    <div className='info medium'>
+    <div className='info weight_medium'>
       <span>
         <ExperimentIcon />
         <ExperimentLink experiment={experiment} />
@@ -26,7 +26,7 @@ let Details = ({ experiment }) => (
         {experiment.samples?.length > 1 ? 's' : ''}
       </span>
     </div>
-    <div className='medium'>
+    <div className='weight_medium'>
       {(experiment.name?.substr(0, limit) || '') +
         (experiment.name?.length >= limit ? '...' : '')}
     </div>

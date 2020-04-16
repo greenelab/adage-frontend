@@ -6,10 +6,11 @@
   cursor: pointer;
 }
 #volcano_dots:hover .volcano_dot {
-  opacity: 0.05;
+  fill: var(--light-gray);
 }
-.volcano_dot:hover {
+#volcano_dots .volcano_dot:hover {
   opacity: 1 !important;
+  fill: var(--green);
   stroke: var(--black);
   stroke-width: 2;
 }
@@ -19,4 +20,8 @@
 #x_axis_label,
 #y_axis_label {
   font-size: 12pt;
+}
+.volcano_search {
+  width: 300px;
+  margin: 0 auto;
 }

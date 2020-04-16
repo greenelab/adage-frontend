@@ -29,8 +29,8 @@ const Item = ({
       onClick={onClick}
     />
     <div className='model_summary'>
-      <span className='nowrap medium'>{title}</span>
-      <span className='nowrap text_small'>
+      <span className='nowrap weight_medium'>{title}</span>
+      <span className='nowrap size_tiny'>
         {authors[0]}, et al · {journal} · {year}
       </span>
     </div>

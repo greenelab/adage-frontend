@@ -1,0 +1,29 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="0 0 100 100"
+>
+  <rect
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    x="5"
+    y="15"
+    rx="10"
+    ry="10"
+    width="90"
+    height="70"
+  />
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    stroke-linejoin="round"
+    d="
+      M 5 25
+      L 50 60
+      L 95 25
+    "
+  />
+</svg>

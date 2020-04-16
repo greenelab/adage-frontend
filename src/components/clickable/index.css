@@ -13,15 +13,15 @@
     border var(--fast), border-color var(--fast);
 }
 
-.clickable:hover,
-.clickable:focus {
-  color: var(--green) !important;
+.clickable[data-button][data-link][data-text][data-icon]:hover,
+.clickable[data-button][data-link][data-text][data-icon]:focus {
+  color: var(--green);
 }
 .clickable > svg:not(:first-child) {
   margin-left: 5px;
 }
 .clickable > svg:not(:last-child) {
-  margin-right: 5px;
+  margin-right: 8px;
 }
 .clickable[data-button='true'] {
   min-width: 30px;

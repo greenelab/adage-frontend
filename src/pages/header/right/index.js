@@ -17,7 +17,7 @@ const Right = () => (
       to='/help'
       icon={<HelpIcon />}
       button
-      aria-label='View help documentation for this page'
+      aria-label='View help documentation'
       data-tooltip-h-align='right'
       data-tooltip-v-align='bottom'
     />

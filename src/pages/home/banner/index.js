@@ -12,8 +12,12 @@ import './index.css';
 const Banner = ({ text }) => (
   <section>
     <div className='banner'>
-      <div className='text_medium medium'>{text}</div>
-      <Clickable to='/genes' text='Explore' icon={<ArrowIcon />} button />
+      <div className='size_medium weight_medium'>
+        Adage is a tool to help you explore and discover new insights from
+        machine learning models
+      </div>
+      <Clickable to='/genes' text='Jump In' icon={<ArrowIcon />} button />
+      <Clickable to='/help' text='Learn More' icon={<ArrowIcon />} button />
     </div>
   </section>
 );

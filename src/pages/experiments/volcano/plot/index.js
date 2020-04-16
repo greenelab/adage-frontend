@@ -1,8 +1,12 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useState } from 'react';
+import { useMemo } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
+import Input from '../../../../components/input';
+import { searchSignatures } from '../../../../reducers/signatures';
 import { useMounted } from '../../../../util/hooks';
 import { useBbox } from '../../../../util/hooks';
 import { stringifyObject } from '../../../../util/object';
@@ -20,10 +24,23 @@ export let svg;
 let Plot = ({ volcano }) => {
   // internal state
   const mounted = useMounted();
+  const [search, setSearch] = useState('');
   const [bbox, ref] = useBbox();
 
   const width = Math.round(bbox?.width || 0);
   const height = Math.round(bbox?.height || 0);
+
+  volcano = useMemo(() => {
+    const highlighted = searchSignatures(search, volcano);
+    if (highlighted.length === volcano.length)
+      return volcano;
+    else {
+      return volcano.map((signature) => ({
+        ...signature,
+        highlighted: highlighted.includes(signature) ? true : false
+      }));
+    }
+  }, [search, volcano]);
 
   // redraw volcano
   useEffect(() => {
@@ -72,10 +89,13 @@ let Plot = ({ volcano }) => {
       .append('circle')
       .attr('class', 'volcano_dot')
       .merge(dot)
+      .sort((a, b) => a.highlighted - b.highlighted)
       .attr('cx', (d) => xScale(d.meanDiff))
       .attr('cy', (d) => yScale(d.pValue))
       .attr('r', radius)
-      .attr('fill', '#26a36c')
+      .attr('fill', (d) => (d.highlighted === false ? '#e0e0e0' : '#26a36c'))
+      .attr('stroke', (d) => (d.highlighted === true ? '#000000' : ''))
+      .attr('stroke-width', (d) => (d.highlighted === true ? '2' : ''))
       .attr('aria-label', (d) =>
         stringifyObject({
           signature: d.name,
@@ -87,58 +107,65 @@ let Plot = ({ volcano }) => {
   }, [mounted, width, height, volcano]);
 
   return (
-    <svg ref={ref} id='volcano' xmlns='http://www.w3.org/2000/svg'>
-      <g
-        id='volcano_view'
-        transform={transformString(
-          'translate',
-          width / 2,
-          height / 2,
-          'scale',
-          Math.min(
-            width / (width + axisLabelOffset * 2 * 2),
-            height / (height + axisLabelOffset * 2)
-          ),
-          'translate',
-          -width / 2,
-          -height / 2
-        )}
-      >
-        <text
-          id='y_axis_label'
-          textAnchor='middle'
-          dominantBaseline='middle'
-          x={0}
-          y={0}
-          transform={transformString(
-            'translate',
-            -axisLabelOffset * 1.5,
-            height / 2,
-            'rotate',
-            -90
-          )}
-        >
-          - log10 p value
-        </text>
-        <text
-          id='x_axis_label'
-          textAnchor='middle'
-          dominantBaseline='middle'
-          x={0}
-          y={0}
+    <>
+      <Input
+        className='volcano_search'
+        placeholder='search signatures'
+        onChange={(value) => setSearch(value)}
+      />
+      <svg ref={ref} id='volcano' xmlns='http://www.w3.org/2000/svg'>
+        <g
+          id='volcano_view'
           transform={transformString(
             'translate',
             width / 2,
-            height + axisLabelOffset
+            height / 2,
+            'scale',
+            Math.min(
+              width / (width + axisLabelOffset * 2 * 2),
+              height / (height + axisLabelOffset * 2)
+            ),
+            'translate',
+            -width / 2,
+            -height / 2
           )}
         >
-          diff in mean activity
-        </text>
-        <g id='volcano_dots'></g>
-        <g id='volcano_x_axis'></g>
-        <g id='volcano_y_axis'></g>
-      </g>
-    </svg>
+          <text
+            id='y_axis_label'
+            textAnchor='middle'
+            dominantBaseline='middle'
+            x={0}
+            y={0}
+            transform={transformString(
+              'translate',
+              -axisLabelOffset * 1.5,
+              height / 2,
+              'rotate',
+              -90
+            )}
+          >
+            - log10 p value
+          </text>
+          <text
+            id='x_axis_label'
+            textAnchor='middle'
+            dominantBaseline='middle'
+            x={0}
+            y={0}
+            transform={transformString(
+              'translate',
+              width / 2,
+              height + axisLabelOffset
+            )}
+          >
+            diff in mean activity
+          </text>
+          <g id='volcano_dots'></g>
+          <g id='volcano_x_axis'></g>
+          <g id='volcano_y_axis'></g>
+        </g>
+      </svg>
+    </>
   );
 };
 

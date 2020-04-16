@@ -1,0 +1,7 @@
+.cite_box {
+  background: var(--off-white);
+  padding: 20px;
+}
+.cite_box > *:not(:last-child) {
+  margin-bottom: 3px;
+}

@@ -94,7 +94,7 @@ let Table = ({ bySignature = {}, byExperiment = [] }) => {
     );
     return (
       <>
-        <div className='info medium'>
+        <div className='info weight_medium'>
           <span>
             <Clickable
               icon={<ArrowIcon className='flip_horizontal' />}
