@@ -12,11 +12,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontend/index.html"
   },
   {
-    "revision": "21c6f0ee29b6b44e9774",
+    "revision": "15880f894900cc8f5a01",
     "url": "/adage-frontend/static/css/main.css"
   },
   {
-    "revision": "21c6f0ee29b6b44e9774",
+    "revision": "15880f894900cc8f5a01",
     "url": "/adage-frontend/static/js/main.js"
   },
   {
@@ -68,6 +68,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontend/static/media/gene.dd5643b7.svg"
   },
   {
+    "revision": "c991d94759f49e2da62b5ce97cf4c7e3",
+    "url": "/adage-frontend/static/media/github.c991d947.svg"
+  },
+  {
     "revision": "4b73ee20858af33725234237fa7e8c88",
     "url": "/adage-frontend/static/media/greene-lab-logo.4b73ee20.svg"
   },
@@ -102,6 +106,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "5236f8a9a3970764bb667ad227568b68",
     "url": "/adage-frontend/static/media/logo.5236f8a9.svg"
+  },
+  {
+    "revision": "6e8e96bc94f46bd922fcef8c281e9a37",
+    "url": "/adage-frontend/static/media/mail.6e8e96bc.svg"
   },
   {
     "revision": "feef2269d7e88e38fb3efcbc2ea401fd",
