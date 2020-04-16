@@ -19,6 +19,7 @@
     fill="none"
     stroke="currentColor"
     stroke-width="10"
+    stroke-linejoin="round"
     d="
       M 5 25
       L 50 60
