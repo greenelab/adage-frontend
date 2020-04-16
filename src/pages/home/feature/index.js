@@ -18,7 +18,7 @@ const Feature = ({ left, icon, header, text, to }) => {
 
   const notVideo = (
     <div className='pane'>
-      <div className='feature_header medium'>
+      <div className='feature_header weight_medium'>
         {icon}
         {header}
       </div>

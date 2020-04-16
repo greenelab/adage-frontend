@@ -15,7 +15,7 @@ const Title = () => (
     to='/'
     className='page_header_column'
     icon={<AdageLogo className='logo_small' />}
-    text={<span className='title_text text_large'>adage</span>}
+    text={<span className='title_text size_large'>adage</span>}
     title={packageJson.version}
     flip
   />

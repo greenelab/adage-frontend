@@ -121,7 +121,10 @@ let ExternalLink = (props, ref) => {
   );
 };
 
-let Button = (props, ref) => <button ref={ref} {...props} />;
+let Button = (props, ref) => {
+  const { search, ...rest } = props;
+  return <button ref={ref} {...rest} />;
+};
 
 LocalLink = forwardRef(LocalLink);
 ExternalLink = forwardRef(ExternalLink);

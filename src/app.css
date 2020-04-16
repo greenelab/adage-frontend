@@ -44,6 +44,13 @@ body {
 a {
   color: unset;
 }
+a:hover,
+a:focus {
+  color: var(--green);
+}
+p {
+  margin: 20px auto;
+}
 table {
   border-collapse: collapse;
 }
@@ -53,30 +60,40 @@ td {
 button {
   border: none;
   background: none;
-  font-size: 11pt;
   cursor: pointer;
+}
+button,
+input,
+textarea {
+  font-size: 11pt;
 }
 *:focus {
   outline: none;
   box-shadow: inset 0 0 0 1px var(--green);
 }
-.medium {
-  font-weight: 500;
-}
-.semibold {
-  font-weight: 600;
-}
-.text_small {
+.size_tiny {
   font-size: 8pt;
 }
-.text_medium {
+.size_small {
+  font-size: 10pt;
+}
+.size_normal {
+  font-size: 11pt;
+}
+.size_medium {
   font-size: 13pt;
 }
-.text_large {
+.size_large {
   font-size: 18pt;
 }
-.text_huge {
+.size_huge {
   font-size: 24pt;
+}
+.weight_medium {
+  font-weight: 500;
+}
+.weight_semibold {
+  font-weight: 600;
 }
 .flip_horizontal {
   transform: scaleX(-1);

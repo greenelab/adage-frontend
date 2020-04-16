@@ -82,10 +82,10 @@ const Heatmap = ({ activities, samples, signatures }) => {
 
   return (
     <div id='heatmap'>
-      <div className='heatmap_left_col medium' style={{ height: cellHeight }}>
+      <div className='heatmap_left_col weight_medium' style={{ height: cellHeight }}>
         Samples
       </div>
-      <div className='heatmap_right_col medium' style={{ height: cellHeight }}>
+      <div className='heatmap_right_col weight_medium' style={{ height: cellHeight }}>
         Signatures
       </div>
       <div className='heatmap_left_col'>

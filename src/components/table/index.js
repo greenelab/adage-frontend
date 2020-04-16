@@ -148,7 +148,7 @@ export default Table;
 
 // thead
 const Head = ({ columns, sortable, sortKey, sortUp, onClick }) => (
-  <div className='thead medium'>
+  <div className='thead weight_medium'>
     <div className='tr'>
       {columns.map((column, index) => (
         <HeadCell

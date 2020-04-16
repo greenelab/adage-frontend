@@ -13,7 +13,7 @@ const Button = ({ icon = <></>, text = '' }) => {
 
   return (
     <Clickable
-      className='nav_button text_medium'
+      className='nav_button size_medium'
       to={'/' + text.toLowerCase()}
       icon={icon}
       text={text}

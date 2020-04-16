@@ -55,7 +55,7 @@ const Section = ({ header = '', children = <></> }) => {
     <>
       <div
         ref={ref}
-        className='section_header text_medium'
+        className='section_header size_medium'
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();

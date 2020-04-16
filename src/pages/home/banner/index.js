@@ -12,7 +12,7 @@ import './index.css';
 const Banner = ({ text }) => (
   <section>
     <div className='banner'>
-      <div className='text_medium medium'>{text}</div>
+      <div className='size_medium weight_medium'>{text}</div>
       <Clickable to='/genes' text='Explore' icon={<ArrowIcon />} button />
     </div>
   </section>

@@ -45,16 +45,12 @@ textarea {
   background: none;
   border: none;
   outline: none;
-  font-size: 11pt;
   resize: none;
   line-height: 20px;
 }
 input:focus,
 textarea:focus {
   box-shadow: none;
-}
-.input[data-expanded='true'] > textarea {
-  font-size: 10pt;
 }
 .input_button {
   display: inline-flex;

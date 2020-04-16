@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
+import { useMemo } from 'react';
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -41,7 +42,7 @@ const Tooltip = () => {
 
   // when any dom node changes
   const onMutation = useCallback(
-    (records) => {
+    (records = []) => {
       // get all nodes with an aria-label that haven't been processed yet
       // MutationRecord's "addedNodes" doesn't seem to play nice with react
       const nodes = document.querySelectorAll(
@@ -64,6 +65,11 @@ const Tooltip = () => {
     [openTooltip, closeTooltip]
   );
 
+  // run on mutation first time page loads
+  useEffect(() => {
+    onMutation();
+  }, [onMutation]);
+
   // set up mutation observer to watch for dom node additions/changes
   useEffect(() => {
     const observer = new MutationObserver(onMutation);
@@ -76,31 +82,32 @@ const Tooltip = () => {
     };
   }, [onMutation]);
 
-  let content = <></>;
-  const stringLabel = anchor?.getAttribute('aria-label');
-  const objectLabel = parseObject(stringLabel);
-  const innerText = anchor?.innerText;
+  const content = useMemo(() => {
+    const stringLabel = anchor?.getAttribute('aria-label');
+    const objectLabel = parseObject(stringLabel);
+    const innerText = anchor?.innerText;
 
-  if (objectLabel) {
-    const fields = humanizeKeys(objectLabel);
-    content = (
-      <table className='tooltip_table text_small'>
-        <tbody>
-          {Object.entries(fields).map(([key, value], index) => (
-            <tr key={index}>
-              <td className='nowrap'>{key}</td>
-              <td className='nowrap'>{value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  } else
-    content = stringLabel || innerText;
+    if (objectLabel) {
+      const fields = humanizeKeys(objectLabel);
+      return (
+        <table className='tooltip_table size_tiny'>
+          <tbody>
+            {Object.entries(fields).map(([key, value], index) => (
+              <tr key={index}>
+                <td className='nowrap'>{key}</td>
+                <td className='nowrap'>{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    } else
+      return stringLabel || innerText;
+  }, [anchor]);
 
   return createPortal(
     <div
-      className='tooltip text_small'
+      className='tooltip size_tiny'
       style={{
         ...computeStyle({ anchor, content, hAlign, vAlign })
       }}

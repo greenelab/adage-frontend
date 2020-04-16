@@ -41,7 +41,7 @@ let Filters = ({
       onChange={setEdgeWeightCutoff}
       precision={2}
     />
-    <div className='info medium'>
+    <div className='info weight_medium'>
       <span
         aria-label={
           'Showing ' + filteredNodes + ' of ' + fullNodes + ' nodes (genes)'

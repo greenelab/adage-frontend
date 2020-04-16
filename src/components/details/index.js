@@ -24,7 +24,7 @@ const Details = ({ data = {} }) => {
       {Object.keys(data).map((key, index, array) => (
         <Fragment key={index}>
           <div className='detail_row'>
-            <span className='nowrap medium'>{key}</span>
+            <span className='nowrap weight_medium'>{key}</span>
             <span>
               <Linkify>{format(data[key])}</Linkify>
             </span>
