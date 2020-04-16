@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 
 import Clickable from '../../../components/clickable';
 
-import { ReactComponent as ArrowIcon } from '../../../images/arrow.svg';
-
 import './index.css';
 
 // feature row with video and summary text
 
-const Feature = ({ left, icon, header, to, children }) => {
+const Feature = ({ left, icon, text, to, children }) => {
   const video = (
     <div className='pane pane_first'>
       <div className='video'></div>
@@ -18,12 +16,15 @@ const Feature = ({ left, icon, header, to, children }) => {
 
   const notVideo = (
     <div className='pane'>
-      <div className='feature_header weight_medium'>
-        {icon}
-        {header}
-      </div>
+      <Clickable
+        className='feature_button'
+        to={to}
+        text={text}
+        icon={icon}
+        button
+        flip
+      />
       <p>{children}</p>
-      <Clickable to={to} text='Go' icon={<ArrowIcon />} button />
     </div>
   );
 
@@ -53,7 +54,7 @@ const Feature = ({ left, icon, header, to, children }) => {
 
 Feature.propTypes = {
   icon: PropTypes.element.isRequired,
-  header: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired
 };
 

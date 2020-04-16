@@ -19,12 +19,9 @@ const Home = () => (
   <>
     <Header />
     <Main>
-      <Banner
-        text='Adage is a tool to help you explore and discover new insights from
-      machine learning models'
-      />
+      <Banner />
       <HorizontalLine />
-      <Feature left icon={<GeneIcon />} header='explore genes...' to='/genes'>
+      <Feature left icon={<GeneIcon />} text='Explore Genes' to='/genes'>
         Find signatures that significantly overlap with the genes you're
         interested in to interpret underlying biological processes. Visualize
         your model's gene network as an interactive graph display.
@@ -32,7 +29,7 @@ const Home = () => (
       <HorizontalLine />
       <Feature
         icon={<ExperimentIcon />}
-        header='explore experiments...'
+        text='Explore Experiments'
         to='/experiments'
       >
         View the activities of your experiment samples as a colored heatmap, and
@@ -43,7 +40,7 @@ const Home = () => (
       <Feature
         left
         icon={<SignatureIcon />}
-        header='explore signatures...'
+        text='Explore Signatures'
         to='/signatures'
       >
         Find the genes that most strongly influence a signature's activity.

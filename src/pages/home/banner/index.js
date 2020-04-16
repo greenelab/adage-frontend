@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Clickable from '../../../components/clickable';
 
 import { ReactComponent as ArrowIcon } from '../../../images/arrow.svg';
+import { ReactComponent as HelpIcon } from '../../../images/help.svg';
 
 import './index.css';
 
@@ -12,8 +13,12 @@ import './index.css';
 const Banner = ({ text }) => (
   <section>
     <div className='banner'>
-      <div className='size_medium weight_medium'>{text}</div>
-      <Clickable to='/genes' text='Explore' icon={<ArrowIcon />} button />
+      <div className='size_medium weight_medium'>
+        Adage is a tool to help you explore and discover new insights from
+        machine learning models
+      </div>
+      <Clickable to='/genes' text='Jump In' icon={<ArrowIcon />} button />
+      <Clickable to='/help' text='Learn More' icon={<ArrowIcon />} button />
     </div>
   </section>
 );
