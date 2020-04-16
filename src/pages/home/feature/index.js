@@ -9,7 +9,7 @@ import './index.css';
 
 // feature row with video and summary text
 
-const Feature = ({ left, icon, header, text, to }) => {
+const Feature = ({ left, icon, header, to, children }) => {
   const video = (
     <div className='pane pane_first'>
       <div className='video'></div>
@@ -22,7 +22,7 @@ const Feature = ({ left, icon, header, text, to }) => {
         {icon}
         {header}
       </div>
-      <p>{text}</p>
+      <p>{children}</p>
       <Clickable to={to} text='Go' icon={<ArrowIcon />} button />
     </div>
   );
@@ -54,7 +54,6 @@ const Feature = ({ left, icon, header, text, to }) => {
 Feature.propTypes = {
   icon: PropTypes.element.isRequired,
   header: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired
 };
 
