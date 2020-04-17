@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
@@ -18,7 +19,7 @@ let Table = ({ enrichedSignatures }) => (
         name: 'Name',
         key: 'name',
         render: ({ row }) => <SignatureLink signature={row} />,
-        width: '25%'
+        width: '20%'
       },
       {
         name: 'Overlapping Genes',
@@ -26,11 +27,9 @@ let Table = ({ enrichedSignatures }) => (
         value: ({ cell }) => cell.map((gene) => gene.name).join(' '),
         render: ({ cell }) =>
           cell.map((gene, index) => (
-            <GeneLink
-              key={index}
-              gene={gene}
-              extraTooltip={'weight: ' + gene.weight}
-            />
+            <Fragment key={index}>
+              <GeneLink gene={gene} extraTooltip={'weight: ' + gene.weight} />{' '}
+            </Fragment>
           )),
         width: '60%'
       },
@@ -41,6 +40,7 @@ let Table = ({ enrichedSignatures }) => (
         width: '20%'
       }
     ]}
+    minWidth='500px'
     defaultSortKey='pValue'
     defaultSortUp={false}
     freezeCol={false}

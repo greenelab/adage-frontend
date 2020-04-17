@@ -65,7 +65,7 @@ export const transformString = (...args) => {
 // format number as exponential
 export const toExponential = (value) => {
   const number = parseFloat(value).toExponential(1);
-  const mantissa = parseFloat(number.split('e')[0]).toFixed(1);
+  const mantissa = parseFloat(number.split('e')[0]).toFixed(2);
   const exponent = parseInt(number.split('e')[1]);
 
   if (Number.isNaN(mantissa) || Number.isNaN(exponent))

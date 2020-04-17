@@ -49,6 +49,7 @@ let Table = ({ results, highlightedIndex, select }) => (
         width: 'calc((100% - 30px) * 0.6)'
       }
     ]}
+    minWidth='500px'
     highlightedIndex={highlightedIndex}
     sortable={false}
   />

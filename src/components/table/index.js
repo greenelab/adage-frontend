@@ -8,11 +8,14 @@ import { InView } from 'react-intersection-observer';
 import 'intersection-observer'; // polyfill for ios
 
 import HorizontalLine from '../../components/horizontal-line';
+import { isNumber } from '../../util/types';
+import { isInteger } from '../../util/types';
+import { isObject } from '../../util/types';
+import { isFunction } from '../../util/types';
 
 import { ReactComponent as ArrowIcon } from '../../images/arrow.svg';
 
 import './index.css';
-import { isFunction } from '../../util/types';
 
 // table component
 // columns - [{name, value, render, width, align, padded}]
@@ -24,13 +27,17 @@ import { isFunction } from '../../util/types';
 //   align - css flex justify-content value
 //   padded - whether or not to pad cell
 // data - []
+// minWidth - string
 // defaultSort - [{ id, desc }]
 // sortable - boolean
 // highlightedIndex - integer
 
+const precision = 3;
+
 const Table = ({
   columns,
   data,
+  minWidth = '300px',
   defaultSortKey = null,
   defaultSortUp = null,
   sortable = true,
@@ -121,6 +128,7 @@ const Table = ({
     >
       <Head
         columns={columns}
+        minWidth={minWidth}
         sortable={sortable}
         sortKey={sortKey}
         sortUp={sortUp}
@@ -128,8 +136,9 @@ const Table = ({
       />
       <Body
         table={table}
-        highlightedIndex={highlightedIndex}
         columns={columns}
+        minWidth={minWidth}
+        highlightedIndex={highlightedIndex}
       />
     </div>
   );
@@ -138,6 +147,7 @@ const Table = ({
 Table.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  minWidth: PropTypes.string,
   sortable: PropTypes.bool,
   freezeRow: PropTypes.bool,
   freezeCol: PropTypes.bool,
@@ -147,8 +157,8 @@ Table.propTypes = {
 export default Table;
 
 // thead
-const Head = ({ columns, sortable, sortKey, sortUp, onClick }) => (
-  <div className='thead weight_medium'>
+const Head = ({ columns, minWidth, sortable, sortKey, sortUp, onClick }) => (
+  <div className='thead weight_medium' style={{ minWidth }}>
     <div className='tr'>
       {columns.map((column, index) => (
         <HeadCell
@@ -194,8 +204,8 @@ const HeadCell = ({ sortable, sortKey, sortUp, column, onClick }) => (
 );
 
 // tbody
-const Body = ({ table, columns, highlightedIndex }) => (
-  <div className='tbody'>
+const Body = ({ table, columns, minWidth, highlightedIndex }) => (
+  <div className='tbody' style={{ minWidth }}>
     {table.map((row, index) => (
       <BodyRow
         key={index}
@@ -213,7 +223,7 @@ const BodyRow = ({ columns, row, highlightedIndex, index }) => (
   <>
     <InView triggerOnce>
       {({ inView, ref }) => (
-        <div className='tr' ref={ref} data-shade={index === highlightedIndex}>
+        <div ref={ref} className='tr' data-shade={index === highlightedIndex}>
           {inView &&
             columns.map((column, index) => (
               <BodyCell key={index} row={row} column={column} />
@@ -229,11 +239,16 @@ const BodyRow = ({ columns, row, highlightedIndex, index }) => (
 const BodyCell = ({ row, column }) => {
   const cell = row[column.key];
   // render cell contents
-  let contents;
+  let contents = cell;
+  // if col has a render function, use it
   if (column.render)
     contents = column.render({ row, column, cell });
-  else
-    contents = <span className='nowrap'>{cell}</span>;
+  // if value is number, fix it to decimal points
+  if (isNumber(contents) && !isInteger(contents))
+    contents = contents.toFixed(precision);
+  // if value returned from render function not a react object
+  if (!isObject(contents))
+    contents = <span className='nowrap'>{contents}</span>;
 
   return (
     <span

@@ -53,15 +53,15 @@ const visualization = (canvas) => {
   const background = '#000000'; // background color
   const color = '#26a36c'; // photon color
   const blur = 100; // canvas blur
-  const spawn = 0.25; // spawn probability each step
-  const spacing = 20; // space between waves/rows
+  const spawn = 0.15; // spawn probability each step
+  const spacing = 2; // space between waves/rows
   const thickness = 1; // photon thickness
   const minSpeed = 1; // photon min horizontal speed
   const maxSpeed = 3; // photon max horizontal speed
-  const ampMax = 15; // max of amplitude of wave
-  const ampFall = 300; // how fast amp falls off away from center
+  const ampMax = 10; // max of amplitude of wave
+  const ampFall = 500; // how fast amp falls off away from center
   const freqMax = 10; // max of frequency of wave
-  const freqFall = 800; // how fast freq falls off away from center
+  const freqFall = 1000; // how fast freq falls off away from center
 
   // globals
   const ctx = canvas.getContext('2d');

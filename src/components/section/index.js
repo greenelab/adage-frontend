@@ -10,6 +10,8 @@ import './index.css';
 // collapsible section with header button
 
 const Section = ({ header = '', children = <></> }) => {
+  // internal state
+  const [number, setNumber] = useState(0);
   const [expanded, setExpanded] = useState(true);
   const ref = useRef();
 
@@ -21,16 +23,13 @@ const Section = ({ header = '', children = <></> }) => {
       if (!ref.current)
         return;
 
+      // if can't find number of section, exit
+      if (!number)
+        return;
+
       // if an element is focused (like an input box), exit
       if (document.activeElement !== document.body)
         return;
-
-      // find which number section this is on page
-      // eg 1st, 2nd, 3rd, etc.
-      const number =
-        [...document.querySelectorAll('.section_header')].findIndex(
-          (section) => section === ref.current
-        ) + 1;
 
       // if number key pressed matches section number, continue
       if (event.key !== String(number))
@@ -43,7 +42,7 @@ const Section = ({ header = '', children = <></> }) => {
       else
         ref.current.scrollIntoView();
     },
-    [onClick]
+    [number, onClick]
   );
 
   useEffect(() => {
@@ -54,7 +53,16 @@ const Section = ({ header = '', children = <></> }) => {
   return (
     <>
       <div
-        ref={ref}
+        ref={(element) => {
+          // find which number section this is on page
+          // eg 1st, 2nd, 3rd, etc.
+          setNumber(
+            [...document.querySelectorAll('.section_header')].findIndex(
+              (section) => section === element
+            ) + 1
+          );
+          ref.current = element;
+        }}
         className='section_header size_medium'
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
@@ -64,6 +72,8 @@ const Section = ({ header = '', children = <></> }) => {
         }}
         onClick={onClick}
         tabIndex='0'
+        aria-label={`Press ${number} to jump here. Click or press alt + ${number} to open/close.`}
+        data-tooltip-h-align='center'
       >
         {header}
       </div>

@@ -4,26 +4,26 @@ import Header from '../header';
 import Main from '../main';
 import Footer from '../footer';
 import Section from '../../components/section';
-import { About } from './about';
-import { Usage } from './usage';
+import { App } from './app';
+import { Models } from './models';
 
 import './index.css';
 
-// help page
+// about page
 
-const Help = () => (
+const About = () => (
   <>
     <Header />
     <Main>
-      <Section header='About'>
-        <About />
+      <Section header='About the App'>
+        <App />
       </Section>
-      <Section header='Usage'>
-        <Usage />
+      <Section header='About the Models'>
+        <Models />
       </Section>
     </Main>
     <Footer />
   </>
 );
 
-export default Help;
+export default About;

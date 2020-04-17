@@ -21,7 +21,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, #000000ff 100px, #00000000 150px);
+  background: radial-gradient(circle, #000000ff 75px, #00000000 150px);
   z-index: 1;
 }
 .home_logo {

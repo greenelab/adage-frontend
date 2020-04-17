@@ -10,6 +10,9 @@ import HorizontalLine from '../../components/horizontal-line';
 import { ReactComponent as GeneIcon } from '../../images/gene.svg';
 import { ReactComponent as ExperimentIcon } from '../../images/experiment.svg';
 import { ReactComponent as SignatureIcon } from '../../images/signature.svg';
+import genes1 from '../../images/genes-1.jpg';
+import experiments1 from '../../images/experiments-1.jpg';
+import signatures1 from '../../images/signatures-1.jpg';
 
 import './index.css';
 
@@ -21,13 +24,20 @@ const Home = () => (
     <Main>
       <Banner />
       <HorizontalLine />
-      <Feature left icon={<GeneIcon />} text='Explore Genes' to='/genes'>
+      <Feature
+        left
+        image={genes1}
+        icon={<GeneIcon />}
+        text='Explore Genes'
+        to='/genes'
+      >
         Find signatures that significantly overlap with the genes you're
         interested in to interpret underlying biological processes. Visualize
         your model's gene network as an interactive graph display.
       </Feature>
       <HorizontalLine />
       <Feature
+        image={experiments1}
         icon={<ExperimentIcon />}
         text='Explore Experiments'
         to='/experiments'
@@ -39,6 +49,7 @@ const Home = () => (
       <HorizontalLine />
       <Feature
         left
+        image={signatures1}
         icon={<SignatureIcon />}
         text='Explore Signatures'
         to='/signatures'

@@ -5,16 +5,16 @@ import Clickable from '../../../components/clickable';
 
 import './index.css';
 
-// feature row with video and summary text
+// feature row with thumbnail and summary text
 
-const Feature = ({ left, icon, text, to, children }) => {
-  const video = (
+const Feature = ({ left, image, icon, text, to, children }) => {
+  const thumbnail = (
     <div className='pane pane_first'>
-      <div className='video'></div>
+      <img className='thumbnail' src={image} alt='' />
     </div>
   );
 
-  const notVideo = (
+  const notThumbnail = (
     <div className='pane'>
       <Clickable
         className='feature_button'
@@ -32,15 +32,15 @@ const Feature = ({ left, icon, text, to, children }) => {
   if (left) {
     content = (
       <>
-        {video}
-        {notVideo}
+        {thumbnail}
+        {notThumbnail}
       </>
     );
   } else {
     content = (
       <>
-        {notVideo}
-        {video}
+        {notThumbnail}
+        {thumbnail}
       </>
     );
   }
@@ -53,6 +53,7 @@ const Feature = ({ left, icon, text, to, children }) => {
 };
 
 Feature.propTypes = {
+  image: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
   text: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired

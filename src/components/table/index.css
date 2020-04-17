@@ -4,23 +4,10 @@
   overflow-y: visible;
   max-height: calc((8 * 30px) + ((8 - 1) * 1px));
 }
-.thead,
-.tbody {
-  min-width: 600px;
-}
 .tr {
   display: flex;
   align-items: center;
-  min-height: 30px;
-}
-.th {
-  min-height: 28px;
-  font-weight: 500;
-  transition: color var(--fast);
-  user-select: none;
-}
-.table[data-sortable='true'] .th:hover {
-  color: var(--green);
+  height: 30px;
 }
 .th,
 .td {
@@ -28,18 +15,25 @@
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
-  flex-wrap: wrap;
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 30px;
+}
+.th {
+  font-weight: 500;
+  transition: color var(--fast);
+  user-select: none;
+}
+.th > svg {
+  flex-shrink: 0;
+  margin-left: 3px;
+}
+.table[data-sortable='true'] .th:hover {
+  color: var(--green);
 }
 .th[data-padded='true'],
 .td[data-padded='true'] {
   padding: 0 5px;
-}
-.th > svg {
-  flex-shrink: 0;
-}
-.th > *:not(:last-child),
-.td > *:not(:last-child) {
-  margin-right: 3px;
 }
 .table[data-freeze-row='true'] .thead {
   position: -webkit-sticky;

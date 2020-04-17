@@ -46,24 +46,27 @@ let Table = ({ samples }) => (
         name: 'Name',
         key: 'name',
         render: ({ row }) => <SampleLink sample={row} />,
-        width: 'calc((100% - 60px) * 0.2)'
+        width: 'calc((100% - 60px) * 0.25)'
       },
       {
         name: 'Description',
         key: 'description',
-        width: 'calc((100% - 60px) * 0.55)'
+        width: 'calc((100% - 60px) * 0.50)'
       },
       {
         name: 'Genotype',
         key: 'genotype',
-        width: 'calc((100% - 60px) * 0.15)'
+        width: 'calc((100% - 60px) * 0.15)',
+        align: 'center'
       },
       {
         name: 'Strain',
         key: 'strain',
-        width: 'calc((100% - 60px) * 0.10)'
+        width: 'calc((100% - 60px) * 0.10)',
+        align: 'center'
       }
     ]}
+    minWidth='500px'
   />
 );
 

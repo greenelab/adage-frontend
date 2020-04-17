@@ -1,7 +1,7 @@
 export const isBoolean = (value) => typeof value === 'boolean';
 
 export const isNumber = (value) =>
-  typeof value === 'number' && !Number.isNaN(value);
+  typeof value === 'number' && !Number.isNaN(value) && value !== Infinity;
 
 export const isString = (value) => typeof value === 'string';
 
@@ -22,3 +22,5 @@ export const isBlank = (value) =>
   isEmpty(value) ||
   (isString(value) && value.trim() === '') ||
   Number.isNaN(value);
+
+export const isInteger = (value) => Number.isInteger(value);

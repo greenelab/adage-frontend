@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Clickable from '../../../components/clickable';
 
@@ -9,7 +8,7 @@ import './index.css';
 
 // intro section above feature rows
 
-const Banner = ({ text }) => (
+const Banner = () => (
   <section>
     <div className='banner'>
       <div className='size_medium weight_medium'>
@@ -17,13 +16,9 @@ const Banner = ({ text }) => (
         machine learning models
       </div>
       <Clickable to='/genes' text='Jump In' icon={<ArrowIcon />} button />
-      <Clickable to='/help' text='Learn More' icon={<ArrowIcon />} button />
+      <Clickable to='/about' text='Learn More' icon={<ArrowIcon />} button />
     </div>
   </section>
 );
-
-Banner.propTypes = {
-  text: PropTypes.string.isRequired
-};
 
 export default Banner;
