@@ -50,7 +50,7 @@ a:focus {
   color: var(--green);
 }
 p {
-  margin: 20px auto;
+  margin: 20px 0;
 }
 table {
   border-collapse: collapse;
@@ -112,6 +112,7 @@ textarea {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  vertical-align: bottom;
 }
 *[data-shade='true'] {
   background: var(--off-white);
@@ -125,6 +126,9 @@ textarea {
   align-items: center;
   flex-wrap: wrap;
   margin-top: 20px;
+}
+.controls + .controls {
+  margin-top: 0;
 }
 .info {
   display: flex;

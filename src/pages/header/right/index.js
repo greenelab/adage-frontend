@@ -4,7 +4,7 @@ import ModelSelect from '../model-select';
 
 import Clickable from '../../../components/clickable';
 
-import { ReactComponent as HelpIcon } from '../../../images/help.svg';
+import { ReactComponent as AboutIcon } from '../../../images/about.svg';
 
 import './index.css';
 
@@ -14,10 +14,10 @@ const Right = () => (
   <div className='page_header_column'>
     <ModelSelect />
     <Clickable
-      to='/help'
-      icon={<HelpIcon />}
+      to='/about'
+      icon={<AboutIcon />}
       button
-      aria-label='View help documentation'
+      aria-label='About'
       data-tooltip-h-align='right'
       data-tooltip-v-align='bottom'
     />

@@ -50,6 +50,7 @@ let Table = ({ selected, deselect }) => (
         width: 'calc((100% - 30px) * 0.4)'
       }
     ]}
+    minWidth='500px'
   />
 );
 

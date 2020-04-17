@@ -37,10 +37,10 @@ let Table = ({ participations }) => (
       {
         name: 'Weight',
         key: 'weight',
-        width: '15%',
-        render: ({ cell }) => cell.toFixed(5)
+        width: '15%'
       }
     ]}
+    minWidth='600px'
     defaultSortKey='weight'
     defaultSortUp={true}
     freezeCol={false}

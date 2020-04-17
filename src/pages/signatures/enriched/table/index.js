@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import TableComponent from '../../../../components/table';
@@ -16,19 +17,19 @@ let Table = ({ enrichedGenes }) => (
         name: 'Name',
         key: 'name',
         render: ({ cell, row }) => <Clickable text={cell} to={row.url} link />,
-        width: '30%'
+        width: '15%'
       },
       {
         name: 'Database',
         key: 'database',
         render: ({ cell, row }) => <Clickable text={cell} to={row.url} link />,
-        width: '15%'
+        width: '5%'
       },
       {
         name: 'p Value',
         key: 'pValue',
         render: ({ cell }) => toExponential(cell),
-        width: '15%',
+        width: '5%',
         align: 'center'
       },
       {
@@ -36,10 +37,15 @@ let Table = ({ enrichedGenes }) => (
         key: 'genes',
         value: ({ cell }) => cell.length,
         render: ({ cell }) =>
-          cell.map((gene, index) => <GeneLink key={index} gene={gene} />),
-        width: '40%'
+          cell.map((gene, index) => (
+            <Fragment key={index}>
+              <GeneLink gene={gene} />{' '}
+            </Fragment>
+          )),
+        width: '75%'
       }
     ]}
+    minWidth='2000px'
     defaultSortKey='pValue'
     defaultSortUp={false}
     freezeCol={false}

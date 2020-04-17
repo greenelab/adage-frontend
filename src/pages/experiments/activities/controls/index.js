@@ -22,55 +22,59 @@ const Controls = ({
   sortSignatures,
   reset
 }) => (
-  <div className='controls'>
-    <Clickable
-      text='Cluster Samples'
-      icon={
-        sortedSamples === actionStatuses.LOADING ? (
-          <LoadingIcon />
-        ) : (
-          <BiArrowIcon className='rotate_cw' />
-        )
-      }
-      button
-      onClick={sortSamples}
-      aria-label='Cluster heatmap by sample (re-order rows)'
-    />
-    <Clickable
-      text='Cluster Signatures'
-      icon={
-        sortedSignatures === actionStatuses.LOADING ? (
-          <LoadingIcon />
-        ) : (
-          <BiArrowIcon />
-        )
-      }
-      button
-      onClick={sortSignatures}
-      aria-label='Cluster heatmap by signature (re-order columns)'
-    />
-    <Clickable
-      text='Reset'
-      icon={<CrossIcon />}
-      button
-      onClick={reset}
-      aria-label='Reset heatmap'
-    />
-    <Clickable
-      text='Download Image'
-      icon={<DownloadIcon />}
-      button
-      onClick={downloadImage}
-      aria-label='Download this heatmap as an .svg file'
-    />
-    <Clickable
-      text='Download Table'
-      icon={<DownloadIcon />}
-      button
-      onClick={() => downloadTable({ activities })}
-      aria-label='Download this heatmap as a .tsv file'
-    />
-  </div>
+  <>
+    <div className='controls'>
+      <Clickable
+        text='Cluster Samples'
+        icon={
+          sortedSamples === actionStatuses.LOADING ? (
+            <LoadingIcon />
+          ) : (
+            <BiArrowIcon className='rotate_cw' />
+          )
+        }
+        button
+        onClick={sortSamples}
+        aria-label='Cluster heatmap by sample (re-order rows)'
+      />
+      <Clickable
+        text='Cluster Signatures'
+        icon={
+          sortedSignatures === actionStatuses.LOADING ? (
+            <LoadingIcon />
+          ) : (
+            <BiArrowIcon />
+          )
+        }
+        button
+        onClick={sortSignatures}
+        aria-label='Cluster heatmap by signature (re-order columns)'
+      />
+      <Clickable
+        text='Reset'
+        icon={<CrossIcon />}
+        button
+        onClick={reset}
+        aria-label='Reset heatmap'
+      />
+    </div>
+    <div className='controls'>
+      <Clickable
+        text='Download Image'
+        icon={<DownloadIcon />}
+        button
+        onClick={downloadImage}
+        aria-label='Download this heatmap as an .svg file'
+      />
+      <Clickable
+        text='Download Table'
+        icon={<DownloadIcon />}
+        button
+        onClick={() => downloadTable({ activities })}
+        aria-label='Download this heatmap as a .tsv file'
+      />
+    </div>
+  </>
 );
 
 export default Controls;

@@ -30,13 +30,13 @@ test('is number', () => {
   expect(isNumber(12)).toBe(true);
   expect(isNumber(-12)).toBe(true);
   expect(isNumber(0)).toBe(true);
-  expect(isNumber(Infinity)).toBe(true);
 
   // shouldn't be
   expect(isNumber(true)).toBe(false);
   expect(isNumber('12')).toBe(false);
   expect(isNumber('0')).toBe(false);
   expect(isNumber(NaN)).toBe(false);
+  expect(isNumber(Infinity)).toBe(false);
   expect(isNumber(null)).toBe(false);
   expect(isNumber({})).toBe(false);
   expect(isNumber([])).toBe(false);

@@ -67,22 +67,20 @@ let Table = ({ bySignature = {}, byExperiment = [] }) => {
           {
             name: 'Min',
             key: 'min',
-            render: ({ cell }) => (cell || 0).toFixed(5),
             width: '14%'
           },
           {
             name: 'Max',
             key: 'max',
-            render: ({ cell }) => (cell || 0).toFixed(5),
             width: '14%'
           },
           {
             name: 'Range',
             key: 'range',
-            render: ({ cell }) => (cell || 0).toFixed(5),
             width: '14%'
           }
         ]}
+        minWidth='600px'
         defaultSortKey='range'
         defaultSortUp={true}
         freezeCol={false}

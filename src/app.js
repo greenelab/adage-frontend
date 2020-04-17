@@ -17,7 +17,7 @@ import Home from './pages/home';
 import Genes from './pages/genes';
 import Experiments from './pages/experiments';
 import Signatures from './pages/signatures';
-import Help from './pages/help';
+import About from './pages/about';
 import Model from './pages/model';
 import Gene from './pages/gene';
 import Experiment from './pages/experiment';
@@ -61,7 +61,7 @@ const App = () => (
         <Route path='/genes' component={Genes} />
         <Route path='/experiments' component={Experiments} />
         <Route path='/signatures' component={Signatures} />
-        <Route path='/help' component={Help} />
+        <Route path='/about' component={About} />
         <Route path='/model/:id' component={Model} />
         <Route path='/gene/:id' component={Gene} />
         <Route path='/experiment/:accession' component={Experiment} />
