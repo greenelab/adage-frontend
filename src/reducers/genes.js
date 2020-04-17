@@ -151,10 +151,24 @@ export const filterSelected = (selected, id) =>
 export const mapGeneResults = (genes) =>
   isArray(genes) ? genes.map(mapGene) : genes;
 
-export const mapGene = (gene) => ({
-  ...gene,
-  name: gene.standardName || gene.systematicName || gene.entrezid || '-',
-  entrezId: gene.entrezid
-});
+export const mapGene = (gene) => {
+  const {
+    id,
+    standardName,
+    systematicName,
+    entrezid: entrezId,
+    ...rest
+  } = gene;
+  const name = standardName || systematicName || entrezId || '-';
+  // reassemble in nice order
+  return {
+    id,
+    name,
+    ...rest,
+    standardName,
+    systematicName,
+    entrezId
+  };
+};
 
 export const geneIsLoaded = (gene) => (gene?.name ? true : false);

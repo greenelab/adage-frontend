@@ -34,17 +34,22 @@ let Table = ({ results, highlightedIndex, select, deselect }) => (
         name: 'Standard Name',
         key: 'standardName',
         render: ({ row }) => <GeneLink gene={row} />,
-        width: 'calc((100% - 30px) * 0.2)'
+        width: 'calc((100% - 30px) * 0.15)'
       },
       {
         name: 'Systematic Name',
         key: 'systematicName',
-        width: 'calc((100% - 30px) * 0.2)'
+        width: 'calc((100% - 30px) * 0.15)'
       },
       {
         name: 'Entrez ID',
         key: 'entrezId',
-        width: 'calc((100% - 30px) * 0.2)'
+        width: 'calc((100% - 30px) * 0.15)'
+      },
+      {
+        name: 'Aliases',
+        key: 'aliases',
+        width: 'calc((100% - 30px) * 0.15)'
       },
       {
         name: 'Entrez Description',

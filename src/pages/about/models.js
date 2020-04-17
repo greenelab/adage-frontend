@@ -13,7 +13,7 @@ const Models = () => (
       individual samples. Each dataset is an experiment and all samples are
       collected in a non-redundant way into the compendium. If a sample is part
       of multiple experiments, it is only represented once in the compendium. It
-      did not include any data sets uploaded after the build date. It was
+      did not include any datasets uploaded after the build date. It was
       manually annotated by biologists into easily queried fields including
       strain, medium, genotype and more. By including all samples in a unified
       compendium (as opposed to separated by experiment) it allows for
@@ -34,7 +34,7 @@ const Models = () => (
     <p>
       We include samples measured on the Affymetrix Pseudomonas aeruginosa Array
       "Pae_G1a" (labeled as A-AFFY-30 in ArrayExpress database). Built from
-      accessible data sets from the{' '}
+      accessible datasets from the{' '}
       <a href='https://www.ebi.ac.uk/arrayexpress/'>ArrayExpress database</a>.
       Samples come from a variety of labs, conditions, genotypes, and growth
       phases.
