@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import * as d3 from 'd3';
 
 import { useMounted } from '../../../../util/hooks';
+import { useDiff } from '../../../../util/hooks';
 import { stringifyObject } from '../../../../util/object';
 
 import './index.css';
@@ -19,18 +20,19 @@ export let svg;
 const Heatmap = ({ activities, samples, signatures }) => {
   // internal state
   const mounted = useMounted();
+  const mountedChanged = useDiff(mounted);
+  const samplesChanged = useDiff(JSON.stringify(samples));
 
-  const sampleNames = samples
-    .map(
-      (id) => activities.find((activity) => activity.sample === id).sampleName
-    )
-    .reverse();
+  const findSample = (id) =>
+    activities.find((activity) => activity.sample === id).sampleName;
+  const sampleNames = samples.map(findSample).reverse();
   const width = signatures.length * cellWidth;
   const height = samples.length * cellHeight;
 
   // redraw heatmap
   useEffect(() => {
-    if (!mounted)
+    // if mounted or samples changed, redraw
+    if (!mountedChanged && !samplesChanged)
       return;
 
     svg = d3.select('#heatmap svg');
@@ -45,16 +47,10 @@ const Heatmap = ({ activities, samples, signatures }) => {
       .domain(extent);
 
     // x axis scale
-    const xScale = d3
-      .scaleBand()
-      .range([0, width])
-      .domain(signatures);
+    const xScale = d3.scaleBand().range([0, width]).domain(signatures);
 
     // y axis scale
-    const yScale = d3
-      .scaleBand()
-      .range([height, 0])
-      .domain(samples);
+    const yScale = d3.scaleBand().range([height, 0]).domain(samples);
 
     // draw cells
     const cells = svg
@@ -78,14 +74,28 @@ const Heatmap = ({ activities, samples, signatures }) => {
         }))
       .attr('data-tooltip-speed', 10);
     cells.exit().remove();
-  }, [mounted, activities, samples, signatures, width, height]);
+  }, [
+    mountedChanged,
+    samplesChanged,
+    activities,
+    samples,
+    signatures,
+    width,
+    height
+  ]);
 
   return (
     <div id='heatmap'>
-      <div className='heatmap_left_col weight_medium' style={{ height: cellHeight }}>
+      <div
+        className='heatmap_left_col weight_medium'
+        style={{ height: cellHeight }}
+      >
         Samples
       </div>
-      <div className='heatmap_right_col weight_medium' style={{ height: cellHeight }}>
+      <div
+        className='heatmap_right_col weight_medium'
+        style={{ height: cellHeight }}
+      >
         Signatures
       </div>
       <div className='heatmap_left_col'>

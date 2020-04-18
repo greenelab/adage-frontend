@@ -105,13 +105,10 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'SET_ENRICHED_SIGNATURES': {
-      if (isArray(payload)) {
-        if (isEmpty(payload))
-          draft.enrichedSignatures = actionStatuses.EMPTY;
-        else
-          draft.enrichedSignatures = payload;
-      } else
-        draft.enrichedSignatures = draft.participations;
+      if (isEmpty(payload))
+        draft.enrichedSignatures = actionStatuses.EMPTY;
+      else
+        draft.enrichedSignatures = payload;
       break;
     }
 

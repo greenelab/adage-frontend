@@ -83,13 +83,10 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'SET_ENRICHED_GENES': {
-      if (isArray(payload)) {
-        if (isEmpty(payload))
-          draft.enrichedGenes = actionStatuses.EMPTY;
-        else
-          draft.enrichedGenes = payload;
-      } else
-        draft.enrichedGenes = draft.participations;
+      if (isEmpty(payload))
+        draft.enrichedGenes = actionStatuses.EMPTY;
+      else
+        draft.enrichedGenes = payload;
       break;
     }
 
