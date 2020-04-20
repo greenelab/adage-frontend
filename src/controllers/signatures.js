@@ -9,6 +9,7 @@ import { getPickledGenes } from '../actions/signatures';
 import { setEnrichedGenes } from '../actions/signatures';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
+import { actionStatuses } from '../actions/fetch';
 import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
@@ -93,6 +94,7 @@ let SignatureController = ({
     )
       return;
 
+    setEnrichedGenes(actionStatuses.LOADING);
     const calculate = async () => {
       setEnrichedGenes(
         await worker().calculateEnrichedGenes({

@@ -74,7 +74,7 @@ let SampleController = ({
       return;
 
     setVolcano(actionStatuses.LOADING);
-    const calculateVolcanoSignatures = async () => {
+    const calculate = async () => {
       setVolcano(
         await worker().calculateVolcanoSignatures({
           signatureList,
@@ -84,7 +84,7 @@ let SampleController = ({
         })
       );
     };
-    calculateVolcanoSignatures();
+    calculate();
   }, [signatureList, activities, diamondGroup, spadeGroup, setVolcano]);
 
   return <></>;

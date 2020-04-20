@@ -37,6 +37,7 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'SELECT_SAMPLES': {
       draft.selected = payload.ids.map((id) => ({ id }));
+      draft.groups = {};
       break;
     }
 
@@ -54,6 +55,7 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'GROUP_SAMPLES_FROM_URL': {
+      draft.groups = {};
       if (
         !payload.index ||
         !payload.ids ||
@@ -108,6 +110,7 @@ export const isGrouped = (groups, id) => {
     if (isArray(value) && value.includes(id))
       return key;
   }
+
 
   return -1;
 };

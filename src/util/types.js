@@ -12,9 +12,9 @@ export const isObject = (value) =>
 
 export const isFunction = (value) => typeof value === 'function';
 
-export const isEmpty = (payload) =>
-  (isArray(payload) && !payload.length) ||
-  (isObject(payload) && !Object.keys(payload).length);
+export const isEmpty = (value) =>
+  (isArray(value) && !value.length) ||
+  (isObject(value) && !Object.keys(value).length);
 
 export const isBlank = (value) =>
   value === undefined ||

@@ -7,6 +7,7 @@ import { getGeneParticipations } from '../actions/genes';
 import { setEnrichedSignatures } from '../actions/genes';
 import { getGeneEdges } from '../actions/genes';
 import { isArray } from '../util/types';
+import { actionStatuses } from '../actions/fetch';
 import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
@@ -67,6 +68,7 @@ let GeneController = ({
     )
       return;
 
+    setEnrichedSignatures(actionStatuses.LOADING);
     const calculate = async () => {
       setEnrichedSignatures(
         await worker().calculateEnrichedSignatures({

@@ -63,11 +63,7 @@ export const useDiff = (value) => {
   useEffect(() => {
     prevValue.current = value;
   });
-  return (
-    value !== prevValue.current &&
-    value !== undefined &&
-    prevValue.current !== undefined
-  );
+  return value !== prevValue.current;
 };
 
 // get the inner text of an element
