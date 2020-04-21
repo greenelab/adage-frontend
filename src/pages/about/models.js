@@ -8,7 +8,7 @@ const Models = () => (
       Expression compendium
     </p>
     <p>
-      The models make use of the Pseudomonas Aeruginosa expression compendium.
+      The models make use of the Pseudomonas aeruginosa expression compendium.
       It was built on July 31 2015 and contains 125 datasets with 1,051
       individual samples. Each dataset is an experiment and all samples are
       collected in a non-redundant way into the compendium. If a sample is part
