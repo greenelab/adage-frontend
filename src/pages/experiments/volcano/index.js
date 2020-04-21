@@ -14,7 +14,11 @@ import './index.css';
 let Volcano = ({ volcano }) => (
   <>
     {isString(volcano) && (
-      <FetchAlert status={volcano} subject='volcano data' />
+      <FetchAlert
+        status={volcano}
+        subject='volcano data'
+        extra='Put at least two samples in each group.'
+      />
     )}
     {isArray(volcano) && (
       <>
