@@ -22,6 +22,7 @@ const Heatmap = ({ activities, samples, signatures }) => {
   const mounted = useMounted();
   const mountedChanged = useDiff(mounted);
   const samplesChanged = useDiff(JSON.stringify(samples));
+  const signaturesChanged = useDiff(JSON.stringify(signatures));
 
   const findSample = (id) =>
     activities.find((activity) => activity.sample === id).sampleName;
@@ -31,8 +32,8 @@ const Heatmap = ({ activities, samples, signatures }) => {
 
   // redraw heatmap
   useEffect(() => {
-    // if mounted or samples changed, redraw
-    if (!mountedChanged && !samplesChanged)
+    // if mounted or samples changed or signatures changed, redraw
+    if (!mountedChanged && !samplesChanged && !signaturesChanged)
       return;
 
     svg = d3.select('#heatmap svg');
@@ -81,7 +82,8 @@ const Heatmap = ({ activities, samples, signatures }) => {
     samples,
     signatures,
     width,
-    height
+    height,
+    signaturesChanged
   ]);
 
   return (
