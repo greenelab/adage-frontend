@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useMemo } from 'react';
+import { useRef } from 'react';
 import { useCallback } from 'react';
 import { InView } from 'react-intersection-observer';
 import 'intersection-observer'; // polyfill for ios
@@ -48,6 +49,7 @@ const Table = ({
   // internal state
   const [sortKey, setSortKey] = useState(defaultSortKey);
   const [sortUp, setSortUp] = useState(defaultSortUp);
+  const ref = useRef();
 
   // when default sort key changes, set sort key
   // useful for when different table renders in place of old one
@@ -121,6 +123,7 @@ const Table = ({
 
   return (
     <div
+      ref={ref}
       className='table'
       data-sortable={sortable}
       data-freeze-row={freezeRow}
@@ -139,6 +142,7 @@ const Table = ({
         columns={columns}
         minWidth={minWidth}
         highlightedIndex={highlightedIndex}
+        root={ref?.current}
       />
     </div>
   );
@@ -204,7 +208,7 @@ const HeadCell = ({ sortable, sortKey, sortUp, column, onClick }) => (
 );
 
 // tbody
-const Body = ({ table, columns, minWidth, highlightedIndex }) => (
+const Body = ({ table, columns, minWidth, highlightedIndex, root }) => (
   <div className='tbody' style={{ minWidth }}>
     {table.map((row, index) => (
       <BodyRow
@@ -213,15 +217,16 @@ const Body = ({ table, columns, minWidth, highlightedIndex }) => (
         row={row}
         highlightedIndex={highlightedIndex}
         index={index}
+        root={root}
       />
     ))}
   </div>
 );
 
 // tr
-const BodyRow = ({ columns, row, highlightedIndex, index }) => (
+const BodyRow = ({ columns, row, highlightedIndex, index, root }) => (
   <>
-    <InView triggerOnce>
+    <InView root={root} rootMargin='60px' triggerOnce>
       {({ inView, ref }) => (
         <div ref={ref} className='tr' data-shade={index === highlightedIndex}>
           {inView &&
