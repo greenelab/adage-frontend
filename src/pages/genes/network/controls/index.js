@@ -40,6 +40,8 @@ const Controls = ({ nodes, links }) => (
         onClick={() => pinAll({ nodes })}
         aria-label='Pin all nodes'
       />
+    </div>
+    <div className='controls'>
       <Clickable
         text='Download Image'
         icon={<DownloadIcon />}

@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { createContext } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useMemo } from 'react';
 import { useRef } from 'react';
 import { useCallback } from 'react';
 import { InView } from 'react-intersection-observer';
+import PropTypes from 'prop-types';
 import 'intersection-observer'; // polyfill for ios
 
 import HorizontalLine from '../../components/horizontal-line';
@@ -35,6 +36,8 @@ import './index.css';
 
 const precision = 3;
 
+const TableContext = createContext({});
+
 const Table = ({
   columns,
   data,
@@ -56,7 +59,7 @@ const Table = ({
   useEffect(() => setSortKey(defaultSortKey), [defaultSortKey]);
 
   // on clicking sort button
-  const onClick = useCallback(
+  const changeSort = useCallback(
     (key) => {
       if (sortKey !== key) {
         setSortKey(key);
@@ -121,30 +124,33 @@ const Table = ({
     return [...data].sort(sortFunc);
   }, [columns, compare, data, sortKey, sortUp]);
 
+  const root = ref?.current;
+
   return (
-    <div
-      ref={ref}
-      className='table'
-      data-sortable={sortable}
-      data-freeze-row={freezeRow}
-      data-freeze-col={freezeCol}
+    <TableContext.Provider
+      value={{
+        table,
+        columns,
+        root,
+        sortable,
+        sortKey,
+        sortUp,
+        minWidth,
+        highlightedIndex,
+        changeSort
+      }}
     >
-      <Head
-        columns={columns}
-        minWidth={minWidth}
-        sortable={sortable}
-        sortKey={sortKey}
-        sortUp={sortUp}
-        onClick={onClick}
-      />
-      <Body
-        table={table}
-        columns={columns}
-        minWidth={minWidth}
-        highlightedIndex={highlightedIndex}
-        root={ref?.current}
-      />
-    </div>
+      <div
+        ref={ref}
+        className='table'
+        data-sortable={sortable}
+        data-freeze-row={freezeRow}
+        data-freeze-col={freezeCol}
+      >
+        <Head />
+        <Body />
+      </div>
+    </TableContext.Provider>
   );
 };
 
@@ -161,93 +167,95 @@ Table.propTypes = {
 export default Table;
 
 // thead
-const Head = ({ columns, minWidth, sortable, sortKey, sortUp, onClick }) => (
-  <div className='thead weight_medium' style={{ minWidth }}>
-    <div className='tr'>
-      {columns.map((column, index) => (
-        <HeadCell
-          key={index}
-          sortable={sortable}
-          sortKey={sortKey}
-          sortUp={sortUp}
-          column={column}
-          onClick={onClick}
-        />
-      ))}
+const Head = () => {
+  const { columns, minWidth } = useContext(TableContext);
+
+  return (
+    <div className='thead weight_medium' style={{ minWidth }}>
+      <div className='tr'>
+        {columns.map((column, index) => (
+          <HeadCell key={index} column={column} />
+        ))}
+      </div>
+      <HorizontalLine />
     </div>
-    <HorizontalLine />
-  </div>
-);
+  );
+};
 
 // th
-const HeadCell = ({ sortable, sortKey, sortUp, column, onClick }) => (
-  <button
-    className='th'
-    style={{
-      width: column.width,
-      justifyContent: column.align
-    }}
-    data-padded={column.padded === false ? false : true}
-    title=''
-    onClick={() => onClick(column.key)}
-    disabled={!sortable}
-    aria-label=''
-    data-tooltip-h-align={column.align === 'center' ? 'center' : undefined}
-  >
-    <span className='nowrap'>{column.name}</span>
-    {sortKey !== null && column.key && sortKey === column.key ? (
-      sortUp ? (
-        <ArrowIcon className='rotate_ccw' />
-      ) : (
-        <ArrowIcon className='rotate_cw' />
-      )
-    ) : (
-      ''
-    )}
-  </button>
-);
+const HeadCell = ({ column }) => {
+  const { key, name, width, align, padded } = column;
+  const { sortable, sortKey, sortUp, changeSort } = useContext(TableContext);
+
+  let arrow = '';
+  if (sortKey !== null && key && sortKey === key)
+    arrow = <ArrowIcon className={sortUp ? 'rotate_ccw' : 'rotate_cw'} />;
+
+  return (
+    <button
+      className='th'
+      style={{
+        width,
+        justifyContent: align
+      }}
+      data-padded={padded === false ? false : true}
+      title=''
+      onClick={() => changeSort(key)}
+      disabled={!sortable}
+      aria-label=''
+      data-tooltip-h-align={align === 'center' ? 'center' : undefined}
+    >
+      <span className='nowrap'>{name}</span>
+      {arrow}
+    </button>
+  );
+};
 
 // tbody
-const Body = ({ table, columns, minWidth, highlightedIndex, root }) => (
-  <div className='tbody' style={{ minWidth }}>
-    {table.map((row, index) => (
-      <BodyRow
-        key={index}
-        columns={columns}
-        row={row}
-        highlightedIndex={highlightedIndex}
-        index={index}
-        root={root}
-      />
-    ))}
-  </div>
-);
+const Body = () => {
+  const { table, minWidth } = useContext(TableContext);
+
+  return (
+    <div className='tbody' style={{ minWidth }}>
+      {table.map((row, index) => (
+        <BodyRow key={index} row={row} index={index} />
+      ))}
+    </div>
+  );
+};
 
 // tr
-const BodyRow = ({ columns, row, highlightedIndex, index, root }) => (
-  <>
-    <InView root={root} rootMargin='60px' triggerOnce>
-      {({ inView, ref }) => (
-        <div ref={ref} className='tr' data-shade={index === highlightedIndex}>
-          {inView &&
-            columns.map((column, index) => (
-              <BodyCell key={index} row={row} column={column} />
-            ))}
-        </div>
-      )}
-    </InView>
-    <HorizontalLine />
-  </>
-);
+const BodyRow = ({ row, index }) => {
+  const { columns, root, highlightedIndex } = useContext(TableContext);
+
+  return (
+    <>
+      <InView root={root} rootMargin='60px' triggerOnce>
+        {({ inView, ref }) => (
+          <div ref={ref} className='tr' data-shade={index === highlightedIndex}>
+            {inView &&
+              columns.map((column, index) => (
+                <BodyCell key={index} row={row} column={column} />
+              ))}
+          </div>
+        )}
+      </InView>
+      <HorizontalLine />
+    </>
+  );
+};
 
 // td
 const BodyCell = ({ row, column }) => {
-  const cell = row[column.key];
+  const { key, width, align, padded, render } = column;
+  const { highlightedField } = row;
+
+  const cell = row[key];
   // render cell contents
   let contents = cell;
   // if col has a render function, use it
-  if (column.render)
-    contents = column.render({ row, column, cell });
+  if (render)
+    contents = render({ row, column, cell });
   // if value is number, fix it to decimal points
   if (isNumber(contents) && !isInteger(contents))
     contents = contents.toFixed(precision);
@@ -258,13 +266,13 @@ const BodyCell = ({ row, column }) => {
   return (
     <span
       className='td'
-      data-highlight={column.key === row.highlightedField}
-      data-padded={column.padded === false ? false : true}
+      data-highlight={key === highlightedField}
+      data-padded={padded === false ? false : true}
       aria-label=''
-      data-tooltip-h-align={column.align === 'center' ? 'center' : undefined}
+      data-tooltip-h-align={align === 'center' ? 'center' : undefined}
       style={{
-        width: column.width,
-        justifyContent: column.align
+        width,
+        justifyContent: align
       }}
     >
       {contents}
