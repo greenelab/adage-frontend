@@ -40,7 +40,10 @@ let Table = ({ results, highlightedIndex, select, deselect }) => {
                   });
                 }
               }}
-              aria-label={(row.selected ? 'Deselect' : 'Select') + ' this gene'}
+              aria-label={
+                (row.selected ? 'Deselect' : 'Select') +
+                ' this gene. Shift + click to select multiple.'
+              }
             />
           ),
           width: '30px',
