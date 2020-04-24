@@ -1,0 +1,31 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100"
+  width="15"
+  height="15"
+>
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 10 70
+      A 60 60 0 0 1 70 10
+      A 22.5 22.5 0 0 1 70 55
+      A 17.5 17.5 0 0 0 55 70
+      A 22.5 22.5 0 0 1 10 70
+    "
+  />
+  <circle
+    fill="currentColor"
+    cx="32.5"
+    cy="70"
+    r="10"
+  />
+  <circle
+    fill="currentColor"
+    cx="45"
+    cy="45"
+    r="5"
+  />
+</svg>
