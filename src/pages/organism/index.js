@@ -8,44 +8,36 @@ import Footer from '../footer';
 import Section from '../../components/section';
 import Details from '../../components/details';
 import FetchAlert from '../../components/fetch-alert';
-import OrganismLink from '../organism/link';
 import { actionStatuses } from '../../actions/fetch';
 import { isArray } from '../../util/types';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { filterKeys } from '../../util/object';
+import { flatten } from '../../util/object';
 import { humanizeKeys } from '../../util/object';
 
-import { ReactComponent as ModelIcon } from '../../images/model.svg';
+import { ReactComponent as OrganismIcon } from '../../images/organism.svg';
 
 import './index.css';
 
-// model details page
+// organism details page
 
-let Model = ({ models, organisms }) => {
+let Organism = ({ organisms }) => {
   const match = useRouteMatch();
   const id = match.params.id;
 
   let details;
 
-  if (isString(models))
-    details = models;
-  else if (isArray(models)) {
-    const found = models.find((model) => String(model.id) === String(id));
+  if (isString(organisms))
+    details = organisms;
+  else if (isArray(organisms)) {
+    const found = organisms.find(
+      (organism) => String(organism.id) === String(id)
+    );
     if (!found)
       details = actionStatuses.EMPTY;
     else {
       details = { ...found };
-      details = filterKeys(details, ['directedG2GEdge', 'g2GEdgeCutoff']);
-      if (details.organism) {
-        const id = details.organism;
-        let organism;
-        if (isArray(organisms))
-          organism = organisms.find((organism) => organism.id === id);
-        else
-          organism = { id };
-        details.organism = <OrganismLink organism={organism} />;
-      }
+      details = flatten(details, 1);
       details = humanizeKeys(details);
     }
   }
@@ -57,14 +49,14 @@ let Model = ({ models, organisms }) => {
         <Section
           header={
             <>
-              <ModelIcon />
-              <span>Model Details</span>
+              <OrganismIcon />
+              <span>Organism Details</span>
             </>
           }
         >
           {isObject(details) && <Details data={details} />}
           {isString(details) && (
-            <FetchAlert status={details} subject='model details' />
+            <FetchAlert status={details} subject='organism details' />
           )}
         </Section>
       </Main>
@@ -73,11 +65,8 @@ let Model = ({ models, organisms }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  models: state.models.list,
-  organisms: state.organisms.list
-});
+const mapStateToProps = (state) => ({ organisms: state.organisms.list });
 
-Model = connect(mapStateToProps)(Model);
+Organism = connect(mapStateToProps)(Organism);
 
-export default Model;
+export default Organism;

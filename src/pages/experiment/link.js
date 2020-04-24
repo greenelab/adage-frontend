@@ -4,13 +4,18 @@ import Clickable from '../../components/clickable';
 
 // link to experiment details page
 
-const ExperimentLink = ({ experiment = {} }) => (
-  <Clickable
-    to={'/experiment/' + experiment.accession}
-    text={experiment.accession}
-    link
-    aria-label={'Open details page for experiment ' + experiment.accession}
-  />
-);
+const ExperimentLink = ({ experiment = {} }) => {
+  const { accession: id } = experiment;
+  const label = id || '-';
+
+  return (
+    <Clickable
+      to={'/experiment/' + id}
+      text={label}
+      link
+      aria-label={'Open details page for experiment ' + label}
+    />
+  );
+};
 
 export default ExperimentLink;

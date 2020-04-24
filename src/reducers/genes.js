@@ -47,9 +47,15 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'SELECT_GENE': {
-      if (isSelected(draft.selected, payload.id))
-        break;
-      draft.selected.push({ id: payload.id });
+      const select = (id) => {
+        if (!draft.selected.find((selected) => selected.id === id))
+          draft.selected.push({ id });
+      };
+      const { id, ids = [] } = payload;
+      if (id)
+        select(id);
+      for (const id of ids)
+        select(id);
       break;
     }
 
@@ -95,7 +101,7 @@ const reducer = produce((draft, type, payload, meta) => {
       if (!payload.ids || !isArray(payload.ids) || !payload.ids.length)
         draft.selected = [];
       else
-        draft.selected = payload.ids.map((id) => ({ id: id }));
+        draft.selected = payload.ids.map((id) => ({ id }));
       break;
     }
 

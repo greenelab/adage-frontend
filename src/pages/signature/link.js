@@ -4,14 +4,19 @@ import Clickable from '../../components/clickable';
 
 // link to signature details page
 
-const SignatureLink = ({ signature = {} }) => (
-  <Clickable
-    to='/signatures'
-    search={{ signature: signature.id }}
-    text={signature.name}
-    link
-    aria-label={'Open details page for signature ' + signature.name}
-  />
-);
+const SignatureLink = ({ signature = {} }) => {
+  const { id, name } = signature;
+  const label = name || id || '-';
+
+  return (
+    <Clickable
+      to='/signatures'
+      search={{ signature: id }}
+      text={label}
+      link
+      aria-label={'Open details page for signature ' + label}
+    />
+  );
+};
 
 export default SignatureLink;

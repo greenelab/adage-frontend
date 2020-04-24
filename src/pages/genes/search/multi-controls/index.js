@@ -23,7 +23,7 @@ let MultiControls = ({ selectFirst, deselectFirst }) => (
       onClick={deselectFirst}
       aria-label='Deselect the first result for each search term'
     />
-    <span>first results</span>
+    <span>each first result</span>
   </div>
 );
 
