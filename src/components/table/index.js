@@ -124,6 +124,16 @@ const Table = ({
     return [...data].sort(sortFunc);
   }, [columns, compare, data, sortKey, sortUp]);
 
+  // get table rows between indexes
+  const getRange = useCallback(
+    (start = 0, end = table.length) => {
+      if (start > end)
+        [start, end] = [end, start];
+      return table.slice(start, end + 1);
+    },
+    [table]
+  );
+
   const root = ref?.current;
 
   return (
@@ -137,7 +147,8 @@ const Table = ({
         sortUp,
         minWidth,
         highlightedIndex,
-        changeSort
+        changeSort,
+        getRange
       }}
     >
       <div
@@ -217,25 +228,35 @@ const Body = () => {
 
   return (
     <div className='tbody' style={{ minWidth }}>
-      {table.map((row, index) => (
-        <BodyRow key={index} row={row} index={index} />
+      {table.map((row, rowIndex) => (
+        <BodyRow key={rowIndex} row={row} rowIndex={rowIndex} />
       ))}
     </div>
   );
 };
 
 // tr
-const BodyRow = ({ row, index }) => {
+const BodyRow = ({ row, rowIndex }) => {
   const { columns, root, highlightedIndex } = useContext(TableContext);
 
   return (
     <>
       <InView root={root} rootMargin='60px' triggerOnce>
         {({ inView, ref }) => (
-          <div ref={ref} className='tr' data-shade={index === highlightedIndex}>
+          <div
+            ref={ref}
+            className='tr'
+            data-shade={rowIndex === highlightedIndex}
+          >
             {inView &&
-              columns.map((column, index) => (
-                <BodyCell key={index} row={row} column={column} />
+              columns.map((column, columnIndex) => (
+                <BodyCell
+                  key={columnIndex}
+                  row={row}
+                  column={column}
+                  rowIndex={rowIndex}
+                  columnIndex={columnIndex}
+                />
               ))}
           </div>
         )}
@@ -246,7 +267,8 @@ const BodyRow = ({ row, index }) => {
 };
 
 // td
-const BodyCell = ({ row, column }) => {
+const BodyCell = ({ row, column, rowIndex, columnIndex }) => {
+  const { getRange } = useContext(TableContext);
   const { key, width, align, padded, render } = column;
   const { highlightedField } = row;
 
@@ -255,7 +277,7 @@ const BodyCell = ({ row, column }) => {
   let contents = cell;
   // if col has a render function, use it
   if (render)
-    contents = render({ row, column, cell });
+    contents = render({ row, column, cell, rowIndex, columnIndex, getRange });
   // if value is number, fix it to decimal points
   if (isNumber(contents) && !isInteger(contents))
     contents = contents.toFixed(precision);
