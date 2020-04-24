@@ -6,26 +6,40 @@
 >
   <path
     fill="none"
-    stroke="currentColor"
+    stroke="red"
+    stroke-width="10"
+    stroke-linecap="round"
+    stroke-dasharray="0 23.5"
+    d="
+      M 5 70
+      A 65 65 0 0 1 70 5
+      A 25 25 0 0 1 70 55
+      A 15 15 0 0 0 55 70
+      A 25 25 0 0 1 5 70
+    "
+  />
+  <path
+    fill="none"
+    stroke="red"
     stroke-width="10"
     d="
       M 10 70
       A 60 60 0 0 1 70 10
-      A 22.5 22.5 0 0 1 70 55
-      A 17.5 17.5 0 0 0 55 70
-      A 22.5 22.5 0 0 1 10 70
+      A 20 20 0 0 1 70 50
+      A 20 20 0 0 0 50 70
+      A 20 20 0 0 1 10 70
     "
   />
   <circle
     fill="currentColor"
-    cx="32.5"
-    cy="70"
-    r="10"
+    cx="31"
+    cy="65"
+    r="7.5"
   />
   <circle
     fill="currentColor"
     cx="45"
-    cy="45"
+    cy="40"
     r="5"
   />
 </svg>
