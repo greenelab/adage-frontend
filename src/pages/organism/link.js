@@ -4,13 +4,18 @@ import Clickable from '../../components/clickable';
 
 // link to organism details page
 
-const OrganismLink = ({ organism = {} }) => (
-  <Clickable
-    to={'/organism/' + organism}
-    text={organism}
-    link
-    aria-label={'Open details page for organism ' + organism}
-  />
-);
+const OrganismLink = ({ organism = {} }) => {
+  const { id, commonName } = organism;
+  const label = commonName || id || '-';
+
+  return (
+    <Clickable
+      to={'/organism/' + id}
+      text={label}
+      link
+      aria-label={'Open details page for organism ' + label}
+    />
+  );
+};
 
 export default OrganismLink;

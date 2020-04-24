@@ -22,7 +22,7 @@ import './index.css';
 
 // model details page
 
-let Model = ({ models }) => {
+let Model = ({ models, organisms }) => {
   const match = useRouteMatch();
   const id = match.params.id;
 
@@ -37,8 +37,15 @@ let Model = ({ models }) => {
     else {
       details = { ...found };
       details = filterKeys(details, ['directedG2GEdge', 'g2GEdgeCutoff']);
-      if (details.organism)
-        details.organism = <OrganismLink organism={details.organism} />;
+      if (details.organism) {
+        const id = details.organism;
+        let organism;
+        if (isArray(organisms))
+          organism = organisms.find((organism) => organism.id === id);
+        else
+          organism = { id };
+        details.organism = <OrganismLink organism={organism} />;
+      }
       details = humanizeKeys(details);
     }
   }
@@ -66,7 +73,10 @@ let Model = ({ models }) => {
   );
 };
 
-const mapStateToProps = (state) => ({ models: state.models.list });
+const mapStateToProps = (state) => ({
+  models: state.models.list,
+  organisms: state.organisms.list
+});
 
 Model = connect(mapStateToProps)(Model);
 

@@ -4,13 +4,18 @@ import Clickable from '../../components/clickable';
 
 // link to sample details page
 
-const SampleLink = ({ sample = {} }) => (
-  <Clickable
-    to={'/sample/' + sample.id}
-    text={sample.name}
-    link
-    aria-label={'Open details page for sample ' + sample.name}
-  />
-);
+const SampleLink = ({ sample = {} }) => {
+  const { id, name } = sample;
+  const label = name || id || '-';
+
+  return (
+    <Clickable
+      to={'/sample/' + id}
+      text={label}
+      link
+      aria-label={'Open details page for sample ' + label}
+    />
+  );
+};
 
 export default SampleLink;
