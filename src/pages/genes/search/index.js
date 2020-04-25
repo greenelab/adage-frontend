@@ -49,6 +49,7 @@ let Search = ({ results, select, deselect, dispatch }) => (
     }}
     SingleComponent={<Single />}
     MultiComponent={<Multi />}
+    storageKey='geneSearch'
   />
 );
 

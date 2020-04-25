@@ -29,6 +29,7 @@ let Search = ({ results, select, search }) => (
       select({ accession: results[highlightedIndex].accession })
     }
     SingleComponent={<Single />}
+    storageKey='experimentSearch'
   />
 );
 
