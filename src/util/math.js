@@ -55,7 +55,7 @@ export const calculateEnrichedSignatures = ({
   geneList,
   signatureList
 }) => {
-  // if we dont have all we need, exit
+  // if we don't have all we need, exit
   if (
     !isArray(selectedGenes) ||
     !selectedGenes.length ||
@@ -154,7 +154,7 @@ export const calculateVolcanoSignatures = ({
   diamondGroup,
   spadeGroup
 }) => {
-  // if we dont have all we need, exit
+  // if we don't have all we need, exit
   if (
     !isArray(signatureList) ||
     !signatureList.length ||
@@ -167,14 +167,23 @@ export const calculateVolcanoSignatures = ({
   )
     return [];
 
-  // take signature id and sample id, and find value of associated activity
-  const getActivity = (signatureId, sampleId) =>
-    (
-      activities.find(
-        (activity) =>
-          activity.signature === signatureId && activity.sample === sampleId
-      ) || {}
-    ).value;
+  // take sample id and signature id, and find value of associated activity
+  const getActivity = (sampleId, signatureId) => {
+    const found = activities.find(
+      (activity) =>
+        activity.sample === sampleId &&
+        (activity.signature === signatureId || !signatureId)
+    );
+    return (found || {}).value;
+  };
+
+  // if not all diamond and spade samples can be found in activities, exit
+  // because if any can't, ttest below won't get length >= 2 arrays
+  if (
+    !diamondGroup.every((id) => getActivity(id)) ||
+    !spadeGroup.every((id) => getActivity(id))
+  )
+    return [];
 
   // remove any signatures that are not part of activities
   signatureList = signatureList.filter((signature) =>
@@ -184,11 +193,11 @@ export const calculateVolcanoSignatures = ({
   let volcanoSignatures = signatureList.map((signature) => {
     // get associated activity for each diamond sample
     const diamondActivities = diamondGroup
-      .map((sampleId) => getActivity(signature.id, sampleId))
+      .map((sampleId) => getActivity(sampleId, signature.id))
       .filter((activity) => activity);
     // get associated activity for each spade sample
     const spadeActivities = spadeGroup
-      .map((sampleId) => getActivity(signature.id, sampleId))
+      .map((sampleId) => getActivity(sampleId, signature.id))
       .filter((activity) => activity);
 
     // compute difference between diamond and spade activity means
@@ -210,8 +219,9 @@ export const calculateVolcanoSignatures = ({
   // put corrected p values back into volcano signatures
   volcanoSignatures = volcanoSignatures.map((volcanoSignature, index) => ({
     ...volcanoSignature,
-    // negative log 10 transform and round decimal point
-    pValue: -Math.log10(correctedPValues[index])
+    pValue: correctedPValues[index],
+    // negative log 10 transform
+    pValueTrans: -Math.log10(correctedPValues[index])
   }));
 
   return volcanoSignatures;
@@ -224,7 +234,7 @@ export const calculateEnrichedGenes = ({
   signatureParticipations,
   geneList
 }) => {
-  // if we dont have all we need, exit
+  // if we don't have all we need, exit
   if (
     !isArray(geneList) ||
     !geneList.length ||

@@ -24,11 +24,11 @@ const Experiments = () => (
       <Section header='Selected Experiment'>
         <Selected />
       </Section>
-      <Section header='Activity Heatmap'>
-        <Activities />
-      </Section>
       <Section header='Sample Groups'>
         <Group />
+      </Section>
+      <Section header='Activity Heatmap'>
+        <Activities />
       </Section>
       <Section header='Volcano Plot'>
         <Volcano />

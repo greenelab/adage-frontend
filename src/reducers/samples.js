@@ -37,7 +37,6 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'SELECT_SAMPLES': {
       draft.selected = payload.ids.map((id) => ({ id }));
-      draft.groups = {};
       break;
     }
 
@@ -55,16 +54,13 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'GROUP_SAMPLES_FROM_URL': {
-      draft.groups = {};
-      if (
-        !payload.index ||
-        !payload.ids ||
-        !isArray(payload.ids) ||
-        !payload.ids.length
-      )
-        draft.groups[payload.index] = [];
+      const { index, ids } = payload;
+      if (!index)
+        break;
+      if (!isArray(ids) || !ids.length)
+        draft.groups[index] = [];
       else
-        draft.groups[payload.index] = payload.ids;
+        draft.groups[index] = ids;
       break;
     }
 
@@ -111,8 +107,7 @@ export const isGrouped = (groups, id) => {
       return key;
   }
 
-
-  return -1;
+  return '';
 };
 
 export const filterGrouped = (groups, id) => {

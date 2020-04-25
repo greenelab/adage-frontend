@@ -14,21 +14,30 @@ const Head = () => {
       .filter((segment) => segment.trim())[0];
 
     // get selected items from url
-    const genes = (new URLSearchParams(location.search).get('genes') || '')
+    const params = new URLSearchParams(location.search);
+    const genes = (params.get('genes') || '').split('-').filter((id) => id)
+      .length;
+    const experiment = params.get('experiment') || '';
+    const diamonds = (params.get('diamond-samples') || '')
       .split('-')
       .filter((id) => id).length;
-    const experiment =
-      new URLSearchParams(location.search).get('experiment') || '';
+    const spades = (params.get('spade-samples') || '')
+      .split('-')
+      .filter((id) => id).length;
 
-    // make params string based on selected items
-    const params = [];
+    // make props string based on selected items
+    const props = [];
     if (genes)
-      params.push(genes + ' selected');
+      props.push(genes + ' genes');
     if (experiment)
-      params.push(experiment);
+      props.push(experiment);
+    if (diamonds)
+      props.push(diamonds + ' diamonds');
+    if (spades)
+      props.push(spades + ' spades');
 
-    // concat page and params into final title
-    const title = ['Adage', page, ...params]
+    // concat page and props into final title
+    const title = ['Adage', page, ...props]
       .filter((entry) => entry)
       .join(' · ');
 

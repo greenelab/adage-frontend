@@ -8,9 +8,12 @@ import './index.css';
 
 const Footer = () => (
   <footer>
-    <GreeneLabLogo />
+    <a href='https://greenelab.com/'>
+      <GreeneLabLogo />
+    </a>
     <span>
-      Project of the <a href='https://greenelab.com/'>Greene Lab</a>
+      Project of the <a href='https://greenelab.com/'>Greene Lab</a> and the{' '}
+      <a href='https://sites.dartmouth.edu/hoganlab/'>Hogan Lab</a>
     </span>
   </footer>
 );

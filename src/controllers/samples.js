@@ -46,7 +46,7 @@ let SampleController = ({
   // when selected model or experiment changes
   // get sample activities
   useEffect(() => {
-    // if we dont have all we need, dont even dispatch action
+    // if we don't have all we need, don't even dispatch action
     if (
       !selectedModel.id ||
       !selectedExperiment.samples ||
@@ -64,7 +64,7 @@ let SampleController = ({
   // when sample groups or activities change
   // recalculate volcano plot data
   useEffect(() => {
-    // if we dont have all we need, dont even dispatch action
+    // if we don't have all we need, don't even dispatch action
     if (
       !isArray(signatureList) ||
       !signatureList.length ||

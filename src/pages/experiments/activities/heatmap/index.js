@@ -5,6 +5,7 @@ import * as d3 from 'd3';
 import { useMounted } from '../../../../util/hooks';
 import { useDiff } from '../../../../util/hooks';
 import { stringifyObject } from '../../../../util/object';
+import { getLinkPath } from '../../../../components/clickable';
 
 import './index.css';
 
@@ -73,7 +74,13 @@ const Heatmap = ({ activities, samples, signatures }) => {
           signature: d.signatureName,
           activity: d.value.toFixed(5)
         }))
-      .attr('data-tooltip-speed', 10);
+      .attr('data-tooltip-speed', 10)
+      .on('click', (d) => {
+        const location = window.location;
+        const to = '/signatures';
+        const search = { signature: d.signature };
+        window.location = getLinkPath({ location, to, search }).full;
+      });
     cells.exit().remove();
   }, [
     mountedChanged,

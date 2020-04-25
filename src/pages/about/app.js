@@ -5,6 +5,7 @@ import Clickable from '../../components/clickable';
 import { ReactComponent as GitHubIcon } from '../../images/github.svg';
 import { ReactComponent as AlertIcon } from '../../images/alert.svg';
 import { ReactComponent as MailIcon } from '../../images/mail.svg';
+import GBMFLogo from '../../images/gordon-betty-moore-foundation.png';
 
 import './app.css';
 
@@ -94,6 +95,23 @@ const App = () => (
         (2017)
       </div>
     </div>
+    <p className='help_header weight_semibold size_medium'>Funding</p>
+    <p>
+      This project was made possible by funding from the{' '}
+      <a href='https://www.moore.org/'>Gordon and Betty Moore Foundation</a>,
+      grant number{' '}
+      <a href='https://www.moore.org/grant-detail?grantId=GBMF4552'>GBMF4552</a>
+      .
+    </p>
+    <p className='help_buttons'>
+      <a href='https://www.moore.org/'>
+        <img
+          src={GBMFLogo}
+          height='50px'
+          alt='Gordon and Betty Moore Foundation'
+        />
+      </a>
+    </p>
   </>
 );
 
