@@ -60,7 +60,7 @@ let Network = ({ list, selected, edges }) => {
 // take gene list, selected, and edges to produce nodes and links objects
 // in format that d3 expects
 const constructGraph = ({ list, selected, edges }) => {
-  // if we dont have all we need, exit
+  // if we don't have all we need, exit
   if (
     !isArray(list) ||
     !list.length ||
@@ -86,7 +86,7 @@ const constructGraph = ({ list, selected, edges }) => {
   selected.forEach((selected) => nodes.add(selected.id));
   nodes = [...nodes];
 
-  // dont include links that aren't connected to a selected node, or links
+  // don't include links that aren't connected to a selected node, or links
   // between selected nodes
   const selectedLinks = links.filter((link) =>
     xor(
@@ -131,7 +131,7 @@ const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
   let nodes = fullGraph?.nodes;
   let links = fullGraph?.links;
 
-  // if we dont have all we need, exit
+  // if we don't have all we need, exit
   if (!isArray(nodes) || !isArray(links))
     return;
 

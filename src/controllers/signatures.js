@@ -58,7 +58,7 @@ let SignatureController = ({
   // when selected model or signature changes
   // get signature activities
   useEffect(() => {
-    // if we dont have all we need, dont even dispatch action
+    // if we don't have all we need, don't even dispatch action
     if (!selectedModel.id || !selectedSignature.id)
       return;
 
@@ -72,7 +72,7 @@ let SignatureController = ({
   // when selected organism changes
   // get pickled genes
   useEffect(() => {
-    // if we dont have all we need, dont even dispatch action
+    // if we don't have all we need, don't even dispatch action
     if (!selectedOrganism.scientificName)
       return;
 
@@ -84,7 +84,7 @@ let SignatureController = ({
   // when full gene or signature lists load, or selected genes change
   // recompute enriched gene sets
   useEffect(() => {
-    // if we dont have all we need, dont even dispatch action
+    // if we don't have all we need, don't even dispatch action
     if (
       !isArray(geneList) ||
       !geneList.length ||

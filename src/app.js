@@ -44,12 +44,16 @@ console.log({ basename });
 console.groupEnd();
 
 // redux logger
-const logger = createLogger({ collapsed: true });
+const logger = createLogger({
+  collapsed: true,
+  timestamp: false,
+  titleFormatter: ({ type = '' }) => type
+});
 
 // redux store
 const store = createStore(
   reducer,
-  compose(applyMiddleware(sequenceAction, thunk, logger), querySync)
+  compose(querySync, applyMiddleware(sequenceAction, thunk, logger))
 );
 
 // entry point to the app

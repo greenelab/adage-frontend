@@ -33,23 +33,28 @@ let Table = ({ results, highlightedIndex, select }) => (
         name: 'Accession',
         key: 'accession',
         render: ({ row }) => <ExperimentLink experiment={row} />,
-        width: 'calc((100% - 30px) * 0.25)'
+        width: 'calc((100% - 30px) * 0.07)'
       },
       {
         name: 'Samples',
         key: 'samples',
         value: ({ cell }) => cell?.length,
         render: ({ cell }) => cell?.length,
-        width: 'calc((100% - 30px) * 0.15)',
+        width: 'calc((100% - 30px) * 0.03)',
         align: 'center'
       },
       {
         name: 'Name',
         key: 'name',
-        width: 'calc((100% - 30px) * 0.6)'
+        width: 'calc((100% - 30px) * 0.2)'
+      },
+      {
+        name: 'Description',
+        key: 'description',
+        width: 'calc((100% - 30px) * 0.7)'
       }
     ]}
-    minWidth='500px'
+    minWidth='2000px'
     highlightedIndex={highlightedIndex}
     sortable={false}
   />

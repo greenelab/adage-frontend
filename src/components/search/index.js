@@ -20,7 +20,8 @@ const Search = ({
   onSearch,
   onKeySelect,
   SingleComponent = <></>,
-  MultiComponent = <></>
+  MultiComponent = <></>,
+  storageKey = ''
 }) => {
   // internal state
   const [focused, setFocused] = useState(false);
@@ -97,6 +98,7 @@ const Search = ({
         onFocus={onFocus}
         onBlur={onBlur}
         getClearFunc={getClearFunc}
+        storageKey={storageKey}
       />
       {!expanded && cloneElement(SingleComponent, { highlightedIndex })}
       {expanded && MultiComponent}
@@ -112,7 +114,8 @@ Search.propTypes = {
   onSearch: PropTypes.func,
   onKeySelect: PropTypes.func,
   SingleComponent: PropTypes.node,
-  MultiComponent: PropTypes.node
+  MultiComponent: PropTypes.node,
+  storageKey: PropTypes.string
 };
 
 export default Search;

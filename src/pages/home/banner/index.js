@@ -8,13 +8,10 @@ import './index.css';
 
 // intro section above feature rows
 
-const Banner = () => (
+const Banner = ({ children }) => (
   <section>
     <div className='banner'>
-      <div className='size_medium weight_medium'>
-        Adage is a tool to help you explore and discover new insights from
-        machine learning models
-      </div>
+      <div className='size_medium weight_medium'>{children}</div>
       <Clickable to='/genes' text='Jump In' icon={<ArrowIcon />} button />
       <Clickable to='/about' text='Learn More' icon={<ArrowIcon />} button />
     </div>

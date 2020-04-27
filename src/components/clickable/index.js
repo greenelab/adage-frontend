@@ -95,20 +95,23 @@ Clickable.propTypes = {
 
 export default Clickable;
 
+export const getLinkPath = ({ location, to, search }) => {
+  let { search: params } = location;
+
+  params = new URLSearchParams(params);
+  for (const [key, value] of Object.entries(search))
+    params.set(key, value);
+  params = '?' + params.toString();
+
+  return { pathname: to, search: params, full: to + params };
+};
+
 let LocalLink = (props, ref) => {
   const { to, search, ...rest } = props;
   const location = useLocation();
 
-  const params = new URLSearchParams(location.search);
-  for (const [key, value] of Object.entries(search))
-    params.set(key, value);
-
   return (
-    <Link
-      ref={ref}
-      to={{ pathname: to, search: '?' + params.toString() }}
-      {...rest}
-    />
+    <Link ref={ref} to={getLinkPath({ location, to, search })} {...rest} />
   );
 };
 

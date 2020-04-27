@@ -29,13 +29,17 @@ const Input = ({
   multiPlaceholder = '',
   tooltip = 'Switch to single search',
   multiTooltip = 'Switch to multi search',
+  storageKey = '',
   ...props
 }) => {
   // internal state
   const [focused, setFocused] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(window.localStorage[storageKey] || '');
   const [debouncedValue] = useDebounce(value, debounceDelay);
+
+  if (storageKey)
+    window.localStorage[storageKey] = value;
 
   // change value state
   const changeValue = useCallback(
@@ -150,7 +154,8 @@ Input.propTypes = {
   getClearFunc: PropTypes.func,
   multi: PropTypes.bool,
   placeholder: PropTypes.string,
-  multiPlaceholder: PropTypes.string
+  multiPlaceholder: PropTypes.string,
+  storageKey: PropTypes.string
 };
 
 export default Input;

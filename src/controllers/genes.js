@@ -42,7 +42,7 @@ let GeneController = ({
   // when selected genes change
   // re-get participations
   useEffect(() => {
-    // if we dont have all we need, dont even dispatch action
+    // if we don't have all we need, don't even dispatch action
     if (!selectedGenesLoaded)
       return;
 
@@ -56,7 +56,7 @@ let GeneController = ({
   // when full gene or signature lists load, or selected genes change
   // recompute enriched signatures
   useEffect(() => {
-    // if we dont have all we need, dont even dispatch action
+    // if we don't have all we need, don't even dispatch action
     if (
       !selectedGenesLoaded ||
       !isArray(geneParticipations) ||
@@ -92,7 +92,7 @@ let GeneController = ({
   // when selected model or selected genes change
   // get gene network edges
   useEffect(() => {
-    // if we dont have all we need, dont even dispatch action
+    // if we don't have all we need, don't even dispatch action
     if (!selectedModel.id || !selectedGenesLoaded)
       return;
 

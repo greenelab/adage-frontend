@@ -11,6 +11,7 @@ import { useMounted } from '../../../../util/hooks';
 import { useBbox } from '../../../../util/hooks';
 import { stringifyObject } from '../../../../util/object';
 import { transformString } from '../../../../util/string';
+import { getLinkPath } from '../../../../components/clickable';
 
 import './index.css';
 
@@ -51,7 +52,7 @@ let Plot = ({ volcano }) => {
 
     // find x and y domains (min/max values)
     const xValues = volcano.map((d) => d.meanDiff);
-    const yValues = volcano.map((d) => d.pValue);
+    const yValues = volcano.map((d) => d.pValueTrans);
     const xMax = Math.max(
       Math.abs(Math.min(...xValues)),
       Math.abs(Math.max(...xValues))
@@ -83,7 +84,7 @@ let Plot = ({ volcano }) => {
     const dot = svg
       .select('#volcano_dots')
       .selectAll('.volcano_dot')
-      .data(volcano, (d) => d.meanDiff + ':' + d.pValue);
+      .data(volcano, (d) => d.meanDiff + ':' + d.pValueTrans);
     dot
       .enter()
       .append('circle')
@@ -91,7 +92,7 @@ let Plot = ({ volcano }) => {
       .merge(dot)
       .sort((a, b) => a.highlighted - b.highlighted)
       .attr('cx', (d) => xScale(d.meanDiff))
-      .attr('cy', (d) => yScale(d.pValue))
+      .attr('cy', (d) => yScale(d.pValueTrans))
       .attr('r', radius)
       .attr('fill', (d) => (d.highlighted === false ? '#e0e0e0' : '#26a36c'))
       .attr('stroke', (d) => (d.highlighted === true ? '#000000' : ''))
@@ -99,10 +100,16 @@ let Plot = ({ volcano }) => {
       .attr('aria-label', (d) =>
         stringifyObject({
           signature: d.name,
-          meanDiff: d.meanDiff,
-          pValue: d.pValue
+          meanDiff: d.meanDiff.toFixed(5),
+          pValue: d.pValue.toFixed(5)
         }))
-      .attr('data-tooltip-speed', 10);
+      .attr('data-tooltip-speed', 10)
+      .on('click', (d) => {
+        const location = window.location;
+        const to = '/signatures';
+        const search = { signature: d.id };
+        window.location = getLinkPath({ location, to, search }).full;
+      });
     dot.exit().remove();
   }, [mounted, width, height, volcano]);
 

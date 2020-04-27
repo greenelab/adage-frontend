@@ -22,7 +22,10 @@ const Home = () => (
   <>
     <Header />
     <Main>
-      <Banner />
+      <Banner>
+        Adage helps you explore gene expression data and discover new insights
+        from machine learning models.
+      </Banner>
       <HorizontalLine />
       <Feature
         left
@@ -31,9 +34,9 @@ const Home = () => (
         text='Explore Genes'
         to='/genes'
       >
-        Find signatures that significantly overlap with the genes you're
-        interested in to interpret underlying biological processes. Visualize
-        your model's gene network as an interactive graph display.
+        See how genes relate to each other, other genes, and how they are
+        represented in machine learning signatures. Visualize your model's gene
+        network as an interactive graph display.
       </Feature>
       <HorizontalLine />
       <Feature
@@ -54,10 +57,9 @@ const Home = () => (
         text='Explore Signatures'
         to='/signatures'
       >
-        Find the genes that most strongly influence a signature's activity.
-        Explore experiments with the highest range of activities within a
-        signature. See canonical/curated gene sets that significantly overlap
-        with a signature's associated genes.
+        Understand signatures from machine learning models by exploring the
+        genes that contribute, the experiments in which they vary the most, and
+        which pathways they significantly overlap with.
       </Feature>
     </Main>
     <Footer />
