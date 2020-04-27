@@ -1,22 +1,22 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f01cef5ab246c9a61691f9326fdd3c5d",
-    "url": "/adage-frontend/0856d587da7b08d67b00.worker.js"
+    "revision": "87ca1426831eb228a1d06315bb284992",
+    "url": "/adage-frontend/26f3c96cf071aaa9e215.worker.js"
   },
   {
     "revision": "7b0da54e81150b0223e5019d4186aab3",
-    "url": "/adage-frontend/0856d587da7b08d67b00.worker.js.LICENSE.txt"
+    "url": "/adage-frontend/26f3c96cf071aaa9e215.worker.js.LICENSE.txt"
   },
   {
     "revision": "2412c445b94576e91a0492e405e57243",
     "url": "/adage-frontend/index.html"
   },
   {
-    "revision": "7264aabed54256b616c4",
+    "revision": "3a725f6f68d06b006ef8",
     "url": "/adage-frontend/static/css/main.css"
   },
   {
-    "revision": "7264aabed54256b616c4",
+    "revision": "3a725f6f68d06b006ef8",
     "url": "/adage-frontend/static/js/main.js"
   },
   {
@@ -84,6 +84,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontend/static/media/github.c991d947.svg"
   },
   {
+    "revision": "f759125216366e48809b48a4cb7da2ff",
+    "url": "/adage-frontend/static/media/gordon-betty-moore-foundation.f7591252.png"
+  },
+  {
     "revision": "4b73ee20858af33725234237fa7e8c88",
     "url": "/adage-frontend/static/media/greene-lab-logo.4b73ee20.svg"
   },
@@ -124,8 +128,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/adage-frontend/static/media/model.feef2269.svg"
   },
   {
-    "revision": "2fd8f684b6aa605165e82235e9bcbf61",
-    "url": "/adage-frontend/static/media/organism.2fd8f684.svg"
+    "revision": "149d2f32f7f6fecad8b605f8ad568a77",
+    "url": "/adage-frontend/static/media/organism.149d2f32.svg"
   },
   {
     "revision": "8cdb848b30d92a16a82690c3ad23063b",
