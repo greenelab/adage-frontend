@@ -108,8 +108,8 @@ export const parseObject = (value) => {
   }
 };
 
-// run map function on array and return unique values
-export const uniqueMap = (array, func) => [...new Set([...array.map(func)])];
+// get unique values in array
+export const unique = (array) => [...new Set([...array])];
 
 // check if all entries in array are found in string
 export const includes = (string, array) => {
@@ -117,6 +117,7 @@ export const includes = (string, array) => {
     if (string.indexOf(entry) === -1)
       return false;
   }
+
 
   return true;
 };

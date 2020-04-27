@@ -5,7 +5,7 @@ import { filterKeys } from './object';
 import { toHumanCase } from './string';
 import { toCamelCase } from './string';
 import { cleanValue } from './object';
-import { uniqueMap } from './object';
+import { unique } from './object';
 
 test('flatten object', () => {
   expect(
@@ -155,8 +155,8 @@ test('clean value', () => {
   expect(cleanValue('&quot;')).toBe('"');
 });
 
-test('unique map', () => {
+test('unique', () => {
   expect(
-    uniqueMap([1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 7], (n) => 2 * n)
-  ).toStrictEqual([2, 4, 6, 8, 10, 12, 14]);
+    unique([1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 1, 2, 7])
+  ).toStrictEqual([1, 2, 3, 4, 5, 6, 7]);
 });

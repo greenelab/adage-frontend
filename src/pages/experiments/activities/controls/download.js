@@ -8,8 +8,8 @@ export const downloadImage = () => {
 
 export const downloadTable = ({ activities }) => {
   const data = activities.map((activity) => ({
-    Sample: activity.sampleName,
-    Signature: activity.signatureName,
+    Sample: activity.sample.name,
+    Signature: activity.signature.name,
     Activity: activity.value
   }));
   downloadTsv(data, 'sample-activities');

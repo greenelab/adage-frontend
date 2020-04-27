@@ -9,6 +9,7 @@ import Activities from './activities';
 import Selected from './selected';
 import Group from './group';
 import Volcano from './volcano';
+import Order from './order';
 
 import './index.css';
 
@@ -25,10 +26,14 @@ const Experiments = () => (
         <Selected />
       </Section>
       <Section header='Sample Groups'>
-        <Group />
+        <Order>
+          <Group />
+        </Order>
       </Section>
       <Section header='Activity Heatmap'>
-        <Activities />
+        <Order>
+          <Activities />
+        </Order>
       </Section>
       <Section header='Volcano Plot'>
         <Volcano />

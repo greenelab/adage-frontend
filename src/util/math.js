@@ -124,26 +124,24 @@ export const calculateEnrichedSignatures = ({
   return enrichedSignatures;
 };
 
-// cluster table of data using hclust library
-export const clusterData = ({ data, idKey, valueKey }) => {
+// cluster table of activities using hclust library
+export const clusterActivities = ({ activities, prop }) => {
   // transform
-  // [ { id, value }, { id, value }, ... ]
+  // [ { sample, value }, { sample, value }, ... ]
   // to
-  // [ { uniqueId, values: [ value, value, ... ] }, ... ]
-  let newData = {};
-  for (const d of data) {
-    const id = d[idKey];
-    const value = d[valueKey];
-    if (!newData[id])
-      newData[id] = { [idKey]: id, [valueKey]: [] };
-    newData[id][valueKey].push(value);
+  // [ { sample, values: [ value, value, ... ] }, ... ]
+  let data = {};
+  for (const d of activities) {
+    const id = d[prop].id;
+    const value = d.value;
+    if (!data[id])
+      data[id] = { id, values: [] };
+    data[id].values.push(value);
   }
-  newData = [...Object.values(newData)];
+  data = [...Object.values(data)];
 
   // cluster data using hclust library and give back ordered list of ids
-  return hclust({ data: newData, key: valueKey }).order.map(
-    (index) => newData[index][idKey]
-  );
+  return hclust({ data, key: 'values' }).order.map((index) => data[index].id);
 };
 
 // calculate data for volcano plot
