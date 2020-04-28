@@ -101,13 +101,11 @@ const reducer = produce((draft, type, payload, meta) => {
 
 export default reducer;
 
-export const isGrouped = (groups, id) => {
+export const groupIndex = (groups, id) => {
   for (const [key, value] of Object.entries(groups)) {
     if (isArray(value) && value.includes(id))
       return key;
   }
-
-  return '';
 };
 
 export const filterGrouped = (groups, id) => {

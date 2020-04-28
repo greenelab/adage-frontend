@@ -108,8 +108,8 @@ export const parseObject = (value) => {
   }
 };
 
-// run map function on array and return unique values
-export const uniqueMap = (array, func) => [...new Set([...array.map(func)])];
+// get unique values in array
+export const unique = (array) => [...new Set([...array])];
 
 // check if all entries in array are found in string
 export const includes = (string, array) => {
@@ -120,3 +120,7 @@ export const includes = (string, array) => {
 
   return true;
 };
+
+// sort array of objects in specific order by key
+export const sort = (array, order, key) =>
+  [...array].sort((a, b) => order.indexOf(a[key]) - order.indexOf(b[key]));

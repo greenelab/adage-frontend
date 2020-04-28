@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import 'intersection-observer'; // polyfill for ios
 
 import HorizontalLine from '../../components/horizontal-line';
+import { useDiff } from '../../util/hooks';
 import { isNumber } from '../../util/types';
 import { isInteger } from '../../util/types';
 import { isObject } from '../../util/types';
@@ -33,6 +34,7 @@ import './index.css';
 // defaultSort - [{ id, desc }]
 // sortable - boolean
 // highlightedIndex - integer
+// onSort - func
 
 const precision = 3;
 
@@ -47,12 +49,14 @@ const Table = ({
   sortable = true,
   freezeRow = true,
   freezeCol = true,
-  highlightedIndex
+  highlightedIndex,
+  onSort = () => null
 }) => {
   // internal state
   const [sortKey, setSortKey] = useState(defaultSortKey);
   const [sortUp, setSortUp] = useState(defaultSortUp);
   const ref = useRef();
+  onSort = useCallback(onSort, [onSort]);
 
   // when default sort key changes, set sort key
   // useful for when different table renders in place of old one
@@ -98,8 +102,10 @@ const Table = ({
 
   // get final table data to display
   const table = useMemo(() => {
-    if (sortKey === null || sortUp === null)
-      return [...data];
+    if (sortKey === null || sortUp === null) {
+      const newData = [...data];
+      return newData;
+    }
 
     const value = (columns.find((column) => column.key === sortKey) || {})
       .value;
@@ -121,7 +127,8 @@ const Table = ({
       };
     }
 
-    return [...data].sort(sortFunc);
+    const newData = [...data].sort(sortFunc);
+    return newData;
   }, [columns, compare, data, sortKey, sortUp]);
 
   // get table rows between indexes
@@ -135,6 +142,12 @@ const Table = ({
   );
 
   const root = ref?.current;
+
+  const tableDiff = useDiff(table);
+  useEffect(() => {
+    if (tableDiff)
+      onSort(table);
+  }, [onSort, table, tableDiff]);
 
   return (
     <TableContext.Provider
@@ -172,7 +185,8 @@ Table.propTypes = {
   sortable: PropTypes.bool,
   freezeRow: PropTypes.bool,
   freezeCol: PropTypes.bool,
-  highlightedIndex: PropTypes.number
+  highlightedIndex: PropTypes.number,
+  onSort: PropTypes.func
 };
 
 export default Table;

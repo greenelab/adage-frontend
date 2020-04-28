@@ -7,8 +7,9 @@ import Section from '../../components/section';
 import Search from './search';
 import Activities from './activities';
 import Selected from './selected';
-import Group from './group';
+import Samples from './samples';
 import Volcano from './volcano';
+import Order from './order';
 
 import './index.css';
 
@@ -24,12 +25,14 @@ const Experiments = () => (
       <Section header='Selected Experiment'>
         <Selected />
       </Section>
-      <Section header='Sample Groups'>
-        <Group />
-      </Section>
-      <Section header='Activity Heatmap'>
-        <Activities />
-      </Section>
+      <Order>
+        <Section header='Samples'>
+          <Samples />
+        </Section>
+        <Section header='Activity Heatmap'>
+          <Activities />
+        </Section>
+      </Order>
       <Section header='Volcano Plot'>
         <Volcano />
       </Section>

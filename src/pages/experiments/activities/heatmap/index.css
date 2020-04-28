@@ -1,33 +1,41 @@
-#heatmap {
+.activities_header,
+.activities_row {
   display: flex;
-  flex-wrap: wrap;
-  width: 100%;
 }
-.heatmap_left_col {
-  box-sizing: border-box;
-  display: inline-block;
-  width: 25%;
-  padding-right: 10px;
-  text-align: center;
-}
-.heatmap_right_col {
-  box-sizing: border-box;
-  display: inline-block;
-  width: 75%;
-  overflow-x: auto;
-  overflow-y: auto;
-  text-align: center;
-}
-.heatmap_row {
+.activities_header > *,
+.activities_row > * > * {
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
+  min-height: 30px;
+}
+.activities_header > :nth-child(1),
+.activities_row > :nth-child(1) {
+  width: 60px;
+}
+.activities_header > :nth-child(2),
+.activities_row > :nth-child(2) {
+  width: 100px;
+}
+.activities_header > :nth-child(3),
+.activities_row > :nth-child(3) {
+  width: calc(100% - 60px - 100px);
+}
+.activities_row > :nth-child(2) {
+  box-sizing: border-box;
+  justify-content: flex-start;
+  padding: 0 5px;
+}
+.activities_row > :nth-child(2) > * {
+  justify-content: flex-start;
+}
+.activities_row > :nth-child(3) {
+  overflow-x: auto;
 }
 .heatmap_cell {
   cursor: pointer;
 }
-#heatmap svg:hover .heatmap_cell {
+#heatmap:hover .heatmap_cell {
   opacity: 0.35;
 }
 .heatmap_cell:hover {

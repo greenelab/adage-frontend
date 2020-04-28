@@ -1,7 +1,11 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useContext } from 'react';
 import * as d3 from 'd3';
 
+import { GroupButtons } from '../../group';
+import SampleLink from '../../../sample/link';
+import { OrderContext } from '../../order';
 import { useMounted } from '../../../../util/hooks';
 import { useDiff } from '../../../../util/hooks';
 import { stringifyObject } from '../../../../util/object';
@@ -18,26 +22,37 @@ export let svg;
 
 // sample activity heatmap
 
-const Heatmap = ({ activities, samples, signatures }) => {
+const Heatmap = ({ activities }) => {
   // internal state
+  const { sampleOrder, signatureOrder } = useContext(OrderContext);
   const mounted = useMounted();
-  const mountedChanged = useDiff(mounted);
-  const samplesChanged = useDiff(JSON.stringify(samples));
-  const signaturesChanged = useDiff(JSON.stringify(signatures));
 
-  const findSample = (id) =>
-    activities.find((activity) => activity.sample === id).sampleName;
-  const sampleNames = samples.map(findSample).reverse();
-  const width = signatures.length * cellWidth;
-  const height = samples.length * cellHeight;
+  // detect prop change
+  const mountedChanged = useDiff(mounted);
+  const activitiesChanged = useDiff(activities);
+  const samplesChanged = useDiff(sampleOrder);
+  const signaturesChanged = useDiff(signatureOrder);
+
+  // get list of samples in order
+  let samples = activities.map((activity) => activity.sample);
+  samples = sampleOrder.map((id) => samples.find((sample) => sample.id === id));
+
+  // heatmap dimensions
+  const width = signatureOrder.length * cellWidth;
+  const height = sampleOrder.length * cellHeight;
 
   // redraw heatmap
   useEffect(() => {
-    // if mounted or samples changed or signatures changed, redraw
-    if (!mountedChanged && !samplesChanged && !signaturesChanged)
+    // redraw when mounted, activities, sample order, or signature order change
+    if (
+      !mountedChanged &&
+      !activitiesChanged &&
+      !samplesChanged &&
+      !signaturesChanged
+    )
       return;
 
-    svg = d3.select('#heatmap svg');
+    svg = d3.select('#heatmap');
 
     // find min and max values
     const extent = d3.extent(activities.map((d) => d.value));
@@ -49,79 +64,78 @@ const Heatmap = ({ activities, samples, signatures }) => {
       .domain(extent);
 
     // x axis scale
-    const xScale = d3.scaleBand().range([0, width]).domain(signatures);
+    const xScale = d3.scaleBand().range([0, width]).domain(signatureOrder);
 
     // y axis scale
-    const yScale = d3.scaleBand().range([height, 0]).domain(samples);
+    const yScale = d3.scaleBand().range([height, 0]).domain(sampleOrder);
 
     // draw cells
-    const cells = svg
-      .selectAll('.heatmap_cell')
-      .data(activities, (d) => d.signature + ':' + d.sample);
+    const cells = svg.selectAll('.heatmap_cell').data(activities);
     cells
       .enter()
       .append('rect')
       .attr('class', 'heatmap_cell')
       .merge(cells)
-      .attr('x', (d) => xScale(d.signature) + horizontalSpacing - 0.25)
-      .attr('y', (d) => yScale(d.sample) + verticalSpacing - 0.25)
+      .attr('x', (d) => xScale(d.signature.id) + horizontalSpacing - 0.25)
+      .attr('y', (d) => yScale(d.sample.id) + verticalSpacing - 0.25)
       .attr('width', cellWidth - horizontalSpacing * 2 + 0.5)
       .attr('height', cellHeight - verticalSpacing * 2 + 0.5)
       .attr('fill', (d) => colorScale(d.value))
       .attr('aria-label', (d) =>
         stringifyObject({
-          sample: d.sampleName,
-          signature: d.signatureName,
+          sample: d.sample.name,
+          signature: d.signature.name,
           activity: d.value.toFixed(5)
         }))
       .attr('data-tooltip-speed', 10)
+      .attr('data-tooltip-h-align', 'right')
       .on('click', (d) => {
         const location = window.location;
         const to = '/signatures';
-        const search = { signature: d.signature };
+        const search = { signature: d.signature.id };
         window.location = getLinkPath({ location, to, search }).full;
       });
     cells.exit().remove();
   }, [
     mountedChanged,
-    samplesChanged,
     activities,
-    samples,
-    signatures,
+    sampleOrder,
+    signatureOrder,
+    activitiesChanged,
+    samplesChanged,
+    signaturesChanged,
     width,
-    height,
-    signaturesChanged
+    height
   ]);
 
   return (
-    <div id='heatmap'>
-      <div
-        className='heatmap_left_col weight_medium'
-        style={{ height: cellHeight }}
-      >
-        Samples
+    <div id='activities'>
+      <div className='activities_header weight_medium'>
+        <div>Group</div>
+        <div>Sample</div>
+        <div>Signatures</div>
       </div>
-      <div
-        className='heatmap_right_col weight_medium'
-        style={{ height: cellHeight }}
-      >
-        Signatures
-      </div>
-      <div className='heatmap_left_col'>
-        {sampleNames.map((name, index) => (
-          <div
-            key={index}
-            className='heatmap_row'
-            style={{ height: cellHeight }}
-          >
-            <span className='nowrap' aria-label=''>
-              {name}
-            </span>
-          </div>
-        ))}
-      </div>
-      <div className='heatmap_right_col'>
-        <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} />
+      <div className='activities_row'>
+        <div>
+          {samples.map((sample, index) => (
+            <GroupButtons key={index} sample={sample} />
+          ))}
+        </div>
+        <div>
+          {samples.map((sample, index) => (
+            <div key={index}>
+              <SampleLink sample={sample} />
+            </div>
+          ))}
+        </div>
+        <div>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            id='heatmap'
+            width={width}
+            height={height}
+          />
+        </div>
       </div>
     </div>
   );
