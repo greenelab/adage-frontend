@@ -118,6 +118,9 @@ export const includes = (string, array) => {
       return false;
   }
 
-
   return true;
 };
+
+// sort array of objects in specific order by key
+export const sort = (array, order, key) =>
+  [...array].sort((a, b) => order.indexOf(a[key]) - order.indexOf(b[key]));

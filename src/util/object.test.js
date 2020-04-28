@@ -6,6 +6,8 @@ import { toHumanCase } from './string';
 import { toCamelCase } from './string';
 import { cleanValue } from './object';
 import { unique } from './object';
+import { includes } from './object';
+import { sort } from './object';
 
 test('flatten object', () => {
   expect(
@@ -156,7 +158,24 @@ test('clean value', () => {
 });
 
 test('unique', () => {
+  expect(unique([1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 1, 2, 7])).toStrictEqual([
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ]);
+});
+
+test('includes', () => {
+  expect(includes('test string', ['te', 'st', 'g'])).toEqual(true);
+  expect(includes('test string', ['te', 'ab'])).toEqual(false);
+});
+
+test('sort', () => {
   expect(
-    unique([1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 1, 2, 7])
-  ).toStrictEqual([1, 2, 3, 4, 5, 6, 7]);
+    sort([{ id: 1 }, { id: 2 }, { id: 3 }], [2, 1, 3], 'id')
+  ).toStrictEqual([{ id: 2 }, { id: 1 }, { id: 3 }]);
 });

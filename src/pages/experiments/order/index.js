@@ -11,39 +11,46 @@ import { useDiff } from '../../../util/hooks';
 
 export const OrderContext = createContext({});
 
-// context controller to share sample order across sections
+// sample and signature order, shared across sections of experiments page
 
 let Order = ({ activities, children }) => {
   const [sampleOrder, setSampleOrder] = useState([]);
   const [signatureOrder, setSignatureOrder] = useState([]);
   const activitiesChanged = useDiff(JSON.stringify(activities));
 
-  const reset = useCallback(() => {
+  const changeSampleOrder = useCallback((order) => setSampleOrder(order), []);
+
+  const changeSignatureOrder = useCallback(
+    (order) => setSignatureOrder(order),
+    []
+  );
+
+  const resetOrders = useCallback(() => {
     if (isArray(activities)) {
       const map = (key) => unique(activities.map((activity) => activity[key]));
-      setSampleOrder(map('sample'));
-      setSignatureOrder(map('signature'));
+      changeSampleOrder(map('sample'));
+      changeSignatureOrder(map('signature'));
     } else {
-      setSampleOrder([]);
-      setSignatureOrder([]);
+      changeSampleOrder([]);
+      changeSignatureOrder([]);
     }
-  }, [activities]);
+  }, [activities, changeSampleOrder, changeSignatureOrder]);
 
   useEffect(() => {
     if (!activitiesChanged)
       return;
 
-    reset();
-  }, [activitiesChanged, reset]);
+    resetOrders();
+  }, [activitiesChanged, resetOrders]);
 
   return (
     <OrderContext.Provider
       value={{
         sampleOrder,
         signatureOrder,
-        setSampleOrder,
-        setSignatureOrder,
-        reset
+        changeSampleOrder,
+        changeSignatureOrder,
+        resetOrders
       }}
     >
       {children}

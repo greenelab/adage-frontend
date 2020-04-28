@@ -26,11 +26,13 @@ let signatureProcess;
 const Controls = ({ activities }) => {
   const [sortingSamples, setSortingSamples] = useState(false);
   const [sortingSignatures, setSortingSignatures] = useState(false);
-  const { setSampleOrder, setSignatureOrder, reset } = useContext(OrderContext);
+  const { changeSampleOrder, changeSignatureOrder, resetOrders } = useContext(
+    OrderContext
+  );
 
   // sort samples with clustering
   const sortSamples = useCallback(async () => {
-    // if already sorting or sorted, don't sort again
+    // if already sorting, don't sort again
     if (sampleProcess)
       return;
 
@@ -50,15 +52,16 @@ const Controls = ({ activities }) => {
       return;
 
     // set new
-    setSampleOrder(newSamples);
+    changeSampleOrder(newSamples);
 
     // set status to done
     setSortingSamples(false);
-  }, [activities, setSampleOrder]);
+    sampleProcess = undefined;
+  }, [activities, changeSampleOrder]);
 
   // sort signatures with clustering
   const sortSignatures = useCallback(async () => {
-    // if already sorting or sorted, don't sort again
+    // if already sorting, don't sort again
     if (signatureProcess)
       return;
 
@@ -78,19 +81,20 @@ const Controls = ({ activities }) => {
       return;
 
     // set new
-    setSignatureOrder(newSignatures);
+    changeSignatureOrder(newSignatures);
 
     // set status to done
     setSortingSignatures(false);
-  }, [activities, setSignatureOrder]);
+    signatureProcess = undefined;
+  }, [activities, changeSignatureOrder]);
 
   const resetSorting = useCallback(() => {
     setSortingSamples(false);
     sampleProcess = undefined;
     setSortingSignatures(false);
     signatureProcess = undefined;
-    reset();
-  }, [reset]);
+    resetOrders();
+  }, [resetOrders]);
 
   return (
     <>

@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import * as d3 from 'd3';
 
+import { GroupButtons } from '../../group';
+import SampleLink from '../../../sample/link';
 import { OrderContext } from '../../order';
 import { useMounted } from '../../../../util/hooks';
 import { useDiff } from '../../../../util/hooks';
@@ -22,13 +24,20 @@ export let svg;
 
 const Heatmap = ({ activities }) => {
   // internal state
-  const mounted = useMounted();
-  const mountedChanged = useDiff(mounted);
   const { sampleOrder, signatureOrder } = useContext(OrderContext);
-  const activitiesChanged = useDiff(JSON.stringify(activities));
-  const samplesChanged = useDiff(JSON.stringify(sampleOrder));
-  const signaturesChanged = useDiff(JSON.stringify(signatureOrder));
+  const mounted = useMounted();
 
+  // detect prop change
+  const mountedChanged = useDiff(mounted);
+  const activitiesChanged = useDiff(activities);
+  const samplesChanged = useDiff(sampleOrder);
+  const signaturesChanged = useDiff(signatureOrder);
+
+  // get list of samples in order
+  let samples = activities.map((activity) => activity.sample);
+  samples = sampleOrder.map((id) => samples.find((sample) => sample.id === id));
+
+  // heatmap dimensions
   const width = signatureOrder.length * cellWidth;
   const height = sampleOrder.length * cellHeight;
 
@@ -43,7 +52,7 @@ const Heatmap = ({ activities }) => {
     )
       return;
 
-    svg = d3.select('#heatmap svg');
+    svg = d3.select('#heatmap');
 
     // find min and max values
     const extent = d3.extent(activities.map((d) => d.value));
@@ -79,6 +88,7 @@ const Heatmap = ({ activities }) => {
           activity: d.value.toFixed(5)
         }))
       .attr('data-tooltip-speed', 10)
+      .attr('data-tooltip-h-align', 'right')
       .on('click', (d) => {
         const location = window.location;
         const to = '/signatures';
@@ -99,22 +109,33 @@ const Heatmap = ({ activities }) => {
   ]);
 
   return (
-    <div id='heatmap'>
-      <div
-        className='heatmap_left_col weight_medium'
-        style={{ height: cellHeight }}
-      >
-        Samples
+    <div id='activities'>
+      <div className='activities_header weight_medium'>
+        <div>Group</div>
+        <div>Sample</div>
+        <div>Signatures</div>
       </div>
-      <div
-        className='heatmap_right_col weight_medium'
-        style={{ height: cellHeight }}
-      >
-        Signatures
-      </div>
-      <div className='heatmap_left_col'></div>
-      <div className='heatmap_right_col'>
-        <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} />
+      <div className='activities_row'>
+        <div>
+          {samples.map((sample, index) => (
+            <GroupButtons key={index} sample={sample} />
+          ))}
+        </div>
+        <div>
+          {samples.map((sample, index) => (
+            <div key={index}>
+              <SampleLink sample={sample} />
+            </div>
+          ))}
+        </div>
+        <div>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            id='heatmap'
+            width={width}
+            height={height}
+          />
+        </div>
       </div>
     </div>
   );

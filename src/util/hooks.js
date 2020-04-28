@@ -61,9 +61,9 @@ export const useMounted = () => {
 export const useDiff = (value) => {
   const prevValue = useRef();
   useEffect(() => {
-    prevValue.current = value;
+    prevValue.current = JSON.stringify(value);
   });
-  return value !== prevValue.current;
+  return JSON.stringify(value) !== prevValue.current;
 };
 
 // get the inner text of an element

@@ -1,30 +1,68 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Alert from '../../../components/alert';
-import Table from './table';
-import Controls from './controls';
+import Clickable from '../../../components/clickable';
+import { groupSample } from '../../../actions/samples';
+import { ungroupSample } from '../../../actions/samples';
+import { groupIndex } from '../../../reducers/samples';
 
-import './index.css';
+import { ReactComponent as DiamondIcon } from '../../../images/diamond.svg';
+import { ReactComponent as SpadeIcon } from '../../../images/spade.svg';
 
-// selected experiment section
+// group button component, shared across sections of experiments page
 
-let Selected = ({ anySelected }) => (
-  <>
-    {anySelected === false && <Alert text='No experiment selected' />}
-    {anySelected === true && (
-      <>
-        <Table />
-        <Controls />
-      </>
-    )}
-  </>
+export const GroupButtons = ({ sample }) => (
+  <div>
+    <GroupButton
+      sample={sample}
+      index='diamond'
+      color='var(--blue)'
+      Icon={DiamondIcon}
+    />
+    <GroupButton
+      sample={sample}
+      index='spade'
+      color='var(--red)'
+      Icon={SpadeIcon}
+    />
+  </div>
 );
 
-const mapStateToProps = (state) => ({
-  anySelected: state.experiments.selected?.samples?.length ? true : false
+let GroupButton = ({
+  sample,
+  groupIndex,
+  index,
+  color,
+  Icon,
+  group,
+  ungroup
+}) => {
+  const isGrouped = groupIndex === index;
+  const defaultColor = 'var(--light-gray)';
+  return (
+    <Clickable
+      icon={<Icon />}
+      button
+      onClick={() =>
+        (isGrouped ? ungroup : group)({ index: index, id: sample.id })
+      }
+      style={{ color: isGrouped ? color : defaultColor }}
+      aria-label={
+        isGrouped ? 'Ungroup this sample' : 'Put this sample in group ' + index
+      }
+    />
+  );
+};
+
+const mapStateToProps = (state, props) => ({
+  groupIndex: groupIndex(state.samples.groups, props.sample.id)
 });
 
-Selected = connect(mapStateToProps)(Selected);
+const mapDispatchToProps = (dispatch) => ({
+  group: (...args) => dispatch(groupSample(...args)),
+  ungroup: (...args) => dispatch(ungroupSample(...args))
+});
 
-export default Selected;
+GroupButton = connect(mapStateToProps, mapDispatchToProps)(GroupButton);
+
+export { GroupButton };

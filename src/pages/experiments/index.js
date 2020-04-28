@@ -7,7 +7,7 @@ import Section from '../../components/section';
 import Search from './search';
 import Activities from './activities';
 import Selected from './selected';
-import Group from './group';
+import Samples from './samples';
 import Volcano from './volcano';
 import Order from './order';
 
@@ -25,16 +25,14 @@ const Experiments = () => (
       <Section header='Selected Experiment'>
         <Selected />
       </Section>
-      <Section header='Sample Groups'>
-        <Order>
-          <Group />
-        </Order>
-      </Section>
-      <Section header='Activity Heatmap'>
-        <Order>
+      <Order>
+        <Section header='Samples'>
+          <Samples />
+        </Section>
+        <Section header='Activity Heatmap'>
           <Activities />
-        </Order>
-      </Section>
+        </Section>
+      </Order>
       <Section header='Volcano Plot'>
         <Volcano />
       </Section>
