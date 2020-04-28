@@ -1,6 +1,6 @@
 // based on https://github.com/rafrex/spa-github-pages/blob/gh-pages/index.html
 
-const { search, href: originalUrl } = location;
+const { search, href: originalUrl } = window.location;
 
 const newUrl = decodeURIComponent(
   new URLSearchParams(search).get('path') || ''
@@ -9,4 +9,4 @@ const newUrl = decodeURIComponent(
 console.log({ originalUrl, newUrl });
 
 if (newUrl)
-  history.replaceState(null, null, newUrl);
+  window.history.replaceState(null, null, newUrl);
