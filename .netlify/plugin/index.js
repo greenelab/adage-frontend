@@ -1,6 +1,7 @@
 // clear contents of the Netlify build cache before each build
 module.exports = {
   async onPreBuild({ utils }) {
+    await utils.cache.remove('node_modules');
     const files = await utils.cache.list();
     console.log(files.length, 'cache files found');
     for (const file of files) {
