@@ -1,7 +1,30 @@
+.cite_frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: dashed 2px var(--light-gray);
+}
 .cite_box {
-  background: var(--off-white);
   padding: 20px;
+  flex-grow: 1;
 }
 .cite_box > *:not(:last-child) {
   margin-bottom: 3px;
+}
+.altmetric {
+  width: 50px;
+  height: 50px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: 10px;
+}
+.altmetric > *,
+.altmetric img {
+  width: 50px;
+  height: 50px;
+}
+.altmetric_small > *,
+.altmetric_small img  {
+  width: 30px;
+  height: 30px;
 }

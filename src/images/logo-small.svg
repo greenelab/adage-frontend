@@ -6,12 +6,12 @@
   id="logo_small"
 >
   <style>
-    svg#logo_small:hover path.wave,
-    a:hover > svg#logo_small path.wave {
-      animation: offset 2s ease-in-out forwards infinite;
+    svg#logo_small:hover #logo_small_wave,
+    a:hover > svg#logo_small #logo_small_wave {
+      animation: logo_small_wave 2s ease-in-out forwards infinite;
       stroke-dasharray: 100 50;
     }
-    @keyframes offset {
+    @keyframes logo_small_wave {
       0% {
         stroke-dashoffset: 150;
       }
@@ -19,11 +19,11 @@
         stroke-dashoffset: 0;
       }
     }
-    svg#logo_small:hover circle.dot,
-    a:hover > svg#logo_small circle.dot {
-      animation: translate 2s ease-in-out forwards infinite;
+    svg#logo_small:hover #logo_small_dot,
+    a:hover > svg#logo_small #logo_small_dot {
+      animation: logo_small_dot 2s ease-in-out forwards infinite;
     }
-    @keyframes translate {
+    @keyframes logo_small_dot {
       0% {
         transform: translate(0, 0);
       }
@@ -42,7 +42,7 @@
     }
   </style>
   <path
-    class="wave"
+    id="logo_small_wave"
     fill="none"
     stroke="currentColor"
     stroke-width="7"
@@ -52,5 +52,5 @@
       C 70 35 65 65 85 65
     "
   />
-  <circle class="dot" cx="50" cy="60" r="6" fill="currentColor" />
+  <circle id="logo_small_dot" cx="50" cy="60" r="6" fill="currentColor" />
 </svg>

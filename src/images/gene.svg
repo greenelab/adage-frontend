@@ -4,6 +4,50 @@
   height="15"
   viewBox="0 0 100 100"
 >
+  <style>
+    .nav_button:hover .gene_strand {
+      animation: gene_strand 2s linear forwards infinite;
+      stroke-dasharray: 134.7;
+    }
+    @keyframes gene_strand {
+      0% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: -269.4;
+      }
+    }
+    .nav_button:hover .gene_base {
+      animation: gene_base 2s linear forwards infinite;
+      transform: translateX(50px) scaleX(1) translateX(-50px);
+    }
+    @keyframes gene_base {
+      0% {
+        transform: translateX(50px) scaleX(1) translateX(-50px);
+      }
+      20% {
+        transform: translateX(50px) scaleX(0) translateX(-50px);
+      }
+      80% {
+        transform: translateX(50px) scaleX(0) translateX(-50px);
+      }
+      100% {
+        transform: translateX(50px) scaleX(1) translateX(-50px);
+      }
+    }
+    .nav_button:hover .gene_base[data-number="1"] {
+      animation-delay: 0.75s;
+    }
+    .nav_button:hover .gene_base[data-number="2"] {
+      animation-delay: 0.50s;
+    }
+    .nav_button:hover .gene_base[data-number="3"] {
+      animation-delay: 0.25s;
+    }
+    .nav_button:hover .gene_base[data-number="4"] {
+      animation-delay: 0.00;
+    }
+  </style>
   <clipPath id="cutout">
     <path
       d="
@@ -19,6 +63,7 @@
     />
   </clipPath>
   <path
+    class="gene_strand"
     fill="none"
     stroke="currentColor"
     stroke-width="10"
@@ -28,6 +73,7 @@
     "
   />
   <path
+    class="gene_strand"
     fill="none"
     stroke="currentColor"
     stroke-width="10"
@@ -37,19 +83,44 @@
       C 90 50 10 50 10 0
     "
   />
-  <path
-    fill="none"
+  <line
+    class="gene_base"
+    data-number="1"
     stroke="currentColor"
     stroke-width="10"
-    d="
-      M 11 10
-      L 89 10
-      M 20.5 27.5
-      L 79.5 27.5
-      M 20.5 72.5
-      L 79.5 72.5
-      M 11 90
-      L 89 90
-    "
+    x1="11"
+    y1="10"
+    x2="89"
+    y2="10"
+  />
+  <line
+    class="gene_base"
+    data-number="2"
+    stroke="currentColor"
+    stroke-width="10"
+    x1="20.5"
+    y1="27.5"
+    x2="79.5"
+    y2="27.5"
+  />
+  <line
+    class="gene_base"
+    data-number="3"
+    stroke="currentColor"
+    stroke-width="10"
+    x1="20.5"
+    y1="72.5"
+    x2="79.5"
+    y2="72.5"
+  />
+  <line
+    class="gene_base"
+    data-number="4"
+    stroke="currentColor"
+    stroke-width="10"
+    x1="11"
+    y1="90"
+    x2="89"
+    y2="90"
   />
 </svg>

@@ -1,70 +1,60 @@
 ![](https://github.com/greenelab/adage-frontend/workflows/ci/badge.svg)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters -->
+<img style="width: 100px; height: 100px; display: block; margin: 0 auto; filter: invert(44%) sepia(86%) saturate(362%) hue-rotate(101deg) brightness(100%) contrast(90%);" src="https://raw.githubusercontent.com/greenelab/adage-frontend/master/src/images/logo.svg?sanitize=true"/>
 
-## Available Scripts
+## Adage front end
 
-In the project directory, you can run:
+[~ Use the app ~](https://adage.greenelab.com)
 
-### `npm start`
+Adage is a tool that helps you explore gene expression data and discover new insights from machine learning models.
+This repository contains the code for the "front end", ie the web app itself.
+The "back end", where the model data is loaded and then provided to the web app, can be found [here](https://github.com/greenelab/py3-adage-backend).
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm test`
+### About
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This app was built with the [React framework](https://reactjs.org/).
+Specifically, it was created using [Create React App](https://github.com/facebook/create-react-app), a template/starting point for making React apps with minimal setup.
 
-### `npm run build`
+To edit this source code, you'll likely need to understand some fundamentals of [Git](https://git-scm.com/), [GitHub](https://github.com/), [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML), [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS), [modern](https://www.modernjs.com/) [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [React](https://reactjs.org/), [JSX](https://reactjs.org/docs/introducing-jsx.html), [Redux](https://redux.js.org/), the [Node](https://nodejs.org/en/) environment.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If want to make changes to the behavior of this app for your own purposes and you need help, you can [contact the team](mailto:team@greenelab.com). If you just want to suggest a change to us, you can [create an issue in this repository](https://github.com/greenelab/adage-frontend/issues).
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Making changes
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Set up the necessary infrastructure:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1) [Install Git](https://git-scm.com/) (the system that tracks changes to the app source code)
+2) [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) this repository, and [clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) it to your computer (so you have a local copy of the code to make your own changes to)
+3) [Install Node.js](https://nodejs.org/en/download/) (the environment that tests, builds, and packages the app)
+4) [Install Yarn](https://classic.yarnpkg.com/en/docs/install/) (the package manager that installs all the third party dependencies for the app)
+5) Pick and install your favorite command-line interface and text editor for your operating system
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+In your command line, navigate to the directory where you cloned the repository.
+All commands listed below should be run from there.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+"Install" the app:
 
-## Learn More
+1) Run `yarn install`.
+This may take several minutes.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run a local test version of the app:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1) Run `yarn start`.
+This will open a new browser tab with a live preview of the app.
+This command continuously watches for changes in the source code, and automatically updates the preview right in the browser.
+Press `ctrl+c` (or something else, depending on your command line interface) to stop this live preview and run a different command.
 
-### Code Splitting
+Execute all included tests to see if any critical behavior of the app broke due to recent changes:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+1) Run `yarn test`.
+Like the previous command, this continuously watches for changes in the source code.
+Press `ctrl+c` to stop the process and run a different command.
 
-### Analyzing the Bundle Size
+Build the app, ie make a bundled, optimized version of the app that can be put on a website:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+1) Run `yarn build`.

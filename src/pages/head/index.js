@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 
 // headless helper component to set document/tab title
 
+const appTitle = process.env.REACT_APP_TITLE || '';
+
 const Head = () => {
   const location = useLocation();
 
@@ -15,30 +17,35 @@ const Head = () => {
 
     // get selected items from url
     const params = new URLSearchParams(location.search);
-    const genes = (params.get('genes') || '').split('-').filter((id) => id)
-      .length;
+    const genes = params.get('genes') || '';
     const experiment = params.get('experiment') || '';
-    const diamonds = (params.get('diamond-samples') || '')
-      .split('-')
-      .filter((id) => id).length;
-    const spades = (params.get('spade-samples') || '')
-      .split('-')
-      .filter((id) => id).length;
+    const diamonds = params.get('diamond-samples') || '';
+    const spades = params.get('spade-samples') || '';
+    const signature = params.get('signature') || '';
 
     // make props string based on selected items
     const props = [];
+    const makeProp = (name, prop, plural) => {
+      if (plural && prop.includes('-'))
+        props.push(name + 's ' + prop.replace(/-/g, ', '));
+      else
+        props.push(name + ' ' + prop);
+    };
+
     if (genes)
-      props.push(genes + ' genes');
+      makeProp('gene', genes, true);
     if (experiment)
-      props.push(experiment);
+      makeProp('experiment', experiment, false);
     if (diamonds)
-      props.push(diamonds + ' diamonds');
+      makeProp('diamond', diamonds, true);
     if (spades)
-      props.push(spades + ' spades');
+      makeProp('spade', spades, true);
+    if (signature)
+      makeProp('signature', signature, false);
 
     // concat page and props into final title
-    const title = ['Adage', page, ...props]
-      .filter((entry) => entry)
+    const title = [appTitle, page, props.join(' ')]
+      .filter((e) => e)
       .join(' · ');
 
     // set title

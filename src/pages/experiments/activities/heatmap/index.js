@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { useContext } from 'react';
 import * as d3 from 'd3';
 
@@ -33,9 +34,13 @@ const Heatmap = ({ activities }) => {
   const samplesChanged = useDiff(sampleOrder);
   const signaturesChanged = useDiff(signatureOrder);
 
-  // get list of samples in order
-  let samples = activities.map((activity) => activity.sample);
-  samples = sampleOrder.map((id) => samples.find((sample) => sample.id === id));
+  // get list of samples from activities in sampleOrder order
+  const orderedSamples = useMemo(() => {
+    const samples = activities.map((activity) => activity.sample);
+    return sampleOrder
+      .map((id) => samples.find((sample) => sample.id === id))
+      .filter((sample) => sample);
+  }, [activities, sampleOrder]);
 
   // heatmap dimensions
   const width = signatureOrder.length * cellWidth;
@@ -50,6 +55,12 @@ const Heatmap = ({ activities }) => {
       !samplesChanged &&
       !signaturesChanged
     )
+      return;
+
+    // while components render, activities might be updated before order is.
+    // if this array empty, sample order is out of sync with activities, and
+    // heatmap shouldn't be drawn
+    if (!orderedSamples.length)
       return;
 
     svg = d3.select('#heatmap');
@@ -99,6 +110,7 @@ const Heatmap = ({ activities }) => {
   }, [
     mountedChanged,
     activities,
+    orderedSamples.length,
     sampleOrder,
     signatureOrder,
     activitiesChanged,
@@ -117,12 +129,12 @@ const Heatmap = ({ activities }) => {
       </div>
       <div className='activities_row'>
         <div>
-          {samples.map((sample, index) => (
+          {orderedSamples.map((sample, index) => (
             <GroupButtons key={index} sample={sample} />
           ))}
         </div>
         <div>
-          {samples.map((sample, index) => (
+          {orderedSamples.map((sample, index) => (
             <div key={index}>
               <SampleLink sample={sample} />
             </div>
