@@ -7,7 +7,7 @@
 >
   <style>
     #loading > .spinner {
-      animation: offset 2s ease-in-out forwards infinite,
+      animation: offset 2s ease-in-out reverse infinite,
         rotate 4s linear forwards infinite;
       stroke-dasharray: 141.391;
     }
@@ -16,10 +16,10 @@
         stroke-dashoffset: 0;
       }
       90% {
-        stroke-dashoffset: -282.782;
+        stroke-dashoffset: 282.782;
       }
       100% {
-        stroke-dashoffset: -282.782;
+        stroke-dashoffset: 282.782;
       }
     }
     @keyframes rotate {

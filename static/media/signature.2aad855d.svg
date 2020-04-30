@@ -1,0 +1,34 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="15"
+  height="15"
+  viewBox="0 0 100 100"
+>
+  <style>
+    .nav_button:hover #signature_line {
+      animation: signature_line 2s ease reverse infinite;
+      stroke-dasharray: 228;
+    }
+    @keyframes signature_line {
+      0% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: 456;
+      }
+    }
+  </style>
+  <path
+    id="signature_line"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="10"
+    d="
+      M 4 20
+      C 20 8 35 20 10 85
+      C 30 50 55 15 55 50
+      C 55 70 65 65 75 57
+      C 85 50 90 50 100 50
+    "
+  />
+</svg>
