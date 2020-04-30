@@ -6,7 +6,7 @@
 >
   <style>
     .nav_button:hover .gene_strand {
-      animation: gene_strand 2s linear forwards infinite;
+      animation: gene_strand 2s linear reverse infinite;
       stroke-dasharray: 134.7;
     }
     @keyframes gene_strand {
@@ -14,7 +14,7 @@
         stroke-dashoffset: 0;
       }
       100% {
-        stroke-dashoffset: -269.4;
+        stroke-dashoffset: 269.4;
       }
     }
     .nav_button:hover .gene_base {

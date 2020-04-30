@@ -6,7 +6,7 @@
 >
   <style>
     .nav_button:hover #signature_line {
-      animation: signature_line 2s ease forwards infinite;
+      animation: signature_line 2s ease reverse infinite;
       stroke-dasharray: 228;
     }
     @keyframes signature_line {
@@ -14,7 +14,7 @@
         stroke-dashoffset: 0;
       }
       100% {
-        stroke-dashoffset: -456;
+        stroke-dashoffset: 456;
       }
     }
   </style>

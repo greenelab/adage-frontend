@@ -6,7 +6,7 @@
 >
   <style>
     .model_select_button:hover .model_line {
-      animation: model_line 2s ease-in-out forwards infinite;
+      animation: model_line 2s ease-in-out reverse infinite;
       stroke-dasharray: 69.5 139;
     }
     @keyframes model_line {
@@ -14,7 +14,7 @@
         stroke-dashoffset: 0;
       }
       100% {
-        stroke-dashoffset: -208.5;
+        stroke-dashoffset: 208.5;
       }
     }
     .model_select_button:hover .model_line[data-number="1"] {
