@@ -19,7 +19,6 @@
     }
     .nav_button:hover .gene_base {
       animation: gene_base 2s linear forwards infinite;
-      transform: translateX(50px) scaleX(1) translateX(-50px);
     }
     @keyframes gene_base {
       0% {

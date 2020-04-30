@@ -8,7 +8,6 @@
   <style>
     .nav_button:hover .experiment_liquid {
       animation: experiment_liquid 2s ease-in-out forwards infinite;
-      transform: translateY(100px) scaleY(1) translateY(-100px);
     }
     @keyframes experiment_liquid {
       0% {
@@ -32,7 +31,6 @@
     }
     .nav_button:hover .experiment_bubble {
       animation: experiment_bubble 2s ease forwards infinite;
-      transform: translateY(0px);
     }
     @keyframes experiment_bubble {
       50% {
