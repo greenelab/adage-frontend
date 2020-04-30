@@ -74,3 +74,17 @@ export const useInnerText = () => {
 
   return [text, ref];
 };
+
+// include script tag in jsx
+// necessary because react doesn't seem to run <script>'s in jsx
+export const useScript = (url) => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = url;
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [url]);
+};

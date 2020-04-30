@@ -3,7 +3,53 @@
   width="15"
   height="15"
   viewBox="0 0 100 100"
+  style="overflow: visible;"
 >
+  <style>
+    .nav_button:hover .experiment_liquid {
+      animation: experiment_liquid 2s ease-in-out forwards infinite;
+    }
+    @keyframes experiment_liquid {
+      0% {
+        transform: translateY(100px) scaleY(1) translateY(-100px);
+      }
+      20% {
+        transform: translateY(100px) scaleY(1.25) translateY(-100px);
+      }
+      80% {
+        transform: translateY(100px) scaleY(0.75) translateY(-100px);
+      }
+      100% {
+        transform: translateY(100px) scaleY(1) translateY(-100px);
+      }
+    }
+    .nav_button:hover .experiment_liquid[data-number="1"] {
+      animation-delay: 0s;
+    }
+    .nav_button:hover .experiment_liquid[data-number="2"] {
+      animation-delay: 0.75s;
+    }
+    .nav_button:hover .experiment_bubble {
+      animation: experiment_bubble 2s ease forwards infinite;
+    }
+    @keyframes experiment_bubble {
+      50% {
+        transform: translateY(0px);
+      }
+      100% {
+        transform: translateY(-110px);
+      }
+    }
+    .nav_button:hover .experiment_bubble[data-number="1"] {
+      animation-delay: 0s;
+    }
+    .nav_button:hover .experiment_bubble[data-number="2"] {
+      animation-delay: 0.5s;
+    }
+    .nav_button:hover .experiment_bubble[data-number="3"] {
+      animation-delay: 1s;
+    }
+  </style>
   <path
     fill="none"
     stroke="currentColor"
@@ -19,6 +65,8 @@
     "
   />
   <path
+    class="experiment_liquid"
+    data-number="1"
     fill="currentColor"
     d="
       M 10 45
@@ -43,6 +91,8 @@
     "
   />
   <path
+    class="experiment_liquid"
+    data-number="2"
     fill="currentColor"
     d="
       M 65 65
@@ -51,5 +101,32 @@
       L 89 65
       z
     "
+  />
+  <circle
+    class="experiment_bubble"
+    data-number="1"
+    fill="currentColor"
+    cx="22.5"
+    cy="92"
+    r="5"
+    transform="scale(0)"
+  />
+  <circle
+    class="experiment_bubble"
+    data-number="2"
+    fill="currentColor"
+    cx="77.5"
+    cy="92"
+    r="5"
+    transform="scale(0)"
+  />
+  <circle
+    class="experiment_bubble"
+    data-number="3"
+    fill="currentColor"
+    cx="77.5"
+    cy="92"
+    r="5"
+    transform="scale(0)"
   />
 </svg>

@@ -36,6 +36,7 @@ let Order = ({ activities, children }) => {
     }
   }, [activities, changeSampleOrder, changeSignatureOrder]);
 
+  // reset orders when activities change
   useEffect(() => {
     if (!activitiesChanged)
       return;

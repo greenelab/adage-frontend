@@ -4,7 +4,22 @@
   height="15"
   viewBox="0 0 100 100"
 >
+  <style>
+    .nav_button:hover #signature_line {
+      animation: signature_line 2s ease reverse infinite;
+      stroke-dasharray: 228;
+    }
+    @keyframes signature_line {
+      0% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: 456;
+      }
+    }
+  </style>
   <path
+    id="signature_line"
     fill="none"
     stroke="currentColor"
     stroke-width="10"

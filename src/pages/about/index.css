@@ -7,3 +7,6 @@
   align-items: center;
   flex-wrap: wrap;
 }
+.help_buttons > * {
+  margin: 0 5px;
+}
