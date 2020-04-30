@@ -20,7 +20,7 @@ Specifically, it was created using [Create React App](https://github.com/faceboo
 
 To edit this source code, you'll likely need to understand some fundamentals of [Git](https://git-scm.com/), [GitHub](https://github.com/), [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML), [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS), [modern](https://www.modernjs.com/) [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), [React](https://reactjs.org/), [JSX](https://reactjs.org/docs/introducing-jsx.html), [Redux](https://redux.js.org/), the [Node](https://nodejs.org/en/) environment.
 
-If want to make changes to the behavior of this app for your own purposes and you need help, you can [contact the team](mailto:team@greenelab.com). If you just want to suggest a change to us, you can [create an issue in this repository](https://github.com/greenelab/adage-frontend/issues).
+If you want to make changes to the behavior of this app for your own purposes and you need help, you can [contact the team](mailto:team@greenelab.com). If you just want to suggest a change to us, you can [create an issue in this repository](https://github.com/greenelab/adage-frontend/issues).
 
 
 
@@ -37,7 +37,7 @@ Set up the necessary infrastructure:
 In your command line, navigate to the directory where you cloned the repository.
 All commands listed below should be run from there.
 
-"Install" the app:
+Install the app's package dependencies:
 
 1) Run `yarn install`.
 This may take several minutes.

@@ -95,7 +95,7 @@ const App = () => {
           </div>
           <div>
             <a href='https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1905-4'>
-              BMC Bioinformatics
+              <i>BMC Bioinformatics</i>
             </a>{' '}
             · 2017 · DOI: 10.1186/s12859-017-1905-4
           </div>
@@ -123,7 +123,7 @@ const App = () => {
           </div>
           <div>
             <a href='https://www.cell.com/cell-systems/fulltext/S2405-4712(17)30231-4'>
-              Cell Systems
+              <i>Cell Systems</i>
             </a>{' '}
             · 2017 · DOI: 10.1016/j.cels.2017.06.003
           </div>
