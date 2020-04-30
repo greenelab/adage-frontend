@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "node ./scripts/build.js",
+    "build": "bash ./scripts/build.sh",
     "test": "react-scripts test a",
     "eject": "react-scripts eject"
   },
