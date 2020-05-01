@@ -1,22 +1,22 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3e100334a76f2caa42b2734e5e4f79a0",
-    "url": "/6af34af523be498ba0d4.worker.js"
+    "revision": "73557ac33a6cc04c965a104c3b3b6ef3",
+    "url": "/31799e14c8c2fdcdac86.worker.js"
   },
   {
     "revision": "7b0da54e81150b0223e5019d4186aab3",
-    "url": "/6af34af523be498ba0d4.worker.js.LICENSE.txt"
+    "url": "/31799e14c8c2fdcdac86.worker.js.LICENSE.txt"
   },
   {
     "revision": "54947142c9fd21daa9bc05f4f8fd12ca",
     "url": "/index.html"
   },
   {
-    "revision": "631cbf4d236673608210",
+    "revision": "59ae8b6e4ae8957f9adf",
     "url": "/static/css/main.css"
   },
   {
-    "revision": "631cbf4d236673608210",
+    "revision": "59ae8b6e4ae8957f9adf",
     "url": "/static/js/main.js"
   },
   {
@@ -60,8 +60,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/download.387e0757.svg"
   },
   {
-    "revision": "ce72141cbc91c5ea678609b6a951982c",
-    "url": "/static/media/experiment.ce72141c.svg"
+    "revision": "daa7c756641638cded35475402101ddb",
+    "url": "/static/media/experiment.daa7c756.svg"
   },
   {
     "revision": "bad24e08a17937047816c2332bd6e0fb",
@@ -90,10 +90,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "4b73ee20858af33725234237fa7e8c88",
     "url": "/static/media/greene-lab-logo.4b73ee20.svg"
-  },
-  {
-    "revision": "32f4b1c61130cf5767dba855808028ae",
-    "url": "/static/media/info.32f4b1c6.svg"
   },
   {
     "revision": "576582bb9133f748762921060e80f3e5",
