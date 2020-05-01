@@ -17,7 +17,8 @@ export const querySync = reduxQuerySync.enhancer({
         payload: {
           id: Number(value)
         }
-      })
+      }),
+      defaultValue: '1'
     },
     'genes': {
       selector: (state) =>
