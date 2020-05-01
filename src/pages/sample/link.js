@@ -4,7 +4,7 @@ import Clickable from '../../components/clickable';
 
 // link to sample details page
 
-const SampleLink = ({ sample = {} }) => {
+const SampleLink = ({ sample = {}, extraTooltip = '' }) => {
   const { id, name } = sample;
   const label = name || id || '-';
 
@@ -13,7 +13,11 @@ const SampleLink = ({ sample = {} }) => {
       to={'/sample/' + id}
       text={label}
       link
-      aria-label={'Open details page for sample ' + label}
+      aria-label={
+        'Open details page for sample ' +
+        label +
+        (extraTooltip ? ' (' + extraTooltip + ')' : '')
+      }
     />
   );
 };

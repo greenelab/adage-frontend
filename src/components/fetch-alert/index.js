@@ -13,18 +13,15 @@ import './index.css';
 const FetchAlert = ({
   status = '',
   subject = '',
-  extra = '',
+  text = '',
   className = ''
 }) => {
-  let text;
-  if (status === actionStatuses.LOADING)
-    text = 'Loading ' + subject + '.';
-  else if (status === actionStatuses.EMPTY)
-    text = 'No ' + subject + ' found.';
-  else if (status === actionStatuses.ERROR)
-    text = 'Error loading ' + subject + '.';
-  if (extra)
-    text += ' ' + extra;
+  if (!text && status === actionStatuses.LOADING)
+    text = 'Loading ' + subject;
+  else if (!text && status === actionStatuses.EMPTY)
+    text = 'No ' + subject + ' found';
+  else if (!text && status === actionStatuses.ERROR)
+    text = 'Error loading ' + subject;
 
   return (
     <div
@@ -41,7 +38,7 @@ const FetchAlert = ({
 FetchAlert.propTypes = {
   status: PropTypes.string.isRequired,
   subject: PropTypes.string.isRequired,
-  extra: PropTypes.string,
+  text: PropTypes.string,
   className: PropTypes.string
 };
 

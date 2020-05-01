@@ -11,6 +11,7 @@ import SampleLink from '../../../sample/link';
 import { getBackground } from './barcode';
 import { getForeground } from './barcode';
 import { mapActivities } from '../';
+import { isArray } from '../../../../util/types';
 
 import { ReactComponent as ExperimentIcon } from '../../../../images/experiment.svg';
 import { ReactComponent as ArrowIcon } from '../../../../images/arrow.svg';
@@ -19,7 +20,7 @@ import './index.css';
 
 // table of signature activities
 
-let Table = ({ bySignature = {}, byExperiment = [] }) => {
+let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
   const [background, setBackground] = useState();
   const [selected, setSelected] = useState('');
 
@@ -46,13 +47,17 @@ let Table = ({ bySignature = {}, byExperiment = [] }) => {
             render: ({ row }) => {
               const foreground = getForeground(row.values, min, max);
               return (
-                <Canvas
-                  className='barcode'
-                  canvases={[background, foreground]}
+                <button
+                  className='barcode_button'
                   onClick={() => setSelected(row.accession)}
-                  aria-label='See individual sample activities'
-                  data-tooltip-h-align='center'
-                />
+                >
+                  <Canvas
+                    className='barcode'
+                    canvases={[background, foreground]}
+                    aria-label='See individual sample activities'
+                    data-tooltip-h-align='center'
+                  />
+                </button>
               );
             },
             width: '30%',
@@ -87,9 +92,21 @@ let Table = ({ bySignature = {}, byExperiment = [] }) => {
       />
     );
   } else {
+    // get full details of selected experiment
     const experiment = byExperiment.find(
       (experiment) => experiment.accession === selected
     );
+
+    let samples = experiment?.samples || [];
+
+    // fill in full details of experiment samples from sample list
+    if (isArray(sampleList)) {
+      samples = samples.map((sample) => ({
+        ...sample,
+        ...(sampleList.find((full) => full.id === sample.id) || {})
+      }));
+    }
+
     return (
       <>
         <div className='info weight_medium'>
@@ -108,18 +125,23 @@ let Table = ({ bySignature = {}, byExperiment = [] }) => {
           </span>
         </div>
         <TableComponent
-          data={experiment?.samples}
+          data={samples}
           columns={[
             {
               name: 'Sample',
               key: 'name',
               render: ({ row }) => <SampleLink sample={row} />,
+              width: '25%'
+            },
+            {
+              name: 'Description',
+              key: 'description',
               width: '50%'
             },
             {
               name: 'Activity',
               key: 'value',
-              width: '50%'
+              width: '25%'
             }
           ]}
           defaultSortKey='value'
@@ -131,8 +153,10 @@ let Table = ({ bySignature = {}, byExperiment = [] }) => {
   }
 };
 
-const mapStateToProps = (state) =>
-  mapActivities(state.signatures.activities, state);
+const mapStateToProps = (state) => ({
+  ...mapActivities(state.signatures.activities, state),
+  sampleList: state.samples.list
+});
 
 Table = connect(mapStateToProps)(Table);
 
