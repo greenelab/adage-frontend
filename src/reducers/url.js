@@ -1,6 +1,8 @@
 import reduxQuerySync from 'redux-query-sync';
 import { createBrowserHistory } from 'history';
 
+import { defaultModel } from '../controllers/models';
+
 // basename to apply to all urls (eg "/adage-frontend")
 export const basename = process.env.REACT_APP_BASENAME || '/';
 
@@ -17,7 +19,8 @@ export const querySync = reduxQuerySync.enhancer({
         payload: {
           id: Number(value)
         }
-      })
+      }),
+      defaultValue: String(defaultModel)
     },
     'genes': {
       selector: (state) =>

@@ -1,7 +1,8 @@
 ![](https://github.com/greenelab/adage-frontend/workflows/ci/badge.svg)
 
-<!-- https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters -->
-<img style="width: 100px; height: 100px; display: block; margin: 0 auto; filter: invert(44%) sepia(86%) saturate(362%) hue-rotate(101deg) brightness(100%) contrast(90%);" src="https://raw.githubusercontent.com/greenelab/adage-frontend/master/src/images/logo.svg?sanitize=true"/>
+<p align="center">
+  <img width="100" height="100" src="https://raw.githubusercontent.com/greenelab/adage-frontend/master/src/images/logo.svg?sanitize=true">
+</p>
 
 ## Adage front end
 

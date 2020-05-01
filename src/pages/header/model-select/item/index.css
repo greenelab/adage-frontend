@@ -6,12 +6,14 @@
   height: 40px;
 }
 .model_summary {
+  box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
   flex-direction: column;
   text-align: left;
-  width: calc(100% - 30px - 30px);
+  width: calc(100% - 30px);
+  padding-right: 5px;
 }
 .model_summary > * {
-  line-height: 1em;
+  line-height: 1.3em;
 }

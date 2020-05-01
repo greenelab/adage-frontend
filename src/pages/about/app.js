@@ -7,6 +7,7 @@ import { ReactComponent as GitHubIcon } from '../../images/github.svg';
 import { ReactComponent as AlertIcon } from '../../images/alert.svg';
 import { ReactComponent as MailIcon } from '../../images/mail.svg';
 import GBMFLogo from '../../images/gordon-betty-moore-foundation.png';
+import DCFLogo from '../../images/dart-cf.png';
 
 import './app.css';
 
@@ -23,23 +24,24 @@ const App = () => {
         was originally designed for two specific models, detailed in these
         papers:
       </p>
-      <p className='help_buttons'>
-        <a href='https://msystems.asm.org/content/1/1/e00025-15'>ADAGE</a>{' '}
-        <span
-          data-badge-popover='left'
-          data-badge-type='donut'
-          data-doi='10.1128/mSystems.00025-15'
-          className='altmetric_small altmetric-embed'
-        />
-        <span> · </span>
-        <a href='https://www.biorxiv.org/content/10.1101/078659v3'>
-          eADAGE
-        </a>{' '}
-        <span
-          data-badge-type='donut'
-          data-doi='10.1016/j.cels.2017.06.003'
-          className='altmetric_small altmetric-embed'
-        />
+      <p className='help_centered'>
+        <span className='help_link'>
+          <a href='https://msystems.asm.org/content/1/1/e00025-15'>ADAGE</a>{' '}
+          <span
+            data-badge-popover='left'
+            data-badge-type='donut'
+            data-doi='10.1128/mSystems.00025-15'
+            className='altmetric_small altmetric-embed'
+          />
+        </span>
+        <span className='help_link'>
+          <a href='https://www.biorxiv.org/content/10.1101/078659v3'>eADAGE</a>
+          <span
+            data-badge-type='donut'
+            data-doi='10.1016/j.cels.2017.06.003'
+            className='altmetric_small altmetric-embed'
+          />
+        </span>
       </p>
       <p className='help_header weight_semibold size_medium'>Links</p>
       <p>
@@ -47,7 +49,7 @@ const App = () => {
         instructions on how to load your own machine learning model and how to
         make modifications to the app.
       </p>
-      <p className='help_buttons'>
+      <p className='help_centered'>
         <Clickable
           icon={<GitHubIcon />}
           text='Front End'
@@ -140,19 +142,28 @@ const App = () => {
       <p className='help_header weight_semibold size_medium'>Funding</p>
       <p>
         This project was made possible by funding from the{' '}
-        <a href='https://www.moore.org/'>Gordon and Betty Moore Foundation</a>,
-        grant number{' '}
         <a href='https://www.moore.org/grant-detail?grantId=GBMF4552'>
-          GBMF4552
-        </a>
-        .
+          Gordon and Betty Moore Foundation
+        </a>{' '}
+        (GBMF4552) and the{' '}
+        <a href='https://sites.dartmouth.edu/dartcf/'>
+          Dartmouth Cystic Fibrosis Research Center
+        </a>{' '}
+        (STANTO19R0).
       </p>
-      <p className='help_buttons'>
-        <a href='https://www.moore.org/'>
+      <p className='help_centered'>
+        <a className='help_image' href='https://www.moore.org/'>
           <img
             src={GBMFLogo}
             height='50px'
             alt='Gordon and Betty Moore Foundation'
+          />
+        </a>
+        <a className='help_image' href='https://sites.dartmouth.edu/dartcf/'>
+          <img
+            src={DCFLogo}
+            height='50px'
+            alt='Dartmouth Cystic Fibrosis Research Center'
           />
         </a>
       </p>

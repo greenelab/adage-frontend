@@ -1,12 +1,56 @@
 .help_header {
   margin-top: 40px;
 }
-.help_buttons {
+.help_centered {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
-.help_buttons > * {
-  margin: 0 5px;
+.help_centered > * {
+  margin: 0 20px;
+}
+.help_link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.help_image {
+  margin: 20px;
+}
+.cite_frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cite_box {
+  padding: 20px;
+  flex-grow: 1;
+  border: dashed 2px var(--light-gray);
+}
+.cite_box > *:not(:last-child) {
+  margin-bottom: 5px;
+}
+.altmetric,
+.altmetric_small {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.altmetric > *,
+.altmetric img {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+.altmetric_small > *,
+.altmetric_small img  {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .cite_frame {
+    flex-direction: column;
+  }
 }
