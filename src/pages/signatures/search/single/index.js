@@ -14,7 +14,17 @@ import './index.css';
 let Single = ({ results, highlightedIndex }) => (
   <>
     {isArray(results) && (
-      <SingleTable results={results} highlightedIndex={highlightedIndex} />
+      <>
+        <SingleTable results={results} highlightedIndex={highlightedIndex} />
+        <div className='search_results_note'>
+          <span
+            className='size_small'
+            aria-label='Search to find specific result'
+          >
+            Top {results.length} results
+          </span>
+        </div>
+      </>
     )}
     {isString(results) && (
       <FetchAlert

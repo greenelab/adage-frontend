@@ -7,6 +7,7 @@ import { isEmpty } from '../util/types';
 import { split } from '../util/string';
 import { includes } from '../util/object';
 import { actionStatuses } from '../actions/fetch';
+import { defaultLimit } from '../backend';
 
 // type check for key variables, run before and after reducer
 const typeCheck = (draft) => {
@@ -46,7 +47,7 @@ const reducer = produce((draft, type, payload, meta) => {
           results = actionStatuses.EMPTY;
       } else
         results = actionStatuses.LOADING;
-      draft.searches[meta.index].results = results;
+      draft.searches[meta.index].results = results.slice(0, defaultLimit);
       break;
     }
 
