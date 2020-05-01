@@ -50,7 +50,8 @@ const Table = ({
   freezeRow = true,
   freezeCol = true,
   highlightedIndex,
-  onSort = () => null
+  onSort = () => null,
+  onFocusOut = () => null
 }) => {
   // internal state
   const [sortKey, setSortKey] = useState(defaultSortKey);
@@ -165,7 +166,11 @@ const Table = ({
       }}
     >
       <div
-        ref={ref}
+        ref={(element) => {
+          if (element)
+            element.addEventListener('focusout', onFocusOut);
+          return element;
+        }}
         className='table'
         data-sortable={sortable}
         data-freeze-row={freezeRow}

@@ -8,7 +8,6 @@ import { setEnrichedSignatures } from '../actions/genes';
 import { getGeneEdges } from '../actions/genes';
 import { isArray } from '../util/types';
 import { actionStatuses } from '../actions/fetch';
-import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
 import worker from 'workerize-loader!../util/math';
@@ -34,8 +33,7 @@ let GeneController = ({
       return;
 
     getGeneList({
-      organism: selectedOrganism.id,
-      limit: MAX_INT
+      organism: selectedOrganism.id
     });
   }, [selectedOrganism.id, getGeneList]);
 
@@ -49,7 +47,7 @@ let GeneController = ({
     getGeneParticipations({
       cancelType: 'GET_GENE_PARTICIPATIONS',
       genes: selectedGenes.map((gene) => gene.id),
-      limit: selectedGenes.length ? MAX_INT : 1
+      limit: !selectedGenes.length ? 1 : undefined
     });
   }, [selectedGenes, selectedGenesLoaded, getGeneParticipations]);
 
@@ -102,7 +100,7 @@ let GeneController = ({
       genes: selectedGenes.map((selected) => selected.id),
       // if no genes selected, still make query but with 1 result
       // to reset state.genes.edges and show "empty" alert in network section
-      limit: selectedGenes.length ? MAX_INT : 1
+      limit: !selectedGenes.length ? 1 : undefined
     });
   }, [selectedModel.id, selectedGenes, selectedGenesLoaded, getGeneEdges]);
 

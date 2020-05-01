@@ -10,7 +10,6 @@ import { setEnrichedGenes } from '../actions/signatures';
 import { isArray } from '../util/types';
 import { isObject } from '../util/types';
 import { actionStatuses } from '../actions/fetch';
-import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
 import worker from 'workerize-loader!../util/math';
@@ -36,8 +35,7 @@ let SignatureController = ({
       return;
 
     getSignatureList({
-      model: selectedModel.id,
-      limit: MAX_INT
+      model: selectedModel.id
     });
   }, [selectedModel.id, getSignatureList]);
 
@@ -50,8 +48,7 @@ let SignatureController = ({
 
     getSignatureParticipations({
       cancelType: 'GET_SIGNATURE_PARTICIPATIONS',
-      signature: selectedSignature.id,
-      limit: MAX_INT
+      signature: selectedSignature.id
     });
   }, [selectedSignature.id, getSignatureParticipations]);
 
@@ -64,8 +61,7 @@ let SignatureController = ({
 
     getSignatureActivities({
       model: selectedModel.id,
-      signatures: [selectedSignature.id],
-      limit: MAX_INT
+      signatures: [selectedSignature.id]
     });
   }, [selectedModel.id, selectedSignature.id, getSignatureActivities]);
 

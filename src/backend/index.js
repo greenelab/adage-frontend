@@ -7,4 +7,7 @@
 export const server = 'https://py3-adage.greenelab.com/api/v1/';
 
 // default result limit
-export const defaultLimit = 25;
+export const defaultLimit = 100;
+
+// max result limit
+export const maxLimit = 999999;
