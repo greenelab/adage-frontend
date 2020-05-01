@@ -17,6 +17,18 @@ const debounceDelay = 200;
 
 // generic input component, capable of single line and multi-line input
 
+const setStorage = (key, value) => {
+  if (key)
+    window.localStorage[key] = value;
+};
+
+const getStorage = (key) => {
+  if (key)
+    return window.localStorage[key] || '';
+  else
+    return '';
+};
+
 const Input = ({
   className = '',
   onChange = () => null,
@@ -35,11 +47,10 @@ const Input = ({
   // internal state
   const [focused, setFocused] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [value, setValue] = useState(window.localStorage[storageKey] || '');
+  const [value, setValue] = useState(getStorage(storageKey));
   const [debouncedValue] = useDebounce(value, debounceDelay);
 
-  if (storageKey)
-    window.localStorage[storageKey] = value;
+  setStorage(storageKey, value);
 
   // change value state
   const changeValue = useCallback(

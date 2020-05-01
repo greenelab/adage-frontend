@@ -5,7 +5,6 @@ import Clickable from '../../../../components/clickable';
 
 import { ReactComponent as RadioedIcon } from '../../../../images/radioed.svg';
 import { ReactComponent as UnradioedIcon } from '../../../../images/unradioed.svg';
-import { ReactComponent as InfoIcon } from '../../../../images/info.svg';
 
 import './index.css';
 
@@ -29,19 +28,18 @@ const Item = ({
       onClick={onClick}
     />
     <div className='model_summary'>
-      <span className='nowrap weight_medium'>{title}</span>
+      <Clickable
+        to={'/model/' + id}
+        text={title}
+        link
+        aria-label={'Open details page for model ' + title}
+        data-tooltip-h-align='right'
+        data-tooltip-v-align='bottom'
+      />
       <span className='nowrap size_tiny'>
         {authors[0]}, et al · {journal} · {year}
       </span>
     </div>
-    <Clickable
-      to={'/model/' + id}
-      icon={<InfoIcon />}
-      button
-      aria-label={'Open details page for model ' + title}
-      data-tooltip-h-align='right'
-      data-tooltip-v-align='bottom'
-    />
   </div>
 );
 

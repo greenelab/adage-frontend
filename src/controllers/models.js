@@ -6,6 +6,8 @@ import { getModelList } from '../actions/models';
 import { selectModel } from '../actions/models';
 import { makeMapDispatchToProps } from './util';
 
+export const defaultModel = 1;
+
 let ModelController = ({
   selectedModel,
   modelList,
@@ -22,7 +24,7 @@ let ModelController = ({
   // select model 1
   useEffect(() => {
     if (!selectedModel?.id)
-      selectModel({ id: 1 });
+      selectModel({ id: defaultModel });
   }, [modelList, selectModel, selectedModel]);
 
   return <></>;

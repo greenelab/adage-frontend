@@ -12,7 +12,7 @@
   color: var(--white) !important;
 }
 .model_select_popup {
-  width: 280px;
+  width: 250px;
   min-height: calc((1 * 40px) + ((1 - 1) * 1px));
   max-height: calc((5 * 40px) + ((5 - 1) * 1px));
   overflow-x: hidden;
