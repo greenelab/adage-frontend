@@ -39,6 +39,13 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'SELECT_SAMPLES': {
       draft.selected = payload.ids.map((id) => ({ id }));
+      // ungroup samples not in selected experiment
+      for (const index of ['diamond', 'spade']) {
+        for (const id of draft.groups[index] || []) {
+          if (!draft.selected.find((sample) => sample.id === id))
+            draft.groups = filterGrouped(draft.groups, id);
+        }
+      }
       break;
     }
 
@@ -57,6 +64,7 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'GROUP_SAMPLES_FROM_URL': {
       const { index, ids } = payload;
+      draft.groups = {};
       if (!index)
         break;
       if (!isArray(ids) || !ids.length)

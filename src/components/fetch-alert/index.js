@@ -16,12 +16,14 @@ const FetchAlert = ({
   text = '',
   className = ''
 }) => {
-  if (!text && status === actionStatuses.LOADING)
-    text = 'Loading ' + subject;
-  else if (!text && status === actionStatuses.EMPTY)
-    text = 'No ' + subject + ' found';
-  else if (!text && status === actionStatuses.ERROR)
-    text = 'Error loading ' + subject;
+  if (!text) {
+    if (status === actionStatuses.LOADING)
+      text = 'Loading ' + subject;
+    else if (status === actionStatuses.EMPTY)
+      text = 'No ' + subject + ' found';
+    else if (status === actionStatuses.ERROR)
+      text = 'Error loading ' + subject;
+  }
 
   return (
     <div

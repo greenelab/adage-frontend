@@ -225,8 +225,11 @@ const HeadCell = ({ column }) => {
       }}
       data-padded={padded === false ? false : true}
       title=''
-      onClick={() => changeSort(key)}
-      disabled={!sortable}
+      onClick={() => {
+        if (sortable)
+          changeSort(key);
+      }}
+      data-disabled={!sortable}
       aria-label=''
       data-tooltip-h-align={align === 'center' ? 'center' : undefined}
     >

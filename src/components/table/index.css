@@ -31,6 +31,9 @@
 .table[data-sortable='true'] .th:hover {
   color: var(--green);
 }
+.th[data-disabled='true'] {
+  cursor: unset;
+}
 .th[data-padded='true'],
 .td[data-padded='true'] {
   padding: 0 5px;
