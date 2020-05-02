@@ -64,7 +64,6 @@ const reducer = produce((draft, type, payload, meta) => {
 
     case 'GROUP_SAMPLES_FROM_URL': {
       const { index, ids } = payload;
-      draft.groups = {};
       if (!index)
         break;
       if (!isArray(ids) || !ids.length)
