@@ -147,9 +147,9 @@ const App = () => {
         </a>{' '}
         (GBMF4552) and the{' '}
         <a href='https://sites.dartmouth.edu/dartcf/'>
-          Dartmouth Cystic Fibrosis Research Center
+          Dartmouth Cystic Fibrosis Research Development Program
         </a>{' '}
-        (STANTO19R0).
+        (Cystic Fibrosis Foundation STANTO19R0).
       </p>
       <p className='help_centered'>
         <a className='help_image' href='https://www.moore.org/'>

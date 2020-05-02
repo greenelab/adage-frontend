@@ -1,5 +1,6 @@
 import { server } from '.';
 import { defaultLimit } from '.';
+import { maxLimit } from '.';
 
 // functions to generate urls to fetch gene-related data from
 
@@ -7,7 +8,7 @@ const prefixA = 'gene/';
 const prefixB = 'participation/';
 const prefixC = 'edge/';
 
-export const urlGeneList = ({ organism, limit = defaultLimit }) => {
+export const urlGeneList = ({ organism, limit = maxLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (organism)
@@ -27,7 +28,7 @@ export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
   return url;
 };
 
-export const urlGeneParticipations = ({ genes, limit = defaultLimit }) => {
+export const urlGeneParticipations = ({ genes, limit = maxLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (genes)
@@ -37,7 +38,7 @@ export const urlGeneParticipations = ({ genes, limit = defaultLimit }) => {
   return url;
 };
 
-export const urlGeneEdges = ({ model, genes, limit = defaultLimit }) => {
+export const urlGeneEdges = ({ model, genes, limit = maxLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (model)

@@ -136,7 +136,7 @@ const Heatmap = ({ activities }) => {
         <div>
           {orderedSamples.map((sample, index) => (
             <div key={index}>
-              <SampleLink sample={sample} />
+              <SampleLink sample={sample} extraTooltip={sample.description} />
             </div>
           ))}
         </div>

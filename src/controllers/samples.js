@@ -8,7 +8,6 @@ import { setVolcano } from '../actions/samples';
 import { selectSamples } from '../actions/samples';
 import { isArray } from '../util/types';
 import { actionStatuses } from '../actions/fetch';
-import { MAX_INT } from './';
 import { makeMapDispatchToProps } from './util';
 
 import worker from 'workerize-loader!../util/math';
@@ -29,7 +28,7 @@ let SampleController = ({
   // on first render
   // get full sample list
   useEffect(() => {
-    getSampleList({ limit: MAX_INT });
+    getSampleList();
   }, [getSampleList]);
 
   // when selected experiment changes
@@ -56,8 +55,7 @@ let SampleController = ({
 
     getSampleActivities({
       model: selectedModel.id,
-      samples: selectedExperiment.samples.map((sample) => sample.id),
-      limit: MAX_INT
+      samples: selectedExperiment.samples.map((sample) => sample.id)
     });
   }, [selectedModel.id, selectedExperiment, getSampleActivities]);
 

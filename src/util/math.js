@@ -169,19 +169,10 @@ export const calculateVolcanoSignatures = ({
   const getActivity = (sampleId, signatureId) => {
     const found = activities.find(
       (activity) =>
-        activity.sample === sampleId &&
-        (activity.signature === signatureId || !signatureId)
+        activity.sample === sampleId && activity.signature === signatureId
     );
     return (found || {}).value;
   };
-
-  // if not all diamond and spade samples can be found in activities, exit
-  // because if any can't, ttest below won't get length >= 2 arrays
-  if (
-    !diamondGroup.every((id) => getActivity(id)) ||
-    !spadeGroup.every((id) => getActivity(id))
-  )
-    return [];
 
   // remove any signatures that are not part of activities
   signatureList = signatureList.filter((signature) =>
@@ -198,6 +189,11 @@ export const calculateVolcanoSignatures = ({
       .map((sampleId) => getActivity(sampleId, signature.id))
       .filter((activity) => activity);
 
+    // if either group has less than 2 entries, ttest cannot be performed
+    // this can happen when grouped samples don't belong to selected experiment
+    if (diamondActivities.length < 2 && spadeActivities.length < 2)
+      return null;
+
     // compute difference between diamond and spade activity means
     const meanDiff = mean(diamondActivities) - mean(spadeActivities);
     // compute p value of signature based using t test from ttest library
@@ -209,6 +205,11 @@ export const calculateVolcanoSignatures = ({
       pValue
     };
   });
+
+  // if any of the volcano sigs are invalid, return blank
+  // this can happen when grouped samples don't belong to selected experiment
+  if (volcanoSignatures.some((d) => d === null))
+    return [];
 
   // extract p values from volcano signatures into array
   const pValues = volcanoSignatures.map((signature) => signature.pValue);

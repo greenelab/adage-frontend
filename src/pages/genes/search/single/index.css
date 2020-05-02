@@ -1,3 +1,10 @@
 .search_results_single_alert {
   height: calc(2 * 30px);
 }
+.search_results_note {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  color: var(--gray);
+}

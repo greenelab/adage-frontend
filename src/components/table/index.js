@@ -50,7 +50,8 @@ const Table = ({
   freezeRow = true,
   freezeCol = true,
   highlightedIndex,
-  onSort = () => null
+  onSort = () => null,
+  onFocusOut = () => null
 }) => {
   // internal state
   const [sortKey, setSortKey] = useState(defaultSortKey);
@@ -165,7 +166,11 @@ const Table = ({
       }}
     >
       <div
-        ref={ref}
+        ref={(element) => {
+          if (element)
+            element.addEventListener('focusout', onFocusOut);
+          return element;
+        }}
         className='table'
         data-sortable={sortable}
         data-freeze-row={freezeRow}
@@ -225,8 +230,11 @@ const HeadCell = ({ column }) => {
       }}
       data-padded={padded === false ? false : true}
       title=''
-      onClick={() => changeSort(key)}
-      disabled={!sortable}
+      onClick={() => {
+        if (sortable)
+          changeSort(key);
+      }}
+      data-disabled={!sortable}
       aria-label=''
       data-tooltip-h-align={align === 'center' ? 'center' : undefined}
     >

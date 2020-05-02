@@ -11,13 +11,17 @@ import './index.css';
 
 // volcano plot section
 
-let Volcano = ({ volcano }) => (
+let Volcano = ({ volcano, diamond, spade }) => (
   <>
     {isString(volcano) && (
       <FetchAlert
         status={volcano}
         subject='volcano data'
-        extra='Put at least two samples in each group.'
+        text={
+          diamond.length < 2 || spade.length < 2 ?
+            'Put at least two samples in each group' :
+            ''
+        }
       />
     )}
     {isArray(volcano) && (
@@ -30,7 +34,9 @@ let Volcano = ({ volcano }) => (
 );
 
 const mapStateToProps = (state) => ({
-  volcano: state.samples.volcano
+  volcano: state.samples.volcano,
+  diamond: state.samples.groups.diamond,
+  spade: state.samples.groups.spade
 });
 
 Volcano = connect(mapStateToProps)(Volcano);

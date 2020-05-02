@@ -14,7 +14,6 @@ import { actionStatuses } from '../../actions/fetch';
 import { isArray } from '../../util/types';
 import { isObject } from '../../util/types';
 import { isString } from '../../util/types';
-import { flatten } from '../../util/object';
 import { humanizeKeys } from '../../util/object';
 
 import { ReactComponent as SampleIcon } from '../../images/sample.svg';
@@ -37,7 +36,6 @@ let Sample = ({ samples }) => {
       details = actionStatuses.EMPTY;
     else {
       details = { ...found };
-      details = flatten(details, 1);
       if (details.experiments) {
         details.experiments = (
           <>

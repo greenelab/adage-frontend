@@ -1,5 +1,5 @@
 import { server } from '.';
-import { defaultLimit } from '.';
+import { maxLimit } from '.';
 
 // functions to generate urls to fetch signature-related data from
 
@@ -9,7 +9,7 @@ const prefixC = 'activity/';
 const tribeServer =
   'https://py3-adage.greenelab.com/api/v1/tribe_client/return_unpickled_genesets';
 
-export const urlSignatureList = ({ model, limit = defaultLimit }) => {
+export const urlSignatureList = ({ model, limit = maxLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (model)
@@ -21,7 +21,7 @@ export const urlSignatureList = ({ model, limit = defaultLimit }) => {
 
 export const urlSignatureParticipations = ({
   signature,
-  limit = defaultLimit
+  limit = maxLimit
 }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
@@ -35,7 +35,7 @@ export const urlSignatureParticipations = ({
 export const urlSignatureActivities = ({
   model,
   signatures,
-  limit = defaultLimit
+  limit = maxLimit
 }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);

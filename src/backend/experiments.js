@@ -1,11 +1,12 @@
 import { server } from '.';
 import { defaultLimit } from '.';
+import { maxLimit } from '.';
 
 // functions to generate urls to fetch experiment-related data from
 
 const prefix = 'experiment/';
 
-export const urlExperimentList = ({ limit = defaultLimit }) => {
+export const urlExperimentList = ({ limit = maxLimit }) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
 
