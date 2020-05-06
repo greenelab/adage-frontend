@@ -76,6 +76,7 @@ let MultiRow = ({ search, select, deselect }) => {
           className='td gene_search_result_multi_query'
           data-expanded={expanded}
           data-padded='true'
+          aria-label={search.query}
         >
           <span className='nowrap'>"{search.query}"</span>
         </div>

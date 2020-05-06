@@ -23,7 +23,7 @@ let Search = ({ results, select, deselect, dispatch }) => (
     multi
     placeholder='search for a gene'
     multiPlaceholder='search for a list of genes'
-    onSearch={(value) => {
+    onSearch={(value, expanded) => {
       // split input string by lines
       const strings = value
         .split('\n')
@@ -35,6 +35,7 @@ let Search = ({ results, select, deselect, dispatch }) => (
         getGeneSearch({
           index: index,
           query: string,
+          exact: expanded,
           cancelType: 'GET_GENE_SEARCH_' + index
         }));
       cancelAction({ cancelTypeRegex: /GENE_SEARCH.*/ });

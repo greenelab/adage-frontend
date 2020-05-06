@@ -12,6 +12,10 @@ import './index.css';
 
 // search box component
 
+// length: # of search results, used to handle keyboard result highlighting
+// multi: whether or not box supports multi input
+// expanded: whether or not box is expanded/collapsed (in multi-input state)
+
 const Search = ({
   length = 0,
   multi = false,
