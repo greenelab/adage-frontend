@@ -8,17 +8,19 @@
   justify-content: flex-start;
   align-items: center;
   font-style: italic;
-  flex: 0 0 60px;
-  width: 60px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100px;
 }
 .gene_search_result_multi_query[data-expanded='true'] {
-  flex: 0 0 calc(100% - 30px);
+  flex-grow: 0;
+  flex-shrink: 0;
   width: calc(100% - 30px);
 }
 .gene_search_result_multi_results {
   display: inline-flex;
   align-items: center;
-  width: calc(100% - 60px - 30px - 1px - 1px);
+  width: calc(100% - 100px - 30px - 1px - 1px);
   height: 100%;
 }
 .gene_search_result_multi_results > .td {

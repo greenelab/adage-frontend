@@ -84,8 +84,8 @@ const Input = ({
 
   // call parent's onChange event after debouncing value
   useEffect(() => {
-    onChange(debouncedValue);
-  }, [onChange, debouncedValue]);
+    onChange(debouncedValue, expanded);
+  }, [debouncedValue, expanded, onChange]);
 
   getClearFunc(() => changeValue(''));
 

@@ -18,11 +18,15 @@ export const urlGeneList = ({ organism, limit = maxLimit }) => {
   return url;
 };
 
-export const urlGeneSearch = ({ query, limit = defaultLimit }) => {
+export const urlGeneSearch = ({
+  query,
+  exact = false,
+  limit = defaultLimit
+}) => {
   const params = new URLSearchParams();
   params.set('limit', limit);
   if (query)
-    params.set('autocomplete', query);
+    params.set(exact ? 'search' : 'autocomplete', query);
 
   const url = server + prefixA + '?' + params.toString();
   return url;
