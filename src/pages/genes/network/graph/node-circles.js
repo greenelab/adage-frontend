@@ -2,7 +2,8 @@ import * as d3 from 'd3';
 
 import { transformString } from '../../../../util/string';
 import { nodeData } from '.';
-import { nodeRadius, strokeWidth } from './constants';
+import { nodeRadius } from './constants';
+import { strokeWidth } from './constants';
 
 // filled node circles
 

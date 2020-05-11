@@ -4,7 +4,8 @@ import { transformString } from '../../../../util/string';
 import { stringifyObject } from '../../../../util/object';
 import { dragHandler } from './drag';
 import { nodeData } from '.';
-import { nodeRadius, strokeWidth } from './constants';
+import { nodeRadius } from './constants';
+import { strokeWidth } from './constants';
 
 // node highlight and mouse hitbox
 

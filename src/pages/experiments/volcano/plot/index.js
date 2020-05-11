@@ -99,8 +99,15 @@ let Plot = ({ volcano }) => {
       .attr('cx', (d) => xScale(d.meanDiff))
       .attr('cy', (d) => yScale(d.pValueTrans))
       .attr('r', radius)
-      .attr('fill', (d) =>
-        d.highlighted === false ? 'var(--light-gray)' : 'var(--green)')
+      .attr('fill', (d) => {
+        if (d.highlighted === false)
+          return 'var(--light-gray)';
+        if (d.meanDiff > 0)
+          return 'var(--red)';
+        if (d.meanDiff < 0)
+          return 'var(--blue)';
+        return 'var(--dark-gray)';
+      })
       .attr('stroke', (d) => (d.highlighted === true ? 'var(--black)' : ''))
       .attr('stroke-width', (d) => (d.highlighted === true ? '2' : ''))
       .attr('aria-label', (d) =>
@@ -193,8 +200,8 @@ let Plot = ({ volcano }) => {
           <g id='volcano_y_axis'></g>
           <ArrowLeftIcon
             className='flip_horizontal'
-            x={-40 / 2 + width / 2 - 100 - 35}
-            y={-20 / 2 + height + axisLabelOffset}
+            x={-15 / 2 + width / 2 - 100 - 25}
+            y={-15 / 2 + height + axisLabelOffset}
             color='var(--blue)'
           />
           <DiamondIcon
@@ -208,8 +215,8 @@ let Plot = ({ volcano }) => {
             color='var(--red)'
           />
           <ArrowRightIcon
-            x={-40 / 2 + width / 2 + 100 + 35}
-            y={-20 / 2 + height + axisLabelOffset}
+            x={-15 / 2 + width / 2 + 100 + 25}
+            y={-15 / 2 + height + axisLabelOffset}
             color='var(--red)'
           />
         </g>

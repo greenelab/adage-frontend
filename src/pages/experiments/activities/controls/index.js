@@ -2,11 +2,14 @@ import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { useCallback } from 'react';
+import { connect } from 'react-redux';
 
 import { OrderContext } from '../../order';
 import Clickable from '../../../../components/clickable';
 import { downloadImage } from './download';
 import { downloadTable } from './download';
+import { isArray } from '../../../../util/types';
+import { toExponential } from '../../../../util/string';
 
 import { ReactComponent as LoadingIcon } from '../../../../images/loading.svg';
 import { ReactComponent as BiArrowIcon } from '../../../../images/bi-arrow.svg';
@@ -23,7 +26,7 @@ let signatureProcess;
 
 // controls below activity heatmap
 
-const Controls = ({ activities }) => {
+let Controls = ({ activities, min, max }) => {
   const [sortingSamples, setSortingSamples] = useState(false);
   const [sortingSignatures, setSortingSignatures] = useState(false);
   const {
@@ -104,6 +107,11 @@ const Controls = ({ activities }) => {
   return (
     <>
       <div className='controls'>
+        <div id='heatmap_scale_gradient' />
+        <div id='heatmap_scale_minmax'>
+          <span>{toExponential(min)}</span>
+          <span>{toExponential(max)}</span>
+        </div>
         <Clickable
           text='Cluster Samples'
           icon={
@@ -151,5 +159,19 @@ const Controls = ({ activities }) => {
     </>
   );
 };
+
+const mapStateToProps = (state) => {
+  const activities = state.samples.activities;
+  let min = 0;
+  let max = 0;
+  if (isArray(activities)) {
+    const values = activities.map((activity) => activity.value);
+    min = Math.min(...values);
+    max = Math.max(...values);
+  }
+  return { min, max };
+};
+
+Controls = connect(mapStateToProps)(Controls);
 
 export default Controls;

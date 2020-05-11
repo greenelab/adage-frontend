@@ -1,6 +1,8 @@
 import * as d3 from 'd3';
 
-import { fitPadding, minZoom, maxZoom } from './constants';
+import { fitPadding } from './constants';
+import { minZoom } from './constants';
+import { maxZoom } from './constants';
 import { svg } from '.';
 import { view } from '.';
 
@@ -8,10 +10,7 @@ export let viewHandler = () => null;
 
 // create view handler
 export const initView = () => {
-  viewHandler = d3
-    .zoom()
-    .scaleExtent([minZoom, maxZoom])
-    .on('zoom', onZoom);
+  viewHandler = d3.zoom().scaleExtent([minZoom, maxZoom]).on('zoom', onZoom);
   viewHandler(svg);
 
   svg.on('dblclick.zoom', null);

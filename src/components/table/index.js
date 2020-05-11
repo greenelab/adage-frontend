@@ -85,9 +85,9 @@ let Table = (props, ref) => {
       const compare = (a, b) => {
         a = Number(a) || a;
         b = Number(b) || b;
-        if (a < b || isBlank(b))
+        if (a > b || isBlank(a))
           return sortUp ? -1 : 1;
-        else if (a > b || isBlank(a))
+        else if (a < b || isBlank(b))
           return sortUp ? 1 : -1;
         else
           return 0;
