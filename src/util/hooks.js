@@ -60,16 +60,12 @@ export const useMounted = () => {
 };
 
 // return whether value has changed since last render
-// if loose, doesn't return true going from undef to value (eg first render)
-export const useDiff = (value, loose) => {
+export const useDiff = (value) => {
   const prevValue = useRef(undefined);
   useEffect(() => {
     prevValue.current = value;
   });
-  const same = JSON.stringify(value) === JSON.stringify(prevValue.current);
-  const first = prevValue.current === undefined;
-
-  return loose ? !same && !first : !same;
+  return JSON.stringify(value) !== JSON.stringify(prevValue.current);
 };
 
 // get the inner text of an element
