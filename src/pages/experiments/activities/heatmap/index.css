@@ -15,22 +15,19 @@
 }
 .activities_header > :nth-child(2),
 .activities_row > :nth-child(2) {
-  width: 100px;
+  width: calc((100% - 60px) * 0.25);
 }
 .activities_header > :nth-child(3),
 .activities_row > :nth-child(3) {
-  width: calc(100% - 60px - 100px);
+  width: calc((100% - 60px) * 0.75);
 }
 .activities_row > :nth-child(2) {
   box-sizing: border-box;
-  justify-content: flex-start;
   padding: 0 5px;
-}
-.activities_row > :nth-child(2) > * {
-  justify-content: flex-start;
 }
 .activities_row > :nth-child(3) {
   overflow-x: auto;
+  overflow-y: unset;
 }
 .heatmap_cell {
   cursor: pointer;

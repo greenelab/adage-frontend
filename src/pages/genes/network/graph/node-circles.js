@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 import { transformString } from '../../../../util/string';
 import { nodeData } from '.';
-import { nodeRadius, fillA, fillB, stroke, strokeWidth } from './constants';
+import { nodeRadius, strokeWidth } from './constants';
 
 // filled node circles
 
@@ -17,8 +17,8 @@ export const drawNodeCircles = () => {
     .merge(nodeCircles)
     .attr('class', 'graph_node_circle')
     .attr('r', nodeRadius)
-    .attr('fill', (d) => (d.selected ? fillA : fillB))
-    .attr('stroke', stroke)
+    .attr('fill', (d) => (d.selected ? 'var(--green)' : 'var(--light-gray)'))
+    .attr('stroke', 'var(--black)')
     .attr('stroke-width', strokeWidth)
     .style('pointer-events', 'none');
 

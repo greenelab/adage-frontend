@@ -1,5 +1,6 @@
 import React from 'react';
 import { createContext } from 'react';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useCallback } from 'react';
@@ -16,6 +17,7 @@ export const OrderContext = createContext({});
 let Order = ({ activities, children }) => {
   const [sampleOrder, setSampleOrder] = useState([]);
   const [signatureOrder, setSignatureOrder] = useState([]);
+  const tableRef = useRef();
   const activitiesChanged = useDiff(JSON.stringify(activities));
 
   const changeSampleOrder = useCallback((order) => setSampleOrder(order), []);
@@ -36,6 +38,11 @@ let Order = ({ activities, children }) => {
     }
   }, [activities, changeSampleOrder, changeSignatureOrder]);
 
+  const unsetTableSort = useCallback(() => {
+    if (tableRef.current)
+      tableRef.current.resetSort();
+  }, []);
+
   // reset orders when activities change
   useEffect(() => {
     if (!activitiesChanged)
@@ -51,7 +58,9 @@ let Order = ({ activities, children }) => {
         signatureOrder,
         changeSampleOrder,
         changeSignatureOrder,
-        resetOrders
+        resetOrders,
+        unsetTableSort,
+        tableRef
       }}
     >
       {children}

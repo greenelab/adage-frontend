@@ -26,9 +26,12 @@ let signatureProcess;
 const Controls = ({ activities }) => {
   const [sortingSamples, setSortingSamples] = useState(false);
   const [sortingSignatures, setSortingSignatures] = useState(false);
-  const { changeSampleOrder, changeSignatureOrder, resetOrders } = useContext(
-    OrderContext
-  );
+  const {
+    changeSampleOrder,
+    changeSignatureOrder,
+    resetOrders,
+    unsetTableSort
+  } = useContext(OrderContext);
 
   // sort samples with clustering
   const sortSamples = useCallback(async () => {
@@ -53,11 +56,12 @@ const Controls = ({ activities }) => {
 
     // set new
     changeSampleOrder(newSamples);
+    unsetTableSort();
 
     // set status to done
     setSortingSamples(false);
     sampleProcess = undefined;
-  }, [activities, changeSampleOrder]);
+  }, [activities, changeSampleOrder, unsetTableSort]);
 
   // sort signatures with clustering
   const sortSignatures = useCallback(async () => {
@@ -94,7 +98,8 @@ const Controls = ({ activities }) => {
     setSortingSignatures(false);
     signatureProcess = undefined;
     resetOrders();
-  }, [resetOrders]);
+    unsetTableSort();
+  }, [resetOrders, unsetTableSort]);
 
   return (
     <>

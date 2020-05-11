@@ -15,9 +15,7 @@ import './index.css';
 // table of samples for selected experiment
 
 let Table = ({ samples }) => {
-  const { sampleOrder, changeSampleOrder } = useContext(
-    OrderContext
-  );
+  const { sampleOrder, changeSampleOrder, tableRef } = useContext(OrderContext);
 
   const sortedSamples = useMemo(() => sort(samples, sampleOrder, 'id'), [
     sampleOrder,
@@ -26,6 +24,7 @@ let Table = ({ samples }) => {
 
   return (
     <TableComponent
+      ref={tableRef}
       data={sortedSamples}
       columns={[
         {
@@ -61,6 +60,7 @@ let Table = ({ samples }) => {
         }
       ]}
       minWidth='500px'
+      maxHeight='calc((12 * 30px) + ((12 - 1) * 1px))'
       onSort={(data) => changeSampleOrder(data.map((d) => d.id))}
     />
   );

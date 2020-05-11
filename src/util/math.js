@@ -171,7 +171,7 @@ export const calculateVolcanoSignatures = ({
       (activity) =>
         activity.sample === sampleId && activity.signature === signatureId
     );
-    return (found || {}).value;
+    return found?.value;
   };
 
   // remove any signatures that are not part of activities
@@ -194,8 +194,8 @@ export const calculateVolcanoSignatures = ({
     if (diamondActivities.length < 2 && spadeActivities.length < 2)
       return null;
 
-    // compute difference between diamond and spade activity means
-    const meanDiff = mean(diamondActivities) - mean(spadeActivities);
+    // compute difference between spade and diamond activity means
+    const meanDiff = mean(spadeActivities) - mean(diamondActivities);
     // compute p value of signature based using t test from ttest library
     const pValue = ttest(diamondActivities, spadeActivities);
 
