@@ -6,7 +6,7 @@
   style="overflow: visible;"
 >
   <style>
-    .nav_button:hover .experiment_liquid {
+    a:hover .experiment_liquid {
       animation: experiment_liquid 2s ease-in-out forwards infinite;
     }
     @keyframes experiment_liquid {
@@ -23,13 +23,13 @@
         transform: translateY(100px) scaleY(1) translateY(-100px);
       }
     }
-    .nav_button:hover .experiment_liquid[data-number="1"] {
+    a:hover .experiment_liquid[data-number="1"] {
       animation-delay: 0s;
     }
-    .nav_button:hover .experiment_liquid[data-number="2"] {
+    a:hover .experiment_liquid[data-number="2"] {
       animation-delay: 0.5s;
     }
-    .nav_button:hover .experiment_bubble {
+    a:hover .experiment_bubble {
       animation: experiment_bubble 2s ease forwards infinite;
     }
     @keyframes experiment_bubble {
@@ -40,13 +40,13 @@
         transform: translateY(-110px);
       }
     }
-    .nav_button:hover .experiment_bubble[data-number="1"] {
+    a:hover .experiment_bubble[data-number="1"] {
       animation-delay: 0s;
     }
-    .nav_button:hover .experiment_bubble[data-number="2"] {
+    a:hover .experiment_bubble[data-number="2"] {
       animation-delay: 0.5s;
     }
-    .nav_button:hover .experiment_bubble[data-number="3"] {
+    a:hover .experiment_bubble[data-number="3"] {
       animation-delay: 1s;
     }
   </style>

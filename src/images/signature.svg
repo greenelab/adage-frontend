@@ -5,7 +5,7 @@
   viewBox="0 0 100 100"
 >
   <style>
-    .nav_button:hover #signature_line {
+    a:hover #signature_line {
       animation: signature_line 2s ease reverse infinite;
       stroke-dasharray: 228;
     }
