@@ -5,7 +5,7 @@
   viewBox="0 0 100 100"
 >
   <style>
-    .nav_button:hover .gene_strand {
+    a:hover .gene_strand {
       animation: gene_strand 2s linear reverse infinite;
       stroke-dasharray: 134.7;
     }
@@ -17,7 +17,7 @@
         stroke-dashoffset: 269.4;
       }
     }
-    .nav_button:hover .gene_base {
+    a:hover .gene_base {
       animation: gene_base 2s linear forwards infinite;
     }
     @keyframes gene_base {
@@ -34,16 +34,16 @@
         transform: translateX(50px) scaleX(1) translateX(-50px);
       }
     }
-    .nav_button:hover .gene_base[data-number="1"] {
+    a:hover .gene_base[data-number="1"] {
       animation-delay: 0.75s;
     }
-    .nav_button:hover .gene_base[data-number="2"] {
+    a:hover .gene_base[data-number="2"] {
       animation-delay: 0.50s;
     }
-    .nav_button:hover .gene_base[data-number="3"] {
+    a:hover .gene_base[data-number="3"] {
       animation-delay: 0.25s;
     }
-    .nav_button:hover .gene_base[data-number="4"] {
+    a:hover .gene_base[data-number="4"] {
       animation-delay: 0.00;
     }
   </style>

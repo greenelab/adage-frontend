@@ -13,6 +13,11 @@ import { stringifyObject } from '../../../../util/object';
 import { transformString } from '../../../../util/string';
 import { getLinkPath } from '../../../../components/clickable';
 
+import { ReactComponent as DiamondIcon } from '../../../../images/diamond.svg';
+import { ReactComponent as SpadeIcon } from '../../../../images/spade.svg';
+import { ReactComponent as ArrowLeftIcon } from '../../../../images/long-arrow-left.svg';
+import { ReactComponent as ArrowRightIcon } from '../../../../images/long-arrow-right.svg';
+
 import './index.css';
 
 const radius = 5;
@@ -94,8 +99,16 @@ let Plot = ({ volcano }) => {
       .attr('cx', (d) => xScale(d.meanDiff))
       .attr('cy', (d) => yScale(d.pValueTrans))
       .attr('r', radius)
-      .attr('fill', (d) => (d.highlighted === false ? '#e0e0e0' : '#26a36c'))
-      .attr('stroke', (d) => (d.highlighted === true ? '#000000' : ''))
+      .attr('fill', (d) => {
+        if (d.highlighted === false)
+          return 'var(--light-gray)';
+        if (d.meanDiff > 0)
+          return 'var(--red)';
+        if (d.meanDiff < 0)
+          return 'var(--blue)';
+        return 'var(--dark-gray)';
+      })
+      .attr('stroke', (d) => (d.highlighted === true ? 'var(--black)' : ''))
       .attr('stroke-width', (d) => (d.highlighted === true ? '2' : ''))
       .attr('aria-label', (d) =>
         stringifyObject({
@@ -121,6 +134,21 @@ let Plot = ({ volcano }) => {
         onChange={(value) => setSearch(value)}
       />
       <svg ref={ref} id='volcano' xmlns='http://www.w3.org/2000/svg'>
+        <style>
+          {`
+            * {
+              --green: #26a36c;
+              --blue: #2196f3;
+              --red: #e91e63;
+              --black: #000000;
+              --dark-gray: #606060;
+              --gray: #a0a0a0;
+              --light-gray: #e0e0e0;
+              --off-white: #f0f0f0;
+              --white: #ffffff;
+            }
+          `}
+        </style>
         <g
           id='volcano_view'
           transform={transformString(
@@ -170,6 +198,27 @@ let Plot = ({ volcano }) => {
           <g id='volcano_dots'></g>
           <g id='volcano_x_axis'></g>
           <g id='volcano_y_axis'></g>
+          <ArrowLeftIcon
+            className='flip_horizontal'
+            x={-15 / 2 + width / 2 - 100 - 25}
+            y={-15 / 2 + height + axisLabelOffset}
+            color='var(--blue)'
+          />
+          <DiamondIcon
+            x={-15 / 2 + width / 2 - 100}
+            y={-15 / 2 + height + axisLabelOffset}
+            color='var(--blue)'
+          />
+          <SpadeIcon
+            x={-15 / 2 + width / 2 + 100}
+            y={-15 / 2 + height + axisLabelOffset}
+            color='var(--red)'
+          />
+          <ArrowRightIcon
+            x={-15 / 2 + width / 2 + 100 + 25}
+            y={-15 / 2 + height + axisLabelOffset}
+            color='var(--red)'
+          />
         </g>
       </svg>
     </>

@@ -2,7 +2,6 @@
   width: 100%;
   overflow-x: auto;
   overflow-y: visible;
-  max-height: calc((8 * 30px) + ((8 - 1) * 1px));
 }
 .tr {
   display: flex;

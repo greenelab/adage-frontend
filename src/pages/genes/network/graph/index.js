@@ -78,6 +78,21 @@ const Graph = ({ nodes, links }) => {
 
   return (
     <svg ref={ref} xmlns='http://www.w3.org/2000/svg' id='graph'>
+      <style>
+        {`
+          * {
+            --green: #26a36c;
+            --blue: #2196f3;
+            --red: #e91e63;
+            --black: #000000;
+            --dark-gray: #606060;
+            --gray: #a0a0a0;
+            --light-gray: #e0e0e0;
+            --off-white: #f0f0f0;
+            --white: #ffffff;
+          }
+        `}
+      </style>
       <g id='graph_view'>
         <g id='graph_link_highlight_layer'></g>
         <g id='graph_link_line_layer'></g>
