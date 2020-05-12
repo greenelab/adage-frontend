@@ -45,6 +45,7 @@ export const usePrev = (value) => {
   useEffect(() => {
     ref.current = value;
   });
+
   return ref.current;
 };
 
@@ -54,16 +55,17 @@ export const useMounted = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
   return mounted;
 };
 
 // return whether value has changed since last render
 export const useDiff = (value) => {
-  const prevValue = useRef();
+  const prevValue = useRef(undefined);
   useEffect(() => {
-    prevValue.current = JSON.stringify(value);
+    prevValue.current = value;
   });
-  return JSON.stringify(value) !== prevValue.current;
+  return JSON.stringify(value) !== JSON.stringify(prevValue.current);
 };
 
 // get the inner text of an element
@@ -83,8 +85,6 @@ export const useScript = (url) => {
     script.src = url;
     script.async = true;
     document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
+    return () => document.body.removeChild(script);
   }, [url]);
 };

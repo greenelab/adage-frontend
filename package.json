@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "dependencies": {
     "@greenelab/hclust": "^0.0.0",
     "@stdlib/stdlib": "^0.0.91",

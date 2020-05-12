@@ -1,0 +1,19 @@
+#heatmap_scale_gradient,
+#heatmap_scale_minmax {
+  width: 100%;
+}
+#heatmap_scale_gradient {
+  height: 10px;
+  background: linear-gradient(
+    to right,
+    #6e40aa,
+    #417de0,
+    #1ac8c1,
+    #41f373,
+    #aff05b
+  );
+}
+#heatmap_scale_minmax {
+  display: flex;
+  justify-content: space-between;
+}

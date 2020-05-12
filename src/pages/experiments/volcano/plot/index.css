@@ -5,12 +5,8 @@
 .volcano_dot {
   cursor: pointer;
 }
-#volcano_dots:hover .volcano_dot {
-  fill: var(--light-gray);
-}
 #volcano_dots .volcano_dot:hover {
   opacity: 1 !important;
-  fill: var(--green);
   stroke: var(--black);
   stroke-width: 2;
 }
