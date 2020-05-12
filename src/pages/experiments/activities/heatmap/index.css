@@ -21,9 +21,11 @@
 .activities_row > :nth-child(3) {
   width: calc((100% - 60px) * 0.75);
 }
-.activities_row > :nth-child(2) {
+.activities_header > :nth-child(2),
+.activities_row > :nth-child(2) > * {
   box-sizing: border-box;
   padding: 0 5px;
+  justify-content: flex-start;
 }
 .activities_row > :nth-child(3) {
   overflow-x: auto;

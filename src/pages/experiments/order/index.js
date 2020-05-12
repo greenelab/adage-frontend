@@ -38,7 +38,7 @@ let Order = ({ activities, children }) => {
     }
   }, [activities, changeSampleOrder, changeSignatureOrder]);
 
-  const unsetTableSort = useCallback(() => {
+  const resetTableSort = useCallback(() => {
     if (tableRef.current)
       tableRef.current.resetSort();
   }, []);
@@ -59,7 +59,7 @@ let Order = ({ activities, children }) => {
         changeSampleOrder,
         changeSignatureOrder,
         resetOrders,
-        unsetTableSort,
+        resetTableSort,
         tableRef
       }}
     >

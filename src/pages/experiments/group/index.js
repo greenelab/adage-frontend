@@ -1,10 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
 import { connect } from 'react-redux';
 
 import Clickable from '../../../components/clickable';
 import { groupSample } from '../../../actions/samples';
 import { ungroupSample } from '../../../actions/samples';
 import { groupIndex } from '../../../reducers/samples';
+import { OrderContext } from '../order';
 
 import { ReactComponent as DiamondIcon } from '../../../images/diamond.svg';
 import { ReactComponent as SpadeIcon } from '../../../images/spade.svg';
@@ -37,15 +39,17 @@ let GroupButton = ({
   group,
   ungroup
 }) => {
+  const { resetTableSort } = useContext(OrderContext);
   const isGrouped = groupIndex === index;
   const defaultColor = 'var(--light-gray)';
   return (
     <Clickable
       icon={<Icon />}
       button
-      onClick={() =>
-        (isGrouped ? ungroup : group)({ index: index, id: sample.id })
-      }
+      onClick={() => {
+        (isGrouped ? ungroup : group)({ index: index, id: sample.id });
+        resetTableSort();
+      }}
       style={{ color: isGrouped ? color : defaultColor }}
       aria-label={
         isGrouped ? 'Ungroup this sample' : 'Put this sample in group ' + index
