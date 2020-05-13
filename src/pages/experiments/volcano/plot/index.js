@@ -93,7 +93,7 @@ let Plot = ({ volcano, search, pValueCutoff }) => {
       .select('#cutoff_label')
       .attr('x', xScale(-xMax) + 15)
       .attr('y', yScale(cutoffLine) - 8)
-      .text('p Value ' + pValueCutoff);
+      .text('p value = ' + pValueCutoff);
 
     // draw dots
     const dot = svg

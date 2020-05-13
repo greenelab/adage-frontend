@@ -17,7 +17,8 @@ const Filters = ({ setSearch, setPValueCutoff }) => (
       />
     </div>
     <div>
-      <span className='volcano_cutoff_label'>p Value cutoff:</span>
+      <span className='volcano_cutoff_label'>p value</span>
+      <span>&lt;</span>
       <NumberBox
         className='volcano_cutoff'
         defaultValue={1}
