@@ -1,0 +1,32 @@
+#volcano_filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#volcano_filters > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#volcano_filters > *:first-child {
+  margin-right: 40px;
+}
+.volcano_search {
+  width: 200px;
+}
+.volcano_cutoff_label {
+  width: 120px;
+}
+.volcano_cutoff {
+  width: 80px;
+}
+
+@media screen and (max-width: 660px) {
+  #volcano_filters {
+    flex-direction: column;
+  }
+  #volcano_filters > *:first-child {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

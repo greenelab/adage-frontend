@@ -49,7 +49,7 @@
   margin: 5px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 660px) {
   .cite_frame {
     flex-direction: column;
   }
