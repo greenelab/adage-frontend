@@ -12,7 +12,7 @@ const Filters = ({ setSearch, setPValueCutoff }) => (
     <div>
       <Input
         className='volcano_search'
-        placeholder='search signature names'
+        placeholder='search signatures'
         onChange={setSearch}
       />
     </div>
