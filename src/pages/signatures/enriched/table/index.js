@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import TableComponent from '../../../../components/table';
 import Clickable from '../../../../components/clickable';
 import GeneLink from '../../../gene/link';
-import { toExponential } from '../../../../util/string';
+import { toPValue } from '../../../../util/string';
 
 import './index.css';
 
@@ -26,9 +26,9 @@ let Table = ({ enrichedGenes }) => (
         width: '5%'
       },
       {
-        name: 'p Value',
+        name: 'p-value',
         key: 'pValue',
-        render: ({ cell }) => toExponential(cell),
+        render: ({ cell }) => toPValue(cell),
         width: '5%',
         align: 'center'
       },

@@ -1,11 +1,9 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useState } from 'react';
 import { useMemo } from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
-import Input from '../../../../components/input';
 import { searchSignatures } from '../../../../reducers/signatures';
 import { useMounted } from '../../../../util/hooks';
 import { useBbox } from '../../../../util/hooks';
@@ -27,10 +25,9 @@ export let svg;
 
 // volcano plot
 
-let Plot = ({ volcano }) => {
+let Plot = ({ volcano, search, pValueCutoff }) => {
   // internal state
   const mounted = useMounted();
-  const [search, setSearch] = useState('');
   const [bbox, ref] = useBbox();
 
   const width = Math.round(bbox?.width || 0);
@@ -58,23 +55,23 @@ let Plot = ({ volcano }) => {
     // find x and y domains (min/max values)
     const xValues = volcano.map((d) => d.meanDiff);
     const yValues = volcano.map((d) => d.pValueTrans);
-    const xMax = Math.max(
-      Math.abs(Math.min(...xValues)),
-      Math.abs(Math.max(...xValues))
-    );
-    const yMax = Math.max(...yValues);
+    const xMax =
+      Math.max(Math.abs(Math.min(...xValues)), Math.abs(Math.max(...xValues))) *
+      1.1;
+    const yMax = Math.max(...yValues) * 1.1;
 
     // x axis scale
-    const xScale = d3
-      .scaleLinear()
-      .range([0, width])
-      .domain([-xMax * 1.1, xMax * 1.1]);
+    const xScale = d3.scaleLinear().range([0, width]).domain([-xMax, xMax]);
 
     // y axis scale
-    const yScale = d3
-      .scaleLinear()
-      .range([height, 0])
-      .domain([0, yMax * 1.1]);
+    const yScale = d3.scaleLinear().range([height, 0]).domain([0, yMax]);
+
+    // don't show p value cutoff if beyond bounds of chart
+    let cutoffLine = -Math.log10(pValueCutoff);
+    if (cutoffLine <= 0)
+      cutoffLine = -99999;
+    if (cutoffLine >= yMax)
+      cutoffLine = 99999;
 
     // x axis marks
     svg
@@ -84,6 +81,19 @@ let Plot = ({ volcano }) => {
 
     // y axis marks
     svg.select('#volcano_y_axis').call(d3.axisLeft(yScale).tickArguments([10]));
+
+    // draw p value cutoff line
+    svg
+      .select('#cutoff_line')
+      .attr('x1', xScale(-xMax))
+      .attr('y1', yScale(cutoffLine))
+      .attr('x2', xScale(xMax))
+      .attr('y2', yScale(cutoffLine));
+    svg
+      .select('#cutoff_label')
+      .attr('x', xScale(-xMax) + 15)
+      .attr('y', yScale(cutoffLine) - 8)
+      .text('p value = ' + pValueCutoff);
 
     // draw dots
     const dot = svg
@@ -100,7 +110,7 @@ let Plot = ({ volcano }) => {
       .attr('cy', (d) => yScale(d.pValueTrans))
       .attr('r', radius)
       .attr('fill', (d) => {
-        if (d.highlighted === false)
+        if (d.highlighted === false || d.pValue > pValueCutoff)
           return 'var(--light-gray)';
         if (d.meanDiff > 0)
           return 'var(--red)';
@@ -124,15 +134,10 @@ let Plot = ({ volcano }) => {
         window.location = getLinkPath({ location, to, search }).full;
       });
     dot.exit().remove();
-  }, [mounted, width, height, volcano]);
+  }, [mounted, width, height, volcano, pValueCutoff]);
 
   return (
     <>
-      <Input
-        className='volcano_search'
-        placeholder='search signatures'
-        onChange={(value) => setSearch(value)}
-      />
       <svg ref={ref} id='volcano' xmlns='http://www.w3.org/2000/svg'>
         <style>
           {`
@@ -165,6 +170,9 @@ let Plot = ({ volcano }) => {
             -height / 2
           )}
         >
+          <g id='volcano_dots'></g>
+          <line id='cutoff_line' stroke='var(--gray)' />
+          <text id='cutoff_label' />
           <text
             id='y_axis_label'
             textAnchor='middle'
@@ -195,7 +203,6 @@ let Plot = ({ volcano }) => {
           >
             diff in mean activity
           </text>
-          <g id='volcano_dots'></g>
           <g id='volcano_x_axis'></g>
           <g id='volcano_y_axis'></g>
           <ArrowLeftIcon

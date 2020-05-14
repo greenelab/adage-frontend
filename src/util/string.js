@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { epsilon } from './math';
+
 // split string by lower to upper case and letter to number
 // and convert to lower case
 export const split = (string) =>
@@ -63,7 +65,7 @@ export const transformString = (...args) => {
 };
 
 // format number as exponential
-export const toExponential = (value) => {
+export const toExponential = (value, prefix = '') => {
   const number = parseFloat(value).toExponential(1);
   const mantissa = parseFloat(number.split('e')[0]).toFixed(2);
   const exponent = parseInt(number.split('e')[1]);
@@ -73,7 +75,19 @@ export const toExponential = (value) => {
 
   return (
     <span className='nowrap'>
+      {prefix}
       {mantissa} &times; 10<sup>{exponent}</sup>
     </span>
   );
+};
+
+// format number as p value, and show < epsilon if below javascript precision
+export const toPValue = (value) => {
+  let prefix = '';
+  if (value < epsilon) {
+    value = epsilon;
+    prefix = '< ';
+  }
+
+  return toExponential(value, prefix);
 };

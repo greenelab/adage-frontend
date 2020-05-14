@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import TableComponent from '../../../../components/table';
 import SignatureLink from '../../../signature/link';
 import GeneLink from '../../../gene/link';
-import { toExponential } from '../../../../util/string';
+import { toPValue } from '../../../../util/string';
 
 import './index.css';
 
@@ -36,7 +36,7 @@ let Table = ({ enrichedSignatures }) => (
       {
         name: 'p-value',
         key: 'pValue',
-        render: ({ cell }) => toExponential(cell),
+        render: ({ cell }) => toPValue(cell),
         width: '20%'
       }
     ]}
