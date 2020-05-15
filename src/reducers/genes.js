@@ -47,15 +47,17 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'SELECT_GENE': {
+      const { id, ids } = payload;
       const select = (id) => {
         if (!draft.selected.find((selected) => selected.id === id))
           draft.selected.push({ id });
       };
-      const { id, ids = [] } = payload;
       if (id)
         select(id);
-      for (const id of ids)
-        select(id);
+      else if (ids) {
+        for (const id of ids)
+          select(id);
+      }
       break;
     }
 

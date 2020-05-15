@@ -38,7 +38,8 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'SELECT_SAMPLES': {
-      draft.selected = payload.ids.map((id) => ({ id }));
+      const { ids } = payload;
+      draft.selected = ids.map((id) => ({ id }));
       // ungroup samples not in selected experiment
       for (const index of ['diamond', 'spade']) {
         for (const id of draft.groups[index] || []) {
@@ -50,15 +51,25 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'UNGROUP_SAMPLE': {
-      draft.groups = filterGrouped(draft.groups, payload.id);
+      const { id } = payload;
+      draft.groups = filterGrouped(draft.groups, id);
       break;
     }
 
     case 'GROUP_SAMPLE': {
-      draft.groups = filterGrouped(draft.groups, payload.id);
-      if (!isArray(draft.groups[payload.index]))
-        draft.groups[payload.index] = [];
-      draft.groups[payload.index].push(payload.id);
+      const { index, id, ids } = payload;
+      const group = (index, id) => {
+        draft.groups = filterGrouped(draft.groups, id);
+        if (!isArray(draft.groups[index]))
+          draft.groups[index] = [];
+        draft.groups[index].push(id);
+      };
+      if (id)
+        group(index, id);
+      else if (ids) {
+        for (const id of ids)
+          group(index, id);
+      }
       break;
     }
 
@@ -110,7 +121,7 @@ const reducer = produce((draft, type, payload, meta) => {
 
 export default reducer;
 
-export const groupIndex = (groups, id) => {
+export const getGroupIndex = (groups, id) => {
   for (const [key, value] of Object.entries(groups)) {
     if (isArray(value) && value.includes(id))
       return key;
