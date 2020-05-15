@@ -1,11 +1,14 @@
 import React from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useMemo } from 'react';
 import { useContext } from 'react';
+import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
 import { GroupButtons } from '../../group';
 import SampleLink from '../../../sample/link';
+import { groupSample } from '../../../../actions/samples';
 import { OrderContext } from '../../order';
 import { useMounted } from '../../../../util/hooks';
 import { useDiff } from '../../../../util/hooks';
@@ -23,8 +26,9 @@ export let svg;
 
 // sample activity heatmap
 
-const Heatmap = ({ activities }) => {
+let Heatmap = ({ activities, group }) => {
   // internal state
+  const [start, setStart] = useState(null);
   const { sampleOrder, signatureOrder } = useContext(OrderContext);
   const mounted = useMounted();
 
@@ -120,6 +124,11 @@ const Heatmap = ({ activities }) => {
     height
   ]);
 
+  // reset shift select when sample order changes
+  useEffect(() => {
+    setStart(null);
+  }, [samplesChanged]);
+
   return (
     <div id='activities'>
       <div className='activities_header weight_medium'>
@@ -129,8 +138,23 @@ const Heatmap = ({ activities }) => {
       </div>
       <div className='activities_row'>
         <div>
-          {orderedSamples.map((sample, index) => (
-            <GroupButtons key={index} sample={sample} />
+          {orderedSamples.map((sample, rowIndex) => (
+            <GroupButtons
+              key={rowIndex}
+              sample={sample}
+              onClick={(event, groupIndex) => {
+                if (!event.shiftKey || !start)
+                  setStart({ rowIndex, groupIndex });
+                else {
+                  const from = Math.min(start.rowIndex, rowIndex);
+                  const to = Math.max(start.rowIndex, rowIndex);
+                  group({
+                    index: groupIndex,
+                    ids: sampleOrder.slice(from, to + 1)
+                  });
+                }
+              }}
+            />
           ))}
         </div>
         <div>
@@ -152,5 +176,11 @@ const Heatmap = ({ activities }) => {
     </div>
   );
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  group: (...args) => dispatch(groupSample(...args))
+});
+
+Heatmap = connect(null, mapDispatchToProps)(Heatmap);
 
 export default Heatmap;

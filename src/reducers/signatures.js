@@ -57,10 +57,11 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'SELECT_SIGNATURE_FROM_URL': {
-      if (!payload.id)
+      const { id } = payload;
+      if (!id)
         draft.selected = {};
       else
-        draft.selected = { id: payload.id };
+        draft.selected = { id };
       break;
     }
 

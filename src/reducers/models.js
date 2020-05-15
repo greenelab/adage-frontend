@@ -28,7 +28,8 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'SELECT_MODEL_FROM_URL': {
-      if (!payload.id)
+      const { id } = payload;
+      if (!id)
         draft.selected = {};
       else
         draft.selected = payload;
