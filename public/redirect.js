@@ -11,4 +11,4 @@ const newUrl = decodeURIComponent(path);
 console.log({ oldUrl, newUrl });
 
 if (newUrl)
-  window.location.replace(newUrl);
+  window.history.replaceState(null, null, newUrl);
