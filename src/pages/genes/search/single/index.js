@@ -11,20 +11,14 @@ import './index.css';
 
 // component to show below search box when doing a single search
 
-let Single = ({ results, highlightedIndex }) => (
+let Single = ({ query, results, highlightedIndex }) => (
   <>
     {isArray(results) && (
-      <>
-        <SingleTable results={results} highlightedIndex={highlightedIndex} />
-        <div className='search_results_note'>
-          <span
-            className='size_small'
-            aria-label='Search to find specific result'
-          >
-            Top {results.length} results
-          </span>
-        </div>
-      </>
+      <SingleTable
+        query={query}
+        results={results}
+        highlightedIndex={highlightedIndex}
+      />
     )}
     {isString(results) && (
       <FetchAlert
@@ -36,9 +30,8 @@ let Single = ({ results, highlightedIndex }) => (
   </>
 );
 
-const mapStateToProps = (state) => ({
-  results: mapGeneSearch(state.genes.searches[0] || {}, state)?.results
-});
+const mapStateToProps = (state) =>
+  mapGeneSearch(state.genes.searches[0] || {}, state);
 
 Single = connect(mapStateToProps)(Single);
 

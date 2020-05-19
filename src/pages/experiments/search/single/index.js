@@ -5,26 +5,20 @@ import SingleTable from '../single-table';
 import FetchAlert from '../../../../components/fetch-alert';
 import { isArray } from '../../../../util/types';
 import { isString } from '../../../../util/types';
-import { mapExperimentResult } from '../';
+import { mapExperimentSearch } from '../';
 
 import './index.css';
 
 // component to show below search box when doing a single search
 
-let Single = ({ results, highlightedIndex }) => (
+let Single = ({ query, results, highlightedIndex }) => (
   <>
     {isArray(results) && (
-      <>
-        <SingleTable results={results} highlightedIndex={highlightedIndex} />
-        <div className='search_results_note'>
-          <span
-            className='size_small'
-            aria-label='Search to find specific result'
-          >
-            Top {results.length} results
-          </span>
-        </div>
-      </>
+      <SingleTable
+        query={query}
+        results={results}
+        highlightedIndex={highlightedIndex}
+      />
     )}
     {isString(results) && (
       <FetchAlert
@@ -36,14 +30,8 @@ let Single = ({ results, highlightedIndex }) => (
   </>
 );
 
-const mapStateToProps = (state) => ({
-  results: state.experiments.searches[0] ?
-    isArray(state.experiments.searches[0].results) ?
-      state.experiments.searches[0].results.map((result) =>
-        mapExperimentResult(result, state)) :
-      state.experiments.searches[0].results :
-    ''
-});
+const mapStateToProps = (state) =>
+  mapExperimentSearch(state.experiments.searches[0] || {}, state);
 
 Single = connect(mapStateToProps)(Single);
 

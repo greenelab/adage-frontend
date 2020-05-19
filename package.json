@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "dependencies": {
     "@greenelab/hclust": "^0.0.0",
     "@stdlib/stdlib": "^0.0.91",
@@ -27,7 +27,7 @@
     "redux-thunk": "^2.3.0",
     "unescape": "^1.0.1",
     "use-debounce": "^3.4.2",
-    "workerize-loader": "1.1.0"
+    "workerize-loader": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

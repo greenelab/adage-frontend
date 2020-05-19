@@ -5,6 +5,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
   color: var(--gray);
+}
+.search_results_note:not(:first-child) {
+  margin-top: 10px;
+}
+.search_results_note:not(:last-child) {
+  margin-bottom: 10px;
 }

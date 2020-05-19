@@ -1,20 +1,32 @@
 <!-- based on https://github.com/rafrex/spa-github-pages/blob/gh-pages/404.html -->
 
+<!-- this script requires the app be hosted at root level -->
+<!-- eg. greenelab.github.io/adage-frontend will not work properly -->
+
 <html>
   <body>
     <script type="text/javascript">
-      const prefix = '/adage-frontend';
 
-      let { pathname, search, href: originalUrl } = window.location;
+      // get components of url
+      const { pathname, search, href: oldUrl } = window.location;
 
-      const basename = pathname.includes(prefix) ? prefix : '';
-      pathname = pathname.replace(prefix, '');
+      // list of substring matches that will redirect to old adage site
+      const oldRedirects = ['Paeruginosa-da'];
 
-      const path = encodeURIComponent(basename + pathname + search);
-      const newUrl = basename + '/?path=' + path;
+      let newUrl = '';
 
-      console.log({ originalUrl, path, newUrl });
+      // if url contains old adage url substring, redirect to old adage site
+      if (oldRedirects.some((redirect) => oldUrl.includes(redirect)))
+        newUrl = 'https://old-adage.greenelab.com' + pathname;
+      // otherwise, encode url into single param and redirect to root of SPA
+      else {
+        const path = encodeURIComponent(pathname + search);
+        newUrl = '/?path=' + path;
+      }
 
+      console.log({ oldUrl, newUrl });
+
+      // go to new url w/o tab history entry
       window.location.replace(newUrl);
     </script>
   </body>
