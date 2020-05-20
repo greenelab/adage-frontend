@@ -36,7 +36,7 @@ export const isExternalLink = (string) => {
   }
 };
 
-// turn list of transform operations and params into transform string
+// turn list of transform operations and parameters into transform string
 export const transformString = (...args) => {
   const validOps = [
     'translate',
