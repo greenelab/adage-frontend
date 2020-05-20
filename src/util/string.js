@@ -36,9 +36,9 @@ export const isExternalLink = (string) => {
   }
 };
 
-// turn list of transform operations and parameters into transform string
+// turn list of transform operations and params into transform string
 export const transformString = (...args) => {
-  const validOperations = [
+  const validOps = [
     'translate',
     'rotate',
     'scale',
@@ -48,25 +48,20 @@ export const transformString = (...args) => {
     'scaleY'
   ];
 
-  const operations = [];
+  const ops = [];
   for (const arg of args) {
-    if (validOperations.includes(arg))
-      operations.push({ name: arg, parameters: [] });
+    if (validOps.includes(arg))
+      ops.push({ name: arg, params: [] });
     else
-      operations[operations.length - 1].parameters.push(arg);
+      ops[ops.length - 1].params.push(arg);
   }
 
-  return operations
-    .map(
-      (operation) =>
-        operation.name + '(' + operation.parameters.join(', ') + ')'
-    )
-    .join(' ');
+  return ops.map((op) => op.name + '(' + op.params.join(', ') + ')').join(' ');
 };
 
 // format number as exponential
 export const toExponential = (value, prefix = '') => {
-  const number = parseFloat(value).toExponential(1);
+  const number = parseFloat(value).toExponential();
   const mantissa = parseFloat(number.split('e')[0]).toFixed(2);
   const exponent = parseInt(number.split('e')[1]);
 
