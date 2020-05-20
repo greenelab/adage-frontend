@@ -64,25 +64,33 @@ let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
             align: 'center'
           },
           {
-            name: '#',
+            name: 'Activities',
             key: 'count',
-            width: '8%',
+            width: '7%',
+            align: 'center'
+          },
+          {
+            name: 'Samples',
+            key: 'samples',
+            value: ({ cell }) => cell.length,
+            render: ({ cell }) => cell.length,
+            width: '7%',
             align: 'center'
           },
           {
             name: 'Min',
             key: 'min',
-            width: '14%'
+            width: '12%'
           },
           {
             name: 'Max',
             key: 'max',
-            width: '14%'
+            width: '12%'
           },
           {
             name: 'Range',
             key: 'range',
-            width: '14%'
+            width: '12%'
           }
         ]}
         minWidth='600px'

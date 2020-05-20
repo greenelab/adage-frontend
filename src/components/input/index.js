@@ -13,21 +13,25 @@ import { ReactComponent as CrossIcon } from '../../images/cross.svg';
 
 import './index.css';
 
-const debounceDelay = 200;
+// util funcs to persist search values
 
-// generic input component, capable of single line and multi-line input
-
+// set local storage key
 const setStorage = (key, prop, value) => {
   if (key && prop)
     window.localStorage[key + '_' + prop] = value;
 };
 
-const getStorage = (key, prop) => {
-  if (key && prop)
-    return window.localStorage[key + '_' + prop] || '';
-  else
-    return '';
+// get local storage key
+const getStorage = (key, prop, fallback, bool) => {
+  let value = window.localStorage[key + '_' + prop] || null;
+  if (value !== null && bool)
+    value = value === 'true' ? true : false;
+  return value !== null ? value : fallback;
 };
+
+const debounceDelay = 200;
+
+// generic input component, capable of single line and multi-line input
 
 const Input = ({
   className = '',
@@ -46,8 +50,10 @@ const Input = ({
 }) => {
   // internal state
   const [focused, setFocused] = useState(false);
-  const [expanded, setExpanded] = useState(getStorage(storageKey, 'expanded'));
-  const [value, setValue] = useState(getStorage(storageKey, 'value'));
+  const [expanded, setExpanded] = useState(
+    getStorage(storageKey, 'expanded', false, true)
+  );
+  const [value, setValue] = useState(getStorage(storageKey, 'value', ''));
   const [debouncedValue] = useDebounce(value, debounceDelay);
 
   setStorage(storageKey, 'expanded', expanded);

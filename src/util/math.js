@@ -7,9 +7,6 @@ import itermean from '@stdlib/stats/iter/mean';
 // https://stdlib.io/docs/api/v0.0.90/@stdlib/stats/base/dists/hypergeometric/cdf
 import cdf from '@stdlib/stats/base/dists/hypergeometric/cdf';
 
-// https://stdlib.io/docs/api/v0.0.90/@stdlib/constants/math/float16-eps
-import epsilon from '@stdlib/constants/math/float64-eps';
-
 // https://stdlib.io/docs/api/v0.0.90/@stdlib/stats/ttest2
 import ttest2 from '@stdlib/stats/ttest2';
 
@@ -323,4 +320,5 @@ export const calculateEnrichedGenes = ({
   return enrichedGeneSets;
 };
 
-export { epsilon };
+// arbitrary cutoff below which p values have no meaning
+export const epsilon = 1e-8;

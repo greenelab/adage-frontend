@@ -38,9 +38,7 @@ export const mapActivities = (activities, state) => {
     !isArray(activities) ||
     !activities.length ||
     !isArray(state.experiments.list) ||
-    !state.experiments.list.length ||
-    !isArray(state.samples.list) ||
-    !state.samples.list.length
+    !state.experiments.list.length
   )
     return { bySignature: {}, byExperiment: [] };
 
