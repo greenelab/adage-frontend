@@ -1,20 +1,21 @@
 <!-- based on https://github.com/rafrex/spa-github-pages/blob/gh-pages/404.html -->
 
+<!-- this script requires the app be hosted at root level -->
+<!-- eg. greenelab.github.io/adage-frontend will not work properly -->
+
 <html>
   <body>
     <script type="text/javascript">
-      const prefix = '/adage-frontend';
+      // get components of url
+      const { pathname, search, href: oldUrl } = window.location;
 
-      let { pathname, search, href: originalUrl } = window.location;
+      // encode url into single param and redirect to root of SPA
+      const path = encodeURIComponent(pathname + search);
+      const newUrl = '/?path=' + path;
 
-      const basename = pathname.includes(prefix) ? prefix : '';
-      pathname = pathname.replace(prefix, '');
+      console.log({ oldUrl, newUrl });
 
-      const path = encodeURIComponent(basename + pathname + search);
-      const newUrl = basename + '/?path=' + path;
-
-      console.log({ originalUrl, path, newUrl });
-
+      // go to new url w/o tab history entry
       window.location.replace(newUrl);
     </script>
   </body>

@@ -1,0 +1,19 @@
+body {
+  font: 90% "Trebuchet MS", Verdana, sans-serif;
+}
+header {
+  margin: 0px 10px;
+}
+nav li {
+  padding: 3px;
+  padding-right: 13px;
+  background-color: #fff;
+}
+.hov {
+  background-color: #ddd;
+  cursor: pointer;
+}
+nav li.selected {
+  color: #fff;
+  background-color: #8d8d8d;
+}
