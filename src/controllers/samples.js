@@ -38,7 +38,7 @@ let SampleController = ({
       return;
 
     selectSamples({
-      ids: selectedExperiment.samples.map((sample) => sample.id)
+      ids: selectedExperiment.samples
     });
   }, [selectedExperiment, selectSamples]);
 
@@ -55,7 +55,7 @@ let SampleController = ({
 
     getSampleActivities({
       model: selectedModel.id,
-      samples: selectedExperiment.samples.map((sample) => sample.id)
+      samples: selectedExperiment.samples
     });
   }, [selectedModel.id, selectedExperiment, getSampleActivities]);
 

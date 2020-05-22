@@ -23,17 +23,19 @@ import './index.css';
 
 // experiment details page
 
-let Experiment = ({ experiments }) => {
+let Experiment = ({ experimentList, sampleList }) => {
   const match = useRouteMatch();
-  const accession = match.params.accession;
+  const id = match.params.id;
 
   let details;
 
-  if (isString(experiments))
-    details = experiments;
-  else if (isArray(experiments)) {
-    const found = experiments.find(
-      (experiment) => String(experiment.accession) === String(accession)
+  if (isString(experimentList))
+    details = experimentList;
+  else if (isString(sampleList))
+    details = sampleList;
+  else if (isArray(experimentList) && isArray(sampleList)) {
+    const found = experimentList.find(
+      (experiment) => String(experiment.id) === String(id)
     );
     if (!found)
       details = actionStatuses.EMPTY;
@@ -41,6 +43,10 @@ let Experiment = ({ experiments }) => {
       details = { ...found };
       details = filterKeys(details, ['maxSimilarityField']);
       if (details.samples) {
+        details.samples = details.samples.map(
+          (sample) =>
+            sampleList.find((fullSample) => fullSample.id === sample) || {}
+        );
         details.samples = (
           <>
             {details.samples.map((sample, index) => (
@@ -79,7 +85,10 @@ let Experiment = ({ experiments }) => {
   );
 };
 
-const mapStateToProps = (state) => ({ experiments: state.experiments.list });
+const mapStateToProps = (state) => ({
+  experimentList: state.experiments.list,
+  sampleList: state.samples.list
+});
 
 Experiment = connect(mapStateToProps)(Experiment);
 

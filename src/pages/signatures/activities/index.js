@@ -50,8 +50,8 @@ export const mapActivities = (activities, state) => {
 
   // get sample info out of activities
   const findSample = (sample) => ({
-    ...sample,
-    value: activities.find((activity) => activity.sample === sample.id)?.value
+    id: sample,
+    value: activities.find((activity) => activity.sample === sample)?.value
   });
 
   // get activities by experiment
@@ -69,6 +69,7 @@ export const mapActivities = (activities, state) => {
       const range = max - min;
       // return all needed info
       return {
+        id: experiment.id,
         accession: experiment.accession,
         values,
         count: values.length,

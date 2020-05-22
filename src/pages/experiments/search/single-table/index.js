@@ -34,7 +34,7 @@ let Table = ({ query, results, highlightedIndex, select }) => {
               <Clickable
                 icon={row.selected ? <RadioedIcon /> : <UnradioedIcon />}
                 button
-                onClick={() => select({ accession: row.accession })}
+                onClick={() => select({ id: row.id })}
                 aria-label='Select this experiment'
               />
             ),

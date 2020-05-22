@@ -38,8 +38,8 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'SELECT_EXPERIMENT_FROM_URL': {
-      const { accession } = payload;
-      if (!accession)
+      const { id } = payload;
+      if (!id)
         draft.selected = {};
       else
         draft.selected = payload;
@@ -54,7 +54,7 @@ const reducer = produce((draft, type, payload, meta) => {
   // fill in details of selected from full list
   if (isArray(draft.list)) {
     const found = draft.list.find(
-      (experiment) => experiment.accession === draft.selected.accession
+      (experiment) => experiment.id === draft.selected.id
     );
     if (found && !experimentIsLoaded(draft.selected))
       draft.selected = found;
@@ -65,8 +65,7 @@ const reducer = produce((draft, type, payload, meta) => {
 
 export default reducer;
 
-export const isSelected = (selected, accession) =>
-  selected.accession === accession;
+export const isSelected = (selected, id) => selected.id === id;
 
 export const experimentIsLoaded = (experiment) =>
   experiment?.name ? true : false;

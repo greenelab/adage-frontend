@@ -161,7 +161,7 @@ export const mapGene = (gene) => {
     id,
     standardName,
     systematicName,
-    entrezid: entrezId,
+    entrezId,
     ...rest
   } = gene;
   const name = standardName || systematicName || entrezId || '-';

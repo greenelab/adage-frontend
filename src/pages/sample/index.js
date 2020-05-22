@@ -22,26 +22,34 @@ import './index.css';
 
 // sample details page
 
-let Sample = ({ samples }) => {
+let Sample = ({ sampleList, experimentList }) => {
   const match = useRouteMatch();
   const id = match.params.id;
 
   let details;
 
-  if (isString(samples))
-    details = samples;
-  else if (isArray(samples)) {
-    const found = samples.find((sample) => String(sample.id) === String(id));
+  if (isString(sampleList))
+    details = sampleList;
+  else if (isString(experimentList))
+    details = experimentList;
+  else if (isArray(sampleList) && isArray(experimentList)) {
+    const found = sampleList.find((sample) => String(sample.id) === String(id));
     if (!found)
       details = actionStatuses.EMPTY;
     else {
       details = { ...found };
       if (details.experiments) {
+        details.experiments = details.experiments.map(
+          (experiment) =>
+            experimentList.find(
+              (fullExperiment) => fullExperiment.id === experiment
+            ) || {}
+        );
         details.experiments = (
           <>
             {details.experiments.map((experiment, index) => (
               <Fragment key={index}>
-                <ExperimentLink experiment={{ accession: experiment }} />
+                <ExperimentLink experiment={experiment} />
                 <br />
               </Fragment>
             ))}
@@ -75,7 +83,10 @@ let Sample = ({ samples }) => {
   );
 };
 
-const mapStateToProps = (state) => ({ samples: state.samples.list });
+const mapStateToProps = (state) => ({
+  sampleList: state.samples.list,
+  experimentList: state.experiments.list
+});
 
 Sample = connect(mapStateToProps)(Sample);
 

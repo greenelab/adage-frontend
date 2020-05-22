@@ -22,7 +22,7 @@ import './index.css';
 
 let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
   const [background, setBackground] = useState();
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState();
 
   const { values, min, max } = bySignature;
 
@@ -49,7 +49,7 @@ let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
               return (
                 <button
                   className='barcode_button'
-                  onClick={() => setSelected(row.accession)}
+                  onClick={() => setSelected(row.id)}
                 >
                   <Canvas
                     className='barcode'
@@ -102,7 +102,7 @@ let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
   } else {
     // get full details of selected experiment
     const experiment = byExperiment.find(
-      (experiment) => experiment.accession === selected
+      (experiment) => experiment.id === selected
     );
 
     let samples = experiment?.samples || [];
@@ -122,7 +122,7 @@ let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
             <Clickable
               icon={<ArrowIcon className='flip_horizontal' />}
               text='Back to all experiments'
-              onClick={() => setSelected('')}
+              onClick={() => setSelected()}
               button
               flip
             />

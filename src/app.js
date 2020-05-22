@@ -70,7 +70,7 @@ const App = () => (
         <Route path='/model/:id' component={Model} />
         <Route path='/organism/:id' component={Organism} />
         <Route path='/gene/:id' component={Gene} />
-        <Route path='/experiment/:accession' component={Experiment} />
+        <Route path='/experiment/:id' component={Experiment} />
         <Route path='/sample/:id' component={Sample} />
         <Route path='/' component={Home} />
       </Switch>

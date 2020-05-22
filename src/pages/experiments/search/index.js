@@ -26,7 +26,7 @@ let Search = ({ results, select, search }) => (
       });
     }}
     onKeySelect={(highlightedIndex) =>
-      select({ accession: results[highlightedIndex].accession })
+      select({ id: results[highlightedIndex].id })
     }
     SingleComponent={<Single />}
     storageKey='experimentSearch'
@@ -56,6 +56,6 @@ export const mapExperimentSearch = (search, state) => ({
 
 export const mapExperimentResult = (result, state) => ({
   ...result,
-  selected: isSelected(state.experiments.selected, result.accession),
+  selected: isSelected(state.experiments.selected, result.id),
   highlightedField: toCamelCase(result.maxSimilarityField || '')
 });
