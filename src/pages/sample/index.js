@@ -41,9 +41,7 @@ let Sample = ({ sampleList, experimentList }) => {
       if (details.experiments) {
         details.experiments = details.experiments.map(
           (experiment) =>
-            experimentList.find(
-              (fullExperiment) => fullExperiment.id === experiment
-            ) || {}
+            experimentList.find((full) => full.id === experiment) || {}
         );
         details.experiments = (
           <>

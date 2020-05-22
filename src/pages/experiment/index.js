@@ -44,8 +44,7 @@ let Experiment = ({ experimentList, sampleList }) => {
       details = filterKeys(details, ['maxSimilarityField']);
       if (details.samples) {
         details.samples = details.samples.map(
-          (sample) =>
-            sampleList.find((fullSample) => fullSample.id === sample) || {}
+          (sample) => sampleList.find((full) => full.id === sample) || {}
         );
         details.samples = (
           <>
