@@ -1,7 +1,6 @@
 [
   {
     "id": 3177,
-    "entrezid": 880766,
     "description": "transporter",
     "aliases": "-",
     "obsolete": false,
@@ -14,7 +13,6 @@
   },
   {
     "id": 5067,
-    "entrezid": 882669,
     "description": "chloroperoxidase",
     "aliases": "-",
     "obsolete": false,

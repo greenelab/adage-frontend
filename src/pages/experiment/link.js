@@ -5,8 +5,8 @@ import Clickable from '../../components/clickable';
 // link to experiment details page
 
 const ExperimentLink = ({ experiment = {} }) => {
-  const { accession: id } = experiment;
-  const label = id || '-';
+  const { id, accession } = experiment;
+  const label = accession || id || '-';
 
   return (
     <Clickable

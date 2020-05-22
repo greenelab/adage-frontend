@@ -35,11 +35,11 @@ export const querySync = reduxQuerySync.enhancer({
       })
     },
     'experiment': {
-      selector: (state) => state.experiments.selected.accession || undefined,
+      selector: (state) => state.experiments.selected.id || undefined,
       action: (value) => ({
         type: 'SELECT_EXPERIMENT_FROM_URL',
         payload: {
-          accession: value || null
+          id: Number(value)
         }
       })
     },
