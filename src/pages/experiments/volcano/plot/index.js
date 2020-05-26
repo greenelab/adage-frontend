@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useMemo } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
@@ -29,6 +30,7 @@ let Plot = ({ volcano, search, pValueCutoff }) => {
   // internal state
   const mounted = useMounted();
   const [bbox, ref] = useBbox();
+  const history = useHistory();
 
   const width = Math.round(bbox?.width || 0);
   const height = Math.round(bbox?.height || 0);
@@ -131,10 +133,10 @@ let Plot = ({ volcano, search, pValueCutoff }) => {
         const location = window.location;
         const to = '/signatures';
         const search = { signature: d.id };
-        window.location = getLinkPath({ location, to, search }).full;
+        history.push(getLinkPath({ location, to, search }).full);
       });
     dot.exit().remove();
-  }, [mounted, width, height, volcano, pValueCutoff]);
+  }, [mounted, width, height, volcano, pValueCutoff, history]);
 
   return (
     <>

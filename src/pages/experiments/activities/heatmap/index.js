@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useMemo } from 'react';
 import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 
@@ -31,6 +32,7 @@ let Heatmap = ({ activities, group }) => {
   const [start, setStart] = useState(null);
   const { sampleOrder, signatureOrder } = useContext(OrderContext);
   const mounted = useMounted();
+  const history = useHistory();
 
   // detect prop change
   const mountedChanged = useDiff(mounted);
@@ -108,7 +110,7 @@ let Heatmap = ({ activities, group }) => {
         const location = window.location;
         const to = '/signatures';
         const search = { signature: d.signature.id };
-        window.location = getLinkPath({ location, to, search }).full;
+        history.push(getLinkPath({ location, to, search }).full);
       });
     cells.exit().remove();
   }, [
@@ -121,7 +123,8 @@ let Heatmap = ({ activities, group }) => {
     samplesChanged,
     signaturesChanged,
     width,
-    height
+    height,
+    history
   ]);
 
   // reset shift select when sample order changes
