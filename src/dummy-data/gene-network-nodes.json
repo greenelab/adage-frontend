@@ -1,0 +1,122 @@
+[
+  {
+    "id": 2905,
+    "standardName": "fabZ",
+    "systematicName": "PA3645",
+    "degree": 0.569722051329598
+  },
+  {
+    "id": 4390,
+    "standardName": "fabA",
+    "systematicName": "PA1610",
+    "degree": 0.577356284653807
+  },
+  {
+    "id": 3302,
+    "standardName": "rpmB",
+    "systematicName": "PA5316",
+    "degree": 0.579479138644491
+  },
+  {
+    "id": 3393,
+    "standardName": "yrbA",
+    "systematicName": "PA4451",
+    "degree": 0.579664325537123
+  },
+  {
+    "id": 1843,
+    "standardName": "rpmI",
+    "systematicName": "PA2742",
+    "degree": 0.580835470178244
+  },
+  {
+    "id": 2844,
+    "standardName": "fabG",
+    "systematicName": "PA2967",
+    "degree": 0.5832829635235
+  },
+  {
+    "id": 2308,
+    "standardName": "acpP",
+    "systematicName": "PA2966",
+    "degree": 0.591754194657518
+  },
+  {
+    "id": 4147,
+    "standardName": "rpsH",
+    "systematicName": "PA4249",
+    "degree": 0.592908876943398
+  },
+  {
+    "id": 4118,
+    "standardName": "rpsL",
+    "systematicName": "PA4268",
+    "degree": 0.59527637678813
+  },
+  {
+    "id": 4154,
+    "standardName": "rpsG",
+    "systematicName": "PA4267",
+    "degree": 0.595926829658346
+  },
+  {
+    "id": 4246,
+    "standardName": "rpmJ",
+    "systematicName": "PA4242",
+    "degree": 0.6028296722625
+  },
+  {
+    "id": 1005,
+    "standardName": "crfX",
+    "systematicName": "PA1774",
+    "degree": 0.605135242446483
+  },
+  {
+    "id": 3421,
+    "standardName": "PA4466",
+    "systematicName": "PA4466",
+    "degree": 0.608110827698595
+  },
+  {
+    "id": 1664,
+    "standardName": "PA0856",
+    "systematicName": "PA0856",
+    "degree": 0.608148248002698
+  },
+  {
+    "id": 779,
+    "standardName": "rsmA",
+    "systematicName": "PA0905",
+    "degree": 0.616930280965211
+  },
+  {
+    "id": 4102,
+    "standardName": "nusG",
+    "systematicName": "PA4275",
+    "degree": 0.641104583740856
+  },
+  {
+    "id": 3558,
+    "standardName": "rplU",
+    "systematicName": "PA4568",
+    "degree": 0.660334095680418
+  },
+  {
+    "id": 1844,
+    "standardName": "infC",
+    "systematicName": "PA2743",
+    "degree": 0.722472279204467
+  },
+  {
+    "id": 953,
+    "standardName": "sigX",
+    "systematicName": "PA1776",
+    "degree": 1
+  },
+  {
+    "id": 801,
+    "standardName": "cat",
+    "systematicName": "PA0706",
+    "degree": 1
+  }
+]
