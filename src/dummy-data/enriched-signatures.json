@@ -4,62 +4,62 @@
     "name": "Sig045pos",
     "mlmodel": 1,
     "selectedParticipatingGenes": [5067],
-    "pValue": 0.04274994441266977
+    "pValue": 0.04253003219882623
   },
   {
     "id": 56,
     "name": "Sig056pos",
     "mlmodel": 1,
     "selectedParticipatingGenes": [5067],
-    "pValue": 0.039468537019447913
+    "pValue": 0.0392646357612233
   },
   {
     "id": 59,
     "name": "Sig059pos",
     "mlmodel": 1,
     "selectedParticipatingGenes": [3177],
-    "pValue": 0.039468537019447913
+    "pValue": 0.0392646357612233
   },
   {
     "id": 90,
     "name": "Sig090pos",
     "mlmodel": 1,
     "selectedParticipatingGenes": [5067],
-    "pValue": 0.04274994441266977
+    "pValue": 0.04253003219882623
   },
   {
     "id": 97,
     "name": "Sig097pos",
     "mlmodel": 1,
     "selectedParticipatingGenes": [5067],
-    "pValue": 0.04274994441266977
+    "pValue": 0.04253003219882623
   },
   {
     "id": 161,
     "name": "Sig161pos",
     "mlmodel": 1,
     "selectedParticipatingGenes": [5067],
-    "pValue": 0.039468537019447913
+    "pValue": 0.0392646357612233
   },
   {
     "id": 236,
     "name": "Sig236pos",
     "mlmodel": 1,
     "selectedParticipatingGenes": [5067],
-    "pValue": 0.039468537019447913
+    "pValue": 0.0392646357612233
   },
   {
     "id": 282,
     "name": "Sig282pos",
     "mlmodel": 1,
-    "selectedParticipatingGenes": [3177, 5067],
-    "pValue": 0.001033635068352079
+    "selectedParticipatingGenes": [5067, 3177],
+    "pValue": 0.0010229118917713942
   },
   {
     "id": 456,
     "name": "Sig156neg",
     "mlmodel": 1,
     "selectedParticipatingGenes": [5067],
-    "pValue": 0.039468537019447913
+    "pValue": 0.0392646357612233
   }
 ]

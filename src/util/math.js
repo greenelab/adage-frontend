@@ -117,7 +117,6 @@ export const calculateEnrichedSignatures = ({
   // put corrected p values back into enriched signatures
   enrichedSignatures = enrichedSignatures.map((enrichedSignature, index) => ({
     ...enrichedSignature,
-    // round decimal point
     pValue: correctedPValues[index]
   }));
 
@@ -313,7 +312,6 @@ export const calculateEnrichedGenes = ({
   // put corrected p values back into enriched gene sets
   enrichedGeneSets = enrichedGeneSets.map((enrichedGeneSet, index) => ({
     ...enrichedGeneSet,
-    // round decimal point
     pValue: correctedPValues[index]
   }));
 
