@@ -56,14 +56,13 @@ let Network = ({ list, selected, edges }) => {
   );
 };
 
-// util func to lookup entry in array of objects by arbitrary keys
-const lookup = (array, value, keys = ['id']) => {
+// util func to lookup value in array by arbitrary keys
+const lookup = (value, array, keys = ['id']) => {
   for (const key of keys) {
     const found = array.find((entry) => entry[key] === value);
     if (found)
       return found;
   }
-  return undefined;
 };
 
 // take gene list, selected, and edges to produce nodes and links objects
@@ -84,63 +83,56 @@ export const constructGraph = ({ list, selected, edges }) => {
   // (objects coming from immer state are frozen by default)
   list = list.map((gene) => ({ ...gene }));
   selected = selected.map((gene) => ({ ...gene }));
-  edges = edges.map((edge) => ({ ...edge }));
-
-  // init nodes and links
-  let nodes = new Set();
-  let links = edges;
+  const links = edges.map((edge) => ({ ...edge }));
 
   // build master list of node ids, without duplicates
-  links.forEach((link) => nodes.add(link.gene1).add(link.gene2));
-  selected.forEach((selected) => nodes.add(selected.id));
-  nodes = [...nodes];
+  let nodeIds = new Set();
+  links.forEach((link) => nodeIds.add(link.gene1).add(link.gene2));
+  selected.forEach((selected) => nodeIds.add(selected.id));
+  nodeIds = [...nodeIds];
 
   // look up node ids in master gene list and replace with full gene props
-  nodes = nodes.map((node) => lookup(list, node)).filter((node) => node);
+  const nodes = nodeIds.map((id) => lookup(id, list)).filter((node) => node);
 
   // mark each node as selected or not
   nodes.forEach((node) => {
-    node.selected = lookup(selected, node.id) ? true : false;
+    node.selected = lookup(node.id, selected) ? true : false;
   });
 
   // put source and target props on links, as expected by d3
-  links = links.map((link) => ({
-    ...link,
-    source: link.gene1,
-    target: link.gene2
-  }));
-
-  // don't include nodes that aren't connected to a selected node
-  nodes = nodes.filter((node) => {
-    for (const link of links) {
-      if (node.selected)
-        return true;
-      if (link.gene1 === node.id && lookup(nodes, link.gene2).selected)
-        return true;
-      if (link.gene2 === node.id && lookup(nodes, link.gene1).selected)
-        return true;
-    }
-    return false;
+  links.forEach((link) => {
+    link.source = link.gene1;
+    link.target = link.gene2;
   });
 
-  // calculate the relative "degree" of each node by summing the weights of
-  // its edges
+  // mark each link as selected or not
+  links.forEach((link) => {
+    link.selected =
+      lookup(link.gene1, selected) || lookup(link.gene2, selected);
+  });
+  const selectedLinks = links.filter((link) => link.selected);
+
+  // calculate the relative "degree" of each node by averaging the weights of
+  // all its edges that are connected to a selected node
   nodes.forEach((node) => {
-    // make selected nodes have max degree so they are never filtered out
-    // by node # cutoff
+    // give selected nodes max degree so they are always shown
     if (node.selected)
       node.degree = Infinity;
     else {
-      const nodeLinks = links.filter(
-        (link) => link.source === node.id || link.target === node.id
-      );
-      node.degree = nodeLinks
-        .map((link) => link.weight)
-        .reduce((sum, weight) => sum + weight, 0);
+      // of links connected to selected node
+      const weights = selectedLinks
+        // get links also connected to this node
+        .filter((link) => link.gene1 === node.id || link.gene2 === node.id)
+        // get weights of links
+        .map((link) => link.weight);
+      // average weights
+      const sum = weights.reduce((sum, weight) => sum + weight, 0);
+      const count = weights.length;
+      node.degree = sum / count;
     }
   });
 
-  // sort by degree
+  // sort nodes by degree
   nodes.sort((a, b) => b.degree - a.degree);
 
   return { nodes, links };
@@ -155,19 +147,27 @@ export const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
   if (!isArray(nodes) || !isArray(links))
     return;
 
-  // truncate list based on cutoff point
-  // higher degree nodes will remain due to previous sorting by degree
-  const selected = nodes.filter((node) => node.selected).length;
-  nodes = nodes.slice(0, nodeCutoff + selected);
-
-  // remove any links whose source or target node no longer exist
-  links = links
-    .filter((link) => lookup(nodes, link.gene1) && lookup(nodes, link.gene2))
-    // remove links below weight cutoff
-    .filter((link) => link.weight > edgeWeightCutoff);
-
   // sort links by weight to put higher weights on top of lower weights
   links.sort((a, b) => b.weight - a.weight);
+
+  // truncate node list based on node cutoff
+  // higher degree nodes will remain due to previous sorting by degree
+  nodes = nodes.slice(0, nodeCutoff);
+
+  // filter links below weight cutoff
+  links = links.filter((link) => link.weight >= edgeWeightCutoff);
+
+  // remove any links whose source or target node no longer exist
+  links = links.filter(
+    (link) => lookup(link.gene1, nodes) && lookup(link.gene2, nodes)
+  );
+
+  // remove any nodes without links, except for selected nodes
+  nodes = nodes.filter(
+    (node) =>
+      node.selected ||
+      links.find((link) => link.gene1 === node.id || link.gene2 === node.id)
+  );
 
   // calculate normalized weights, ie lowest in set --> 0 and highest --> 1
   if (links.length) {
@@ -179,11 +179,6 @@ export const filterGraph = ({ fullGraph, edgeWeightCutoff, nodeCutoff }) => {
         (link.weight - minWeight) / (maxWeight - minWeight);
     });
   }
-
-  // remove nodes that have no links and aren't selected
-  nodes = nodes.filter(
-    (node) => node.selected || lookup(links, node.id, ['gene1', 'gene2'])
-  );
 
   // mark each item as a node or a link (for convenience later)
   nodes.forEach((node) => (node.node = true));

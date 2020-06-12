@@ -4,6 +4,7 @@ import { filterGraph } from './';
 import list from '../../../dummy-data/gene-list.json';
 import edges from '../../../dummy-data/gene-edges.json';
 
+// constructed with same selected and cutoff parameters below
 import expectedNodes from '../../../dummy-data/gene-network-nodes.json';
 import expectedLinks from '../../../dummy-data/gene-network-links.json';
 
@@ -32,9 +33,18 @@ test('construct and filter graph', () => {
     degree
   }));
   links = links.map(({ id, weight, source, target }) => ({
-    source,
-    target
+    id,
+    weight,
+    source: source,
+    target: target
   }));
+
+  nodes.forEach((node) => {
+    // convert Infinity to string because json (where expected data is kept)
+    // doesn't support it
+    if (node.degree === Infinity)
+      node.degree = 'Infinity';
+  });
 
   expect(nodes).toStrictEqual(expectedNodes);
   expect(links).toStrictEqual(expectedLinks);

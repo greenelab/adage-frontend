@@ -1,105 +1,15 @@
 [
   {
-    "id": 2905,
-    "standardName": "fabZ",
-    "systematicName": "PA3645",
-    "degree": 0.569722051329598
+    "id": 953,
+    "standardName": "sigX",
+    "systematicName": "PA1776",
+    "degree": "Infinity"
   },
   {
-    "id": 4390,
-    "standardName": "fabA",
-    "systematicName": "PA1610",
-    "degree": 0.577356284653807
-  },
-  {
-    "id": 3302,
-    "standardName": "rpmB",
-    "systematicName": "PA5316",
-    "degree": 0.579479138644491
-  },
-  {
-    "id": 3393,
-    "standardName": "yrbA",
-    "systematicName": "PA4451",
-    "degree": 0.579664325537123
-  },
-  {
-    "id": 1843,
-    "standardName": "rpmI",
-    "systematicName": "PA2742",
-    "degree": 0.580835470178244
-  },
-  {
-    "id": 2844,
-    "standardName": "fabG",
-    "systematicName": "PA2967",
-    "degree": 0.5832829635235
-  },
-  {
-    "id": 2308,
-    "standardName": "acpP",
-    "systematicName": "PA2966",
-    "degree": 0.591754194657518
-  },
-  {
-    "id": 4147,
-    "standardName": "rpsH",
-    "systematicName": "PA4249",
-    "degree": 0.592908876943398
-  },
-  {
-    "id": 4118,
-    "standardName": "rpsL",
-    "systematicName": "PA4268",
-    "degree": 0.59527637678813
-  },
-  {
-    "id": 4154,
-    "standardName": "rpsG",
-    "systematicName": "PA4267",
-    "degree": 0.595926829658346
-  },
-  {
-    "id": 4246,
-    "standardName": "rpmJ",
-    "systematicName": "PA4242",
-    "degree": 0.6028296722625
-  },
-  {
-    "id": 1005,
-    "standardName": "crfX",
-    "systematicName": "PA1774",
-    "degree": 0.605135242446483
-  },
-  {
-    "id": 3421,
-    "standardName": "PA4466",
-    "systematicName": "PA4466",
-    "degree": 0.608110827698595
-  },
-  {
-    "id": 1664,
-    "standardName": "PA0856",
-    "systematicName": "PA0856",
-    "degree": 0.608148248002698
-  },
-  {
-    "id": 779,
-    "standardName": "rsmA",
-    "systematicName": "PA0905",
-    "degree": 0.616930280965211
-  },
-  {
-    "id": 4102,
-    "standardName": "nusG",
-    "systematicName": "PA4275",
-    "degree": 0.641104583740856
-  },
-  {
-    "id": 3558,
-    "standardName": "rplU",
-    "systematicName": "PA4568",
-    "degree": 0.660334095680418
+    "id": 801,
+    "standardName": "cat",
+    "systematicName": "PA0706",
+    "degree": "Infinity"
   },
   {
     "id": 1844,
@@ -108,15 +18,345 @@
     "degree": 0.722472279204467
   },
   {
-    "id": 953,
-    "standardName": "sigX",
-    "systematicName": "PA1776",
-    "degree": 1
+    "id": 3558,
+    "standardName": "rplU",
+    "systematicName": "PA4568",
+    "degree": 0.660334095680418
   },
   {
-    "id": 801,
-    "standardName": "cat",
-    "systematicName": "PA0706",
-    "degree": 1
+    "id": 4102,
+    "standardName": "nusG",
+    "systematicName": "PA4275",
+    "degree": 0.641104583740856
+  },
+  {
+    "id": 779,
+    "standardName": "rsmA",
+    "systematicName": "PA0905",
+    "degree": 0.616930280965211
+  },
+  {
+    "id": 1664,
+    "standardName": "PA0856",
+    "systematicName": "PA0856",
+    "degree": 0.608148248002698
+  },
+  {
+    "id": 3421,
+    "standardName": "PA4466",
+    "systematicName": "PA4466",
+    "degree": 0.608110827698595
+  },
+  {
+    "id": 1005,
+    "standardName": "crfX",
+    "systematicName": "PA1774",
+    "degree": 0.605135242446483
+  },
+  {
+    "id": 4246,
+    "standardName": "rpmJ",
+    "systematicName": "PA4242",
+    "degree": 0.6028296722625
+  },
+  {
+    "id": 4154,
+    "standardName": "rpsG",
+    "systematicName": "PA4267",
+    "degree": 0.595926829658346
+  },
+  {
+    "id": 4118,
+    "standardName": "rpsL",
+    "systematicName": "PA4268",
+    "degree": 0.59527637678813
+  },
+  {
+    "id": 4147,
+    "standardName": "rpsH",
+    "systematicName": "PA4249",
+    "degree": 0.592908876943398
+  },
+  {
+    "id": 2308,
+    "standardName": "acpP",
+    "systematicName": "PA2966",
+    "degree": 0.591754194657518
+  },
+  {
+    "id": 2844,
+    "standardName": "fabG",
+    "systematicName": "PA2967",
+    "degree": 0.5832829635235
+  },
+  {
+    "id": 1843,
+    "standardName": "rpmI",
+    "systematicName": "PA2742",
+    "degree": 0.580835470178244
+  },
+  {
+    "id": 3393,
+    "standardName": "yrbA",
+    "systematicName": "PA4451",
+    "degree": 0.579664325537123
+  },
+  {
+    "id": 3302,
+    "standardName": "rpmB",
+    "systematicName": "PA5316",
+    "degree": 0.579479138644491
+  },
+  {
+    "id": 4390,
+    "standardName": "fabA",
+    "systematicName": "PA1610",
+    "degree": 0.577356284653807
+  },
+  {
+    "id": 2905,
+    "standardName": "fabZ",
+    "systematicName": "PA3645",
+    "degree": 0.569722051329598
+  },
+  {
+    "id": 4962,
+    "standardName": "rpsA",
+    "systematicName": "PA3162",
+    "degree": 0.569020645459193
+  },
+  {
+    "id": 4225,
+    "standardName": "rpsM",
+    "systematicName": "PA4241",
+    "degree": 0.564709537567582
+  },
+  {
+    "id": 3832,
+    "standardName": "ilvE",
+    "systematicName": "PA5013",
+    "degree": 0.55426413175172
+  },
+  {
+    "id": 4286,
+    "standardName": "sdhC",
+    "systematicName": "PA1581",
+    "degree": 0.550554026263313
+  },
+  {
+    "id": 4170,
+    "standardName": "rplV",
+    "systematicName": "PA4258",
+    "degree": 0.550386713797314
+  },
+  {
+    "id": 4221,
+    "standardName": "rpsD",
+    "systematicName": "PA4239",
+    "degree": 0.541296304654253
+  },
+  {
+    "id": 4422,
+    "standardName": "sucC",
+    "systematicName": "PA1588",
+    "degree": 0.541047026172026
+  },
+  {
+    "id": 4126,
+    "standardName": "rpsJ",
+    "systematicName": "PA4264",
+    "degree": 0.540200736278005
+  },
+  {
+    "id": 4157,
+    "standardName": "rpsS",
+    "systematicName": "PA4259",
+    "degree": 0.539894095790755
+  },
+  {
+    "id": 3433,
+    "standardName": "yhbH",
+    "systematicName": "PA4463",
+    "degree": 0.538423656645803
+  },
+  {
+    "id": 4516,
+    "standardName": "tolR",
+    "systematicName": "PA0970",
+    "degree": 0.537056247334918
+  },
+  {
+    "id": 4178,
+    "standardName": "rpmC",
+    "systematicName": "PA4255",
+    "degree": 0.534643646712778
+  },
+  {
+    "id": 4111,
+    "standardName": "rplJ",
+    "systematicName": "PA4272",
+    "degree": 0.533685250135532
+  },
+  {
+    "id": 2424,
+    "standardName": "grxD",
+    "systematicName": "PA3533",
+    "degree": 0.524313479018449
+  },
+  {
+    "id": 4103,
+    "standardName": "secE",
+    "systematicName": "PA4276",
+    "degree": 0.521594359028384
+  },
+  {
+    "id": 22,
+    "standardName": "cmpX",
+    "systematicName": "PA1775",
+    "degree": 0.521152253283724
+  },
+  {
+    "id": 4728,
+    "standardName": "clpS",
+    "systematicName": "PA2621",
+    "degree": 0.519754240029826
+  },
+  {
+    "id": 222,
+    "standardName": "PA5491",
+    "systematicName": "PA5491",
+    "degree": 0.519167698105086
+  },
+  {
+    "id": 2212,
+    "standardName": "yceD",
+    "systematicName": "PA2971",
+    "degree": 0.513274239519717
+  },
+  {
+    "id": 4110,
+    "standardName": "rplL",
+    "systematicName": "PA4271",
+    "degree": 0.512476294642583
+  },
+  {
+    "id": 4220,
+    "standardName": "rpoA",
+    "systematicName": "PA4238",
+    "degree": 0.511699638877023
+  },
+  {
+    "id": 869,
+    "standardName": "oprF",
+    "systematicName": "PA1777",
+    "degree": 0.511322947298254
+  },
+  {
+    "id": 5392,
+    "standardName": "PA1533",
+    "systematicName": "PA1533",
+    "degree": 0.509819304099766
+  },
+  {
+    "id": 632,
+    "standardName": "pilG",
+    "systematicName": "PA0408",
+    "degree": 0.507724990327622
+  },
+  {
+    "id": 5376,
+    "standardName": "rplT",
+    "systematicName": "PA2741",
+    "degree": 0.506339567599698
+  },
+  {
+    "id": 4505,
+    "standardName": "PA1852",
+    "systematicName": "PA1852",
+    "degree": 0.504862542745924
+  },
+  {
+    "id": 4169,
+    "standardName": "rpsC",
+    "systematicName": "PA4257",
+    "degree": 0.504637402796028
+  },
+  {
+    "id": 4137,
+    "standardName": "rplC",
+    "systematicName": "PA4263",
+    "degree": 0.50381852400951
+  },
+  {
+    "id": 4329,
+    "standardName": "sdhD",
+    "systematicName": "PA1582",
+    "degree": 0.500744501191659
+  },
+  {
+    "id": 734,
+    "standardName": "clpX",
+    "systematicName": "PA1802",
+    "degree": 0.500514029802389
+  },
+  {
+    "id": 910,
+    "standardName": "cycB",
+    "systematicName": "PA5300",
+    "degree": 0.498429194609306
+  },
+  {
+    "id": 445,
+    "standardName": "hfq",
+    "systematicName": "PA4944",
+    "degree": 0.495548211613355
+  },
+  {
+    "id": 3408,
+    "standardName": "yhbJ",
+    "systematicName": "PA4465",
+    "degree": 0.494860748148673
+  },
+  {
+    "id": 3113,
+    "standardName": "bolA",
+    "systematicName": "PA0857",
+    "degree": 0.492581196988057
+  },
+  {
+    "id": 4114,
+    "standardName": "rplK",
+    "systematicName": "PA4274",
+    "degree": 0.48851362510077
+  },
+  {
+    "id": 4340,
+    "standardName": "sdhA",
+    "systematicName": "PA1583",
+    "degree": 0.487741924274768
+  },
+  {
+    "id": 4194,
+    "standardName": "rpmD",
+    "systematicName": "PA4245",
+    "degree": 0.483991716782422
+  },
+  {
+    "id": 3702,
+    "standardName": "lpxC",
+    "systematicName": "PA4406",
+    "degree": 0.483559736043696
+  },
+  {
+    "id": 4711,
+    "standardName": "yccA",
+    "systematicName": "PA2604",
+    "degree": 0.481210261909848
+  },
+  {
+    "id": 11,
+    "standardName": "PA1159",
+    "systematicName": "PA1159",
+    "degree": 0.480418448029829
   }
 ]
