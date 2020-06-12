@@ -66,7 +66,6 @@ const Search = ({
           if (highlightedIndex < 0 || highlightedIndex > length - 1)
             break;
           onKeySelect(highlightedIndex);
-          clearFunc.current();
           break;
 
         default:
