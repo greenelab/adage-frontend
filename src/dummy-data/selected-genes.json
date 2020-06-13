@@ -1,26 +1,28 @@
 [
   {
     "id": 3177,
+    "name": "cmaX",
     "description": "transporter",
-    "aliases": "-",
+    "aliases": "PA14_41630",
     "obsolete": false,
     "weight": 0,
     "organism": 1,
-    "systematicName": "PA1773",
+    "externalUrl": "http://www.pseudomonas.com/feature/show/?locus_tag=PA1773",
     "standardName": "cmaX",
-    "name": 880766,
+    "systematicName": "PA1773",
     "entrezId": 880766
   },
   {
     "id": 5067,
+    "name": "cpo",
     "description": "chloroperoxidase",
-    "aliases": "-",
+    "aliases": "PA14_29020",
     "obsolete": false,
     "weight": 0,
     "organism": 1,
-    "systematicName": "PA2717",
+    "externalUrl": "http://www.pseudomonas.com/feature/show/?locus_tag=PA2717",
     "standardName": "cpo",
-    "name": 882669,
+    "systematicName": "PA2717",
     "entrezId": 882669
   }
 ]

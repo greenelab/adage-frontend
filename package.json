@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "dependencies": {
     "@greenelab/hclust": "^0.0.0",
     "@stdlib/stdlib": "^0.0.91",
@@ -32,7 +32,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "bash ./scripts/build.sh",
-    "test": "react-scripts test a",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "browserslist": [
