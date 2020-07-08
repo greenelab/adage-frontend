@@ -94,7 +94,11 @@ export const calculateEnrichedSignatures = ({
       return { ...signature, participatingGenes, selectedParticipatingGenes };
     })
     // remove signatures with no participating genes
-    .filter((signature) => signature.participatingGenes.length)
+    .filter(
+      (signature) =>
+        signature.participatingGenes.length &&
+        signature.selectedParticipatingGenes.length
+    )
     // compute p value of enriched signature
     .map((signature) => {
       // # of all genes in the model
