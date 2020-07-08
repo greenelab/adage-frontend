@@ -275,7 +275,11 @@ export const calculateEnrichedGenes = ({
       genes: enrichedGenes
         .filter((enrichedGene) => enrichedGene.list.includes(set.id))
         // filter out unnecessary gene information to reduce memory usage
-        .map(({ id, standardName }) => ({ id, standardName }))
+        .map(({ id, standardName, externalUrl }) => ({
+          id,
+          standardName,
+          externalUrl
+        }))
     }))
     // find genes in set that also participate in signature
     .map((set) => ({

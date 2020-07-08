@@ -2,7 +2,7 @@ import React from 'react';
 
 import Clickable from '../../components/clickable';
 
-// link to signature details page
+// link to signatures page with selected signature
 
 const SignatureLink = ({ signature = {} }) => {
   const { id, name } = signature;
@@ -14,7 +14,7 @@ const SignatureLink = ({ signature = {} }) => {
       search={{ signature: id }}
       text={label}
       link
-      aria-label={'Open details page for signature ' + label}
+      aria-label={'Go to signatures page and select signature ' + label}
     />
   );
 };

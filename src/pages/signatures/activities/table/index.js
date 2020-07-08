@@ -38,7 +38,9 @@ let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
           {
             name: 'Experiment',
             key: 'accession',
-            render: ({ row }) => <ExperimentLink experiment={row} />,
+            render: ({ row }) => (
+              <ExperimentLink experiment={row} detailsPage={false} />
+            ),
             width: '20%'
           },
           {
@@ -129,7 +131,7 @@ let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
           </span>
           <span>
             <ExperimentIcon />
-            <ExperimentLink experiment={experiment} />
+            <ExperimentLink experiment={experiment} detailsPage={false} />
           </span>
         </div>
         <TableComponent
