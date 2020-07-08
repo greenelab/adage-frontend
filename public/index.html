@@ -16,12 +16,30 @@
       gtag('config', 'UA-20583020-15');
     </script>
 
+    <!-- hotjar analytics -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 1790661, hjsv: 6 };
+        a = o.getElementsByTagName('head')[0];
+        r = o.createElement('script');
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>%REACT_APP_TITLE%</title>
 
     <!-- metatags - https://metatags.io/ -->
     <meta name="title" content="%REACT_APP_TITLE%" />
     <meta name="description" content="%REACT_APP_DESCRIPTION%" />
+    <meta name="keywords" content="%REACT_APP_TAGS%" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="%REACT_APP_TITLE%" />
     <meta property="og:description" content="%REACT_APP_DESCRIPTION%" />
@@ -57,24 +75,8 @@
     <link rel="manifest" href="%REACT_APP_BASENAME%/site.webmanifest" />
     <meta name="msapplication-TileColor" content="#26a36c" />
     <meta name="theme-color" content="#ffffff" />
-
-    <!-- hotjar analytics -->
-    <script>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 1790661, hjsv: 6 };
-        a = o.getElementsByTagName('head')[0];
-        r = o.createElement('script');
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-    </script>
   </head>
+
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>

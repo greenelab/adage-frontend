@@ -61,7 +61,7 @@ const App = () => {
         <Clickable
           icon={<GitHubIcon />}
           text='Back End'
-          to='https://github.com/greenelab/py3-adage-backend'
+          to='https://github.com/greenelab/adage-backend'
           button
           flip
           aria-label='The database. Model data is loaded here, and is provided to the front end.'
