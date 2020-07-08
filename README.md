@@ -10,7 +10,7 @@
 
 Adage is a tool that helps you explore gene expression data and discover new insights from machine learning models.
 This repository contains the code for the "front end", ie the web app itself.
-The "back end", where the model data is loaded and then provided to the web app, can be found [here](https://github.com/greenelab/py3-adage-backend).
+The "back end", where the model data is loaded and then provided to the web app, can be found [here](https://github.com/greenelab/adage-backend).
 
 
 
