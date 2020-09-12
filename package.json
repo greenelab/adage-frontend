@@ -44,7 +44,7 @@
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.4",
     "eslint-config-greenelab": "git+https://git@github.com/greenelab/eslint-config-greenelab.git",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "prettier-config-greenelab": "git+https://git@github.com/greenelab/prettier-config-greenelab.git",
     "rewire": "^5.0.0"
   }
