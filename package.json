@@ -5,7 +5,7 @@
     "@greenelab/hclust": "^0.0.0",
     "@sentry/react": "^5.24.2",
     "@sentry/tracing": "^5.24.2",
-    "@stdlib/stdlib": "0.0.92",
+    "@stdlib/stdlib": "0.0.91",
     "d3": "^6.1.1",
     "history": "4.10.1",
     "immer": "^7.0.9",
@@ -36,7 +36,7 @@
     "build": "bash ./scripts/build.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "fresh": "rm -rf node_modules | rm yarn.lock | yarn cache clean && yarn install"
+    "fresh": "rm -rf node_modules && rm -f yarn.lock && yarn cache clean && yarn install"
   },
   "browserslist": [
     ">0.2%",
