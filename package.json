@@ -36,7 +36,7 @@
     "build": "bash ./scripts/build.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "fresh": "rm -rf node_modules && rm -f yarn.lock && yarn cache clean && yarn install"
+    "fresh": "rm -rf node_modules yarn.lock && yarn cache clean && yarn install"
   },
   "browserslist": [
     ">0.2%",
