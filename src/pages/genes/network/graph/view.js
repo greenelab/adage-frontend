@@ -18,10 +18,10 @@ export const initView = () => {
 };
 
 // when view is panned or zoomed
-export const onZoom = () => {
-  if (d3.event.sourceEvent)
+export const onZoom = (event) => {
+  if (event.sourceEvent)
     setAutoFit(false);
-  view.attr('transform', d3.event.transform);
+  view.attr('transform', event.transform);
 };
 
 // fit view to contents of graph

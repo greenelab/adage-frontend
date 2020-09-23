@@ -106,7 +106,7 @@ let Heatmap = ({ activities, group }) => {
         }))
       .attr('data-tooltip-speed', 10)
       .attr('data-tooltip-h-align', 'right')
-      .on('click', (d) => {
+      .on('click', (event, d) => {
         const location = window.location;
         const to = '/signatures';
         const search = { signature: d.signature.id };

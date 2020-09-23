@@ -129,7 +129,7 @@ let Plot = ({ volcano, search, pValueCutoff }) => {
           pValue: d.pValue.toFixed(5)
         }))
       .attr('data-tooltip-speed', 10)
-      .on('click', (d) => {
+      .on('click', (event, d) => {
         const location = window.location;
         const to = '/signatures';
         const search = { signature: d.id };

@@ -24,9 +24,9 @@ export const onDragStart = () => {
 };
 
 // during dragging
-export const onDrag = (d) => {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
+export const onDrag = (event, d) => {
+  d.fx = event.x;
+  d.fy = event.y;
   dragging = true;
 };
 
