@@ -88,3 +88,18 @@ export const useScript = (url) => {
     return () => document.body.removeChild(script);
   }, [url]);
 };
+
+// useState, but persisted in local storage
+export const useStorage = (defaultValue, key = '') => {
+  const [state, setState] = useState(get(key) || defaultValue);
+
+  useEffect(() => {
+    set(state, key);
+  }, [key, state]);
+
+  return [state, setState];
+};
+const prefix = 'adage';
+const get = (key) => JSON.parse(localStorage.getItem(prefix + key));
+const set = (state, key) =>
+  localStorage.setItem(prefix + key, JSON.stringify(state));

@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { cloneElement } from 'react';
 
 import Input from '../input';
+import { useStorage } from '../../util/hooks';
 
 import './index.css';
 
@@ -29,7 +30,7 @@ const Search = ({
 }) => {
   // internal state
   const [focused, setFocused] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useStorage(false, storageKey + 'expanded');
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const clearFunc = useRef(() => null);
 
@@ -38,7 +39,12 @@ const Search = ({
   const onBlur = useCallback(() => setFocused(false), []);
 
   // change expanded state
-  const onChangeExpanded = useCallback((expanded) => setExpanded(expanded), []);
+  const onChangeExpanded = useCallback(
+    (expanded) => {
+      setExpanded(expanded);
+    },
+    [setExpanded]
+  );
 
   const getClearFunc = useCallback((func) => (clearFunc.current = func), []);
 
@@ -95,6 +101,7 @@ const Search = ({
         className='search_bar'
         multi={multi}
         placeholder={placeholder}
+        expanded={expanded}
         multiPlaceholder={multiPlaceholder}
         onChange={onSearch}
         onChangeExpanded={onChangeExpanded}

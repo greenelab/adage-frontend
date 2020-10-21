@@ -18,6 +18,7 @@ let Single = ({ query, results, highlightedIndex }) => (
         query={query}
         results={results}
         highlightedIndex={highlightedIndex}
+        multi={false}
       />
     )}
     {isString(results) && (

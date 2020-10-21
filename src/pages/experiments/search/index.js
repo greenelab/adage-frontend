@@ -29,7 +29,7 @@ let Search = ({ results, select, search }) => (
       select({ id: results[highlightedIndex].id })
     }
     SingleComponent={<Single />}
-    storageKey='experimentSearch'
+    storageKey='experimentsearch'
   />
 );
 

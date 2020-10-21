@@ -6,6 +6,7 @@ import { useCallback } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import Clickable from '../../components/clickable';
+import { useStorage } from '../../util/hooks';
 import { ReactComponent as ListMultipleIcon } from '../../images/list-multiple.svg';
 import { ReactComponent as ListSingleIcon } from '../../images/list-single.svg';
 import { ReactComponent as SearchIcon } from '../../images/search.svg';
@@ -13,51 +14,30 @@ import { ReactComponent as CrossIcon } from '../../images/cross.svg';
 
 import './index.css';
 
-// util funcs to persist search values
-
-// set local storage key
-const setStorage = (key, prop, value) => {
-  if (key && prop)
-    window.localStorage[key + '_' + prop] = value;
-};
-
-// get local storage key
-const getStorage = (key, prop, fallback, bool) => {
-  let value = window.localStorage[key + '_' + prop] || null;
-  if (value !== null && bool)
-    value = value === 'true' ? true : false;
-  return value !== null ? value : fallback;
-};
-
 const debounceDelay = 200;
 
 // generic input component, capable of single line and multi-line input
 
 const Input = ({
   className = '',
-  onChange = () => null,
-  onChangeExpanded = () => null,
-  onFocus = () => null,
-  onBlur = () => null,
-  getClearFunc = () => null,
   multi = false,
+  expanded = false,
   placeholder = '',
   multiPlaceholder = '',
   tooltip = 'Switch to single search',
   multiTooltip = 'Switch to multi search',
   storageKey = '',
+  onChange = () => null,
+  onChangeExpanded = () => null,
+  onFocus = () => null,
+  onBlur = () => null,
+  getClearFunc = () => null,
   ...props
 }) => {
   // internal state
   const [focused, setFocused] = useState(false);
-  const [expanded, setExpanded] = useState(
-    getStorage(storageKey, 'expanded', false, true)
-  );
-  const [value, setValue] = useState(getStorage(storageKey, 'value', ''));
+  const [value, setValue] = useStorage('', storageKey + 'value');
   const [debouncedValue] = useDebounce(value, debounceDelay);
-
-  setStorage(storageKey, 'expanded', expanded);
-  setStorage(storageKey, 'value', value);
 
   // change value state
   const changeValue = useCallback(
@@ -69,7 +49,7 @@ const Input = ({
 
       setValue(newValue);
     },
-    [expanded]
+    [expanded, setValue]
   );
 
   // change expanded state
@@ -81,7 +61,6 @@ const Input = ({
         changeValue(newValue);
       }
 
-      setExpanded(newExpanded);
       onChangeExpanded(newExpanded);
     },
     [value, changeValue, onChangeExpanded]
@@ -165,15 +144,16 @@ const Input = ({
 
 Input.propTypes = {
   className: PropTypes.string,
+  multi: PropTypes.bool,
+  expanded: PropTypes.bool,
+  placeholder: PropTypes.string,
+  multiPlaceholder: PropTypes.string,
+  storageKey: PropTypes.string,
   onChange: PropTypes.func,
   onChangeExpanded: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  getClearFunc: PropTypes.func,
-  multi: PropTypes.bool,
-  placeholder: PropTypes.string,
-  multiPlaceholder: PropTypes.string,
-  storageKey: PropTypes.string
+  getClearFunc: PropTypes.func
 };
 
 export default Input;
