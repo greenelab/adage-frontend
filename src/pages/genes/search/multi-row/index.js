@@ -49,6 +49,7 @@ let MultiRow = ({ search, select, deselect }) => {
         <SingleTable
           key={content.length}
           results={search.results.slice(0, expandedResultLimit)}
+          multi={true}
         />
       );
     } else {

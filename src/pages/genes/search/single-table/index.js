@@ -15,15 +15,22 @@ import './index.css';
 
 // single search result table
 
-let Table = ({ query, results, highlightedIndex, select, deselect }) => {
+let Table = ({
+  query = '',
+  results,
+  highlightedIndex,
+  select,
+  deselect,
+  multi
+}) => {
   const [start, setStart] = useState(0);
 
-  if (query.trim() === '')
+  if (!multi && query.trim() === '')
     results = results.slice(0, 10);
 
   return (
     <>
-      {query.trim() === '' && (
+      {!multi && query.trim() === '' && (
         <div className='search_results_note'>
           <span aria-label='Search to find specific result'>
             or try one of these:
@@ -91,13 +98,11 @@ let Table = ({ query, results, highlightedIndex, select, deselect }) => {
         highlightedIndex={highlightedIndex}
         sortable={false}
       />
-      {query.trim() !== '' && (
-        <div className='search_results_note'>
-          <span aria-label='Search to find specific result'>
-            Top {results.length} results
-          </span>
-        </div>
-      )}
+      <div className='search_results_note'>
+        <span aria-label='Search to find specific result'>
+          Top {results.length} results
+        </span>
+      </div>
     </>
   );
 };
