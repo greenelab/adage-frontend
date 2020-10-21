@@ -21,6 +21,7 @@ test('search component', () => {
     />
   );
   const input = () => container.querySelector('input');
+  const textarea = () => container.querySelector('textarea');
   const expandButton = () =>
     container.querySelector('.input_button:nth-of-type(1)');
   const singleComponent = () => container.querySelector('#single_component');
@@ -30,8 +31,12 @@ test('search component', () => {
   expect(input()).toBeInTheDocument();
 
   // expand/collapse
+  expect(input()).toBeDefined();
+  expect(textarea()).toBe(null);
   expect(singleComponent()).toBeInTheDocument();
   fireEvent.click(expandButton());
+  expect(input()).toBe(null);
+  expect(textarea()).toBeDefined();
   expect(multiComponent()).toBeInTheDocument();
   fireEvent.click(expandButton());
 
