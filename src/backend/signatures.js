@@ -6,8 +6,7 @@ import { maxLimit } from '.';
 const prefixA = 'signature/';
 const prefixB = 'participation/';
 const prefixC = 'activity/';
-const tribeServer =
-  'https://py3-adage.greenelab.com/api/v1/tribe_client/return_unpickled_genesets';
+const tribeServer = server + 'tribe_client/return_unpickled_genesets';
 
 export const urlSignatureList = ({ model, limit = maxLimit }) => {
   const params = new URLSearchParams();
