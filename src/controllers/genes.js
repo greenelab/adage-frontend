@@ -10,6 +10,7 @@ import { isArray } from '../util/types';
 import { actionStatuses } from '../actions/fetch';
 import { makeMapDispatchToProps } from './util';
 
+// eslint-disable-next-line
 import worker from 'workerize-loader!../util/math';
 
 let GeneController = ({

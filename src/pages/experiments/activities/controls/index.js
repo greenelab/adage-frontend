@@ -16,6 +16,7 @@ import { ReactComponent as BiArrowIcon } from '../../../../images/bi-arrow.svg';
 import { ReactComponent as CrossIcon } from '../../../../images/cross.svg';
 import { ReactComponent as DownloadIcon } from '../../../../images/download.svg';
 
+// eslint-disable-next-line
 import worker from 'workerize-loader!../../../../util/math';
 
 import './index.css';

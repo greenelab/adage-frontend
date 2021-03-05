@@ -66,6 +66,7 @@ const Input = ({
     [value, changeValue, onChangeExpanded]
   );
 
+  // eslint-disable-next-line
   onChange = useCallback(onChange, []);
 
   // call parent's onChange event after debouncing value
