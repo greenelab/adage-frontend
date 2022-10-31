@@ -10,4 +10,4 @@ export const server = 'https://api-mousiplier.greenelab.com/api/v1/';
 export const defaultLimit = 100;
 
 // max result limit
-export const maxLimit = 999999;
+export const maxLimit = 9999999; // old value: 999999
