@@ -10,6 +10,7 @@ import { downloadImage } from './download';
 import { downloadTable } from './download';
 import { isArray } from '../../../../util/types';
 import { toExponential } from '../../../../util/string';
+import { arrayMin, arrayMax } from '../../../../util/math';
 
 import { ReactComponent as LoadingIcon } from '../../../../images/loading.svg';
 import { ReactComponent as BiArrowIcon } from '../../../../images/bi-arrow.svg';
@@ -167,8 +168,8 @@ const mapStateToProps = (state) => {
   let max = 0;
   if (isArray(activities)) {
     const values = activities.map((activity) => activity.value);
-    min = Math.min(...values);
-    max = Math.max(...values);
+    min = arrayMin(values); // Math.min(...values);
+    max = arrayMax(values); // Math.max(...values);
   }
   return { min, max };
 };
