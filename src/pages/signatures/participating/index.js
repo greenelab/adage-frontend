@@ -35,11 +35,16 @@ Selected = connect(mapStateToProps)(Selected);
 
 export default Selected;
 
-export const mapParticipations = (state) =>
-  isArray(state.signatures.participations) && isArray(state.genes.list) ?
-    state.signatures.participations.map((participation) => ({
-      ...(state.genes.list.find((gene) => gene.id === participation.gene) ||
-          {}),
-      weight: participation.weight
-    })) :
-    state.signatures.participations;
+export const mapParticipations = (state) => {
+  if (!isArray(state.signatures.participations) || !isArray(state.genes.list))
+    return state.signatures.participations;
+
+  // bring gene list into map by id
+  const geneMap = {};
+  for (const { id, ...rest } of state.genes.list) geneMap[id] = { id, ...rest };
+
+  return state.signatures.participations.map((participation) => ({
+    ...(geneMap[participation.gene] || {}),
+    weight: participation.weight
+  }));
+};
