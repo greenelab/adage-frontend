@@ -6,6 +6,7 @@ import Table from './table';
 import Controls from './controls';
 import { isString } from '../../../util/types';
 import { isArray } from '../../../util/types';
+import { arrayMin, arrayMax } from '../../../util/math';
 
 import './index.css';
 
@@ -44,8 +45,8 @@ export const mapActivities = (activities, state) => {
 
   // get all activities in signature, and min/max
   const values = activities.map((activity) => activity.value);
-  const min = Math.min(...values);
-  const max = Math.max(...values);
+  const min = arrayMin(values); // Math.min(...values);
+  const max = arrayMax(values); // Math.max(...values);
   const bySignature = { values, min, max };
 
   // get sample info out of activities
@@ -64,8 +65,8 @@ export const mapActivities = (activities, state) => {
         .map((sample) => sample.value)
         .filter((value) => value);
       // get min/max/range of values
-      const min = Math.min(...values);
-      const max = Math.max(...values);
+      const min = arrayMin(values); // Math.min(...values);
+      const max = arrayMax(values); // Math.max(...values);
       const range = max - min;
       // return all needed info
       return {

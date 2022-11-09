@@ -328,3 +328,22 @@ export const calculateEnrichedGenes = ({
 
 // arbitrary cutoff below which p values have no meaning
 export const epsilon = 1e-8;
+
+// array min and max implementations that won't explode the stack; (e.g.,
+// Math.min(...values) will raise a "maximum stack size exceeded" error if
+// values is too large, since arguments to functions are stored on the stack.)
+export const arrayMin = (values) => {
+  let minVal = values[0];
+  for (let x of values) {
+    if (x < minVal) { minVal = x; }
+  }
+  return minVal;
+}
+
+export const arrayMax = (values) => {
+  let maxVal = values[0];
+  for (let x of values) {
+    if (x > maxVal) { maxVal = x; }
+  }
+  return maxVal;
+}
