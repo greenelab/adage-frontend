@@ -264,7 +264,7 @@ const Body = () => {
 
   return (
     <div className='tbody' style={{ minWidth }}>
-      {table.map((row, rowIndex) => (
+      {table.slice(0, 100).map((row, rowIndex) => (
         <BodyRow key={rowIndex} row={row} rowIndex={rowIndex} />
       ))}
     </div>

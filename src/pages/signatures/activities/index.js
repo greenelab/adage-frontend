@@ -49,20 +49,18 @@ export const mapActivities = (activities, state) => {
   const max = arrayMax(values); // Math.max(...values);
   const bySignature = { values, min, max };
 
-  // get sample info out of activities
-  const findSample = (sample) => ({
-    id: sample,
-    value: activities.find((activity) => activity.sample === sample)?.value
-  });
+  // bring sample info out of activities and into map
+  const activityMap = {};
+  for (const { sample, value } of activities) activityMap[sample] = value;
 
   // get activities by experiment
   const byExperiment = state.experiments.list
     .map((experiment) => {
       // get experiment samples info
-      const samples = experiment.samples.map(findSample);
+      const samples = experiment.samples;
       // get activity value of each sample
       const values = samples
-        .map((sample) => sample.value)
+        .map((sample) => activityMap[sample])
         .filter((value) => value);
       // get min/max/range of values
       const min = arrayMin(values); // Math.min(...values);
