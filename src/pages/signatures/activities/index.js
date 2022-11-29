@@ -1,21 +1,21 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import FetchAlert from "../../../components/fetch-alert";
-import Table from "./table";
-import Controls from "./controls";
-import { isString } from "../../../util/types";
-import { isArray } from "../../../util/types";
-import { arrayMin, arrayMax } from "../../../util/math";
+import FetchAlert from '../../../components/fetch-alert';
+import Table from './table';
+import Controls from './controls';
+import { isString } from '../../../util/types';
+import { isArray } from '../../../util/types';
+import { arrayMin, arrayMax } from '../../../util/math';
 
-import "./index.css";
+import './index.css';
 
 // signature activities section
 
 let Activities = ({ activities }) => (
   <>
     {isString(activities) && (
-      <FetchAlert status={activities} subject="activities" />
+      <FetchAlert status={activities} subject='activities' />
     )}
     {isArray(activities) && (
       <>
@@ -27,7 +27,7 @@ let Activities = ({ activities }) => (
 );
 
 const mapStateToProps = (state) => ({
-  activities: state.signatures.activities,
+  activities: state.signatures.activities
 });
 
 Activities = connect(mapStateToProps)(Activities);
@@ -83,8 +83,6 @@ export const mapActivities = (activities, state) => {
       };
     })
     .filter((experiment) => experiment.count && experiment.score);
-
-  console.log(byExperiment);
 
   return { bySignature, byExperiment };
 };
