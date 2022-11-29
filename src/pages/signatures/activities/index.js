@@ -1,21 +1,21 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import FetchAlert from '../../../components/fetch-alert';
-import Table from './table';
-import Controls from './controls';
-import { isString } from '../../../util/types';
-import { isArray } from '../../../util/types';
-import { arrayMin, arrayMax } from '../../../util/math';
+import FetchAlert from "../../../components/fetch-alert";
+import Table from "./table";
+import Controls from "./controls";
+import { isString } from "../../../util/types";
+import { isArray } from "../../../util/types";
+import { arrayMin, arrayMax } from "../../../util/math";
 
-import './index.css';
+import "./index.css";
 
 // signature activities section
 
 let Activities = ({ activities }) => (
   <>
     {isString(activities) && (
-      <FetchAlert status={activities} subject='activities' />
+      <FetchAlert status={activities} subject="activities" />
     )}
     {isArray(activities) && (
       <>
@@ -27,7 +27,7 @@ let Activities = ({ activities }) => (
 );
 
 const mapStateToProps = (state) => ({
-  activities: state.signatures.activities
+  activities: state.signatures.activities,
 });
 
 Activities = connect(mapStateToProps)(Activities);
@@ -66,6 +66,8 @@ export const mapActivities = (activities, state) => {
       const min = arrayMin(values); // Math.min(...values);
       const max = arrayMax(values); // Math.max(...values);
       const range = max - min;
+      // get silhouette score
+      const score = experiment.signatureScores[state.signatures.selected.id] || 0;
       // return all needed info
       return {
         id: experiment.id,
@@ -75,10 +77,13 @@ export const mapActivities = (activities, state) => {
         min,
         max,
         range,
-        samples
+        score,
+        samples,
       };
     })
     .filter((experiment) => experiment.count);
+
+  console.log(byExperiment);
 
   return { bySignature, byExperiment };
 };
