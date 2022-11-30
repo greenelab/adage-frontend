@@ -62,13 +62,13 @@ let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
                 </button>
               );
             },
-            width: '30%',
+            width: '20%',
             align: 'center'
           },
           {
             name: 'Activities',
             key: 'count',
-            width: '7%',
+            width: '10%',
             align: 'center'
           },
           {
@@ -76,27 +76,32 @@ let Table = ({ bySignature = {}, byExperiment = [], sampleList }) => {
             key: 'samples',
             value: ({ cell }) => cell.length,
             render: ({ cell }) => cell.length,
-            width: '7%',
+            width: '10%',
             align: 'center'
           },
           {
             name: 'Min',
             key: 'min',
-            width: '12%'
+            width: '10%'
           },
           {
             name: 'Max',
             key: 'max',
-            width: '12%'
+            width: '10%'
           },
           {
             name: 'Range',
             key: 'range',
-            width: '12%'
+            width: '10%'
+          },
+          {
+            name: 'Silhouette Score',
+            key: 'score',
+            width: '10%'
           }
         ]}
         minWidth='600px'
-        defaultSortKey='range'
+        defaultSortKey='score'
         defaultSortUp={true}
         freezeCol={false}
       />

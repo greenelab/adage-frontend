@@ -66,6 +66,9 @@ export const mapActivities = (activities, state) => {
       const min = arrayMin(values); // Math.min(...values);
       const max = arrayMax(values); // Math.max(...values);
       const range = max - min;
+      // get silhouette score
+      const score =
+        experiment.signatureScores[state.signatures.selected.id] || 0;
       // return all needed info
       return {
         id: experiment.id,
@@ -75,10 +78,11 @@ export const mapActivities = (activities, state) => {
         min,
         max,
         range,
-        samples
+        score,
+        samples,
       };
     })
-    .filter((experiment) => experiment.count);
+    .filter((experiment) => experiment.count && experiment.score);
 
   return { bySignature, byExperiment };
 };
