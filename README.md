@@ -4,9 +4,9 @@
   <img width="100" height="100" src="https://raw.githubusercontent.com/greenelab/adage-frontend/master/src/images/logo.svg?sanitize=true">
 </p>
 
-## Adage front end
+## Mousiplier front end
 
-[~ Use the app ~](https://adage.greenelab.com)
+Mousiplier is based on [Adage](https://adage.greenelab.com)
 
 Adage is a tool that helps you explore gene expression data and discover new insights from machine learning models.
 This repository contains the code for the "front end", ie the web app itself.
