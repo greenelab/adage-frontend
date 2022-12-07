@@ -39,22 +39,28 @@ export const mapActivities = (activities, state) =>
     activities.map((activity) => mapActivity(activity, state)) :
     activities;
 
+
+const sampleMap = new Map();
+const signatureMap = new Map();
+
 export const mapActivity = (activity, state) => {
   let { value, sample, signature } = activity;
   const samples = state.samples.list;
   const signatures = state.signatures.list;
 
-  if (isArray(samples))
-    sample = samples.find((full) => full.id === sample) || { id: sample };
-  else
-    sample = { id: sample };
+  if (!sampleMap.size && isArray(samples))
+    for (const sample of samples) sampleMap.set(sample.id, sample);
 
-  if (isArray(signatures)) {
-    signature = signatures.find((full) => full.id === signature) || {
-      id: signature
-    };
-  } else
-    signature = { id: signature };
+  if (!signatureMap.size && isArray(signatures))
+    for (const signature of signatures)
+      signatureMap.set(signature.id, signature);
+
+  if (isArray(samples)) sample = sampleMap[sample] || { id: sample };
+  else sample = { id: sample };
+
+  if (isArray(signatures))
+    signature = signatureMap[signature] || { id: signature };
+  else signature = { id: signature };
 
   return { ...activity, value, sample, signature };
 };

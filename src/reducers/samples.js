@@ -109,10 +109,12 @@ const reducer = produce((draft, type, payload, meta) => {
 
   // fill in details of selected from full list
   if (isArray(draft.list)) {
+    const sampleMap = {};
+    for (const sample of draft.list) sampleMap[sample.id] = sample;
     for (const [key, selected] of Object.entries(draft.selected)) {
-      const found = draft.list.find((sample) => sample.id === selected.id);
+      const found = sampleMap[selected.id]
       if (found && !sampleIsLoaded(selected))
-        draft.selected[key] = found;
+      draft.selected[key] = found;
     }
   }
 
