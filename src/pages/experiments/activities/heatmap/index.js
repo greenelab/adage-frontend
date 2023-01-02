@@ -137,7 +137,7 @@ let Heatmap = ({ activities, group }) => {
       <div className='activities_header weight_medium'>
         <div>Group</div>
         <div>Sample</div>
-        <div>Signatures</div>
+        <div>Latent Variables</div>
       </div>
       <div className='activities_row'>
         <div>
