@@ -14,7 +14,7 @@ const SignatureLink = ({ signature = {} }) => {
       search={{ signature: id }}
       text={label}
       link
-      aria-label={'Go to signatures page and select signature ' + label}
+      aria-label={'Go to latent variables page and select latent variable ' + label}
     />
   );
 };
