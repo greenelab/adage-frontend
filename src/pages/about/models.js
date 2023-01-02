@@ -57,8 +57,8 @@ const Models = () => (
     <p className='help_header weight_semibold size_medium'>Gene Weights</p>
     <p>
       For each latent variable, every gene has weight describing the extent 
-      to which it influences the LV's value. Genes with high weights for a 
-      given latent variable influence the value to a large degree, while 
+      to which it influences the LV's activity. Genes with high weights for a 
+      given latent variable influence the activity to a large degree, while 
       genes with smaller weights have less influence. 
     </p>
   </>
