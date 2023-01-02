@@ -13,7 +13,7 @@ const Footer = () => (
     </a>
     <span>
       Project of the <a href='https://greenelab.com/'>Greene Lab</a> and the{' '}
-      <a href='https://sites.dartmouth.edu/hoganlab/'>Hogan Lab</a>
+      <a href='https://hosting.med.upenn.edu/hellerlab/'>Heller Lab</a>
     </span>
   </footer>
 );
