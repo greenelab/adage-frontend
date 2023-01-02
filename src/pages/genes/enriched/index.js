@@ -15,7 +15,7 @@ import './index.css';
 let Enriched = ({ enrichedSignatures }) => (
   <>
     {isString(enrichedSignatures) && (
-      <FetchAlert status={enrichedSignatures} subject='enriched signatures' />
+      <FetchAlert status={enrichedSignatures} subject='enriched latent variables' />
     )}
     {isArray(enrichedSignatures) && (
       <>
