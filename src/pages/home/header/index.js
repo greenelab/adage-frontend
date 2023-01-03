@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-import { ReactComponent as AdageLogo } from '../../../images/logo.svg';
+import { ReactComponent as Logo } from '../../../images/logo.svg';
 
 import './index.css';
 
@@ -25,8 +25,10 @@ const Header = () => {
     <header className='home_header' title={packageJson.version}>
       <canvas className='home_canvas' />
       <div className='home_shadow' />
-      <AdageLogo className='home_logo' />
-      <span className='home_title size_huge'>adage</span>
+      <Logo className='home_logo' />
+      <span className='home_title size_huge'>
+        {process.env.REACT_APP_TITLE}
+      </span>
     </header>
   );
 };
@@ -51,7 +53,7 @@ const visualization = (canvas) => {
   const resolution = 2; // set to 2x for high dpi screens
   const fps = 50; // frames per second
   const background = '#000000'; // background color
-  const color = '#26a36c'; // photon color
+  const color = '#38a3a5'; // photon color
   const blur = 100; // canvas blur
   const spawn = 0.15; // spawn probability each step
   const spacing = 2; // space between waves/rows

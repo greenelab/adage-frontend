@@ -99,7 +99,7 @@ export const useStorage = (defaultValue, key = '') => {
 
   return [state, setState];
 };
-const prefix = 'adage';
+const prefix = process.env.REACT_APP_TITLE;
 const get = (key) => JSON.parse(localStorage.getItem(prefix + key));
 const set = (state, key) =>
   localStorage.setItem(prefix + key, JSON.stringify(state));
