@@ -33,14 +33,15 @@ const App = () => {
             className='altmetric_small altmetric-embed'
           />
         </span>
-        <span className='help_link'>
+        {/* TODO */}
+        {/* <span className='help_link'>
           <a href='TODO'>Mousiplier</a>
           <span
             data-badge-type='donut'
             data-doi='TODO'
             className='altmetric_small altmetric-embed'
           />
-        </span>
+        </span> */}
       </p>
       <p className='help_header weight_semibold size_medium'>Links</p>
       <p>
@@ -96,20 +97,21 @@ const App = () => {
             Deborah A. Hogan, Casey S. Greene
           </div>
           <div>
-            <a href='TODO'>
+            <a href=''>
               <i>Journal</i>
             </a>{' '}
             · 2023 · DOI: DOI HERE
           </div>
         </div>
-        <div className='altmetric'>
+        {/* TODO */}
+        {/* <div className='altmetric'>
           <div
             data-badge-popover='left'
             data-badge-type='donut'
             data-doi='TODO'
             className='altmetric-embed'
           />
-        </div>
+        </div> */}
       </div>
       <p className='help_header weight_semibold size_medium'>Funding</p>
       <p>
