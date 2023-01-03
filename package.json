@@ -1,5 +1,5 @@
 {
-  "name": "adage-frontend",
+  "name": "mousiplier-frontend",
   "version": "0.5.3",
   "dependencies": {
     "@greenelab/hclust": "^0.0.1",
