@@ -23,8 +23,8 @@ const Home = () => (
     <Header />
     <Main>
       <Banner>
-        Adage helps you explore gene expression data and discover new insights
-        from machine learning models.
+        Mousiplier helps you explore gene expression data and discover new insights
+        from mouse gene expression.
       </Banner>
       <HorizontalLine />
       <Feature
@@ -35,7 +35,7 @@ const Home = () => (
         to='/genes'
       >
         See how genes relate to each other, other genes, and how they are
-        represented in machine learning signatures. Visualize your model's gene
+        represented in Mousiplier's latent variables. Visualize the gene
         network as an interactive graph display.
       </Feature>
       <HorizontalLine />
@@ -45,8 +45,8 @@ const Home = () => (
         text='Explore Experiments'
         to='/experiments'
       >
-        View the activities of your experiment samples as a colored heatmap, and
-        cluster them on the fly. Group your samples however you want and
+        View the activities of experiment samples as a colored heatmap, and
+        cluster them on the fly. Group samples however you want and
         visualize the difference in activities between them as a volcano plot.
       </Feature>
       <HorizontalLine />
@@ -54,10 +54,10 @@ const Home = () => (
         left
         image={signatures1}
         icon={<SignatureIcon />}
-        text='Explore Signatures'
+        text='Explore Latent Variables'
         to='/signatures'
       >
-        Understand signatures from machine learning models by exploring the
+        Understand the Mousiplier latent variables by exploring the
         genes that contribute, the experiments in which they vary the most, and
         which pathways they significantly overlap with.
       </Feature>

@@ -14,7 +14,7 @@ const Nav = () => (
   <nav className='page_header_column'>
     <Button icon={<GeneIcon />} text='Genes' />
     <Button icon={<ExperimentIcon />} text='Experiments' />
-    <Button icon={<SignatureIcon />} text='Signatures' />
+    <Button icon={<SignatureIcon />} text='Latent Variables' />
   </nav>
 );
 

@@ -30,7 +30,7 @@ let Single = ({ results, highlightedIndex }) => (
       <FetchAlert
         className='search_results_single_alert'
         status={results}
-        subject='signature results'
+        subject='latent variable results'
       />
     )}
   </>

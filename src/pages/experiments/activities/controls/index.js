@@ -128,11 +128,11 @@ let Controls = ({ activities, min, max }) => {
           aria-label='Cluster heatmap by sample (re-order rows)'
         />
         <Clickable
-          text='Cluster Signatures'
+          text='Cluster Latent Variables'
           icon={sortingSignatures ? <LoadingIcon /> : <BiArrowIcon />}
           button
           onClick={sortSignatures}
-          aria-label='Cluster heatmap by signature (re-order columns)'
+          aria-label='Cluster heatmap by latent variable (re-order columns)'
         />
         <Clickable
           text='Reset'

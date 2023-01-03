@@ -23,7 +23,7 @@ const Genes = () => (
       <Section header='Selected Genes'>
         <Selected />
       </Section>
-      <Section header='Enriched Signatures'>
+      <Section header='Enriched Latent Variables'>
         <Enriched />
       </Section>
       <Section header='Gene Network'>

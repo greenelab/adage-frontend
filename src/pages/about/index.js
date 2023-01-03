@@ -18,7 +18,7 @@ const About = () => (
       <Section header='About the App'>
         <App />
       </Section>
-      <Section header='About the Models'>
+      <Section header='About the Model'>
         <Models />
       </Section>
     </Main>

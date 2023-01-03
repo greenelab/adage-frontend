@@ -17,7 +17,7 @@ const Signatures = () => (
   <>
     <Header />
     <Main>
-      <Section header='Signature Search'>
+      <Section header='Latent Variable Search'>
         <Search />
       </Section>
       <Section header='Participating Genes'>
