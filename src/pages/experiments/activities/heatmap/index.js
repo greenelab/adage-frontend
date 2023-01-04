@@ -108,7 +108,7 @@ let Heatmap = ({ activities, group }) => {
       .attr('data-tooltip-h-align', 'right')
       .on('click', (event, d) => {
         const location = window.location;
-        const to = '/signatures';
+        const to = '/latent-variables';
         const search = { signature: d.signature.id };
         history.push(getLinkPath({ location, to, search }).full);
       });

@@ -65,7 +65,7 @@ const App = () => (
       <Switch>
         <Route path='/genes' component={Genes} />
         <Route path='/experiments' component={Experiments} />
-        <Route path='/signatures' component={Signatures} />
+        <Route path='/latent-variables' component={Signatures} />
         <Route path='/about' component={About} />
         <Route path='/model/:id' component={Model} />
         <Route path='/organism/:id' component={Organism} />

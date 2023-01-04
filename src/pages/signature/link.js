@@ -10,7 +10,7 @@ const SignatureLink = ({ signature = {} }) => {
 
   return (
     <Clickable
-      to='/signatures'
+      to='/latent-variables'
       search={{ signature: id }}
       text={label}
       link

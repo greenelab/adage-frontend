@@ -131,7 +131,7 @@ let Plot = ({ volcano, search, pValueCutoff }) => {
       .attr('data-tooltip-speed', 10)
       .on('click', (event, d) => {
         const location = window.location;
-        const to = '/signatures';
+        const to = '/latent-variables';
         const search = { signature: d.id };
         history.push(getLinkPath({ location, to, search }).full);
       });

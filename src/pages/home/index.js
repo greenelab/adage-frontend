@@ -55,7 +55,7 @@ const Home = () => (
         image={signatures1}
         icon={<SignatureIcon />}
         text='Explore Latent Variables'
-        to='/signatures'
+        to='/latent-variables'
       >
         Understand the Mousiplier latent variables by exploring the
         genes that contribute, the experiments in which they vary the most, and

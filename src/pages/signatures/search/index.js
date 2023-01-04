@@ -39,7 +39,7 @@ let Search = ({ model, list, results, select, search }) => {
         select({ id: results[highlightedIndex].id })
       }
       SingleComponent={<Single />}
-      storageKey='signaturesearch'
+      storageKey='latentvariablesearch'
     />
   );
 };
