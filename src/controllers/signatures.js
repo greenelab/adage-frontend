@@ -12,6 +12,8 @@ import { isObject } from '../util/types';
 import { actionStatuses } from '../actions/fetch';
 import { makeMapDispatchToProps } from './util';
 
+import pickledGenesJson from "../backend/pickled-genes.json"
+
 // eslint-disable-next-line
 import worker from 'workerize-loader!../util/math';
 
@@ -73,9 +75,9 @@ let SignatureController = ({
     if (!selectedOrganism.scientificName)
       return;
 
-    getPickledGenes({
-      organism: selectedOrganism.scientificName
-    });
+    // tribe deprecated
+    // hardcode pickled genes data until mygeneset.info has pseudomonas
+    getPickledGenes(pickledGenesJson);
   }, [selectedOrganism.scientificName, getPickledGenes]);
 
   // when full gene or signature lists load, or selected genes change
