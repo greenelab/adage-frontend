@@ -4,7 +4,6 @@ import { createFetchAction } from './fetch';
 import { urlSignatureList } from '../backend/signatures';
 import { urlSignatureParticipations } from '../backend/signatures';
 import { urlSignatureActivities } from '../backend/signatures';
-import { urlPickledGenes } from '../backend/signatures';
 
 // actions related to the "signature" sub-object of the state
 
@@ -32,11 +31,8 @@ export const getSignatureActivities = createFetchAction(
   urlSignatureActivities
 );
 
-// get pickled gene sets from tribe given organism
-export const getPickledGenes = createFetchAction(
-  'GET_PICKLED_GENES',
-  urlPickledGenes
-);
+// get pickled gene sets given organism
+export const getPickledGenes = createAction('GET_PICKLED_GENES');
 
 // calculate enriched gene sets and set them
 export const setEnrichedGenes = createAction('SET_ENRICHED_GENES');

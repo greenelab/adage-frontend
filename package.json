@@ -1,6 +1,6 @@
 {
   "name": "adage-frontend",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "dependencies": {
     "@greenelab/hclust": "^0.0.1",
     "@sentry/react": "^6.2.1",

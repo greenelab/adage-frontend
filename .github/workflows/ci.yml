@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '16.x'
       - name: Install packages
         run: yarn install
       - name: Test code
@@ -29,11 +29,10 @@ jobs:
       - name: Build app
         run: CI=false npm run build
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v2
+        uses: peaceiris/actions-gh-pages@v3
         if: github.event_name == 'push'
         with:
-          keepFiles: false
-        env:
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./build
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          keep_files: false
+          publish_branch: gh-pages
+          publish_dir: ./build
+          github_token: ${{ secrets.GITHUB_TOKEN }}

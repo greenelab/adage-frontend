@@ -6,7 +6,6 @@ import { maxLimit } from '.';
 const prefixA = 'signature/';
 const prefixB = 'participation/';
 const prefixC = 'activity/';
-const tribeServer = server + 'tribe_client/return_unpickled_genesets';
 
 export const urlSignatureList = ({ model, limit = maxLimit }) => {
   const params = new URLSearchParams();
@@ -47,11 +46,12 @@ export const urlSignatureActivities = ({
   return url;
 };
 
-export const urlPickledGenes = ({ organism }) => {
-  const params = new URLSearchParams();
-  if (organism)
-    params.set('organism', organism);
+// tribe deprecated. switch to mygeneset.info once it has pseudomonas.
+// export const urlPickledGenes = ({ organism }) => {
+//   const params = new URLSearchParams();
+//   if (organism)
+//     params.set('organism', organism);
 
-  const url = tribeServer + '?' + params.toString();
-  return url;
-};
+//   const url = '' + '?' + params.toString();
+//   return url;
+// };
