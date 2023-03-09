@@ -5,9 +5,9 @@ object-assign
 */
 
 /*!
-  Copyright (c) 2017 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
 */
 
 /*!
@@ -42,6 +42,8 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
 * @license Apache-2.0
@@ -1182,7 +1184,7 @@ PERFORMANCE OF THIS SOFTWARE.
 * limitations under the License.
 */
 
-/** @license React v0.20.1
+/** @license React v0.20.2
  * scheduler.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -1200,7 +1202,7 @@ PERFORMANCE OF THIS SOFTWARE.
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v17.0.1
+/** @license React v17.0.2
  * react-dom.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -1209,7 +1211,16 @@ PERFORMANCE OF THIS SOFTWARE.
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v17.0.1
+/** @license React v17.0.2
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v17.0.2
  * react-jsx-runtime.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -1218,7 +1229,7 @@ PERFORMANCE OF THIS SOFTWARE.
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v17.0.1
+/** @license React v17.0.2
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
