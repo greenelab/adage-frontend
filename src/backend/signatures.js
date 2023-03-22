@@ -50,10 +50,7 @@ export const urlPickledGenes = (taxonomyId) => {
   const params = new URLSearchParams();
   if (taxonomyId)
     params.set('species', taxonomyId);
-  params.set(
-    'fields',
-    '_id,count,name,description,source,taxid,genes.mygene_id'
-  );
+  params.set('fields', 'all');
   params.set("always_list", "genes")
   
   const url = 'https://mygeneset.info/v1/query?' + params.toString();
