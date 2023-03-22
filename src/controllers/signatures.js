@@ -12,8 +12,6 @@ import { isObject } from '../util/types';
 import { actionStatuses } from '../actions/fetch';
 import { makeMapDispatchToProps } from './util';
 
-import pickledGenesJson from "../backend/pickled-genes.json"
-
 // eslint-disable-next-line
 import worker from 'workerize-loader!../util/math';
 
@@ -72,13 +70,11 @@ let SignatureController = ({
   // get pickled genes
   useEffect(() => {
     // if we don't have all we need, don't even dispatch action
-    if (!selectedOrganism.scientificName)
+    if (!selectedOrganism.taxonomyId)
       return;
 
-    // tribe deprecated
-    // hardcode pickled genes data until mygeneset.info has pseudomonas
-    getPickledGenes(pickledGenesJson);
-  }, [selectedOrganism.scientificName, getPickledGenes]);
+    getPickledGenes(selectedOrganism.taxonomyId);
+  }, [selectedOrganism.taxonomyId, getPickledGenes]);
 
   // when full gene or signature lists load, or selected genes change
   // recompute enriched gene sets
