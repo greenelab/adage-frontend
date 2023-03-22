@@ -86,7 +86,7 @@ const reducer = produce((draft, type, payload, meta) => {
           sets[geneset.id] = {
             name: geneset.name,
             dbase: geneset.source,
-            url: "",
+            url: '',
             size: geneset.count
           };
           for (const gene of (geneset.genes || [])) {
