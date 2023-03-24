@@ -100,18 +100,38 @@ const fetchJson = async (url) => {
   if (cache[url])
     return cache[url];
 
-  // fetch from url
-  const fetchResponse = await fetch(url);
+  let results;
 
-  // if 404 or other, throw error
-  if (!fetchResponse.ok)
+  // special case for mygeneset.info (has pagination)
+  if (url.match(/mygeneset\.info/)) {
+    let from = 0;
+    const size = 1000;
+    results = [];
+    // hard limit pages
+    for (let page = 0; page < 100; page++) {
+      const { total = 0, hits = [] } = await (
+        await fetch(url + "&from=" + from + "&size=" + size)
+      ).json();
+      results = results.concat(hits);
+      from += size;
+      if (from > total) break;
+    }
+  }
+  // all other urls
+  else {
+    // fetch from url
+    const fetchResponse = await fetch(url);
+    
+    // if 404 or other, throw error
+    if (!fetchResponse.ok)
     throw new Error('Response not ok');
+    
+    // convert response to json
+    const json = await fetchResponse.json();
 
-  // convert response to json
-  const json = await fetchResponse.json();
-
-  // get results key within json, if it exists
-  let results = json?.results || json;
+    // get results key within json, if it exists
+    results = json?.results || json;
+  }
 
   // normalize results
   if (isObject(results))

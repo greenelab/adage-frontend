@@ -76,9 +76,31 @@ const reducer = produce((draft, type, payload, meta) => {
     }
 
     case 'GET_PICKLED_GENES': {
-      if (isObject(payload)) {
-        const { genes, procs: sets, bgtotal } = payload;
+      if (isArray(payload)) {
+        // transform mygeneset.info schema into old tribe schema
+        try {
+
+        const genes = {};
+        const sets = {};
+        for (const geneset of payload) {
+          sets[geneset.id] = {
+            name: geneset.name,
+            dbase: geneset.source,
+            url: geneset[geneset.source]?.url,
+            size: geneset.count
+          };
+          for (const gene of (geneset.genes || [])) {
+            genes[gene.mygene_id] ??= new Set();
+            genes[gene.mygene_id].add(geneset.id);
+          }
+        }
+        for (const [gene, sets] of Object.entries(genes))
+          genes[gene] = Array.from(sets);
+        const bgtotal = Object.keys(genes).length;
         draft.pickledGenes = { genes, sets, bgtotal };
+      } catch(error) {
+        console.error(error);
+      }
       } else
         draft.pickledGenes = payload;
       break;

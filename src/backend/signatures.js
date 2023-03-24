@@ -46,12 +46,13 @@ export const urlSignatureActivities = ({
   return url;
 };
 
-// tribe deprecated. switch to mygeneset.info once it has pseudomonas.
-// export const urlPickledGenes = ({ organism }) => {
-//   const params = new URLSearchParams();
-//   if (organism)
-//     params.set('organism', organism);
-
-//   const url = '' + '?' + params.toString();
-//   return url;
-// };
+export const urlPickledGenes = (taxonomyId) => {
+  const params = new URLSearchParams();
+  if (taxonomyId)
+    params.set('species', taxonomyId);
+  params.set('fields', 'all');
+  params.set("always_list", "genes")
+  
+  const url = 'https://mygeneset.info/v1/query?' + params.toString();
+  return url;
+};
